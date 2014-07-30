@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/categoria_contenedor"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_app">
+
+    <RelativeLayout
+        android:id="@+id/categoria_dias"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp">
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/categoria_programas"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="46dp"
+        android:layout_below="@+id/categoria_dias"
+        android:layout_marginTop="5dp">
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/categoria_pie"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@+id/categoria_programas"
+        android:layout_marginTop="-50dp"
+
+        >
+    </RelativeLayout>
+
+</RelativeLayout>

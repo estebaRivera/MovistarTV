@@ -1,0 +1,25 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="288dp"
+    android:layout_height="35dp"
+    android:background="@drawable/bg_button_tab_">
+
+    <Button
+        android:id="@+id/btn_categoria_dia"
+        android:layout_width="288dp"
+        android:layout_marginLeft="0dp"
+        android:layout_height="35dp"
+        android:textSize="16dp"
+        android:alpha="0.9"
+        android:text="@string/empty"
+        android:textColor="@android:color/white"
+        android:background="@drawable/bgdia"
+        />
+
+    <ImageView
+        android:layout_alignParentRight="true"
+        android:background="@drawable/tap_button10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="407dp"
+    android:layout_height="276dp"
+    android:clickable="false"
+    android:layout_marginBottom="20dp">
+
+    <ImageView
+        android:id="@+id/foto_categoria"
+        android:layout_width="407dp"
+        android:layout_height="286dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:background="@drawable/program_placeholder"
+        android:scaleType="centerCrop"/>
+
+    <ImageView
+        android:id="@+id/foto_categoria_back"
+        android:layout_width="407dp"
+        android:layout_height="147dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:background="@drawable/back_categoryview"
+        android:layout_alignBottom="@id/foto_categoria"
+        android:layout_marginTop="129dp" />
+
+    <ImageView
+        android:id="@+id/foto_categoria_favorito"
+        android:layout_width="62dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:layout_height="63dp"/>
+
+    <TextView
+        android:id="@+id/text_categoria_horario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12:00 | 14:30"
+        android:textSize="27sp"
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/foto_categoria_favorito"
+        android:layout_marginTop="185dp"
+        android:layout_marginLeft="21dp"
+        android:clickable="false"
+        android:maxWidth="210dp"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:id="@+id/text_categoria_nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Intrusos"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:maxWidth="210dp"
+        android:clickable="false"
+        android:layout_below="@+id/text_categoria_horario"
+        android:layout_marginTop="216dp"
+        android:layout_marginLeft="21dp"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:id="@+id/text_categoria_canal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Red"
+        android:textSize="11sp"
+        android:maxWidth="210dp"
+        android:clickable="false"
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/text_categoria_nombre"
+        android:layout_marginTop="242dp"
+        android:layout_marginLeft="21dp"
+        android:layout_alignParentLeft="true" />
+
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="32dp"
+        android:text="@string/empty"
+        android:id="@+id/categoria_action_like"
+        android:layout_marginTop="205dp"
+        android:layout_marginRight="0dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:background="@drawable/like_categoryview"
+        android:layout_alignTop="@+id/foto_categoria_favorito"
+        android:layout_alignRight="@+id/foto_categoria"
+        android:layout_marginLeft="335dp" />
+
+</FrameLayout>

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:background="@drawable/bg_app">
+
+    <!--Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:visibility="gone"
+        android:background="@drawable/bg_img_user"
+        android:id="@+id/image_perfil"
+        android:layout_alignLeft="@+id/contenedor_sugerencias"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="0dp" /-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/contenedor_sugerencias"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_centerHorizontal="true">
+
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:layout_marginTop="120dp"
+                android:layout_marginBottom="20dp"
+                android:fadingEdge="none"
+                android:fadingEdgeLength="0dp"
+                android:overScrollMode="never"
+                android:smoothScrollbar="false"
+                android:id="@+id/scrollView" >
+
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:orientation="vertical">
+
+                    <TableLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_below="@+id/image_perfil"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginBottom="20dp"
+                        >
+
+                        <TableRow
+                            android:id="@+id/tabla_primera_fila"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content">
+
+                            <fragment
+                                android:id="@+id/recomendacion_1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="1dp"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginRight="30dp"
+                                class="com.smartboxtv.movistartv.fragments.RecommendedFragment">
+                            </fragment>
+                            <fragment
+                                android:id="@+id/recomendacion_2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="1dp"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginRight="30dp"
+                                class="com.smartboxtv.movistartv.fragments.RecommendedFragment">
+                            </fragment>
+                            <fragment
+                                android:id="@+id/recomendacion_3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="1dp"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginRight="30dp"
+                                class="com.smartboxtv.movistartv.fragments.RecommendedFragment">
+                            </fragment>
+                            <fragment
+                                android:id="@+id/recomendacion_4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="1dp"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginRight="30dp"
+                                class="com.smartboxtv.movistartv.fragments.RecommendedFragment">
+                            </fragment>
+
+                        </TableRow>
+
+                        <TableRow
+                            android:id="@+id/tabla_segunda_fila"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content" >
+
+                            <fragment
+                                android:id="@+id/recomendacion_5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginRight="30dp"
+                                class="com.smartboxtv.movistartv.fragments.RecommendedFragment"
+                                android:layout_marginLeft="30dp">
+                            </fragment>
+
+                            <fragment
+                                android:id="@+id/recomendacion_6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginRight="30dp"
+                                class="com.smartboxtv.movistartv.fragments.RecommendedFragment">
+                            </fragment>
+
+                            <fragment
+                                android:id="@+id/recomendacion_7"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginRight="30dp"
+                                class="com.smartboxtv.movistartv.fragments.RecommendedFragment">
+                            </fragment>
+
+                            <fragment
+                                android:id="@+id/recomendacion_8"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginRight="30dp"
+                                class="com.smartboxtv.movistartv.fragments.RecommendedFragment">
+                            </fragment>
+                        </TableRow>
+                    </TableLayout>
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+        <RelativeLayout
+
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="0dp"
+            android:layout_alignLeft="@+id/contenedor_sugerencias"
+            android:layout_alignRight="@+id/contenedor_sugerencias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <cl.makeramen.RoundedImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/foto_perfil"
+                android:layout_width="62dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="30dp"
+                android:layout_height="62dp"
+                app:corner_radius="6dp"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ececec"
+                android:text="Nombre"
+                android:id="@+id/nombre_contacto"
+                android:layout_marginLeft="17dp"
+                android:layout_centerVertical="true"
+                android:layout_alignBaseline="@+id/foto_perfil"
+                android:layout_toRightOf="@+id/foto_perfil" />
+
+            <RelativeLayout
+                android:id="@+id/container_saltar"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:text=" "
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/saltar"
+                    android:id="@+id/volver_recomendacion"
+                    android:layout_alignParentRight="true" />
+
+                <TextView
+                    android:id="@+id/volver_text"
+                    android:text="Omitir este paso"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/volver_recomendacion"
+                    android:layout_marginRight="6dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/exit"
+        android:background="#00000000"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:background="@drawable/shape_recomendado"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_width="310dp"
+            android:layout_height="100dp" >
+
+            <TextView
+                android:id="@+id/recomendado_title"
+                android:text="Ayúdanos a conocerte mejor."
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/recomendado_subtitle"
+                android:text="selecciona tus preferencias"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="55dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

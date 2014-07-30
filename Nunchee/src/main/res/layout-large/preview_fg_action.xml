@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--- Acciones-->
+    <LinearLayout
+        android:layout_height="100dp"
+        android:layout_width="495dp"
+        android:id="@+id/preview_accion"
+        android:layout_alignLeft="@+id/preview_programa"
+        android:orientation="vertical"
+        android:background="#ECECEC">
+
+        <TextView
+            android:id="@+id/preview_acciones"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="16dp"
+            android:text="Acciones"
+            android:textColor="#0B5276"
+            android:textSize="19sp"/>
+
+        <LinearLayout
+            android:layout_height="40dp"
+            android:layout_width="450dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="-15dp">
+
+            <LinearLayout
+                android:layout_height="35dp"
+                android:layout_width="220dp">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="16dp"
+                    android:gravity="fill_vertical"
+                    android:text="0 Like"
+                    android:textColor="#6E6E6E"
+                    android:textSize="14sp"
+                    android:background="#00FFFFFF"
+                    android:drawableLeft="@drawable/action_like"
+                    android:drawablePadding="10dp"
+                    android:id="@+id/preview_boton_like" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_height="35dp"
+                android:layout_width="220dp"
+                android:layout_marginLeft="10dp">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:text="Compartir programa"
+                    android:textColor="#6E6E6E"
+                    android:layout_marginLeft="16dp"
+                    android:textSize="14sp"
+                    android:gravity="center_vertical"
+                    android:background="#00FFFFFF"
+                    android:drawableLeft="@drawable/action_share"
+                    android:drawablePadding="10dp"
+                    android:id="@+id/preview_boton_compartir" />
+
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_height="40dp"
+            android:layout_width="450dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="-10dp">
+            <LinearLayout
+                android:layout_height="35dp"
+                android:layout_width="220dp">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:gravity="center_vertical"
+                    android:text="Marcar como favorito"
+                    android:textColor="#6E6E6E"
+                    android:textSize="14sp"
+                    android:layout_marginLeft="16dp"
+                    android:background="#00FFFFFF"
+                    android:drawableLeft="@drawable/action_favorite"
+                    android:drawablePadding="10dp"
+                    android:id="@+id/preview_boton_favorito" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_height="35dp"
+                android:layout_width="220dp"
+                android:layout_marginLeft="10dp">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="16dp"
+                    android:text="Recordar programa"
+                    android:textColor="#6E6E6E"
+                    android:textSize="14sp"
+                    android:background="#00FFFFFF"
+                    android:drawableLeft="@drawable/action_remendir"
+                    android:drawablePadding="10dp"
+                    android:id="@+id/preview_boton_recordar" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

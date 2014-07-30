@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginBottom="10dp"
+    android:background="#11000000"
+    android:id="@+id/preview_contenedor_tw">
+
+    <RelativeLayout
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <cl.makeramen.RoundedImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:corner_radius="33dp"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            android:id="@+id/foto_tw"
+            android:src="@drawable/twitter_placeholder"
+            android:background="#00000000"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="9dp"
+            android:layout_marginLeft="6dp"
+            android:padding="3dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#FFFFFF"
+            android:text="Usuario"
+            android:textStyle="bold"
+            android:id="@+id/tw_nombre"
+            android:layout_marginLeft="85dp"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre Usuario"
+            android:textSize="13sp"
+            android:alpha="0.7"
+            android:textColor="#FFFFFF"
+            android:id="@+id/tw_nombre_usuario"
+            android:layout_marginLeft="25dp"
+            android:layout_alignTop="@+id/tw_nombre"
+            android:layout_toRightOf="@+id/tw_nombre"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:textSize="11sp"
+            android:textColor="#FFFFFF"
+            android:text="Lorem ipsum ad his scripta http://blanditpartiendo.eum/  fastidii accumsan euripidis in, eum liber hendrerit an. Qui ut wisi vocibus suscipiantur"
+            android:id="@+id/tw_texto"
+            android:maxLength="140"
+            android:maxLines="3"
+            android:layout_below="@+id/tw_nombre"
+            android:layout_alignLeft="@+id/tw_nombre"
+            android:layout_marginRight="25dp" />
+
+        <TextView
+            android:id="@+id/tiempo_twitter"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:textSize="11sp"
+            android:textColor="#77FFFFFF"
+            android:text="Hace 10  minutos"
+            android:layout_marginRight="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+</RelativeLayout>
+

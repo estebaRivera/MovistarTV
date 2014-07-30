@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#00000000"
+    android:layout_width="310dp"
+    android:layout_height="wrap_content"
+    >
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:id="@+id/favorito_imagen_horario"
+        android:background="@drawable/btn_recordar_small"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:longClickable="true" />
+
+    <TextView
+        android:id="@+id/favorito_texto_canal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:text="New Text"
+        android:textSize="14sp"
+        android:alpha="0.8"
+        android:layout_alignTop="@+id/favorito_imagen_horario"
+        android:layout_alignLeft="@+id/favorito_texto_sinopsis" />
+
+
+
+    <TextView
+        android:id="@+id/favorito_texto_sinopsis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:layout_gravity="left|right"
+        android:text="So I had a similar problem with Left/Right Justification (not Full Justification, as the question is asking about). I was creating a basic 2-column form (labels on the left and text fields on the right)"
+        android:textSize="11sp"
+        android:alpha="0.8"
+        android:layout_below="@+id/favorito_imagen_horario"
+        android:layout_toRightOf="@+id/favorito_imagen_horario"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:id="@+id/favorito_text_horario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:text="New Text"
+        android:textSize="12sp"
+        android:alpha="0.8"
+        android:layout_alignBottom="@+id/favorito_texto_canal"
+        android:layout_marginLeft="240dp" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/favortito_imagen_separador"
+        android:background="@drawable/separador_canal"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/favorito_texto_sinopsis"/>
+
+</RelativeLayout>

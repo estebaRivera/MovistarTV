@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<set xmlns:android="http://schemas.android.com/apk/res/android" android:fillAfter="true" android:detachWallpaper="true">
+
+    <scale
+        android:duration="800"
+        android:fromXScale="200dp"
+        android:fromYScale="240dp"
+        android:toXScale="120dp"
+        android:toYScale="130dp">
+    </scale>
+
+</set>

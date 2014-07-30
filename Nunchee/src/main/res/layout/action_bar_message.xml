@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#00000000"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <ImageView
+            android:background="#55000000"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:layout_marginRight="185dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/pestana_up2"
+            android:layout_above="@+id/wrapper"
+            android:layout_marginBottom="15dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
+
+        <RelativeLayout
+            android:id="@+id/wrapper"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="80dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="345dp"
+            android:layout_height="210dp">
+
+            <ImageView
+                android:background="@drawable/alertview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <RelativeLayout
+                android:id="@+id/no_contact"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:background="@drawable/no_user"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="130dp"
+                    android:layout_height="55dp" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/container_message"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </RelativeLayout>
+        </RelativeLayout>
+</RelativeLayout>
+

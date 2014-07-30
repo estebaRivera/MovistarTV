@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_channel_back"
+            android:layout_height="100dp"
+            android:layout_width="100dp"
+            android:background="#0D3F62"/>
+
+        <ImageView
+            android:id="@+id/img_channel"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:background="@android:color/transparent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true" />
+
+        <ImageView
+            android:id="@+id/margin_left"
+            android:layout_width="wrap_content"
+            android:background="@drawable/shadow_channel"
+            android:layout_height="100dp"
+            android:layout_marginRight="-19dp"
+            android:layout_alignRight="@+id/img_channel"
+            android:layout_alignParentTop="true" />
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView2"
+            android:layout_alignBottom="@id/img_channel_back"
+            android:background="@drawable/separador_canal"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="105dp">
+
+        <com.smartboxtv.movistartv.programation.customize.HorizontalScrollViewCustom
+            android:id="@+id/scr_channel"
+            android:layout_height="100dp"
+            android:layout_width="5760dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" >
+
+                <!--GridView
+                    android:id="@+id/grv_channel"
+                    android:layout_width="5760dp"
+                    android:layout_height="100dp"
+                    android:background="#0D3F62"
+                    android:scrollbars="none"
+                    android:clipChildren="false"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" /-->
+
+            </LinearLayout>
+
+        </com.smartboxtv.movistartv.programation.customize.HorizontalScrollViewCustom>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/contenedor_loading"
+        android:layout_height="710dp"
+        android:layout_width="643dp"
+        android:background="#333333">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:id="@+id/tw_titulo"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="23dp"
+                android:textSize="26sp"
+                android:text="Twitter"
+                android:textColor="@android:color/white"/>
+            <TextView
+                android:id="@+id/tw_titulo_2"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Relacionado"
+                android:textSize="26sp"
+                android:alpha="0.5"
+                android:layout_marginTop="23dp"
+                android:layout_marginLeft="11dp"
+                android:textColor="@android:color/white"
+                android:layout_toRightOf="@id/tw_titulo"/>
+
+            <RelativeLayout
+                android:id="@+id/container_botons"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/tw_titulo"
+                android:layout_alignLeft="@+id/tw_titulo"
+                android:layout_marginRight="25dp"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_width="289dp"
+                    android:layout_height="40dp"
+                    android:text="#RELACIONADO"
+                    android:textColor="@android:color/white"
+                    android:id="@+id/tw_btn_relacionado"
+                    android:background="#25C8FF"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="18dp"
+                    android:textSize="17sp" />
+
+                <Button
+                    android:layout_width="289dp"
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/white"
+                    android:layout_marginLeft="0dp"
+                    android:background="#1B91B7"
+                    android:text="#TIMELINE"
+                    android:id="@+id/tw_btn_timeline"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/tw_btn_relacionado"
+                    android:textSize="17sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/icon_twitter" />
+
+            </RelativeLayout>
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:textAlignment="viewStart"
+                android:layout_marginLeft="35dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_height="90dp"
+                android:id="@+id/tw_tws"
+                android:maxLength="140"
+                android:visibility="gone"
+                android:textColor="#333333"
+                android:textSize="13sp"
+                android:background="@drawable/tweet_input"
+                android:layout_below="@+id/container_botons"
+                android:layout_alignRight="@+id/relativeLayout"
+                android:layout_marginTop="10dp" />
+
+            <Button
+                android:id="@+id/tw_twittear"
+                android:layout_height="35dp"
+                android:layout_width="120dp"
+                android:background="@drawable/btn_tweet"
+                android:layout_below="@+id/tw_tws"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                android:layout_alignRight="@+id/relativeLayout"/>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@+id/tw_twittear"
+                android:layout_alignLeft="@+id/container_botons"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_alignRight="@+id/container_botons"
+                android:id="@+id/relativeLayout">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/scrollView"
+                    android:fadingEdge="none"
+                    android:fadingEdgeLength="0dp"
+                    android:overScrollMode="never"
+                    android:smoothScrollbar="false"
+                    android:scrollbars="none"
+                    android:layout_marginBottom="10dp">
+
+                    <LinearLayout
+                        android:id="@+id/tws_lista"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+                </ScrollView>
+            </RelativeLayout>
+
+            <Button
+                android:layout_width="125dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="14dp"
+                android:visibility="gone"
+                android:text="@string/empty"
+                android:background="@drawable/btn_tweet"
+                android:id="@+id/button"
+
+                android:layout_alignRight="@+id/relativeLayout" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

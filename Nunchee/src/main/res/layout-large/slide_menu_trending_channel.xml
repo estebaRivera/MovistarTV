@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#00000000"
+    android:layout_width="332dp"
+    android:layout_height="55dp">
+
+    <RelativeLayout
+        android:background="#11FFFFFF"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_height="50dp"
+        android:layout_width="329dp">
+
+        <TextView
+            android:id="@+id/menu_posicion"
+            android:text="# 1"
+            android:textColor="@android:color/white"
+            android:alpha="0.8"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            />
+
+        <ImageView
+            android:id="@+id/menu_foto_canal"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:layout_height="47dp"
+            android:scaleType="centerCrop"
+            android:layout_toRightOf="@id/menu_posicion"
+            android:layout_width="47dp" />
+
+        <TextView
+            android:id="@+id/menu_nombre_canal"
+            android:text="CANAL 13 HD"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:textColor="@android:color/white"
+            android:alpha="0.8"
+            android:layout_toRightOf="@id/menu_foto_canal"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/top_one"
+        android:background="@drawable/top_one_fw"
+        android:layout_height="40dp"
+        android:layout_width="40dp" />
+</RelativeLayout>

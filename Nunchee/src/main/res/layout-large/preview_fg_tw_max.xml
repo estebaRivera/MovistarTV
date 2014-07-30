@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/contenedor_loading"
+        android:layout_height="518dp"
+        android:layout_width="504dp"
+        android:background="#333333">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tw_titulo"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="18dp"
+                android:textSize="23sp"
+                android:text="Twitter"
+                android:textColor="@android:color/white"/>
+            <TextView
+                android:id="@+id/tw_titulo_2"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Relacionado"
+                android:textSize="23sp"
+                android:alpha="0.5"
+                android:layout_marginTop="18dp"
+                android:layout_marginLeft="11dp"
+                android:textColor="@android:color/white"
+                android:layout_toRightOf="@id/tw_titulo"/>
+
+            <RelativeLayout
+                android:id="@+id/container_botons"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/tw_titulo"
+                android:layout_alignLeft="@+id/tw_titulo"
+                android:layout_marginRight="25dp"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_width="227dp"
+                    android:layout_height="40dp"
+                    android:text="#RELACIONADO"
+                    android:textColor="@android:color/white"
+                    android:id="@+id/tw_btn_relacionado"
+                    android:background="#25C8FF"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="18dp"
+                    android:textSize="17sp" />
+
+                <Button
+                    android:layout_width="225dp"
+                    android:layout_height="35dp"
+                    android:textColor="@android:color/white"
+                    android:layout_marginLeft="0dp"
+                    android:background="#1B91B7"
+                    android:text="#TIMELINE"
+                    android:id="@+id/tw_btn_timeline"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/tw_btn_relacionado"
+                    android:textSize="17sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="18dp"
+                    android:id="@+id/imageView"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/icon_twitter" />
+
+            </RelativeLayout>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:textAlignment="viewStart"
+                android:layout_marginLeft="35dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_height="80dp"
+                android:id="@+id/tw_tws"
+                android:maxLength="140"
+                android:visibility="gone"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:background="@drawable/tweet_input"
+                android:layout_below="@+id/container_botons"
+                android:layout_alignRight="@+id/relativeLayout"
+                android:layout_marginTop="5dp" />
+
+            <Button
+                android:id="@+id/tw_twittear"
+                android:layout_height="28dp"
+                android:layout_width="93dp"
+                android:background="@drawable/btn_tweet"
+                android:layout_below="@+id/tw_tws"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                android:layout_alignRight="@+id/relativeLayout"/>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@+id/tw_twittear"
+                android:layout_alignLeft="@+id/container_botons"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="5dp"
+                android:layout_alignRight="@+id/container_botons"
+                android:id="@+id/relativeLayout">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/scrollView"
+                    android:scrollbars="none"
+                    android:fadingEdge="none"
+                    android:fadingEdgeLength="0dp"
+                    android:overScrollMode="never"
+                    android:smoothScrollbar="false"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginTop="5dp">
+
+                    <LinearLayout
+                        android:id="@+id/tws_lista"
+                        android:orientation="vertical"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content">
+                    </LinearLayout>
+
+                </ScrollView>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>

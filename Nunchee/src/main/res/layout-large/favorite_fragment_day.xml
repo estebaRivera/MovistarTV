@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/favorito_contiene_loading"
+    android:layout_width="310dp"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/calendar_icon"
+        android:layout_marginLeft="4dp"
+        android:id="@+id/favorito_calendario"
+        android:layout_marginTop="2dp" />
+
+    <TextView
+        android:id="@+id/favorito_dia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:alpha="0.8"
+        android:layout_marginLeft="34dp"
+        android:layout_alignBottom="@+id/favorito_calendario"
+        android:layout_marginTop="2dp" />
+
+    <TextView
+        android:id="@+id/favorito_fecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:text=""
+        android:alpha="0.8"
+        android:layout_marginTop="36dp"
+        android:textSize="17sp"
+        android:layout_marginLeft="4dp"  />
+
+    <ScrollView
+        android:layout_width="310dp"
+        android:layout_marginTop="68dp"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:fadingEdge="none"
+        android:fadingEdgeLength="0dp"
+        android:overScrollMode="never"
+        android:smoothScrollbar="false"
+        android:id="@+id/scrollView" >
+
+        <LinearLayout
+            android:id="@+id/programas_favoritos"
+            android:orientation="vertical"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/no_favorite_container"
+        android:layout_width="310dp"
+        android:visibility="gone"
+        android:layout_marginTop="68dp"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:background="@drawable/heart_break"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_above="@+id/no_favorite_text"
+            android:layout_marginBottom="20dp"
+            android:layout_centerHorizontal="true"
+            android:alpha="0.2"/>
+
+        <TextView
+            android:id="@+id/no_favorite_text"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:text="No hay programas favoritos para este día"
+            android:textColor="#77FFFFFF"
+            android:textSize="18sp"/>
+    </RelativeLayout>
+</FrameLayout>

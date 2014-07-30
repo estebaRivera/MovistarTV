@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#00000000"
+    android:layout_height="match_parent"
+    android:layout_width="750dp">
+
+    <RelativeLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:minHeight="800dp"
+        android:minWidth="1000dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_favorites"
+        android:clickable="false">
+
+        <RelativeLayout
+            android:layout_height="match_parent"
+            android:layout_width="670dp"
+            android:minWidth="800dp"
+            android:minHeight="700dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp">
+
+            <ImageView
+                android:id="@+id/imagen_favoritos"
+                android:background="@drawable/box_heart"
+                android:layout_height="85dp"
+                android:layout_width="60dp" />
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:textStyle="bold"
+                android:text="Tus Favoritos"
+                android:textSize="16sp"
+                android:layout_marginBottom="5dp"
+                android:layout_above="@+id/favorito_texto_inferior"
+                android:textColor="@android:color/white"
+                android:layout_toRightOf="@+id/imagen_favoritos"
+                android:id="@+id/textView" />
+
+            <TextView
+                android:id="@+id/favorito_texto_inferior"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Administra tus programas favoritos"
+                android:textSize="15sp"
+                android:textColor="@android:color/white"
+                android:layout_alignBottom="@+id/imagen_favoritos"
+                android:layout_alignLeft="@+id/textView" />
+
+            <ImageView
+                android:id="@+id/icon_slide"
+                android:background="@drawable/slide_icon"
+                android:layout_alignBottom="@+id/favorito_texto_inferior"
+                android:layout_alignParentRight="true"
+                android:layout_height="40dp"
+                android:layout_width="30dp" />
+
+            <TextView
+                android:text="Desliza para borrar"
+                android:textColor="#66FFFFFF"
+                android:layout_toLeftOf="@+id/icon_slide"
+                android:layout_marginRight="9dp"
+                android:layout_marginBottom="7dp"
+                android:layout_alignBottom="@+id/favorito_texto_inferior"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content" />
+
+            <LinearLayout
+                android:layout_height="match_parent"
+                android:layout_width="670dp"
+                android:orientation="vertical"
+                android:layout_marginTop="100dp"
+                android:clickable="true">
+
+                    <ScrollView
+                        android:layout_height="wrap_content"
+                        android:layout_width="700dp"
+                        android:scrollbars="none"
+                        android:clickable="true"
+                        android:fadingEdge="none"
+                        android:fadingEdgeLength="0dp"
+                        android:overScrollMode="never"
+                        android:smoothScrollbar="false">
+
+                            <LinearLayout
+                                android:layout_height="wrap_content"
+                                android:layout_width="700dp"
+                                android:id="@+id/lista_favoritos"
+                                android:orientation="vertical"
+                                android:clickable="true"
+                                android:minWidth="700dp"
+                                android:minHeight="700dp">
+
+                            </LinearLayout>
+
+                    </ScrollView>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

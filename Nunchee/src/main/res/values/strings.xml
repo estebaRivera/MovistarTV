@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Movistar TV</string>
+    <string name="initial_phrase">Interactúa con tus programas preferidos!</string>
+    <string name="initial_phrase_2">Recibe recomendaciones según tus preferencias</string>
+    <string name="initial_phrase_3">Ordena, descubre y comparte tus programas favoritos!!</string>
+    <string name="action_settings">Configuración</string>
+    <string name="action_notification">Notificación</string>
+    <string name="action_message">Mensajes</string>
+    <string name="action_search">Buscar</string>
+    <string name="action_profile">Perfil</string>
+    <string name="empty"></string>
+    <string name="title_activity_second"></string>
+    <string name="hello_world"></string>
+    <string name="title_activity_programacion"></string>
+    <string name="tab1">Guía</string>
+    <string name="tab2">Categorías</string>
+    <string name="tab3">Favoritos</string>
+    <string name="title_activity_borrar">FullscreenActivity</string>
+    <string name="categoria_nacional">Nacional</string>
+    <string name="categoria_hd">HD</string>
+    <string name="categoria_cine">Cine</string>
+    <string name="categoria_cultura">Cultura</string>
+    <string name="categoria_noticias">Noticias</string>
+    <string name="categoria_musica">Música</string>
+    <string name="categoria_infantil">Infantil</string>
+    <string name="categoria_deporte">Deporte</string>
+    <string name="categoria_entretencion">Entretención</string>
+    <string name="categoria_intenacional">Internacional</string>
+    <string name="app_id">487156824723876</string> <!-- 252503694880159-->
+
+    <string name="publish_facebook_title">Publicar en Facebook</string>
+    <string name="publish_facebook_button">PUBLICAR EN FACEBOOK</string>
+
+</resources>

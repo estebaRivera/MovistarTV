@@ -1,0 +1,1237 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:id="@+id/preview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#77000000">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:clipChildren="false"
+        android:id="@+id/preview_scroll"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:id="@+id/preview_loading"
+            android:orientation="vertical"
+            android:layout_width="1024dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal">
+
+            <!--- Cabeza-->
+            <RelativeLayout
+                android:id="@+id/preview_programa"
+                android:layout_width="700dp"
+                android:layout_height="290dp"
+                android:layout_centerHorizontal="true">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/preview_cabeza_fondo"
+                    android:background="@drawable/backdrop_placeholder"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/preview_cabeza_foto"
+                    android:scaleType="centerCrop"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:id="@+id/preview_fondo_detalle"
+                    android:background="#81000000"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignRight="@+id/linearLayout2" />
+
+                <TextView
+                    android:id="@+id/preview_nombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="12dp"
+                    android:text="@string/empty"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:layout_alignTop="@+id/preview_fondo_detalle"
+                    android:layout_alignParentLeft="true"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/preview_hora"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="12dp"
+                    android:text="@string/empty"
+                    android:textColor="@android:color/white"
+                    android:textSize="13sp"
+                    android:layout_below="@+id/preview_nombre"
+                    android:layout_alignParentLeft="true" />
+
+                <TextView
+                    android:id="@+id/preview_descripcion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:text="@string/empty"
+                    android:textColor="@android:color/white"
+                    android:textSize="11sp"
+                    android:layout_below="@+id/preview_hora"
+                    android:layout_alignParentLeft="true" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="200dp"
+                    android:layout_height="60dp"
+                    android:background="#FFFFFF"
+                    android:layout_above="@+id/preview_fondo_detalle"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/linearLayout2">
+
+                    <RelativeLayout
+                        android:layout_height="60dp"
+                        android:layout_width="120dp"
+                        android:background="#5CC4C5">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="18dp"
+                            android:layout_marginLeft="12dp"
+                            android:textSize="15sp"
+                            android:text="@string/empty"
+                            android:textColor="@android:color/white"
+                            android:id="@+id/preview_nombre_canal"
+                            android:textStyle="bold" />
+
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="60dp"
+                        android:background="@android:color/white"
+                        android:id="@+id/preview_foto_canal" />
+
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="84dp"
+                    android:layout_height="86dp"
+                    android:background="@drawable/favorito_fw"
+                    android:id="@+id/preview_image_favorito"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true" />
+            </RelativeLayout>
+
+            <!--- Acciones-->
+            <LinearLayout
+                android:id="@+id/preview_accion"
+                android:layout_height="240dp"
+                android:layout_width="200dp"
+                android:layout_below="@id/preview_programa"
+                android:layout_alignLeft="@+id/preview_programa"
+                android:layout_marginTop="4dp"
+                android:orientation="vertical"
+                android:background="#E73D68">
+
+                <TextView
+                    android:id="@+id/preview_acciones"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="Acciones"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"/>
+                <ImageView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/separador_canal"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="12dp"
+                    android:gravity="fill_vertical"
+                    android:text="0 Like"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:background="#00FFFFFF"
+                    android:drawableLeft="@drawable/like_foco_acc"
+                    android:drawablePadding="10dp"
+                    android:id="@+id/preview_boton_like" />
+                <ImageView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/separador_canal"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:text="Compartir programa"
+                    android:textColor="@android:color/white"
+                    android:layout_marginLeft="12dp"
+                    android:textSize="14sp"
+                    android:gravity="center_vertical"
+                    android:background="#00FFFFFF"
+                    android:drawableLeft="@drawable/compartir_foco_acc"
+                    android:drawablePadding="10dp"
+                    android:id="@+id/preview_boton_compartir" />
+                <ImageView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/separador_canal"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:gravity="center_vertical"
+                    android:text="Marcar como favorito"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:layout_marginLeft="12dp"
+                    android:background="#00FFFFFF"
+                    android:drawableLeft="@drawable/favorito_foco_acc"
+                    android:drawablePadding="10dp"
+                    android:id="@+id/preview_boton_favorito" />
+                <ImageView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/separador_canal"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="12dp"
+                    android:text="Recordar programa"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:background="#00FFFFFF"
+                    android:drawableLeft="@drawable/recordar_foco_acc"
+                    android:drawablePadding="10dp"
+                    android:id="@+id/preview_boton_recordar" />
+            </LinearLayout>
+
+            <!--- Tws -->
+            <RelativeLayout
+                android:id="@+id/preview_tw_contenedor"
+                android:layout_height="240dp"
+                android:layout_width="496dp"
+                android:layout_marginTop="4dp"
+                android:layout_alignRight="@+id/preview_programa"
+                android:layout_below="@id/preview_programa"
+                android:layout_marginLeft="4dp"
+                android:background="#A6354A">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Twitter"
+                    android:textColor="@android:color/white"
+                    android:textSize="18dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="9dp"
+                    android:id="@+id/preview_tw" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="95dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/icon_twitter"
+                    android:id="@+id/imageView" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="\@Canal_Tw"
+                    android:textColor="#55000000"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="13dp"
+                    android:id="@+id/preview_tw_canal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Últimos twitts"
+                    android:id="@+id/preview_tw_ultimos"
+                    android:layout_below="@+id/imageView"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="6dp"
+                    android:textStyle="bold"
+                    android:textSize="12sp"
+                    android:textColor="#55FFFFFF"
+                    android:layout_alignParentRight="true" />
+
+                <!--- Lista de Tws-->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="460dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/preview_tw_ultimos"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="7dp"
+                    android:layout_marginTop="-5dp"
+                    android:paddingTop="3dp">
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="175dp"
+                        android:scrollbars="none"
+                        android:clickable="false"
+                        android:id="@+id/preview_scroll_tws" >
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <!--- Tw 1 -->
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:id="@+id/preview_contenedor_tw">
+
+                                <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:id="@+id/foto_tw"
+                                    android:background="@drawable/twitter_placeholder"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="3dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14sp"
+                                    android:textColor="#FFFFFF"
+                                    android:text="@string/empty"
+                                    android:textStyle="bold"
+                                    android:id="@+id/tw_nombre"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_toRightOf="@+id/foto_tw"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/empty"
+                                    android:textSize="14sp"
+                                    android:textColor="#FFFFFF"
+                                    android:textStyle="bold"
+                                    android:id="@+id/tw_nombre_usuario"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_marginLeft="220dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="11sp"
+                                    android:textColor="#FFFFFF"
+                                    android:text="@string/empty"
+                                    android:id="@+id/tw_texto"
+                                    android:gravity="top"
+                                    android:height="60dp"
+                                    android:layout_alignLeft="@+id/tw_nombre"
+                                    android:layout_marginTop="22dp" />
+
+                            </RelativeLayout>
+
+                            <!--- Tw 2 -->
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:id="@+id/preview_contenedor_tw_2">
+
+                                <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:id="@+id/foto_tw_2"
+                                    android:background="@drawable/twitter_placeholder"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="3dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14sp"
+                                    android:textColor="#FFFFFF"
+                                    android:text="@string/empty"
+                                    android:textStyle="bold"
+                                    android:id="@+id/tw_nombre_2"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_toRightOf="@+id/foto_tw_2"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/empty"
+                                    android:textSize="14sp"
+                                    android:textColor="#FFFFFF"
+                                    android:textStyle="bold"
+                                    android:id="@+id/tw_nombre_usuario_2"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginLeft="220dp"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="11sp"
+                                    android:textColor="#FFFFFF"
+                                    android:text="@string/empty"
+                                    android:id="@+id/tw_texto_2"
+                                    android:gravity="top"
+                                    android:height="60dp"
+                                    android:layout_marginTop="22dp"
+                                    android:layout_alignLeft="@+id/tw_nombre_2" />
+
+                            </RelativeLayout>
+
+                            <!--- Tw 3 -->
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:id="@+id/preview_contenedor_tw_3">
+
+                                <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:id="@+id/foto_tw_3"
+                                    android:background="@drawable/twitter_placeholder"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="3dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14sp"
+                                    android:textColor="#FFFFFF"
+                                    android:text="@string/empty"
+                                    android:textStyle="bold"
+                                    android:id="@+id/tw_nombre_3"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_toRightOf="@+id/foto_tw_3"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/empty"
+                                    android:textSize="14sp"
+                                    android:textColor="#FFFFFF"
+                                    android:textStyle="bold"
+                                    android:id="@+id/tw_nombre_usuario_3"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginLeft="220dp"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="11sp"
+                                    android:textColor="#FFFFFF"
+                                    android:text="@string/empty"
+                                    android:id="@+id/tw_texto_3"
+                                    android:gravity="top"
+                                    android:height="60dp"
+                                    android:layout_marginTop="22dp"
+                                    android:layout_alignLeft="@+id/tw_nombre_3" />
+
+                            </RelativeLayout>
+
+                            <!--- Tw 4 -->
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:id="@+id/preview_contenedor_tw_4">
+
+                                <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:id="@+id/foto_tw_4"
+                                    android:background="@drawable/twitter_placeholder"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="3dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14sp"
+                                    android:textColor="#FFFFFF"
+                                    android:text="@string/empty"
+                                    android:textStyle="bold"
+                                    android:id="@+id/tw_nombre_4"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_toRightOf="@+id/foto_tw_4"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/empty"
+                                    android:textSize="14sp"
+                                    android:textColor="#FFFFFF"
+                                    android:textStyle="bold"
+                                    android:id="@+id/tw_nombre_usuario_4"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginLeft="220dp"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="11sp"
+                                    android:textColor="#FFFFFF"
+                                    android:text="@string/empty"
+                                    android:id="@+id/tw_texto_4"
+                                    android:gravity="top"
+                                    android:height="60dp"
+                                    android:layout_marginTop="22dp"
+                                    android:layout_alignLeft="@+id/tw_nombre_4" />
+
+                            </RelativeLayout>
+
+                            <!--- Tw 5 -->
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:id="@+id/preview_contenedor_tw_5">
+
+                                <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:id="@+id/foto_tw_5"
+                                    android:background="@drawable/twitter_placeholder"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="3dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14sp"
+                                    android:textColor="#FFFFFF"
+                                    android:text="@string/empty"
+                                    android:textStyle="bold"
+                                    android:id="@+id/tw_nombre_5"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_toRightOf="@+id/foto_tw_5"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/empty"
+                                    android:textSize="14sp"
+                                    android:textColor="#FFFFFF"
+                                    android:textStyle="bold"
+                                    android:id="@+id/tw_nombre_usuario_5"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginLeft="220dp"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="11sp"
+                                    android:textColor="#FFFFFF"
+                                    android:text="@string/empty"
+                                    android:id="@+id/tw_texto_5"
+                                    android:gravity="top"
+                                    android:height="60dp"
+                                    android:layout_marginTop="22dp"
+                                    android:layout_alignLeft="@+id/tw_nombre_5" />
+
+                            </RelativeLayout>
+
+                            <!--- Tw 6 -->
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:id="@+id/preview_contenedor_tw_6">
+
+                                <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:id="@+id/foto_tw_6"
+                                    android:background="@drawable/twitter_placeholder"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="3dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14sp"
+                                    android:textColor="#FFFFFF"
+                                    android:text="@string/empty"
+                                    android:textStyle="bold"
+                                    android:id="@+id/tw_nombre_6"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_toRightOf="@+id/foto_tw_6"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/empty"
+                                    android:textSize="14sp"
+                                    android:textColor="#FFFFFF"
+                                    android:textStyle="bold"
+                                    android:id="@+id/tw_nombre_usuario_6"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginLeft="220dp"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="11sp"
+                                    android:textColor="#FFFFFF"
+                                    android:text="@string/empty"
+                                    android:id="@+id/tw_texto_6"
+                                    android:gravity="top"
+                                    android:height="60dp"
+                                    android:layout_marginTop="22dp"
+                                    android:layout_alignLeft="@+id/tw_nombre_6" />
+
+                            </RelativeLayout>
+
+                            <!--- Tw 7 -->
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:id="@+id/preview_contenedor_tw_7">
+
+                                <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:id="@+id/foto_tw_7"
+                                    android:background="@drawable/twitter_placeholder"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="3dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14sp"
+                                    android:textColor="#FFFFFF"
+                                    android:text="@string/empty"
+                                    android:textStyle="bold"
+                                    android:id="@+id/tw_nombre_7"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_toRightOf="@+id/foto_tw_7"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/empty"
+                                    android:textSize="14sp"
+                                    android:textColor="#FFFFFF"
+                                    android:textStyle="bold"
+                                    android:id="@+id/tw_nombre_usuario_7"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginLeft="220dp"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="11sp"
+                                    android:textColor="#FFFFFF"
+                                    android:text="@string/empty"
+                                    android:id="@+id/tw_texto_7"
+                                    android:gravity="top"
+                                    android:height="60dp"
+                                    android:layout_marginTop="22dp"
+                                    android:layout_alignLeft="@+id/tw_nombre_7" />
+
+                            </RelativeLayout>
+
+                            <!--- Tw 8 -->
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:id="@+id/preview_contenedor_tw_8">
+
+                                <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:id="@+id/foto_tw_8"
+                                    android:background="@drawable/twitter_placeholder"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="3dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14sp"
+                                    android:textColor="#FFFFFF"
+                                    android:text="@string/empty"
+                                    android:textStyle="bold"
+                                    android:id="@+id/tw_nombre_8"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_toRightOf="@+id/foto_tw_8"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/empty"
+                                    android:textSize="14sp"
+                                    android:textColor="#FFFFFF"
+                                    android:textStyle="bold"
+                                    android:id="@+id/tw_nombre_usuario_8"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginLeft="220dp"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="11sp"
+                                    android:textColor="#FFFFFF"
+                                    android:text=""
+                                    android:id="@+id/tw_texto_8"
+                                    android:gravity="top"
+                                    android:height="60dp"
+                                    android:layout_marginTop="22dp"
+                                    android:layout_alignLeft="@+id/tw_nombre_8" />
+
+                            </RelativeLayout>
+
+                            <!--- Tw 9 -->
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:id="@+id/preview_contenedor_tw_9">
+
+                                <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:id="@+id/foto_tw_9"
+                                    android:background="@drawable/twitter_placeholder"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="3dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14sp"
+                                    android:textColor="#FFFFFF"
+                                    android:text="@string/empty"
+                                    android:textStyle="bold"
+                                    android:id="@+id/tw_nombre_9"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_toRightOf="@+id/foto_tw_9"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/empty"
+                                    android:textSize="14sp"
+                                    android:textColor="#FFFFFF"
+                                    android:textStyle="bold"
+                                    android:id="@+id/tw_nombre_usuario_9"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginLeft="220dp"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="11sp"
+                                    android:textColor="#FFFFFF"
+                                    android:text="@string/empty"
+                                    android:id="@+id/tw_texto_9"
+                                    android:gravity="top"
+                                    android:height="60dp"
+                                    android:layout_marginTop="22dp"
+                                    android:layout_alignLeft="@+id/tw_nombre_9" />
+
+                            </RelativeLayout>
+
+                            <!--- Tw 10 -->
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:id="@+id/preview_contenedor_tw_10">
+
+                                <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:id="@+id/foto_tw_10"
+                                    android:background="@drawable/twitter_placeholder"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="3dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14sp"
+                                    android:textColor="#FFFFFF"
+                                    android:text="@string/empty"
+                                    android:textStyle="bold"
+                                    android:id="@+id/tw_nombre_10"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_toRightOf="@+id/foto_tw_10"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/empty"
+                                    android:textSize="14sp"
+                                    android:textColor="#FFFFFF"
+                                    android:textStyle="bold"
+                                    android:id="@+id/tw_nombre_usuario_10"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginLeft="220dp"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="11sp"
+                                    android:textColor="#FFFFFF"
+                                    android:text="@string/empty"
+                                    android:id="@+id/tw_texto_10"
+                                    android:gravity="top"
+                                    android:height="60dp"
+                                    android:layout_marginTop="22dp"
+                                    android:layout_alignLeft="@+id/tw_nombre_10" />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                    </ScrollView>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <!--- Encuesta -->
+            <RelativeLayout
+                android:layout_alignLeft="@+id/preview_programa"
+                android:layout_below="@id/preview_tw_contenedor"
+                android:layout_marginTop="4dp"
+                android:layout_height="90dp"
+                android:layout_width="348dp"
+                android:background="#C13B56"
+                android:id="@+id/preview_encuesta_contenedor">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/icon_not_small"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="30dp"
+                    android:id="@+id/preview_encuesta_mono" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Oops, Lo sentimos"
+                    android:textStyle="bold"
+                    android:textColor="#55FFFFFF"
+                    android:id="@+id/preview_encuesta_titulo"
+                    android:textSize="17sp"
+                    android:layout_marginLeft="75dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_alignLeft="@+id/preview_encuesta_mono"
+                    android:layout_alignTop="@+id/preview_encuesta_mono"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No se encontraron encuesta para este programa"
+                    android:textColor="#55FFFFFF"
+                    android:textSize="13sp"
+                    android:id="@+id/preview_encuesta_detalle"
+                    android:layout_alignLeft="@+id/preview_encuesta_titulo"
+                    android:layout_alignTop="@+id/preview_encuesta_titulo"
+                    android:layout_marginTop="22dp"/>
+
+            </RelativeLayout>
+
+            <!--- Trivia -->
+            <RelativeLayout
+                android:layout_alignRight="@+id/preview_programa"
+                android:layout_below="@id/preview_tw_contenedor"
+                android:layout_marginTop="4dp"
+                android:layout_height="90dp"
+                android:layout_width="348dp"
+                android:layout_marginLeft="4dp"
+                android:background="#A52F45"
+                android:id="@+id/preview_trivia_contenedor">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/icon_not_small"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="30dp"
+                    android:id="@+id/preview_trivias_mono" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Oops, Lo sentimos"
+                    android:textStyle="bold"
+                    android:textColor="#55FFFFFF"
+                    android:id="@+id/preview_trivias_titulo"
+                    android:textSize="17sp"
+                    android:layout_marginLeft="75dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_alignLeft="@+id/preview_trivias_mono"
+                    android:layout_alignTop="@+id/preview_trivias_mono"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No se encontraron trivias para este programa"
+                    android:textColor="#55FFFFFF"
+                    android:textSize="13sp"
+                    android:id="@+id/preview_trivias_detalle"
+                    android:layout_alignLeft="@+id/preview_trivias_titulo"
+                    android:layout_alignTop="@+id/preview_trivias_titulo"
+                    android:layout_marginTop="22dp"/>
+
+            </RelativeLayout>
+
+            <!--- Sugerencias -->
+            <RelativeLayout
+                android:id="@+id/preview_sugerencias"
+                android:layout_width="700dp"
+                android:layout_marginTop="4dp"
+                android:layout_below="@id/preview_trivia_contenedor"
+                android:layout_height="210dp"
+                android:layout_centerHorizontal="true"
+                android:background="#66000000">
+
+                <RelativeLayout
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <!--- Sugerencia 1 -->
+                    <RelativeLayout
+                        android:id="@+id/s1"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="195dp"
+                            android:layout_height="205dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_alignParentLeft="true"
+                            android:id="@+id/sugerencia_imagen1" />
+
+                        <ImageView
+                            android:layout_width="195dp"
+                            android:layout_height="115dp"
+                            android:layout_marginLeft="10dp"
+                            android:background="@drawable/back_recomendado"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginTop="80dp"
+                            android:id="@+id/sugerencia_imagen1_back" />
+
+                        <TextView
+                            android:id="@+id/sugerencia_nombre1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/empty"
+                            android:textColor="@android:color/white"
+                            android:textSize="13sp"
+                            android:layout_below="@+id/sugerencia_imagen1"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="-28dp" />
+
+                    </RelativeLayout>
+
+                    <!--- Sugerencia 2 -->
+                    <RelativeLayout
+                        android:id="@+id/s2"
+                        android:layout_width="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="195dp"
+                            android:layout_height="205dp"
+                            android:layout_centerHorizontal="true"
+                            android:id="@+id/sugerencia_imagen2" />
+                        <ImageView
+                            android:layout_width="195dp"
+                            android:layout_height="115dp"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/back_recomendado"
+                            android:layout_marginTop="80dp"
+                            android:id="@+id/sugerencia_imagen2_back" />
+                        <TextView
+                            android:id="@+id/sugerencia_nombre2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/empty"
+                            android:textColor="@android:color/white"
+                            android:textSize="13sp"
+                            android:layout_below="@+id/sugerencia_imagen2"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="-28dp" />
+
+                    </RelativeLayout>
+
+                    <!--- Sugerencia 3 -->
+                    <RelativeLayout
+                        android:id="@+id/s3"
+                        android:layout_alignParentRight="true"
+                        android:layout_toRightOf="@+id/s2"
+                        android:layout_marginLeft="35dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="195dp"
+                            android:layout_height="205dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_alignParentRight="true"
+                            android:id="@+id/sugerencia_imagen3" />
+                        <ImageView
+                            android:layout_width="195dp"
+                            android:layout_height="115dp"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/back_recomendado"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="80dp"
+                            android:id="@+id/sugerencia_imagen3_back" />
+
+                        <TextView
+                            android:id="@+id/sugerencia_nombre3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/empty"
+                            android:textColor="@android:color/white"
+                            android:textSize="13sp"
+                            android:layout_below="@+id/sugerencia_imagen3_back"
+                            android:textAlignment="center"
+                            android:layout_marginTop="-28dp"
+                            android:layout_marginRight="60dp" />
+
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="250dp"
+                    android:layout_height="45dp"
+                    android:id="@+id/preview_sugerencia_titulo"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:background="@drawable/title_recomendado"/>
+
+            </RelativeLayout>
+
+            <!--- Check In Boton-->
+            <Button
+                android:id="@+id/preview_check_in_"
+                android:text=" "
+                android:background="@android:color/white"
+                android:layout_width="88dp"
+                android:layout_height="60dp"
+                android:layout_toRightOf="@id/preview_programa"
+                android:layout_marginTop="212dp"
+                android:textColor="#C13B56"/>
+
+            <Button
+                android:id="@+id/preview_check_in"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:background="@drawable/check_in"
+                android:layout_marginTop="118dp"
+                android:layout_alignRight="@id/preview_check_in_"
+                android:layout_marginRight="-12dp"/>
+
+
+            <RelativeLayout
+                android:id="@+id/preview_animado_contenedor"
+                android:orientation="vertical"
+                android:layout_width="1024dp"
+                android:layout_height="555dp"
+                android:layout_gravity="center_horizontal">
+
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/preview_animado_header"
+                        android:layout_height="210dp"
+                        android:layout_width="477dp">
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/preview_animado_accion"
+                        android:layout_height="120dp"
+                        android:layout_width="477dp"
+                        android:layout_marginTop="4dp">
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/preview_animado_tw"
+                        android:layout_height="125dp"
+                        android:layout_width="477dp"
+                        android:layout_marginTop="4dp">
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/preview_animado_encuesta"
+                        android:layout_height="93dp"
+                        android:layout_width="477dp"
+                        android:layout_marginTop="4dp">
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/preview_animado_trivia"
+                        android:layout_height="93dp"
+                        android:layout_width="477dp"
+                        android:layout_marginTop="4dp">
+
+                    </RelativeLayout>
+                </LinearLayout>
+                <RelativeLayout
+                    android:id="@+id/preview_barra"
+                    android:layout_height="556dp"
+                    android:layout_width="35dp"
+                    android:layout_marginLeft="477dp">
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/preview_animado_max"
+                    android:layout_height="556dp"
+                    android:layout_width="512dp"
+                    android:layout_marginLeft="512dp">
+                </RelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

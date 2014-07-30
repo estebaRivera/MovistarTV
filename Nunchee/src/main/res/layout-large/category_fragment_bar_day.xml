@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_marginLeft="0dp"
+    android:layout_height="70dp"
+    >
+
+    <com.smartboxtv.movistartv.programation.customize.HorizontalScrollViewBarDays
+        android:id="@+id/categoria_scroll_horizontal"
+        android:layout_height="55dp"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:fadingEdge="none"
+        android:fadingEdgeLength="0dp"
+        android:overScrollMode="never"
+        android:smoothScrollbar="false"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+
+            <GridView
+                android:id="@+id/grilla_categoria_dias"
+                android:layout_marginTop="7dp"
+                android:layout_width="4046dp"
+                android:layout_height="40dp"
+                android:horizontalSpacing="0dp"
+                android:fadingEdge="none"
+                android:fadingEdgeLength="0dp"
+                android:overScrollMode="never"
+                android:smoothScrollbar="false"
+                android:scrollbarAlwaysDrawHorizontalTrack="true"
+                android:scrollbars="horizontal" />
+
+        </LinearLayout>
+    </com.smartboxtv.movistartv.programation.customize.HorizontalScrollViewBarDays>
+
+    <RelativeLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <ImageView
+            android:background="@drawable/layer_date10"
+            android:layout_width="match_parent"
+            android:layout_marginTop="7dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_height="36dp" />
+
+        <ImageView
+            android:id="@+id/imagen_hora"
+            android:layout_height="29dp"
+            android:layout_width="72dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/hora"/>
+
+        <TextView
+            android:id="@+id/texto_hora"
+            android:textColor="@android:color/white"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="45dp"
+            android:textSize="11sp"
+            android:text="@string/empty"/>
+
+    </RelativeLayout>
+
+    <ImageView
+
+        android:layout_width="120dp"
+        android:layout_height="38dp"
+        android:id="@+id/btn_categoria_ahora"
+        android:background="@drawable/btn_now_2"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="0dp" />
+
+</RelativeLayout>

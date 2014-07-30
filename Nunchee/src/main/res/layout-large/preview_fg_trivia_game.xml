@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_height="560dp"
+    android:layout_width="522dp">
+
+    <!-- Contenedor principal -->
+
+    <RelativeLayout
+        android:id="@+id/contenedor_trivia_juego"
+        android:layout_height="518dp"
+        android:layout_width="522dp"
+        android:background="@drawable/bg_icons"
+        android:visibility="visible">
+
+        <!-- contenedor header-->
+        <RelativeLayout
+            android:id="@+id/contenedor_trivia_juego_tiempo"
+            android:layout_height="75dp"
+            android:layout_width="match_parent">
+
+            <ImageView
+                android:id="@+id/trivia_timer_image"
+                android:layout_height="25dp"
+                android:layout_width="25dp"
+                android:background="@drawable/timer_icon"
+                android:layout_alignLeft="@+id/trivia_progress_bar"
+                android:layout_marginTop="20dp"/>
+
+            <ProgressBar
+                android:id="@+id/trivia_progress_bar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progressDrawable="@drawable/estilo_barra_progreso"
+                android:layout_below="@+id/trivia_timer_image"
+                android:layout_centerHorizontal="true"
+                android:layout_height="10dp"
+                android:layout_width="460dp"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/trivia_texto_timer"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text=" 10 segundos"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                android:alpha="0.8"
+                android:layout_toRightOf="@id/trivia_timer_image"
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="10dp"
+                android:visibility="gone" />
+
+            <Button
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:text="@string/empty"
+                android:id="@+id/trivia_boton_pause"
+                android:layout_above="@+id/trivia_progress_bar"
+                android:layout_marginBottom="-5dp"
+                android:background="@drawable/boton_pause"
+                android:layout_alignRight="@+id/trivia_progress_bar" />
+
+        </RelativeLayout>
+
+        <!-- contenedor Zona de juego -->
+        <RelativeLayout
+            android:id="@+id/contenedor_trivia_juego_zona"
+            android:layout_below="@+id/contenedor_trivia_juego_tiempo"
+            android:layout_height="370dp"
+            android:layout_width="match_parent">
+
+            <!-- trivia con imagen-->
+            <RelativeLayout
+                android:id="@+id/trivia_con_imagen"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
+
+                <TextView
+                    android:id="@+id/trivia_pregunta_juego"
+                    android:layout_height="wrap_content"
+                    android:layout_width="350dp"
+                    android:text="Pregunta"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:alpha="0.9"
+                    android:layout_marginLeft="40dp"/>
+
+                <TextView
+                    android:id="@+id/trivia_numero_pregunta_juego"
+                    android:layout_height="wrap_content"
+                    android:layout_width="300dp"
+                    android:text="numero pregunta"
+                    android:textColor="@android:color/white"
+                    android:textSize="13sp"
+                    android:alpha="0.5"
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@+id/trivia_pregunta_juego"
+                    android:layout_alignLeft="@+id/trivia_pregunta_juego"/>
+
+                <ImageView
+                    android:scaleType="center"
+                    android:id="@+id/trivia_imagen_juego"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="130dp"
+                    android:layout_below="@+id/trivia_numero_pregunta_juego"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="10dp" />
+
+                <!-- Respuesta 1-->
+                <LinearLayout
+                    android:id="@+id/trivia_pregunta_1"
+                    android:background="#33000000"
+                    android:layout_marginTop="3dp"
+                    android:layout_below="@id/trivia_imagen_juego"
+                    android:layout_height="40dp"
+                    android:layout_alignLeft="@id/trivia_imagen_juego"
+                    android:layout_alignRight="@id/trivia_imagen_juego"
+                    android:layout_width="match_parent">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:layout_marginTop="14dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="A"/>
+
+                    <TextView
+                        android:id="@+id/respuesta1"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:layout_marginTop="14dp"
+                        android:textSize="11sp"
+                        android:layout_marginLeft="28dp"
+                        android:text="Respuesta 1"
+                        />
+
+                </LinearLayout>
+
+                <!-- Respuesta 2-->
+                <LinearLayout
+                    android:id="@+id/trivia_pregunta_2"
+                    android:background="#33000000"
+                    android:layout_marginTop="3dp"
+                    android:layout_below="@id/trivia_pregunta_1"
+                    android:layout_height="40dp"
+                    android:layout_alignLeft="@id/trivia_imagen_juego"
+                    android:layout_alignRight="@id/trivia_imagen_juego"
+                    android:layout_width="match_parent">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:layout_marginTop="14dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="B"/>
+
+                    <TextView
+                        android:id="@+id/respuesta2"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:layout_marginTop="14dp"
+                        android:textSize="11sp"
+                        android:layout_marginLeft="28dp"
+                        android:text="Respuesta 1"
+                        />
+
+                </LinearLayout>
+
+                <!-- Respuesta 3-->
+                <LinearLayout
+                    android:id="@+id/trivia_pregunta_3"
+                    android:background="#33000000"
+                    android:layout_marginTop="3dp"
+                    android:layout_below="@id/trivia_pregunta_2"
+                    android:layout_height="40dp"
+                    android:layout_alignLeft="@id/trivia_imagen_juego"
+                    android:layout_alignRight="@id/trivia_imagen_juego"
+                    android:layout_width="match_parent">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:layout_marginTop="14dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="C"/>
+
+                    <TextView
+                        android:id="@+id/respuesta3"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:layout_marginTop="14dp"
+                        android:textSize="11sp"
+                        android:layout_marginLeft="28dp"
+                        android:text="Respuesta 1"
+                        />
+
+                </LinearLayout>
+
+                <!-- Respuesta 4-->
+                <LinearLayout
+                    android:id="@+id/trivia_pregunta_4"
+                    android:background="#33000000"
+                    android:layout_marginTop="3dp"
+                    android:layout_below="@+id/trivia_pregunta_3"
+                    android:layout_height="40dp"
+                    android:layout_alignLeft="@id/trivia_imagen_juego"
+                    android:layout_alignRight="@id/trivia_imagen_juego"
+                    android:layout_width="match_parent">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:layout_marginTop="14dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="D"/>
+
+                    <TextView
+                        android:id="@+id/respuesta4"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:layout_marginTop="14dp"
+                        android:textSize="11sp"
+                        android:layout_marginLeft="28dp"
+                        android:text="Respuesta 1"
+                        />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <!-- Trivia Texto-->
+            <RelativeLayout
+                android:id="@+id/trivia_solo_texto"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
+
+                <TextView
+                    android:id="@+id/trivia_pregunta_juego"
+                    android:layout_height="wrap_content"
+                    android:layout_width="350dp"
+                    android:text="Pregunta"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:alpha="0.9"
+                    android:layout_marginLeft="70dp"
+                    android:layout_marginTop="15dp" />
+
+                <TextView
+                    android:id="@+id/trivia_numero_pregunta_juego"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="numero pregunta"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:alpha="0.5"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/trivia_pregunta_juego"
+                    android:layout_alignLeft="@+id/trivia_pregunta_juego"/>
+
+                <!-- Respuesta 1-->
+                <LinearLayout
+                    android:id="@+id/trivia_pregunta_1"
+                    android:layout_below="@id/trivia_numero_pregunta_juego"
+                    android:background="#33000000"
+                    android:layout_marginTop="25dp"
+                    android:layout_height="55dp"
+                    android:layout_marginLeft="70dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_width="match_parent">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="A"/>
+
+                    <TextView
+                        android:id="@+id/respuesta1"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:layout_marginTop="17dp"
+                        android:textSize="12sp"
+                        android:layout_marginLeft="28dp"
+                        android:text="Respuesta 1"
+                        />
+
+                </LinearLayout>
+
+                <!-- Respuesta 2-->
+                <LinearLayout
+                    android:id="@+id/trivia_pregunta_2"
+                    android:background="#33000000"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@id/trivia_pregunta_1"
+                    android:layout_height="55dp"
+                    android:layout_alignLeft="@id/trivia_pregunta_1"
+                    android:layout_alignRight="@id/trivia_pregunta_1"
+                    android:layout_width="match_parent">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="B"/>
+
+                    <TextView
+                        android:id="@+id/respuesta2"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:layout_marginTop="17dp"
+                        android:textSize="12sp"
+                        android:layout_marginLeft="28dp"
+                        android:text="Respuesta 1"
+                        />
+
+                </LinearLayout>
+
+                <!--Respuesta 3 -->
+                <LinearLayout
+                    android:id="@+id/trivia_pregunta_3"
+                    android:background="#33000000"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@id/trivia_pregunta_2"
+                    android:layout_height="55dp"
+                    android:layout_alignLeft="@id/trivia_pregunta_1"
+                    android:layout_alignRight="@id/trivia_pregunta_1"
+                    android:layout_width="match_parent">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="C"/>
+
+                    <TextView
+                        android:id="@+id/respuesta3"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:layout_marginTop="17dp"
+                        android:textSize="12sp"
+                        android:layout_marginLeft="28dp"
+                        android:text="Respuesta 1"
+                        />
+
+                </LinearLayout>
+
+                <!-- Respuesta 4-->
+                <LinearLayout
+                    android:id="@+id/trivia_pregunta_4"
+                    android:background="#33000000"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/trivia_pregunta_3"
+                    android:layout_height="55dp"
+                    android:layout_alignLeft="@id/trivia_pregunta_1"
+                    android:layout_alignRight="@id/trivia_pregunta_1"
+                    android:layout_width="match_parent">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="D"/>
+
+                    <TextView
+                        android:id="@+id/respuesta4"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:layout_marginTop="17dp"
+                        android:textSize="12sp"
+                        android:layout_marginLeft="28dp"
+                        android:text="Respuesta 1"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <!-- Trivia Imagenes-->
+            <RelativeLayout
+                android:id="@+id/trivia_imagenes"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
+
+                <TextView
+                    android:id="@+id/trivia_pregunta_juego"
+                    android:layout_height="wrap_content"
+                    android:layout_width="430dp"
+                    android:text="Pregunta"
+                    android:textColor="@android:color/white"
+                    android:textSize="21sp"
+                    android:textStyle="bold"
+                    android:alpha="0.9"
+                    android:layout_marginLeft="35dp"/>
+
+                <TextView
+                    android:id="@+id/trivia_numero_pregunta_juego"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="numero pregunta"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:alpha="0.5"
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@+id/trivia_pregunta_juego"
+                    android:layout_alignLeft="@+id/trivia_pregunta_juego"/>
+
+                <HorizontalScrollView
+                    android:scrollbars="none"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:fadingEdge="none"
+                    android:fadingEdgeLength="0dp"
+                    android:overScrollMode="never"
+                    android:smoothScrollbar="false"
+                    android:layout_marginTop="70dp">
+
+                    <RelativeLayout
+                        android:layout_height="330dp"
+                        android:layout_width="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/trivia_imagen1"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="100dp"
+                            android:layout_height="240dp"
+                            android:layout_width="190dp"
+                            android:scaleType="centerCrop"/>
+                        <ImageView
+                            android:id="@+id/trivia_imagen2"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/trivia_imagen1"
+                            android:layout_marginLeft="30dp"
+                            android:layout_height="240dp"
+                            android:layout_width="190dp"
+                            android:scaleType="centerCrop"/>
+
+                        <ImageView
+                            android:id="@+id/trivia_imagen3"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/trivia_imagen2"
+                            android:layout_marginLeft="30dp"
+                            android:layout_height="240dp"
+                            android:layout_width="190dp"
+                            android:scaleType="centerCrop"/>
+                        <ImageView
+                            android:id="@+id/trivia_imagen4"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/trivia_imagen3"
+                            android:layout_marginLeft="30dp"
+                            android:layout_height="240dp"
+                            android:layout_width="190dp"
+                            android:scaleType="centerCrop"/>
+
+                    </RelativeLayout>
+
+                </HorizontalScrollView>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <!-- contenedor pie -->
+
+        <RelativeLayout
+            android:id="@+id/contenedor_trivia_juego_pie"
+            android:layout_height="90dp"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/contenedor_trivia_juego_zona">
+
+            <RelativeLayout
+                android:background="#33000000"
+                android:alpha="0.9"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp">
+
+                <ImageView
+                    android:id="@+id/icono_dificultad"
+                    android:layout_height="25dp"
+                    android:layout_width="25dp"
+                    android:background="@drawable/puntaje_blanco_trivia"
+                    android:layout_marginLeft="20dp"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:id="@+id/texto_dificultad"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Dificultad"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:layout_centerVertical="true"
+                    android:textStyle="bold"
+                    android:layout_toRightOf="@+id/icono_dificultad"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:id="@+id/texto_dificultad_"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Fácil"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:layout_centerVertical="true"
+                    android:textStyle="normal"
+                    android:layout_toRightOf="@+id/texto_dificultad"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:id="@+id/texto_vida_"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Vidas"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:layout_centerVertical="true"
+                    android:textStyle="bold"
+                    android:layout_toLeftOf="@+id/trivia_vida_1"
+                    android:layout_marginRight="20dp" />
+
+                <ImageView
+                    android:id="@+id/trivia_vida_1"
+                    android:layout_height="30dp"
+                    android:layout_width="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/trivia_vida_2"
+                    android:background="@drawable/vida_foco_trivia"/>
+                <ImageView
+                    android:id="@+id/trivia_vida_2"
+                    android:layout_height="30dp"
+                    android:layout_width="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/trivia_vida_3"
+                    android:background="@drawable/vida_foco_trivia"/>
+                <ImageView
+                    android:id="@+id/trivia_vida_3"
+                    android:layout_height="30dp"
+                    android:layout_width="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="35dp"
+                    android:background="@drawable/vida_foco_trivia"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <!-- Resultado -->
+
+    <RelativeLayout
+        android:id="@+id/trivia_resultado"
+
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:background="@drawable/bg_icons"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:id="@+id/trivia_contenedor_moneda"
+            android:layout_height="290dp"
+            android:layout_width="290dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp" >
+
+            <ImageView
+                android:id="@+id/trivia_imagen_resultado"
+                android:layout_centerHorizontal="true"
+                android:layout_height="290dp"
+                android:layout_width="290dp" />
+
+            <TextView
+                android:id="@+id/trivia_puntaje"
+                android:textSize="28sp"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="360 puntos"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:textColor="@android:color/white"
+                android:alpha="0.7" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/trivia_texto_resultado"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/trivia_contenedor_moneda"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="7dp"
+            android:textSize="25sp"
+            android:textColor="@android:color/white"
+            android:text="Oops!"
+            android:alpha="0.8"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/trivia_sub_texto_resultado"
+
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/trivia_texto_resultado"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:textSize="15sp"
+            android:textColor="@android:color/white"
+            android:text="Has ganado 0 puntos"
+            android:alpha="0.8"
+            />
+        <Button
+            android:id="@+id/trivia_siguiente"
+            android:layout_height="30dp"
+            android:layout_width="132dp"
+            android:background="@drawable/next_question"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="60dp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:clipChildren="false"
+    android:background="#075A80"
+    android:orientation="horizontal"
+    android:layout_margin="0dp"
+    android:padding="0dp"
+    android:layout_gravity="fill_horizontal"
+    android:gravity="left"
+    android:layout_width="match_parent"
+    android:layout_height="48dp">
+
+    <!-- Menú -->
+    <ImageButton
+        android:id="@+id/item_menu"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/icon_new_opciones"
+        android:background="?attr/actionBarItemBackground"
+        android:layout_width="40dp"
+        android:layout_height="55dp"
+        android:layout_centerVertical="true"
+        android:scaleType="centerInside"
+        />
+
+    <ImageView
+        android:layout_height="30dp"
+        android:layout_width="126dp"
+        android:background="@drawable/movistartv_logo"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+
+    <ImageView
+        android:id="@+id/icon_search"
+        android:layout_height="36dp"
+        android:layout_width="36dp"
+        android:layout_toLeftOf="@+id/item_notificaciones"
+        android:background="@drawable/buscar"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="12dp" />
+
+    <!-- Mensajes -->
+    <ImageButton
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/icon_msj"
+        android:layout_toLeftOf="@+id/item_notificaciones"
+        android:background="?attr/actionBarItemBackground"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:scaleType="centerInside"
+        android:visibility="gone"
+        android:id="@+id/item_mensajes"
+        android:layout_marginRight="16dp" />
+
+    <!-- Notificaciones -->
+
+    <ImageButton
+        android:id="@+id/item_notificaciones"
+        android:src="@drawable/campana"
+        android:layout_toLeftOf="@+id/item_configuracion"
+        android:background="?attr/actionBarItemBackground"
+        android:layout_marginRight="5dp"
+        android:layout_centerVertical="true"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:scaleType="centerCrop"
+        />
+
+    <!-- Perfil -->
+
+    <!--cl.makeramen.RoundedImageView
+        android:visibility="gone"
+        android:id="@+id/foto_perfil_actionbar"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:corner_radius="17dp"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_toLeftOf="@+id/item_configuracion"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="70dp" /-->
+
+    <!-- Configuración -->
+    <ImageButton
+        android:src="@drawable/settings"
+        android:layout_alignParentRight="true"
+        android:background="?attr/actionBarItemBackground"
+        android:layout_centerVertical="true"
+        android:layout_width="36dp"
+        android:layout_marginLeft="5dp"
+        android:layout_height="36dp"
+        android:scaleType="centerCrop"
+        android:layout_marginRight="20dp"
+        android:id="@+id/item_configuracion"/>
+
+</RelativeLayout>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/exit"
+            android:background="#99000000"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/notification_arrow"
+            android:layout_marginRight="72dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/pestana_up3"
+            android:layout_width="30dp"
+            android:layout_height="12dp" />
+
+        <RelativeLayout
+            android:id="@+id/wrapper"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="52dp"
+            android:clickable="true"
+            android:background="@drawable/shape_wraper"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="346dp"
+            android:layout_height="280dp">
+
+            <TextView
+                android:id="@+id/title_notification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                android:layout_marginLeft="10dp"
+                android:text="Notificaciones"
+                android:textColor="#FFFFFF"
+                android:textSize="17sp"/>
+
+            <ImageButton
+                android:id="@+id/icon_exit"
+                android:background="@drawable/close2"
+                android:layout_marginTop="26dp"
+                android:layout_marginRight="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_width="13dp"
+                android:alpha="0.6"
+                android:layout_height="13dp"
+                />
+
+            <RelativeLayout
+                android:id="@+id/no_notification"
+                android:layout_marginTop="60dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/shape_back_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:background="@drawable/no_notification"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="180dp"
+                    android:layout_height="80dp" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/container_message"
+                android:layout_marginTop="60dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/shape_back_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ScrollView
+                    android:scrollbars="none"
+                    android:fadingEdge="none"
+                    android:fadingEdgeLength="0dp"
+                    android:overScrollMode="never"
+                    android:smoothScrollbar="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:id="@+id/list_notifications"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </LinearLayout>
+                    </ScrollView>
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+</RelativeLayout>

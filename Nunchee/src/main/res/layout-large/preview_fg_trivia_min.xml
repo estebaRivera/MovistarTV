@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_height="85dp"
+    android:layout_width="495dp"
+    android:background="#ECECEC">
+
+    <!--- Unica Respuesta -->
+    <RelativeLayout
+        android:id="@+id/contenedor_una_trivia"
+        android:visibility="gone"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:id="@+id/una_trivia"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:alpha="0.9"
+            android:maxLines="2"
+            android:text="Pregunta numero 1"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="38dp" />
+
+        <TextView
+            android:id="@+id/una_trivia_respuesta"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            android:maxLines="1"
+            android:text="Respuesta 1"
+            android:alpha="0.9"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="85dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="15dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:alpha="0.9"
+            android:maxLines="1"
+            android:text="Trivia"
+            android:layout_marginLeft="16dp"
+            android:id="@+id/txt_title"/>
+
+    </RelativeLayout>
+
+
+    <!---  NO Trivia -->
+    <RelativeLayout
+
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:background="#ECECEC"
+        android:id="@+id/preview_trivia_contenedor">
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:background="@drawable/icon_trivia"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="25dp"
+            android:id="@+id/preview_trivia_mono" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trivia"
+            android:textStyle="bold"
+            android:textColor="#0B5276"
+            android:id="@+id/preview_trivia_titulo"
+            android:textSize="17sp"
+            android:layout_marginLeft="95dp"
+            android:layout_marginTop="8dp"
+            android:layout_alignLeft="@+id/preview_trivia_mono"
+            android:layout_alignTop="@+id/preview_trivia_mono"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Entra y descubre más contenido"
+            android:textColor="#0B5276"
+            android:textSize="13sp"
+            android:id="@+id/preview_trivia_detalle"
+            android:layout_alignLeft="@+id/preview_trivia_titulo"
+            android:layout_alignTop="@+id/preview_trivia_titulo"
+            android:layout_marginTop="22dp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

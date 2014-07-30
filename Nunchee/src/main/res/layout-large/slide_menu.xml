@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--  Menú -->
+    <LinearLayout
+        android:id="@+id/menu_principal"
+        android:orientation="vertical"
+        android:background="@drawable/bg_app"
+        android:layout_width="290dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="0dp">
+
+        <!-- Item Cero-->
+        <RelativeLayout
+            android:id="@+id/user_profile"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <cl.makeramen.RoundedImageView
+                android:id="@+id/image_profile"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                app:corner_radius="7dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:scaleType="centerCrop"
+                android:layout_marginBottom="12dp"
+                android:layout_height="80dp"
+                android:layout_width="80dp" />
+
+            <TextView
+                android:id="@+id/name_profile"
+                android:layout_below="@+id/image_profile"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Historial"
+                android:textColor="#FFFFFF"
+                android:textSize="16dp"
+                android:layout_marginBottom="12dp" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:background="@drawable/separador_canal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
+
+        <!-- Item Cinco -->
+        <RelativeLayout
+            android:id="@+id/btn_en_vivo"
+            android:layout_marginTop="0dp"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent">
+
+            <Button
+                android:layout_height="40dp"
+                android:layout_width="40dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/icon_live"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="65dp"
+                android:textStyle="bold"
+                android:text="En VIVO"
+                android:layout_centerVertical="true"
+                android:textColor="#FFFFFF"
+                android:textSize="16dp"/>
+
+            <ImageView
+                android:id="@+id/icono_live_mas"
+                android:layout_marginRight="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/btn_mas"
+                android:layout_height="24dp"
+                android:layout_width="24dp" />
+
+            <ImageView
+                android:id="@+id/icono_live_menos"
+                android:layout_marginRight="25dp"
+                android:visibility="gone"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/btn_menos"
+                android:layout_height="24dp"
+                android:layout_width="24dp" />
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:id="@+id/list_live"
+            android:layout_marginTop="10dp"
+            android:fadingEdge="none"
+            android:fadingEdgeLength="0dp"
+            android:overScrollMode="never"
+            android:smoothScrollbar="false"
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:visibility="gone"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <LinearLayout
+                android:id="@+id/container_list_live"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <ImageView
+            android:background="@drawable/separador_canal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
+
+        <RelativeLayout
+            android:id="@+id/trending_channel"
+            android:layout_marginTop="0dp"
+            android:layout_height="45dp"
+            android:layout_width="match_parent">
+
+            <ImageView
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/icon_trending2"
+                android:layout_height="40dp"
+                android:layout_width="40dp" />
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="65dp"
+                android:text="Trending Channels"
+                android:layout_centerVertical="true"/>
+
+            <ImageView
+                android:id="@+id/icono_trending_mas"
+                android:layout_marginRight="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/btn_mas"
+                android:layout_height="24dp"
+                android:layout_width="24dp" />
+
+            <ImageView
+                android:id="@+id/icono_trending_menos"
+                android:layout_marginRight="25dp"
+                android:visibility="gone"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/btn_menos"
+                android:layout_height="24dp"
+                android:layout_width="24dp" />
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:id="@+id/scroll_trending"
+            android:layout_height="170dp"
+            android:layout_width="match_parent"
+            android:fadingEdge="none"
+            android:fadingEdgeLength="0dp"
+            android:overScrollMode="never"
+            android:smoothScrollbar="false"
+            android:scrollbars="none"
+            android:visibility="gone"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp">
+
+
+            <LinearLayout
+                android:id="@+id/lista_canales"
+                android:orientation="vertical"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+        <ImageView
+            android:background="@drawable/separador_canal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
+
+        <!-- Item Uno-->
+        <RelativeLayout
+            android:id="@+id/btn_historial"
+            android:layout_marginTop="5dp"
+            android:layout_height="42dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent">
+
+            <Button
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/icono_menu_historial"
+                android:layout_centerVertical="true"
+                android:layout_height="40dp"
+                android:layout_width="40dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:layout_centerVertical="true"
+                android:text="Historial"
+                android:textColor="#FFFFFF"
+                android:textSize="15dp"
+                android:alpha="0.8"/>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:background="@drawable/separador_canal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
+
+        <!-- Item dos-->
+
+        <RelativeLayout
+            android:id="@+id/btn_favoritos"
+            android:layout_marginTop="5dp"
+            android:layout_height="42dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent">
+
+            <Button
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/icono_menu_favorito"
+                android:layout_centerVertical="true"
+                android:layout_height="40dp"
+                android:layout_width="40dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:layout_centerVertical="true"
+                android:text="Favoritos"
+                android:textColor="#FFFFFF"
+                android:textSize="15dp"
+                android:alpha="0.8"/>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:background="@drawable/separador_canal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
+
+        <!-- Item tres -->
+
+        <RelativeLayout
+            android:id="@+id/btn_recomendado"
+            android:layout_marginTop="5dp"
+            android:layout_height="42dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent">
+
+            <Button
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/icono_menu_recomendado"
+                android:layout_height="40dp"
+                android:layout_width="40dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:layout_centerVertical="true"
+                android:text="Recomendado"
+                android:textColor="#FFFFFF"
+                android:textSize="15dp"
+                android:alpha="0.8"/>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:background="@drawable/separador_canal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
+
+        <!-- Item cuatro-->
+
+        <RelativeLayout
+            android:id="@+id/btn_salir"
+            android:layout_marginTop="0dp"
+            android:layout_height="42dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent">
+
+            <Button
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/icono_menu_salir"
+                android:layout_centerVertical="true"
+                android:layout_height="40dp"
+                android:layout_width="40dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:layout_centerVertical="true"
+                android:text="Salir"
+                android:textColor="#FFFFFF"
+                android:textSize="15dp"
+                android:alpha="0.8"/>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:background="@drawable/separador_canal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
+
+    </LinearLayout>
+
+</LinearLayout>

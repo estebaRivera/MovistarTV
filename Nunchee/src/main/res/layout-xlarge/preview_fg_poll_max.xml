@@ -1,0 +1,837 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="710dp"
+        android:layout_width="643dp"
+        android:background="@drawable/bg_icons">
+
+        <!--Contenedor Primero -->
+        <RelativeLayout
+            android:layout_marginLeft="0dp"
+            android:id="@+id/primer_encuesta"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_icons"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="390dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:layout_marginLeft="40dp"
+                android:alpha="1"
+                android:text="Pregunta"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:textSize="23sp"
+                android:id="@+id/titulo_encuesta"
+                android:layout_alignParentTop="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="personas han respondido"
+                android:alpha="1"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="40dp"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:id="@+id/han_contestado_encuesta"
+                android:layout_below="@+id/titulo_encuesta"
+                android:layout_alignParentLeft="true" />
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="130dp"
+                android:layout_marginRight="25dp"
+                android:id="@+id/foto_polls"
+                android:background="@drawable/icon_polls"
+                android:layout_marginTop="40dp"
+                android:layout_alignParentRight="true" />
+
+            <LinearLayout
+                android:id="@+id/contenedor_encuesta_respuesta"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="35dp"
+                android:layout_below="@id/foto_polls"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical"
+                >
+                <!-- Respuesta 1 -->
+                <LinearLayout
+                    android:id="@+id/encuesta_respuesta_1"
+                    android:layout_height="74dp"
+                    android:layout_width="match_parent"
+                    android:background="#272727"
+                    android:alpha="0.6"
+                    android:layout_marginTop="30dp">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="A"/>
+
+                    <TextView
+                        android:id="@+id/respuesta1"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:layout_marginTop="24dp"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="28dp"
+                        />
+
+                </LinearLayout>
+
+                <!-- Respuesta 2 -->
+                <LinearLayout
+
+                    android:id="@+id/encuesta_respuesta_2"
+                    android:layout_height="74dp"
+                    android:layout_width="match_parent"
+                    android:background="#272727"
+                    android:layout_marginTop="6dp"
+                    android:alpha="0.7">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="B"/>
+
+                    <TextView
+                        android:id="@+id/respuesta2"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:layout_marginTop="24dp"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="28dp"
+                        />
+
+                </LinearLayout>
+
+                <!-- Respuesta 3 -->
+                <LinearLayout
+                    android:id="@+id/encuesta_respuesta_3"
+                    android:layout_height="74dp"
+                    android:layout_width="match_parent"
+                    android:background="#272727"
+                    android:layout_marginTop="6dp"
+                    android:alpha="0.7">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="C"/>
+
+                    <TextView
+                        android:id="@+id/respuesta3"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:layout_marginTop="24dp"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="28dp"
+                        />
+
+                </LinearLayout>
+
+                <!-- Respuesta 4 -->
+                <LinearLayout
+                    android:id="@+id/encuesta_respuesta_4"
+                    android:layout_height="74dp"
+                    android:layout_width="match_parent"
+                    android:background="#272727"
+                    android:layout_marginTop="6dp"
+                    android:alpha="0.7">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="D"/>
+
+                    <TextView
+                        android:id="@+id/respuesta4"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:layout_marginTop="24dp"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="28dp"
+                        />
+
+                </LinearLayout>
+
+                <!-- Respuesta 5 -->
+                <LinearLayout
+                    android:id="@+id/encuesta_respuesta_5"
+                    android:layout_height="70dp"
+                    android:layout_width="match_parent"
+                    android:background="#272727"
+                    android:visibility="gone"
+                    android:layout_marginTop="6dp"
+                    android:alpha="0.7">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="E"/>
+
+                    <TextView
+                        android:id="@+id/respuesta5"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:layout_marginTop="24dp"
+                        android:textSize="12sp"
+                        android:layout_marginLeft="28dp"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <!--Contenedor Segundo -->
+        <RelativeLayout
+            android:layout_marginLeft="0dp"
+            android:id="@+id/segunda_encuesta"
+            android:background="@drawable/bg_icons"
+
+            android:layout_height="match_parent"
+            android:layout_width="643dp">
+
+            <TextView
+                android:layout_width="390dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:layout_marginLeft="40dp"
+                android:alpha="0.8"
+                android:text="Pregunta"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:textSize="23sp"
+                android:id="@+id/titulo_encuesta"
+                android:layout_alignParentTop="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="personas han respondido"
+                android:alpha="0.8"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="40dp"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:id="@+id/han_contestado_encuesta"
+                android:layout_below="@+id/titulo_encuesta"
+                android:layout_alignParentLeft="true" />
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="130dp"
+                android:layout_marginRight="25dp"
+                android:id="@+id/foto_polls"
+                android:background="@drawable/icon_polls"
+                android:layout_marginTop="45dp"
+                android:layout_alignParentRight="true" />
+
+            <LinearLayout
+                android:id="@+id/contenedor_encuesta_respuesta"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="35dp"
+                android:layout_below="@id/foto_polls"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical"
+                >
+                <!-- Respuesta 1 -->
+                <LinearLayout
+                    android:id="@+id/encuesta_respuesta_1"
+                    android:layout_height="74dp"
+                    android:layout_width="match_parent"
+                    android:background="#272727"
+                    android:alpha="0.7"
+                    android:layout_marginTop="30dp">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="A"/>
+
+                    <TextView
+                        android:id="@+id/respuesta1"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:layout_marginTop="24dp"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="28dp"
+                        />
+
+                </LinearLayout>
+
+                <!-- Respuesta 2 -->
+                <LinearLayout
+
+                    android:id="@+id/encuesta_respuesta_2"
+                    android:layout_height="74dp"
+                    android:layout_width="match_parent"
+                    android:background="#272727"
+                    android:layout_marginTop="6dp"
+                    android:alpha="0.7">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="B"/>
+
+                    <TextView
+                        android:id="@+id/respuesta2"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:layout_marginTop="24dp"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="28dp"
+                        />
+
+                </LinearLayout>
+
+                <!-- Respuesta 3 -->
+                <LinearLayout
+                    android:id="@+id/encuesta_respuesta_3"
+                    android:layout_height="74dp"
+                    android:layout_width="match_parent"
+                    android:background="#272727"
+                    android:layout_marginTop="6dp"
+                    android:alpha="0.7">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="C"/>
+
+                    <TextView
+                        android:id="@+id/respuesta3"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:layout_marginTop="24dp"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="28dp"
+                        />
+
+                </LinearLayout>
+
+                <!-- Respuesta 4 -->
+                <LinearLayout
+                    android:id="@+id/encuesta_respuesta_4"
+                    android:layout_height="74dp"
+                    android:layout_width="match_parent"
+                    android:background="#272727"
+                    android:layout_marginTop="6dp"
+                    android:alpha="0.7">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="D"/>
+
+                    <TextView
+                        android:id="@+id/respuesta4"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:layout_marginTop="24dp"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="28dp"
+                        />
+
+                </LinearLayout>
+
+                <!-- Respuesta 5 -->
+                <LinearLayout
+                    android:id="@+id/encuesta_respuesta_5"
+                    android:layout_height="70dp"
+                    android:layout_width="match_parent"
+                    android:background="#272727"
+                    android:visibility="gone"
+                    android:layout_marginTop="6dp"
+                    android:alpha="0.7">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="E"/>
+
+                    <TextView
+                        android:id="@+id/respuesta5"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:layout_marginTop="24dp"
+                        android:textSize="12sp"
+                        android:layout_marginLeft="28dp"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <!--Contenedor NoEncuesta -->
+
+        <RelativeLayout
+            android:id="@+id/no_encuesta"
+            android:visibility="gone"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" >
+
+            <ImageView
+                android:id="@+id/encuesta_mono"
+                android:layout_height="190dp"
+                android:layout_width="190dp"
+                android:layout_marginTop="200dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/icon_not_big"/>
+            <TextView
+                android:id="@+id/encuesta_ops_lo_sentimos"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Oops! Lo sentimos"
+                android:textStyle="bold"
+                android:alpha="0.8"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/encuesta_mono"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"/>
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="este programa no tiene encuestas aún"
+                android:alpha="0.8"
+                android:layout_centerHorizontal="true"
+                android:textColor="@android:color/white"
+                android:layout_below="@+id/encuesta_ops_lo_sentimos"
+                android:layout_marginTop="4dp"
+                android:textSize="20sp"/>
+
+        </RelativeLayout>
+
+        <!--Contenedor Share -->
+
+        <RelativeLayout
+            android:layout_marginLeft="0dp"
+            android:id="@+id/contenedor_share"
+            android:visibility="gone"
+            android:background="@drawable/bg_icons"
+            android:layout_height="match_parent"
+            android:layout_width="643dp">
+
+            <TextView
+                android:layout_width="390dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:layout_marginLeft="40dp"
+                android:alpha="1"
+                android:text="Pregunta"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:textSize="23sp"
+                android:id="@+id/titulo_encuesta"
+                android:layout_alignParentTop="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="personas han respondido"
+                android:alpha="1"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="40dp"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:id="@+id/han_contestado_encuesta"
+                android:layout_below="@+id/titulo_encuesta"
+                android:layout_alignParentLeft="true" />
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="130dp"
+                android:layout_marginRight="25dp"
+                android:id="@+id/foto_polls"
+                android:background="@drawable/icon_polls"
+                android:layout_marginTop="45dp"
+                android:layout_alignParentRight="true" />
+
+            <LinearLayout
+                android:id="@+id/contenedor_encuesta_respuesta"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="40dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:layout_marginRight="35dp"
+                android:layout_below="@id/foto_polls"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical"
+                >
+                <!-- Respuesta 1 -->
+                <RelativeLayout
+                    android:id="@+id/encuesta_respuesta_1"
+                    android:layout_height="74dp"
+                    android:layout_width="match_parent"
+                    android:background="#00000000"
+                    android:alpha="0.7"
+                    android:layout_marginTop="10dp">
+
+                    <LinearLayout
+                        android:id="@+id/espacio_porcentaje1"
+                        android:background="#358F95"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent">
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/porcentaje1"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="A"/>
+
+                    <TextView
+                        android:id="@+id/respuesta1"
+                        android:text="Respuesta seleccionada"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:layout_marginTop="24dp"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="86dp"
+                        />
+
+                </RelativeLayout>
+
+                <!-- Respuesta 2 -->
+                <RelativeLayout
+
+                    android:id="@+id/encuesta_respuesta_2"
+                    android:layout_height="74dp"
+                    android:layout_width="match_parent"
+                    android:background="#00000000"
+                    android:layout_marginTop="6dp"
+                    android:alpha="0.7">
+
+                    <LinearLayout
+                        android:id="@+id/espacio_porcentaje2"
+                        android:background="#358F95"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent">
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/porcentaje2"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="B"/>
+
+                    <TextView
+                        android:id="@+id/respuesta2"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:layout_marginTop="24dp"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="86dp"
+                        />
+
+                </RelativeLayout>
+
+                <!-- Respuesta 3 -->
+                <RelativeLayout
+                    android:id="@+id/encuesta_respuesta_3"
+                    android:layout_height="74dp"
+                    android:layout_width="match_parent"
+                    android:background="#00000000"
+                    android:layout_marginTop="6dp"
+                    android:alpha="0.7">
+
+                    <LinearLayout
+                        android:id="@+id/espacio_porcentaje3"
+                        android:background="#358F95"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent">
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/porcentaje3"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="C"/>
+
+                    <TextView
+                        android:id="@+id/respuesta3"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:layout_marginTop="24dp"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="86dp"
+                        />
+
+                </RelativeLayout>
+
+                <!-- Respuesta 4 -->
+                <RelativeLayout
+
+                    android:id="@+id/encuesta_respuesta_4"
+                    android:layout_height="74dp"
+                    android:layout_width="match_parent"
+                    android:background="#00000000"
+                    android:layout_marginTop="6dp"
+                    android:alpha="0.7">
+
+                    <LinearLayout
+                        android:id="@+id/espacio_porcentaje4"
+                        android:background="#358F95"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent">
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/porcentaje4"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="D"/>
+
+                    <TextView
+                        android:id="@+id/respuesta4"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:layout_marginTop="24dp"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="86dp"
+                        />
+
+                </RelativeLayout>
+
+                <!-- Respuesta 5 -->
+                <RelativeLayout
+                    android:id="@+id/encuesta_respuesta_5"
+                    android:layout_height="70dp"
+                    android:layout_width="match_parent"
+                    android:background="#00000000"
+                    android:visibility="gone"
+                    android:layout_marginTop="6dp"
+                    android:alpha="0.7">
+
+                    <LinearLayout
+                        android:id="@+id/espacio_porcentaje5"
+                        android:background="#358F95"
+
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent">
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/porcentaje5"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="E"/>
+
+                    <TextView
+                        android:id="@+id/respuesta5"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:layout_marginTop="24dp"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="74dp"
+                        />
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_below="@id/contenedor_encuesta_respuesta"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:layout_height="30dp"
+                    android:layout_width="60dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/icon_share"
+                    android:id="@+id/image_share" />
+
+                <Button
+                    android:id="@+id/share_tw"
+                    android:layout_height="80dp"
+                    android:layout_width="85dp"
+                    android:background="@drawable/icon_tw"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="70dp" />
+
+                <Button
+                    android:id="@+id/share_facebook"
+                    android:layout_height="80dp"
+                    android:layout_width="85dp"
+                    android:background="@drawable/icon_fb"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="150dp" />
+
+                <TextView
+                    android:layout_width="170dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="75dp"
+                    android:text="COMPARTELO AHORA MISMO CON TODOS TUS AMIGOS"
+                    android:id="@+id/textView"
+                    android:textSize="11sp"
+                    android:textColor="@android:color/white"
+                    android:layout_alignLeft="@+id/image_share" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <!--Contenedor Boton -->
+
+        <RelativeLayout
+            android:id="@+id/contenedor_boton"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:background="#00000000"
+            android:layout_marginBottom="45dp"
+            >
+            <Button
+                android:layout_width="133dp"
+                android:layout_height="40dp"
+                android:text="Siguiente"
+                android:drawablePadding="19dp"
+                android:textColor="@android:color/white"
+                android:background="#00000000"
+                android:drawableRight="@drawable/poll_right_arrow"
+                android:id="@+id/encuesta_siguiente"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="90dp"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/encuesta_numero"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="Pregunta 1"
+                android:alpha="0.6"
+                android:textColor="@android:color/white"
+                android:textSize="11sp" />
+
+            <Button
+                android:layout_width="125dp"
+                android:layout_height="40dp"
+                android:background="#00000000"
+                android:textColor="@android:color/white"
+                android:text="Anterior"
+                android:id="@+id/encuesta_volver"
+                android:drawableLeft="@drawable/poll_left_arrow"
+                android:layout_marginLeft="90dp"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+    </RelativeLayout>

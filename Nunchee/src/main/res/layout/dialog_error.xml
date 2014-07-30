@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#66000000"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_width="600dp"
+        android:layout_height="400dp">
+
+        <ImageView
+            android:background="@drawable/alertview"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_width="600dp"
+            android:layout_height="400dp" />
+
+        <ImageView
+            android:id="@+id/image_error"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/icon_not_small"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+
+        <TextView
+            android:layout_marginTop="270dp"
+            android:id="@+id/text_error"
+            android:textColor="#FFFFFF"
+            android:alpha="0.7"
+            android:textSize="23sp"
+            android:layout_centerHorizontal="true"
+            android:text="Oops! algo salió mal, intenta de nuevo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/text_error_2"
+
+            android:layout_marginTop="320dp"
+            android:textColor="#FFFFFF"
+            android:alpha="0.7"
+            android:textSize="21sp"
+            android:layout_centerHorizontal="true"
+            android:text="Aceptar"
+            android:background="#7AB700"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+</RelativeLayout>

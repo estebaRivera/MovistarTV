@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="310dp"
+    android:layout_height="120dp"
+    >
+
+    <ImageView
+        android:id="@+id/favorito_programa_unico_imagen"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/bg_square_holder"
+        android:layout_marginBottom="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:id="@+id/favorito_programa_unico_texto_nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@android:color/white"
+        android:alpha="0.8"
+        android:text="New Text"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="115dp"
+        android:layout_alignTop="@+id/favorito_programa_unico_imagen"
+        />
+
+    <TextView
+        android:id="@+id/favorito_programa_unico_texto_hora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:textSize="11sp"
+        android:textColor="@android:color/white"
+        android:alpha="0.8"
+        android:layout_alignBaseline="@+id/favorito_programa_unico_boton_recordar"
+        android:layout_alignBottom="@+id/favorito_programa_unico_boton_recordar"
+        android:layout_marginLeft="240dp" />
+
+    <TextView
+        android:id="@+id/favorito_programa_unico_texto_canal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:textSize="11sp"
+        android:layout_marginTop="2dp"
+        android:textColor="@android:color/white"
+        android:alpha="0.8"
+        android:layout_below="@+id/favorito_programa_unico_texto_nombre"
+        android:layout_alignLeft="@+id/favorito_programa_unico_texto_nombre" />
+
+    <Button
+        android:id="@+id/favorito_programa_unico_boton_recordar"
+        android:layout_width="80dp"
+        android:layout_height="23dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/empty"
+        android:background="@drawable/btn_recordar"
+        android:layout_alignBottom="@+id/favorito_programa_unico_imagen"
+        android:layout_marginLeft="115dp" />
+</RelativeLayout>

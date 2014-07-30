@@ -1,0 +1,798 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_height="110dp"
+    android:layout_width="495dp"
+    android:background="#D3D3D3">
+
+    <!--- Tws -->
+    <RelativeLayout
+        android:id="@+id/preview_tw_contenedor"
+        android:layout_alignRight="@+id/preview_programa"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Twitter"
+            android:textColor="#0B5276"
+            android:textSize="14dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="7dp"
+            android:id="@+id/preview_tw" />
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="14dp"
+            android:layout_marginLeft="65dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/icon_twitter2"
+            android:id="@+id/imageView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\@Canal_Tw"
+            android:textColor="#6E6E6E"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/preview_tw_canal" />
+
+        <TextView
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Últimos twitts"
+            android:id="@+id/preview_tw_ultimos"
+            android:layout_below="@+id/imageView"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="0dp"
+            android:textStyle="bold"
+            android:textSize="11sp"
+            android:textColor="#55FFFFFF"
+            android:layout_alignParentRight="true" />
+
+        <!--- Lista de Tws-->
+        <LinearLayout
+            android:clickable="false"
+            android:focusable="false"
+            android:orientation="vertical"
+            android:layout_width="460dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/preview_tw_ultimos"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="11dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginBottom="7dp"
+            android:layout_marginTop="-1dp"
+            android:paddingTop="3dp">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="175dp"
+                android:scrollbars="none"
+                android:clickable="false"
+                android:fadingEdge="none"
+                android:fadingEdgeLength="0dp"
+                android:overScrollMode="never"
+                android:smoothScrollbar="false"
+                android:id="@+id/preview_scroll_tws" >
+
+                <LinearLayout
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!--- Tw 1 -->
+
+                    <RelativeLayout
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="75dp"
+                        android:layout_marginTop="-5dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/preview_contenedor_tw">
+
+                        <cl.makeramen.RoundedImageView
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            app:corner_radius="20dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:id="@+id/foto_tw"
+                            android:src="@drawable/twitter_placeholder"
+                            android:background="#00000000"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginLeft="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:textColor="#6E6E6E"
+                            android:text="@string/empty"
+                            android:textStyle="bold"
+                            android:id="@+id/tw_nombre"
+                            android:layout_marginLeft="25dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_toRightOf="@+id/foto_tw"
+                            android:layout_marginTop="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/empty"
+                            android:textSize="14sp"
+                            android:textColor="#6E6E6E"
+                            android:textStyle="bold"
+                            android:id="@+id/tw_nombre_usuario"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="220dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:textColor="#6E6E6E"
+                            android:text="@string/empty"
+                            android:id="@+id/tw_texto"
+                            android:gravity="top"
+                            android:height="60dp"
+                            android:maxLines="3"
+                            android:maxLength="140"
+                            android:autoLink="all"
+                            android:layout_alignLeft="@+id/tw_nombre"
+                            android:layout_marginTop="22dp" />
+
+                    </RelativeLayout>
+
+                    <!--- Tw 2 -->
+
+                    <RelativeLayout
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/preview_contenedor_tw_2">
+
+                        <cl.makeramen.RoundedImageView
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            app:corner_radius="20dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:id="@+id/foto_tw_2"
+                            android:src="@drawable/twitter_placeholder"
+                            android:background="#00000000"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginLeft="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:textColor="#6E6E6E"
+                            android:text="@string/empty"
+                            android:textStyle="bold"
+                            android:id="@+id/tw_nombre_2"
+                            android:layout_marginLeft="25dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_toRightOf="@+id/foto_tw_2"
+                            android:layout_marginTop="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/empty"
+                            android:textSize="14sp"
+                            android:textColor="#6E6E6E"
+                            android:textStyle="bold"
+                            android:id="@+id/tw_nombre_usuario_2"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="220dp"
+                            android:layout_marginTop="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:textColor="#6E6E6E"
+                            android:text="@string/empty"
+                            android:id="@+id/tw_texto_2"
+                            android:gravity="top"
+                            android:height="60dp"
+                            android:autoLink="all"
+                            android:maxLines="3"
+                            android:maxLength="140"
+                            android:layout_marginTop="22dp"
+                            android:layout_alignLeft="@+id/tw_nombre_2" />
+
+                    </RelativeLayout>
+
+                    <!--- Tw 3 -->
+
+                    <RelativeLayout
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/preview_contenedor_tw_3">
+
+                        <cl.makeramen.RoundedImageView
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            app:corner_radius="20dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:id="@+id/foto_tw_3"
+                            android:src="@drawable/twitter_placeholder"
+                            android:background="#00000000"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginLeft="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:textColor="#6E6E6E"
+                            android:text="@string/empty"
+                            android:textStyle="bold"
+                            android:id="@+id/tw_nombre_3"
+                            android:layout_marginLeft="25dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_toRightOf="@+id/foto_tw_3"
+                            android:layout_marginTop="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/empty"
+                            android:textSize="14sp"
+                            android:textColor="#6E6E6E"
+                            android:textStyle="bold"
+                            android:id="@+id/tw_nombre_usuario_3"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="220dp"
+                            android:layout_marginTop="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:textColor="#6E6E6E"
+                            android:text="@string/empty"
+                            android:id="@+id/tw_texto_3"
+                            android:gravity="top"
+                            android:height="60dp"
+                            android:maxLines="3"
+                            android:maxLength="140"
+                            android:autoLink="all"
+                            android:layout_marginTop="22dp"
+                            android:layout_alignLeft="@+id/tw_nombre_3" />
+
+                    </RelativeLayout>
+
+                    <!--- Tw 4 -->
+
+                    <RelativeLayout
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/preview_contenedor_tw_4">
+
+                        <cl.makeramen.RoundedImageView
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            app:corner_radius="20dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:id="@+id/foto_tw_4"
+                            android:src="@drawable/twitter_placeholder"
+                            android:background="#00000000"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginLeft="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:textColor="#6E6E6E"
+                            android:text="@string/empty"
+                            android:textStyle="bold"
+                            android:id="@+id/tw_nombre_4"
+                            android:layout_marginLeft="25dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_toRightOf="@+id/foto_tw_4"
+                            android:layout_marginTop="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/empty"
+                            android:textSize="14sp"
+                            android:textColor="#6E6E6E"
+                            android:textStyle="bold"
+                            android:id="@+id/tw_nombre_usuario_4"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="220dp"
+                            android:layout_marginTop="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:textColor="#6E6E6E"
+                            android:text="@string/empty"
+                            android:id="@+id/tw_texto_4"
+                            android:gravity="top"
+                            android:height="60dp"
+                            android:maxLines="3"
+                            android:autoLink="all"
+                            android:maxLength="140"
+                            android:layout_marginTop="22dp"
+                            android:layout_alignLeft="@+id/tw_nombre_4" />
+
+                    </RelativeLayout>
+
+                    <!--- Tw 5 -->
+
+                    <RelativeLayout
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/preview_contenedor_tw_5">
+
+                        <cl.makeramen.RoundedImageView
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            app:corner_radius="20dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:id="@+id/foto_tw_5"
+                            android:src="@drawable/twitter_placeholder"
+                            android:background="#00000000"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginLeft="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:textColor="#6E6E6E"
+                            android:text="@string/empty"
+                            android:textStyle="bold"
+                            android:id="@+id/tw_nombre_5"
+                            android:layout_marginLeft="25dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_toRightOf="@+id/foto_tw_5"
+                            android:layout_marginTop="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/empty"
+                            android:textSize="14sp"
+                            android:textColor="#6E6E6E"
+                            android:textStyle="bold"
+                            android:id="@+id/tw_nombre_usuario_5"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="220dp"
+                            android:layout_marginTop="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:textColor="#6E6E6E"
+                            android:text="@string/empty"
+                            android:id="@+id/tw_texto_5"
+                            android:gravity="top"
+                            android:height="60dp"
+                            android:maxLines="3"
+                            android:autoLink="all"
+                            android:maxLength="140"
+                            android:layout_marginTop="22dp"
+                            android:layout_alignLeft="@+id/tw_nombre_5" />
+
+                    </RelativeLayout>
+
+                    <!--- Tw 6 -->
+
+                    <RelativeLayout
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/preview_contenedor_tw_6">
+
+                        <cl.makeramen.RoundedImageView
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            app:corner_radius="20dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:id="@+id/foto_tw_6"
+                            android:src="@drawable/twitter_placeholder"
+                            android:background="#00000000"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginLeft="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:textColor="#6E6E6E"
+                            android:text="@string/empty"
+                            android:textStyle="bold"
+                            android:id="@+id/tw_nombre_6"
+                            android:layout_marginLeft="25dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_toRightOf="@+id/foto_tw_6"
+                            android:layout_marginTop="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/empty"
+                            android:textSize="14sp"
+                            android:textColor="#6E6E6E"
+                            android:textStyle="bold"
+                            android:id="@+id/tw_nombre_usuario_6"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="220dp"
+                            android:layout_marginTop="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:textColor="#6E6E6E"
+                            android:text="@string/empty"
+                            android:id="@+id/tw_texto_6"
+                            android:gravity="top"
+                            android:height="60dp"
+                            android:maxLines="3"
+                            android:maxLength="140"
+                            android:autoLink="all"
+                            android:layout_marginTop="22dp"
+                            android:layout_alignLeft="@+id/tw_nombre_6" />
+
+                    </RelativeLayout>
+
+                    <!--- Tw 7 -->
+
+                    <RelativeLayout
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/preview_contenedor_tw_7">
+
+                        <cl.makeramen.RoundedImageView
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            app:corner_radius="20dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:id="@+id/foto_tw_7"
+                            android:src="@drawable/twitter_placeholder"
+                            android:background="#00000000"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginLeft="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:textColor="#6E6E6E"
+                            android:text="@string/empty"
+                            android:textStyle="bold"
+                            android:id="@+id/tw_nombre_7"
+                            android:layout_marginLeft="25dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_toRightOf="@+id/foto_tw_7"
+                            android:layout_marginTop="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/empty"
+                            android:textSize="14sp"
+                            android:textColor="#6E6E6E"
+                            android:textStyle="bold"
+                            android:id="@+id/tw_nombre_usuario_7"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="220dp"
+                            android:layout_marginTop="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:textColor="#6E6E6E"
+                            android:text="@string/empty"
+                            android:id="@+id/tw_texto_7"
+                            android:gravity="top"
+                            android:height="60dp"
+                            android:maxLines="3"
+                            android:maxLength="140"
+                            android:autoLink="all"
+                            android:layout_marginTop="22dp"
+                            android:layout_alignLeft="@+id/tw_nombre_7" />
+
+                    </RelativeLayout>
+
+                    <!--- Tw 8 -->
+
+                    <RelativeLayout
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/preview_contenedor_tw_8">
+
+                        <cl.makeramen.RoundedImageView
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            app:corner_radius="20dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:id="@+id/foto_tw_8"
+                            android:src="@drawable/twitter_placeholder"
+                            android:background="#00000000"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginLeft="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:textColor="#6E6E6E"
+                            android:text="@string/empty"
+                            android:textStyle="bold"
+                            android:id="@+id/tw_nombre_8"
+                            android:layout_marginLeft="25dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_toRightOf="@+id/foto_tw_8"
+                            android:layout_marginTop="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/empty"
+                            android:textSize="14sp"
+                            android:textColor="#6E6E6E"
+                            android:textStyle="bold"
+                            android:id="@+id/tw_nombre_usuario_8"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="220dp"
+                            android:layout_marginTop="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:textColor="#6E6E6E"
+                            android:text=""
+                            android:id="@+id/tw_texto_8"
+                            android:gravity="top"
+                            android:height="60dp"
+                            android:maxLines="3"
+                            android:autoLink="all"
+                            android:maxLength="140"
+                            android:layout_marginTop="22dp"
+                            android:layout_alignLeft="@+id/tw_nombre_8" />
+
+                    </RelativeLayout>
+
+                    <!--- Tw 9 -->
+
+                    <RelativeLayout
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/preview_contenedor_tw_9">
+
+                        <cl.makeramen.RoundedImageView
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            app:corner_radius="20dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:id="@+id/foto_tw_9"
+                            android:src="@drawable/twitter_placeholder"
+                            android:background="#00000000"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginLeft="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:textColor="#6E6E6E"
+                            android:text="@string/empty"
+                            android:textStyle="bold"
+                            android:id="@+id/tw_nombre_9"
+                            android:layout_marginLeft="25dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_toRightOf="@+id/foto_tw_9"
+                            android:layout_marginTop="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/empty"
+                            android:textSize="14sp"
+                            android:textColor="#6E6E6E"
+                            android:textStyle="bold"
+                            android:id="@+id/tw_nombre_usuario_9"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="220dp"
+                            android:layout_marginTop="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:textColor="#6E6E6E"
+                            android:text="@string/empty"
+                            android:id="@+id/tw_texto_9"
+                            android:gravity="top"
+                            android:height="60dp"
+                            android:maxLines="3"
+                            android:maxLength="140"
+                            android:autoLink="all"
+                            android:layout_marginTop="22dp"
+                            android:layout_alignLeft="@+id/tw_nombre_9" />
+
+                    </RelativeLayout>
+
+                    <!--- Tw 10 -->
+
+                    <RelativeLayout
+                        android:clipChildren="true"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/preview_contenedor_tw_10">
+
+                        <cl.makeramen.RoundedImageView
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            app:corner_radius="20dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:id="@+id/foto_tw_10"
+                            android:src="@drawable/twitter_placeholder"
+                            android:background="#00000000"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginLeft="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:textColor="#6E6E6E"
+                            android:text="@string/empty"
+                            android:textStyle="bold"
+                            android:id="@+id/tw_nombre_10"
+                            android:layout_marginLeft="25dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_toRightOf="@+id/foto_tw_10"
+                            android:layout_marginTop="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/empty"
+                            android:textSize="14sp"
+                            android:textColor="#6E6E6E"
+                            android:textStyle="bold"
+                            android:id="@+id/tw_nombre_usuario_10"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="220dp"
+                            android:layout_marginTop="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:textColor="#6E6E6E"
+                            android:text="@string/empty"
+                            android:id="@+id/tw_texto_10"
+                            android:gravity="top"
+                            android:height="60dp"
+                            android:maxLines="3"
+                            android:maxLength="140"
+                            android:autoLink="all"
+                            android:layout_marginTop="22dp"
+                            android:layout_alignLeft="@+id/tw_nombre_10" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/container_notws"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:background="@drawable/no_tweets"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_width="345dp"
+            android:layout_height="78dp"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="660dp"
+    android:minWidth="660dp"
+    android:background="#00000000"
+    android:layout_height="135dp">
+
+    <LinearLayout
+        android:id="@+id/contenedor_boton_borrar"
+        android:layout_alignParentRight="true"
+        android:layout_height="135dp"
+        android:minHeight="135dp"
+        android:minWidth="75dp"
+        android:layout_width="75dp"
+        android:layout_marginRight="-76dp">
+
+        <Button
+            android:id="@+id/boton_borrar"
+            android:textColor="@android:color/white"
+            android:background="#FF4444"
+            android:layout_height="135dp"
+            android:layout_width="75dp"
+            android:text="Delete"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/contenedor_programa_historial"
+        android:minWidth="660dp"
+        android:minHeight="135dp"
+        android:layout_height="135dp"
+        android:layout_width="660dp">
+
+        <!-- Margenes-->
+
+        <ImageView
+            android:layout_marginBottom="1dp"
+            android:background="@android:color/white"
+            android:layout_height="1dp"
+            android:alpha="0.3"
+            android:layout_alignParentBottom="true"
+            android:layout_width="585dp"
+            android:layout_marginLeft="75dp" />
+        <ImageView
+            android:background="#FFFFFF"
+            android:layout_width="2dp"
+            android:layout_height="135dp"
+            android:layout_marginLeft="75dp"/>
+        <ImageView
+            android:layout_alignParentLeft="true"
+            android:layout_height="135dp"
+            android:layout_width="2dp"
+            android:background="#FFFFFF"
+            android:layout_marginLeft="75dp"/>
+
+        <!-- Imagen principal-->
+
+        <ImageView
+            android:id="@+id/feed_imagen_back"
+            android:layout_height="78dp"
+            android:layout_width="78dp"
+            android:background="@android:color/white"
+            android:layout_marginLeft="37dp"
+            android:layout_marginTop="27dp" />
+
+        <ImageView
+            android:id="@+id/feed_imagen"
+            android:background="@drawable/feed_small_placeholder"
+            android:layout_height="74dp"
+            android:layout_width="74dp"
+            android:layout_marginLeft="39dp"
+            android:layout_marginTop="29dp" />
+
+        <!-- Nombre de la Accion-->
+        <TextView
+            android:id="@+id/feed_accion"
+            android:text="Hola"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            android:layout_toRightOf="@+id/feed_imagen"
+            android:layout_marginLeft="26dp"
+            android:layout_alignTop="@+id/feed_imagen"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginTop="3dp" />
+
+        <!-- Detalle de la Acción-->
+        <TextView
+            android:id="@+id/feed_feed_detalle_accion"
+            android:layout_alignLeft="@+id/feed_accion"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Esteban"
+            android:layout_below="@+id/feed_accion"
+            android:textColor="@android:color/white"
+            android:textSize="13sp"
+            android:layout_marginTop="3dp" />
+
+        <!-- icono Time-->
+        <ImageView
+            android:id="@+id/feed_icono_time"
+            android:background="@drawable/timer_icon"
+            android:layout_alignLeft="@id/feed_accion"
+            android:layout_below="@+id/feed_feed_detalle_accion"
+            android:layout_height="21dp"
+            android:layout_width="21dp"
+            android:layout_marginTop="17dp" />
+
+        <!-- Fecha -->
+        <TextView
+            android:text="2446-46-56"
+            android:id="@+id/feed_fecha"
+            android:textColor="@android:color/white"
+            android:layout_toRightOf="@+id/feed_icono_time"
+            android:layout_alignBottom="@+id/feed_icono_time"
+            android:layout_marginLeft="7dp"
+            android:textSize="11dp"
+            android:alpha="0.7"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content" />
+
+        <!-- Imagen Secundaria-->
+        <ImageView
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="70dp"
+            android:background="#00000000"
+            android:id="@+id/feed_imagen_accion"
+            android:layout_height="74dp"
+            android:layout_width="72dp" />
+
+        <!-- Contenedor imagenes para amigos-->
+        <RelativeLayout
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="30dp"
+            android:layout_height="135dp"
+            android:layout_width="360dp">
+
+            <!-- Amigo 1-->
+            <ImageView
+                android:id="@+id/feed_foto_amigo_1"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentBottom="true"
+                android:visibility="gone"
+                android:layout_alignParentRight="true"
+                android:background="@android:color/white"
+                android:layout_height="45dp"
+                android:layout_width="45dp"/>
+
+            <!-- Amigo 2-->
+            <ImageView
+                android:id="@+id/feed_foto_amigo_2"
+                android:layout_alignParentBottom="true"
+                android:visibility="gone"
+                android:layout_marginRight="5dp"
+                android:background="@android:color/white"
+                android:layout_toLeftOf="@+id/feed_foto_amigo_1"
+                android:layout_height="45dp"
+                android:layout_width="45dp"/>
+
+            <!-- Amigo 3-->
+            <ImageView
+                android:id="@+id/feed_foto_amigo_3"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="5dp"
+                android:visibility="gone"
+                android:background="@android:color/white"
+                android:layout_toLeftOf="@+id/feed_foto_amigo_2"
+                android:layout_height="45dp"
+                android:layout_width="45dp"/>
+
+            <!-- Amigo 4-->
+            <ImageView
+                android:id="@+id/feed_foto_amigo_4"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="5dp"
+                android:visibility="gone"
+                android:background="@android:color/white"
+                android:layout_toLeftOf="@+id/feed_foto_amigo_3"
+                android:layout_height="45dp"
+                android:layout_width="45dp"/>
+
+            <!-- Amigo 5-->
+            <ImageView
+                android:id="@+id/feed_foto_amigo_5"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="5dp"
+                android:visibility="gone"
+                android:background="@android:color/white"
+                android:layout_toLeftOf="@+id/feed_foto_amigo_4"
+                android:layout_height="45dp"
+                android:layout_width="45dp"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/feed_cantidad_amigos"
+            android:layout_marginTop="105dp"
+            android:layout_marginRight="10dp"
+            android:alpha="0.5"
+            android:textSize="10sp"
+            android:textColor="@android:color/white"
+            android:text="akndsvondsvofd"
+            android:visibility="gone"
+            android:layout_alignParentRight="true"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
