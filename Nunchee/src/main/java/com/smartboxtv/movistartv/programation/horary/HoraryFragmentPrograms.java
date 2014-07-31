@@ -33,6 +33,7 @@ import com.smartboxtv.movistartv.data.models.Channel;
 import com.smartboxtv.movistartv.data.models.Program;
 import com.smartboxtv.movistartv.data.modelssm.ChannelSM;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
+import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.programation.delegates.BarDayDelegate;
 import com.smartboxtv.movistartv.programation.delegates.HorizontalScrollViewDelegate;
 import com.smartboxtv.movistartv.programation.customize.HorizontalScrollViewCustom;
@@ -58,7 +59,9 @@ import java.util.List;
 public class HoraryFragmentPrograms extends Fragment {
 
     private BarDayDelegate barDayDelegate;
+
     private static final String SERVICES_URL = "http://190.215.44.18/wcfNunchee2/GLFService.svc/Programs/";
+    private static final String SERVICES_URL_AMAZON = "http://nunchee.sbtvapps.com/GLFService.svc/Programs/";
 
     private RelativeLayout containerLoading;
 
@@ -256,6 +259,26 @@ public class HoraryFragmentPrograms extends Fragment {
         chargeLess.setVisibility(View.GONE);
         loadMore.setVisibility(View.GONE);
     }
+
+    public String getURL(Date date , String hh){
+        String url, parametros, parametros64;
+        String horas = hh;
+        if(((NUNCHEE)getActivity().getApplication()).CONNECT_AWS = false){
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ssZZZ");
+            parametros = format.format(date)+";"+UserPreference.getIdNunchee(getActivity())+";"+horas+"";
+            parametros64 = Base64.encodeToString(parametros.getBytes(), Base64.NO_WRAP);
+            url = SERVICES_URL+parametros64;
+        }
+        else{
+            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            parametros = format1.format(date)+";"+UserPreference.getIdNunchee(getActivity())+";"+horas+"";
+            parametros64 = Base64.encodeToString(parametros.getBytes(), Base64.NO_WRAP);
+            url = SERVICES_URL_AMAZON+parametros64;
+        }
+
+        return url;
+    }
+
     public void loadProgramation(Date d){
 
         loading();
@@ -275,14 +298,12 @@ public class HoraryFragmentPrograms extends Fragment {
                 barDayDelegate.updateFlag(true);
             }
         }
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ssZZZ");
-        String horas = "1";
-        String parametros = format.format(nowDate)+";"+UserPreference.getIdNunchee(getActivity())+";"+horas+"";
-        String parametros64 = Base64.encodeToString(parametros.getBytes(), Base64.NO_WRAP);
-        String url = SERVICES_URL+parametros64;
-        Log.e("URL programacion",url);
+
+
+        Log.e("URL programacion",getURL(nowDate,"1"));
+
         final AQuery aq = new AQuery(getActivity());
-        aq.ajax(url, JSONObject.class, new AjaxCallback<JSONObject>(){
+        aq.ajax(getURL(nowDate,"1"), JSONObject.class, new AjaxCallback<JSONObject>(){
 
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
@@ -325,8 +346,7 @@ public class HoraryFragmentPrograms extends Fragment {
                         llistBoolean = new boolean[jsonArray.length()];
                         JSONArray jProgramas = jsonArray.getJSONObject(i).getJSONArray("Programs");
 
-                        Log.e("Count canal","--> "+i);
-
+                        //Log.e("Count canal","--> "+i);
                         if(jProgramas.length()>0){
 
                             count++;
@@ -799,11 +819,12 @@ public class HoraryFragmentPrograms extends Fragment {
             //final Date now = ;
             aq = new AQuery(getActivity());
             final Date date = new Date(dateActualShow.getTime()+9000000);
-            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ssZZZ");
+            /*SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ssZZZ");
             String horas = "2";
             String parametros = format.format(date)+";"+UserPreference.getIdNunchee(getActivity())+";"+horas+"";
             String parametros64 = Base64.encodeToString(parametros.getBytes(), Base64.NO_WRAP);
-            url = SERVICES_URL+parametros64;
+            url = SERVICES_URL+parametros64;*/
+            url = getURL(new Date(dateActualShow.getTime()+9000000), "2");
             inf = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 

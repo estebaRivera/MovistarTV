@@ -16,6 +16,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -105,11 +106,26 @@ public class SearchActivity extends ActionBarActivity {
 
         //ManagerAnimation.fade(wrapper,arrow,exit);
 
+
+        editText.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ( (keyCode == KeyEvent.KEYCODE_SEARCH)) {
+                    clean();
+                    loading();
+                    search(editText.getText().toString());
+                    return true;
+                }
+
+                return false;
+            }
+        });
+
         //String text;
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.e("palabra", editText.getText().toString());
+                clean();
                 loading();
                 search(editText.getText().toString());
 
@@ -138,8 +154,8 @@ public class SearchActivity extends ActionBarActivity {
     public void clean(){
         RelativeLayout n = (RelativeLayout) findViewById(R.id.no_result);
         n.setVisibility(View.GONE);
-        RelativeLayout r = (RelativeLayout) findViewById(R.id.no_result);
-        r.removeAllViews();
+        /*RelativeLayout r = (RelativeLayout) findViewById(R.id.no_result);
+        r.removeAllViews();*/
     }
 
 
@@ -255,7 +271,9 @@ public class SearchActivity extends ActionBarActivity {
             }
         }
         else{
+            Log.e("No resultado","zdgfgzdg");
             contenedorNoResult.setVisibility(View.VISIBLE);
+            contenedorNoResult.bringToFront();
         }
     }
 

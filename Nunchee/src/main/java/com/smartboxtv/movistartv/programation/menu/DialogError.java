@@ -3,6 +3,7 @@ package com.smartboxtv.movistartv.programation.menu;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,26 +17,32 @@ import com.smartboxtv.movistartv.R;
  */
 public class DialogError extends DialogFragment {
 
+    private String mensaje = "";
+
     public DialogError(String error) {
-        String error1 = error;
+        setStyle(DialogFragment.STYLE_NO_TITLE, getTheme());
+        mensaje = error;
     }
 
     public DialogError() {
         setStyle(DialogFragment.STYLE_NO_TITLE, getTheme());
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.dialog_error,container,false);
         TextView txtError = (TextView) (rootView != null ? rootView.findViewById(R.id.text_error) : null);
-        TextView txtError2 = (TextView) rootView.findViewById(R.id.text_error_2);
+        Button aceptar = (Button) rootView.findViewById(R.id.button_aceptar);
         Typeface bold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SegoeWP-Bold.ttf");
         Typeface normal = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SegoeWP.ttf");
         txtError.setTypeface(bold);
-        txtError2.setTypeface(normal);
+        aceptar.setTypeface(normal);
 
-        Button aceptar = (Button) rootView.findViewById(R.id.text_error_2);
+        if(txtError.length() > 1){
+            txtError.setText(mensaje);
+        }
 
         aceptar.setOnClickListener(new View.OnClickListener() {
             @Override

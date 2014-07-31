@@ -32,6 +32,8 @@ public class RecommendedFragment extends Fragment {
     private RelativeLayout relative;
     private RecommendedDelegate delegate;
 
+    private View rootView;
+
     public RecommendedFragment() {
 
     }
@@ -39,7 +41,7 @@ public class RecommendedFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.recommended_fragment, container, false);
+        rootView = inflater.inflate(R.layout.recommended_fragment, container, false);
         translate = AnimationUtils.loadAnimation(getActivity(), R.anim.derecha_bounce);
         zoomPress = AnimationUtils.loadAnimation(getActivity(), R.anim.zoom_in_press);
 
@@ -107,5 +109,12 @@ public class RecommendedFragment extends Fragment {
 
         AQuery aq = new AQuery(getView());
         aq.id(R.id.foto_recomendacion).image(p.getListaImage().get(0).getImagePath());
+    }
+
+    public void gone(){
+       rootView.setVisibility(View.GONE);
+    }
+    public void visible(){
+        rootView.setVisibility(View.VISIBLE);
     }
 }

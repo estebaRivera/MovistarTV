@@ -11,6 +11,8 @@ import com.facebook.Session;
 public class NUNCHEE extends Application {
 
     public Session session = null;
+    public boolean CONNECT_AWS = false;
+    public boolean CONNECT_NEW_SERVICES = false;
 
     @Override
     public void onLowMemory() {

@@ -620,21 +620,6 @@
     </breakpoint_any>
     <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
-      <breakpoint url="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/horary/HoraryFragmentPrograms.java" line="869" class="com.smartboxtv.movistartv.programation.horary.HoraryFragmentPrograms.MyClass$1" package="com.smartboxtv.movistartv.programation.horary">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
       <breakpoint url="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/social/DialogShare.java" line="77" class="com.smartboxtv.movistartv.social.DialogShare" package="com.smartboxtv.movistartv.social">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
@@ -708,11 +693,8 @@
       <file leaf-file-name="LoginActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/LoginActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="184" column="56" selection-start="6911" selection-end="6911" vertical-scroll-proportion="0.0" vertical-offset="1853" max-vertical-offset="8177">
-              <folding>
-                <element signature="e#5978#10258#0" expanded="true" />
-                <element signature="e#10239#10240#0" expanded="true" />
-              </folding>
+            <state line="260" column="39" selection-start="11045" selection-end="11045" vertical-scroll-proportion="0.0" vertical-offset="3128" max-vertical-offset="8109">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -720,25 +702,40 @@
       <file leaf-file-name="HoraryFragmentPrograms.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/horary/HoraryFragmentPrograms.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="572" column="35" selection-start="27028" selection-end="27028" vertical-scroll-proportion="-25.0" vertical-offset="8020" max-vertical-offset="17034">
-              <folding />
+            <state line="348" column="56" selection-start="13503" selection-end="13503" vertical-scroll-proportion="0.0" vertical-offset="4628" max-vertical-offset="17425">
+              <folding>
+                <element signature="e#35979#39265#0" expanded="true" />
+                <element signature="e#39250#39251#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SecondPreviewActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/SecondPreviewActivity.java">
+      <file leaf-file-name="NUNCHEE.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/fragments/NUNCHEE.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="114" column="41" selection-start="4250" selection-end="4250" vertical-scroll-proportion="0.0" vertical-offset="918" max-vertical-offset="9469">
+            <state line="13" column="38" selection-start="323" selection-end="323" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="544">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="second_preview.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Nunchee/src/main/res/layout-xlarge/second_preview.xml">
+      <file leaf-file-name="DialogError.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/menu/DialogError.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="5" selection-start="637" selection-end="637" vertical-scroll-proportion="0.0" vertical-offset="157" max-vertical-offset="1054">
+              <folding>
+                <element signature="e#1517#1675#0" expanded="true" />
+                <element signature="e#1664#1665#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dialog_error.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Nunchee/src/main/res/layout/dialog_error.xml">
           <provider editor-type-id="text-editor">
-            <state line="12" column="4" selection-start="382" selection-end="523" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2839">
+            <state line="41" column="43" selection-start="1509" selection-end="1509" vertical-scroll-proportion="0.0" vertical-offset="131" max-vertical-offset="1003">
               <folding />
             </state>
           </provider>
@@ -747,10 +744,102 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="second_preview.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Nunchee/src/main/res/layout-large/second_preview.xml">
+      <file leaf-file-name="DataLoader.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/services/DataLoader.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="975" column="80" selection-start="37079" selection-end="37079" vertical-scroll-proportion="-0.65384614" vertical-offset="16558" max-vertical-offset="25160">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#4330#4340#0" expanded="true" />
+                <element signature="e#4743#4759#0" expanded="true" />
+                <element signature="e#5139#5754#0" expanded="true" />
+                <element signature="e#5743#5744#0" expanded="true" />
+                <element signature="e#6153#7177#0" expanded="true" />
+                <element signature="e#6368#6377#0" expanded="true" />
+                <element signature="e#7166#7167#0" expanded="true" />
+                <element signature="e#7583#8281#0" expanded="true" />
+                <element signature="e#7807#7825#0" expanded="true" />
+                <element signature="e#8270#8271#0" expanded="true" />
+                <element signature="e#9080#10403#0" expanded="true" />
+                <element signature="e#9304#9313#0" expanded="true" />
+                <element signature="e#10392#10393#0" expanded="true" />
+                <element signature="e#11101#11304#0" expanded="true" />
+                <element signature="e#11293#11294#0" expanded="true" />
+                <element signature="e#11969#12165#0" expanded="true" />
+                <element signature="e#12154#12155#0" expanded="true" />
+                <element signature="e#13551#13749#0" expanded="true" />
+                <element signature="e#13738#13739#0" expanded="true" />
+                <element signature="e#15061#16790#0" expanded="true" />
+                <element signature="e#15281#15290#0" expanded="true" />
+                <element signature="e#16779#16780#0" expanded="true" />
+                <element signature="e#17297#18430#0" expanded="true" />
+                <element signature="e#17515#17524#0" expanded="true" />
+                <element signature="e#18419#18420#0" expanded="true" />
+                <element signature="e#19184#20903#0" expanded="true" />
+                <element signature="e#20892#20893#0" expanded="true" />
+                <element signature="e#21402#22758#0" expanded="true" />
+                <element signature="e#22747#22748#0" expanded="true" />
+                <element signature="e#23219#23619#0" expanded="true" />
+                <element signature="e#23608#23609#0" expanded="true" />
+                <element signature="e#24112#25465#0" expanded="true" />
+                <element signature="e#25454#25455#0" expanded="true" />
+                <element signature="e#26133#28072#0" expanded="true" />
+                <element signature="e#28061#28062#0" expanded="true" />
+                <element signature="e#28431#29152#0" expanded="true" />
+                <element signature="e#28654#28671#0" expanded="true" />
+                <element signature="e#29141#29142#0" expanded="true" />
+                <element signature="e#29613#30605#0" expanded="true" />
+                <element signature="e#29839#29856#0" expanded="true" />
+                <element signature="e#30594#30595#0" expanded="true" />
+                <element signature="e#30907#30923#0" expanded="true" />
+                <element signature="e#31151#31554#0" expanded="true" />
+                <element signature="e#31543#31544#0" expanded="true" />
+                <element signature="e#32009#33066#0" expanded="true" />
+                <element signature="e#32236#32250#0" expanded="true" />
+                <element signature="e#33055#33056#0" expanded="true" />
+                <element signature="e#34121#35691#0" expanded="true" />
+                <element signature="e#34337#34346#0" expanded="true" />
+                <element signature="e#35680#35681#0" expanded="true" />
+                <element signature="e#36216#36424#0" expanded="true" />
+                <element signature="e#36413#36414#0" expanded="true" />
+                <element signature="e#37317#37318#0" expanded="true" />
+                <element signature="e#37843#38059#0" expanded="true" />
+                <element signature="e#38048#38049#0" expanded="true" />
+                <element signature="e#38528#40015#0" expanded="true" />
+                <element signature="e#38745#38754#0" expanded="true" />
+                <element signature="e#39399#39406#0" expanded="true" />
+                <element signature="e#40004#40005#0" expanded="true" />
+                <element signature="e#41464#42374#0" expanded="true" />
+                <element signature="e#41853#41865#0" expanded="true" />
+                <element signature="e#42363#42364#0" expanded="true" />
+                <element signature="e#42696#43743#0" expanded="true" />
+                <element signature="e#43093#43113#0" expanded="true" />
+                <element signature="e#43732#43733#0" expanded="true" />
+                <element signature="e#47138#47167#1" expanded="true" />
+                <element signature="e#48540#48541#0" expanded="true" />
+                <element signature="e#48577#48578#0" expanded="true" />
+                <element signature="e#48664#48665#0" expanded="true" />
+                <element signature="e#48708#48709#0" expanded="true" />
+                <element signature="e#49110#49120#0" expanded="true" />
+                <element signature="e#51642#51649#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FavoriteFragmentDay.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/favorites/FavoriteFragmentDay.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="183" column="33" selection-start="6149" selection-end="6149" vertical-scroll-proportion="-14.692307" vertical-offset="1743" max-vertical-offset="14909">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="action_bar_search.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Nunchee/src/main/res/layout/action_bar_search.xml">
           <provider editor-type-id="text-editor">
-            <state line="16" column="0" selection-start="524" selection-end="524" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2533">
+            <state line="151" column="44" selection-start="5686" selection-end="5686" vertical-scroll-proportion="0.0" vertical-offset="2001" max-vertical-offset="2873">
               <folding />
             </state>
           </provider>
@@ -759,45 +848,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PreviewActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/PreviewActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="1057" column="67" selection-start="44353" selection-end="44353" vertical-scroll-proportion="0.0" vertical-offset="14984" max-vertical-offset="33609">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RecommendedActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/RecommendedActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="181" column="82" selection-start="7599" selection-end="7599" vertical-scroll-proportion="0.0" vertical-offset="2271" max-vertical-offset="3842">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PlayerActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/PlayerActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="456" column="59" selection-start="19091" selection-end="19091" vertical-scroll-proportion="0.0" vertical-offset="6352" max-vertical-offset="6885">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SearchActivity.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="SearchActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/SearchActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="133" column="13" selection-start="5386" selection-end="5386" vertical-scroll-proportion="-16.5" vertical-offset="761" max-vertical-offset="4709">
+            <state line="176" column="49" selection-start="6647" selection-end="6647" vertical-scroll-proportion="0.6096441" vertical-offset="1271" max-vertical-offset="4760">
               <folding>
-                <element signature="e#4972#5166#0" expanded="true" />
-                <element signature="e#5155#5156#0" expanded="true" />
-                <element signature="e#5202#5396#0" expanded="true" />
-                <element signature="e#8577#10607#0" expanded="true" />
-                <element signature="e#10588#10589#0" expanded="true" />
-                <element signature="e#12850#12995#0" expanded="true" />
-                <element signature="e#12984#12985#0" expanded="true" />
+                <element signature="e#4487#4871#0" expanded="true" />
+                <element signature="e#4860#4861#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -806,12 +863,8 @@
       <file leaf-file-name="ProgramationActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/ProgramationActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="908" column="42" selection-start="38547" selection-end="38547" vertical-scroll-proportion="-6.423077" vertical-offset="14402" max-vertical-offset="23324">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#38090#39226#0" expanded="true" />
-                <element signature="e#39215#39216#0" expanded="true" />
-              </folding>
+            <state line="1038" column="21" selection-start="44191" selection-end="44218" vertical-scroll-proportion="0.0" vertical-offset="14858" max-vertical-offset="22049">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -839,19 +892,19 @@
         <entry>
           <key>
             <ExternalProjectPojo>
-              <option name="name" value="NuncheeProject" />
+              <option name="name" value="MovistarTV" />
               <option name="path" value="$PROJECT_DIR$" />
             </ExternalProjectPojo>
           </key>
           <value>
             <list>
               <ExternalProjectPojo>
-                <option name="name" value="NuncheeProject" />
-                <option name="path" value="$PROJECT_DIR$" />
-              </ExternalProjectPojo>
-              <ExternalProjectPojo>
                 <option name="name" value=":Nunchee" />
                 <option name="path" value="$PROJECT_DIR$/Nunchee" />
+              </ExternalProjectPojo>
+              <ExternalProjectPojo>
+                <option name="name" value="MovistarTV" />
+                <option name="path" value="$PROJECT_DIR$" />
               </ExternalProjectPojo>
               <ExternalProjectPojo>
                 <option name="name" value=":facebook" />
@@ -1160,9 +1213,9 @@
                 <option name="name" value="prepareDebugTestDependencies" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare NuncheeProject:facebook:unspecified" />
+                <option name="description" value="Prepare MovistarTV:facebook:unspecified" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/Nunchee" />
-                <option name="name" value="prepareNuncheeProjectFacebookUnspecifiedLibrary" />
+                <option name="name" value="prepareMovistarTVFacebookUnspecifiedLibrary" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/Nunchee" />
@@ -1622,11 +1675,6 @@
         </entry>
       </map>
     </option>
-    <option name="modificationStamps">
-      <map>
-        <entry key="$PROJECT_DIR$" value="1397846755289" />
-      </map>
-    </option>
     <option name="projectBuildClasspath">
       <map>
         <entry key="$PROJECT_DIR$">
@@ -1861,7 +1909,7 @@
                   </entry>
                 </map>
               </option>
-              <option name="name" value="NuncheeProject" />
+              <option name="name" value="Nunchee" />
               <option name="projectBuildClasspath">
                 <list>
                   <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-1.10-all/6vpvhqu0efs1fqmqr2decq1v12/gradle-1.10/lib/plugins/gradle-ivy-1.10.jar" />
@@ -1957,16 +2005,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/Adapter/AdapterPagerTutorial.java" />
-        <option value="$PROJECT_DIR$/Nunchee/src/main/res/layout/tutorial_activity.xml" />
-        <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/data/modelssm/TokenIssue.java" />
-        <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/data/modelssm/LiveStreamSchedule.java" />
-        <option value="$PROJECT_DIR$/Nunchee/src/main/res/layout-large/slide_menu.xml" />
-        <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/services/DataLoader.java" />
-        <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/data/modelssm/LiveStream.java" />
-        <option value="$PROJECT_DIR$/Nunchee/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/data/preference/UserPreference.java" />
-        <option value="$PROJECT_DIR$/Nunchee/src/main/res/layout/tutorial_fragment.xml" />
         <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/TutorialActivity.java" />
         <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/fragments/TutorialFragment.java" />
         <option value="$PROJECT_DIR$/Nunchee/src/main/res/layout-large/preview_fragment.xml" />
@@ -1978,7 +2016,6 @@
         <option value="$PROJECT_DIR$/Nunchee/src/main/res/layout-large/preview_fg_poll_max.xml" />
         <option value="$PROJECT_DIR$/Nunchee/src/main/res/layout-xlarge/preview_fg_poll_max.xml" />
         <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/data/Global.java" />
-        <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/fragments/NUNCHEE.java" />
         <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/social/SocialUtil.java" />
         <option value="$PROJECT_DIR$/Nunchee/src/main/res/layout/facebook_compose.xml" />
         <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/social/DialogShare.java" />
@@ -1991,7 +2028,6 @@
         <option value="$PROJECT_DIR$/Nunchee/src/main/res/layout-xlarge/element_tweets.xml" />
         <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/data/models/Channel.java" />
         <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/preview/ActionFragment.java" />
-        <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/favorites/FavoriteFragmentDay.java" />
         <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/LoginActivity.java" />
         <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/horary/HoraryFragment.java" />
         <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/menu/NotificationFragment.java" />
@@ -1999,23 +2035,35 @@
         <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/menu/SearchFragment.java" />
         <option value="$PROJECT_DIR$/Nunchee/src/main/res/layout-large/action_bar_search.xml" />
         <option value="$PROJECT_DIR$/Nunchee/src/main/res/layout/action_bar_2_search_a.xml" />
-        <option value="$PROJECT_DIR$/Nunchee/src/main/res/layout/action_bar_search.xml" />
         <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/ProgramationActivity.java" />
-        <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/RecommendedActivity.java" />
         <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/preview/PreviewFragment.java" />
-        <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/SearchActivity.java" />
-        <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/PreviewActivity.java" />
-        <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/horary/HoraryFragmentPrograms.java" />
         <option value="$PROJECT_DIR$/Nunchee/src/main/res/layout-xlarge/second_preview.xml" />
         <option value="$PROJECT_DIR$/Nunchee/src/main/res/layout-large/second_preview.xml" />
+        <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/PlayerActivity.java" />
+        <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/SecondPreviewActivity.java" />
+        <option value="$PROJECT_DIR$/Nunchee/src/main/res/anim/fade_out_activity.xml" />
+        <option value="$PROJECT_DIR$/Nunchee/src/main/res/layout/dialog_error.xml" />
+        <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/menu/DialogError.java" />
+        <option value="$PROJECT_DIR$/Nunchee/src/main/res/layout-large/recommended_activity.xml" />
+        <option value="$PROJECT_DIR$/Nunchee/src/main/res/layout-xlarge/recommended_activity.xml" />
+        <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/fragments/RecommendedFragment.java" />
+        <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/RecommendedActivity.java" />
+        <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/horary/HoraryFragmentPrograms.java" />
+        <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/PreviewActivity.java" />
+        <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/adapters/CategoryAdapterContainer.java" />
+        <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/fragments/NUNCHEE.java" />
+        <option value="$PROJECT_DIR$/Nunchee/src/main/res/layout/action_bar_search.xml" />
+        <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/favorites/FavoriteFragmentDay.java" />
+        <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/services/DataLoader.java" />
+        <option value="$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/SearchActivity.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
+    <option name="x" value="1358" />
     <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -2062,6 +2110,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -2077,7 +2126,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="NuncheeProject" />
+              <option name="myItemId" value="MovistarTV" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2087,7 +2136,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="NuncheeProject" />
+              <option name="myItemId" value="MovistarTV" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -2101,29 +2150,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="NuncheeProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Nunchee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NuncheeProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NuncheeProject" />
+              <option name="myItemId" value="MovistarTV" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -2138,10 +2165,6 @@
               <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -2149,7 +2172,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="NuncheeProject" />
+              <option name="myItemId" value="MovistarTV" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -2168,10 +2191,6 @@
               <option name="myItemId" value="res" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout-large" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -2179,7 +2198,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="NuncheeProject" />
+              <option name="myItemId" value="MovistarTV" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -2199,7 +2218,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
+              <option name="myItemId" value="anim" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2209,7 +2228,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="NuncheeProject" />
+              <option name="myItemId" value="MovistarTV" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -2236,10 +2255,6 @@
               <option name="myItemId" value="movistartv" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="social" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -2247,7 +2262,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="NuncheeProject" />
+              <option name="myItemId" value="MovistarTV" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -2285,7 +2300,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="NuncheeProject" />
+              <option name="myItemId" value="MovistarTV" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -2323,133 +2338,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="NuncheeProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Nunchee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="movistartv" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="programation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="menu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NuncheeProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NuncheeProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Nunchee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="movistartv" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="programation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="horary" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NuncheeProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NuncheeProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Nunchee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="movistartv" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="programation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="adapterssm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NuncheeProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NuncheeProject" />
+              <option name="myItemId" value="MovistarTV" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -2487,79 +2376,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="NuncheeProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Nunchee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="movistartv" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NuncheeProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NuncheeProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Nunchee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="movistartv" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="data" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NuncheeProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NuncheeProject" />
+              <option name="myItemId" value="MovistarTV" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -2597,7 +2414,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="NuncheeProject" />
+              <option name="myItemId" value="MovistarTV" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -2627,7 +2444,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="NuncheeProject" />
+              <option name="myItemId" value="MovistarTV" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -2649,7 +2466,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2674,7 +2490,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager2.WIDTH" value="332" />
-    <property name="SearchEverywhereHistory" value="|&#10;tDate&#10;F" />
+    <property name="SearchEverywhereHistory" value="&#10;|&#10;tDate&#10;F" />
     <property name="ExportedModule" value="Nunchee" />
     <property name="ExportedApkPath" value="C:\Users\Esteban-\AndroidStudioProjects\NuncheeProject\Nunchee\Nunchee.apk" />
     <property name="AndroidRunProguardForReleaseBuild" value="false" />
@@ -2719,19 +2535,6 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -2757,6 +2560,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2861,7 +2677,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="1358" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2870,8 +2686,8 @@
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329429" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3943662" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.56988084" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.46587217" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4225352" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289689" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -2885,7 +2701,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29721814" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24947916" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30769232" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -2912,89 +2728,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/res/layout-large/preview_fg_poll_min.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1734">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/res/layout-large/preview_fg_poll_max.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="713" column="28" selection-start="34852" selection-end="34929" vertical-scroll-proportion="-9.12" vertical-offset="2186" max-vertical-offset="4318">
-          <folding>
-            <element signature="tag#RelativeLayout#0;tag#RelativeLayout#0;tag#LinearLayout#0;tag#ScrollView#0" expanded="false" />
-            <element signature="tag#RelativeLayout#1;tag#RelativeLayout#0;tag#LinearLayout#0;tag#ScrollView#0" expanded="false" />
-            <element signature="tag#RelativeLayout#0;tag#LinearLayout#0;tag#RelativeLayout#2;tag#RelativeLayout#0;tag#LinearLayout#0;tag#ScrollView#0" expanded="false" />
-            <element signature="tag#RelativeLayout#1;tag#LinearLayout#0;tag#RelativeLayout#2;tag#RelativeLayout#0;tag#LinearLayout#0;tag#ScrollView#0" expanded="false" />
-            <element signature="tag#RelativeLayout#2;tag#LinearLayout#0;tag#RelativeLayout#2;tag#RelativeLayout#0;tag#LinearLayout#0;tag#ScrollView#0" expanded="false" />
-            <element signature="tag#RelativeLayout#3;tag#LinearLayout#0;tag#RelativeLayout#2;tag#RelativeLayout#0;tag#LinearLayout#0;tag#ScrollView#0" expanded="false" />
-            <element signature="tag#RelativeLayout#3;tag#RelativeLayout#0;tag#LinearLayout#0;tag#ScrollView#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/res/layout-xlarge/preview_fg_poll_max.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="741" column="59" selection-start="31299" selection-end="31299" vertical-scroll-proportion="-7.76" vertical-offset="1404" max-vertical-offset="3315">
-          <folding>
-            <element signature="tag#RelativeLayout#0;tag#RelativeLayout#0" expanded="false" />
-            <element signature="tag#RelativeLayout#1;tag#RelativeLayout#0" expanded="false" />
-            <element signature="tag#RelativeLayout#2;tag#RelativeLayout#0" expanded="false" />
-            <element signature="tag#RelativeLayout#0;tag#LinearLayout#0;tag#RelativeLayout#3;tag#RelativeLayout#0" expanded="false" />
-            <element signature="tag#RelativeLayout#1;tag#LinearLayout#0;tag#RelativeLayout#3;tag#RelativeLayout#0" expanded="false" />
-            <element signature="tag#RelativeLayout#2;tag#LinearLayout#0;tag#RelativeLayout#3;tag#RelativeLayout#0" expanded="false" />
-            <element signature="tag#RelativeLayout#3;tag#LinearLayout#0;tag#RelativeLayout#3;tag#RelativeLayout#0" expanded="false" />
-            <element signature="tag#RelativeLayout#4;tag#LinearLayout#0;tag#RelativeLayout#3;tag#RelativeLayout#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/fragments/NUNCHEE.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="4" selection-start="293" selection-end="293" vertical-scroll-proportion="0.18952063" vertical-offset="0" max-vertical-offset="897">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="19" selection-start="1157" selection-end="1157" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1258">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/preview/AnimationCustom.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="13" selection-start="384" selection-end="384" vertical-scroll-proportion="0.13266444" vertical-offset="0" max-vertical-offset="5678">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Android/android-studio/sdk/platforms/android-19/android.jar!/android/os/Looper.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="16" selection-start="766" selection-end="766" vertical-scroll-proportion="0.56920075" vertical-offset="116" max-vertical-offset="629" />
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Android/android-studio/sdk/platforms/android-19/android.jar!/android/os/Handler.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="16" selection-start="564" selection-end="564" vertical-scroll-proportion="0.33333334" vertical-offset="101" max-vertical-offset="1411" />
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Android/android-studio/sdk/platforms/android-19/android.jar!/android/view/View.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="20196" />
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Android/android-studio/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0-sources.jar!/android/support/v4/app/BackStackRecord.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="687" column="0" selection-start="24366" selection-end="24366" vertical-scroll-proportion="0.19063546" vertical-offset="10998" max-vertical-offset="12903" />
@@ -3012,16 +2745,14 @@
     </entry>
     <entry file="jar://C:/Program Files/Android/android-studio/sdk/platforms/android-19/android.jar!/android/widget/Toast.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="28" selection-start="193" selection-end="193" vertical-scroll-proportion="0.11371238" vertical-offset="0" max-vertical-offset="897">
-          <folding />
-        </state>
+        <state line="7" column="28" selection-start="193" selection-end="193" vertical-scroll-proportion="0.11371238" vertical-offset="0" max-vertical-offset="897" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/social/SocialUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="49" column="39" selection-start="1559" selection-end="1559" vertical-scroll-proportion="0.0" vertical-offset="616" max-vertical-offset="1768">
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3052,37 +2783,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/data/modelssm/TweetSM.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="4" selection-start="658" selection-end="658" vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="1343">
-          <folding>
-            <element signature="e#721#722#0" expanded="false" />
-            <element signature="e#748#749#0" expanded="false" />
-            <element signature="e#826#827#0" expanded="false" />
-            <element signature="e#858#859#0" expanded="false" />
-            <element signature="e#923#924#0" expanded="false" />
-            <element signature="e#950#951#0" expanded="false" />
-            <element signature="e#1024#1025#0" expanded="false" />
-            <element signature="e#1056#1057#0" expanded="false" />
-            <element signature="e#1121#1122#0" expanded="false" />
-            <element signature="e#1148#1149#0" expanded="false" />
-            <element signature="e#1222#1223#0" expanded="false" />
-            <element signature="e#1254#1255#0" expanded="false" />
-            <element signature="e#1332#1333#0" expanded="false" />
-            <element signature="e#1365#1366#0" expanded="false" />
-            <element signature="e#1458#1459#0" expanded="false" />
-            <element signature="e#1502#1503#0" expanded="false" />
-            <element signature="e#1569#1570#0" expanded="false" />
-            <element signature="e#1597#1598#0" expanded="false" />
-            <element signature="e#1674#1675#0" expanded="false" />
-            <element signature="e#1708#1709#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/services/DataLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="731" column="38" selection-start="30620" selection-end="30620" vertical-scroll-proportion="0.0" vertical-offset="9320" max-vertical-offset="19142">
-          <folding />
-        </state>
+        <state line="34" column="4" selection-start="658" selection-end="658" vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="1343" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/preview/PollMaxFragment.java">
@@ -3101,8 +2802,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="482" column="25" selection-start="21691" selection-end="21691" vertical-scroll-proportion="0.0" vertical-offset="7004" max-vertical-offset="10081">
           <folding>
-            <element signature="e#21090#22117#0" expanded="true" />
-            <element signature="e#22106#22107#0" expanded="true" />
+            <element signature="e#21090#22117#0" expanded="false" />
+            <element signature="e#22106#22107#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3159,16 +2860,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/categories/CategoryFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="11" selection-start="2201" selection-end="2201" vertical-scroll-proportion="0.0" vertical-offset="293" max-vertical-offset="1377">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/favorites/FavoriteFragmentDay.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="791" column="0" selection-start="35223" selection-end="35223" vertical-scroll-proportion="0.0" vertical-offset="11781" max-vertical-offset="14790">
-          <folding />
-        </state>
+        <state line="60" column="11" selection-start="2201" selection-end="2201" vertical-scroll-proportion="0.0" vertical-offset="293" max-vertical-offset="1377" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/horary/HoraryFragment.java">
@@ -3237,16 +2929,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/menu/DialogError.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="38" selection-start="1534" selection-end="1534" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="952">
-          <folding>
-            <element signature="e#1400#1558#0" expanded="true" />
-            <element signature="e#1547#1548#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Nunchee/src/main/res/layout/action_bar_2_search_a.xml">
       <provider editor-type-id="text-editor">
         <state line="113" column="36" selection-start="3931" selection-end="3931" vertical-scroll-proportion="0.0" vertical-offset="1100" max-vertical-offset="2091">
@@ -3257,51 +2939,13 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/res/layout/action_bar_search.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="32" selection-start="147" selection-end="147" vertical-scroll-proportion="-2.04" vertical-offset="0" max-vertical-offset="2873">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/ProgramationActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="908" column="42" selection-start="38547" selection-end="38547" vertical-scroll-proportion="-6.423077" vertical-offset="14402" max-vertical-offset="23324">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#38090#39226#0" expanded="true" />
-            <element signature="e#39215#39216#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/categories/CategoryFragmentBottomBar.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="47" column="39" selection-start="1953" selection-end="1953" vertical-scroll-proportion="0.018952062" vertical-offset="425" max-vertical-offset="1989">
           <folding>
-            <element signature="e#1781#2206#0" expanded="true" />
-            <element signature="e#2194#2195#0" expanded="true" />
+            <element signature="e#1781#2206#0" expanded="false" />
+            <element signature="e#2194#2195#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="184" column="56" selection-start="6911" selection-end="6911" vertical-scroll-proportion="0.0" vertical-offset="1853" max-vertical-offset="8177">
-          <folding>
-            <element signature="e#5978#10258#0" expanded="true" />
-            <element signature="e#10239#10240#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/PlayerActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="456" column="59" selection-start="19091" selection-end="19091" vertical-scroll-proportion="0.0" vertical-offset="6352" max-vertical-offset="6885">
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3314,52 +2958,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/fragments/TutorialFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="81" selection-start="1208" selection-end="1208" vertical-scroll-proportion="0.52583027" vertical-offset="123" max-vertical-offset="1088">
+        <state line="39" column="81" selection-start="1208" selection-end="1208" vertical-scroll-proportion="0.52583027" vertical-offset="123" max-vertical-offset="1088" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/res/layout-large/second_preview.xml">
+      <provider editor-type-id="text-editor">
+        <state line="16" column="0" selection-start="524" selection-end="524" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2533">
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/SearchActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="133" column="13" selection-start="5386" selection-end="5386" vertical-scroll-proportion="-16.5" vertical-offset="761" max-vertical-offset="4709">
-          <folding>
-            <element signature="e#4972#5166#0" expanded="true" />
-            <element signature="e#5155#5156#0" expanded="true" />
-            <element signature="e#5202#5396#0" expanded="true" />
-            <element signature="e#8577#10607#0" expanded="true" />
-            <element signature="e#10588#10589#0" expanded="true" />
-            <element signature="e#12850#12995#0" expanded="true" />
-            <element signature="e#12984#12985#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/RecommendedActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="181" column="82" selection-start="7599" selection-end="7599" vertical-scroll-proportion="0.0" vertical-offset="2271" max-vertical-offset="3842">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/PreviewActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1057" column="67" selection-start="44353" selection-end="44353" vertical-scroll-proportion="0.0" vertical-offset="14984" max-vertical-offset="33609">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/SecondPreviewActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="114" column="41" selection-start="4250" selection-end="4250" vertical-scroll-proportion="0.0" vertical-offset="918" max-vertical-offset="9469">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/horary/HoraryFragmentPrograms.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="572" column="35" selection-start="27028" selection-end="27028" vertical-scroll-proportion="-25.0" vertical-offset="8020" max-vertical-offset="17034">
-          <folding />
-        </state>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Nunchee/src/main/res/layout-xlarge/second_preview.xml">
@@ -3372,14 +2981,255 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/res/layout-large/second_preview.xml">
+    <entry file="jar://C:/Program Files/Android/android-studio/sdk/platforms/android-19/android.jar!/android/app/Activity.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="353" column="16" selection-start="15653" selection-end="15653" vertical-scroll-proportion="0.55576557" vertical-offset="5690" max-vertical-offset="7565">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/PlayerActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="244" column="16" selection-start="8644" selection-end="8709" vertical-scroll-proportion="0.0" vertical-offset="3009" max-vertical-offset="6987">
+          <folding>
+            <element signature="e#8532#8759#0" expanded="false" />
+            <element signature="e#8748#8749#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/SecondPreviewActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="292" column="81" selection-start="11955" selection-end="11955" vertical-scroll-proportion="-17.653847" vertical-offset="3434" max-vertical-offset="9571">
+          <folding>
+            <element signature="e#11752#11979#0" expanded="false" />
+            <element signature="e#11968#11969#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/res/anim/fade_out_activity.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="6" selection-start="321" selection-end="321" vertical-scroll-proportion="0.34501845" vertical-offset="0" max-vertical-offset="542">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/res/anim/fade_out.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="0" selection-start="39" selection-end="282" vertical-scroll-proportion="0.031365313" vertical-offset="0" max-vertical-offset="542">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/res/layout-large/recommended_activity.xml">
       <provider editor-type-id="text-editor">
-        <state line="16" column="0" selection-start="524" selection-end="524" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2533">
+        <state line="48" column="24" selection-start="1875" selection-end="1910" vertical-scroll-proportion="0.0" vertical-offset="452" max-vertical-offset="4386">
           <folding />
         </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/res/layout-xlarge/recommended_activity.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="62" column="0" selection-start="2550" selection-end="2550" vertical-scroll-proportion="-12.44" vertical-offset="743" max-vertical-offset="4403">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/res/layout/dialog_error.xml">
+      <provider editor-type-id="text-editor">
+        <state line="41" column="43" selection-start="1509" selection-end="1509" vertical-scroll-proportion="0.0" vertical-offset="131" max-vertical-offset="1003">
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/RecommendedActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="185" column="33" selection-start="7679" selection-end="7679" vertical-scroll-proportion="0.018952062" vertical-offset="2516" max-vertical-offset="4148">
+          <folding>
+            <element signature="e#2652#2819#0" expanded="true" />
+            <element signature="e#2808#2809#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/fragments/RecommendedFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="112" column="0" selection-start="3560" selection-end="3560" vertical-scroll-proportion="0.7346711" vertical-offset="803" max-vertical-offset="1700">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="260" column="39" selection-start="11045" selection-end="11045" vertical-scroll-proportion="0.0" vertical-offset="3128" max-vertical-offset="8109">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/ProgramationActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1038" column="21" selection-start="44191" selection-end="44218" vertical-scroll-proportion="0.0" vertical-offset="14858" max-vertical-offset="22049">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/horary/HoraryFragmentPrograms.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="348" column="56" selection-start="13503" selection-end="13503" vertical-scroll-proportion="0.0" vertical-offset="4628" max-vertical-offset="17425">
+          <folding>
+            <element signature="e#35979#39265#0" expanded="true" />
+            <element signature="e#39250#39251#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/PreviewActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="720" column="32" selection-start="28973" selection-end="28973" vertical-scroll-proportion="0.06387665" vertical-offset="9780" max-vertical-offset="33864">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/adapters/CategoryAdapterContainer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="66" column="34" selection-start="2245" selection-end="2245" vertical-scroll-proportion="0.33190578" vertical-offset="525" max-vertical-offset="3638">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/menu/DialogError.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="5" selection-start="637" selection-end="637" vertical-scroll-proportion="0.0" vertical-offset="157" max-vertical-offset="1054">
+          <folding>
+            <element signature="e#1517#1675#0" expanded="true" />
+            <element signature="e#1664#1665#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/fragments/NUNCHEE.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="38" selection-start="323" selection-end="323" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="544">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/programation/favorites/FavoriteFragmentDay.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="183" column="33" selection-start="6149" selection-end="6149" vertical-scroll-proportion="-14.692307" vertical-offset="1743" max-vertical-offset="14909">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/res/layout/action_bar_search.xml">
+      <provider editor-type-id="text-editor">
+        <state line="151" column="44" selection-start="5686" selection-end="5686" vertical-scroll-proportion="0.0" vertical-offset="2001" max-vertical-offset="2873">
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/services/DataLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="975" column="80" selection-start="37079" selection-end="37079" vertical-scroll-proportion="-0.65384614" vertical-offset="16558" max-vertical-offset="25160">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4330#4340#0" expanded="true" />
+            <element signature="e#4743#4759#0" expanded="true" />
+            <element signature="e#5139#5754#0" expanded="true" />
+            <element signature="e#5743#5744#0" expanded="true" />
+            <element signature="e#6153#7177#0" expanded="true" />
+            <element signature="e#6368#6377#0" expanded="true" />
+            <element signature="e#7166#7167#0" expanded="true" />
+            <element signature="e#7583#8281#0" expanded="true" />
+            <element signature="e#7807#7825#0" expanded="true" />
+            <element signature="e#8270#8271#0" expanded="true" />
+            <element signature="e#9080#10403#0" expanded="true" />
+            <element signature="e#9304#9313#0" expanded="true" />
+            <element signature="e#10392#10393#0" expanded="true" />
+            <element signature="e#11101#11304#0" expanded="true" />
+            <element signature="e#11293#11294#0" expanded="true" />
+            <element signature="e#11969#12165#0" expanded="true" />
+            <element signature="e#12154#12155#0" expanded="true" />
+            <element signature="e#13551#13749#0" expanded="true" />
+            <element signature="e#13738#13739#0" expanded="true" />
+            <element signature="e#15061#16790#0" expanded="true" />
+            <element signature="e#15281#15290#0" expanded="true" />
+            <element signature="e#16779#16780#0" expanded="true" />
+            <element signature="e#17297#18430#0" expanded="true" />
+            <element signature="e#17515#17524#0" expanded="true" />
+            <element signature="e#18419#18420#0" expanded="true" />
+            <element signature="e#19184#20903#0" expanded="true" />
+            <element signature="e#20892#20893#0" expanded="true" />
+            <element signature="e#21402#22758#0" expanded="true" />
+            <element signature="e#22747#22748#0" expanded="true" />
+            <element signature="e#23219#23619#0" expanded="true" />
+            <element signature="e#23608#23609#0" expanded="true" />
+            <element signature="e#24112#25465#0" expanded="true" />
+            <element signature="e#25454#25455#0" expanded="true" />
+            <element signature="e#26133#28072#0" expanded="true" />
+            <element signature="e#28061#28062#0" expanded="true" />
+            <element signature="e#28431#29152#0" expanded="true" />
+            <element signature="e#28654#28671#0" expanded="true" />
+            <element signature="e#29141#29142#0" expanded="true" />
+            <element signature="e#29613#30605#0" expanded="true" />
+            <element signature="e#29839#29856#0" expanded="true" />
+            <element signature="e#30594#30595#0" expanded="true" />
+            <element signature="e#30907#30923#0" expanded="true" />
+            <element signature="e#31151#31554#0" expanded="true" />
+            <element signature="e#31543#31544#0" expanded="true" />
+            <element signature="e#32009#33066#0" expanded="true" />
+            <element signature="e#32236#32250#0" expanded="true" />
+            <element signature="e#33055#33056#0" expanded="true" />
+            <element signature="e#34121#35691#0" expanded="true" />
+            <element signature="e#34337#34346#0" expanded="true" />
+            <element signature="e#35680#35681#0" expanded="true" />
+            <element signature="e#36216#36424#0" expanded="true" />
+            <element signature="e#36413#36414#0" expanded="true" />
+            <element signature="e#37317#37318#0" expanded="true" />
+            <element signature="e#37843#38059#0" expanded="true" />
+            <element signature="e#38048#38049#0" expanded="true" />
+            <element signature="e#38528#40015#0" expanded="true" />
+            <element signature="e#38745#38754#0" expanded="true" />
+            <element signature="e#39399#39406#0" expanded="true" />
+            <element signature="e#40004#40005#0" expanded="true" />
+            <element signature="e#41464#42374#0" expanded="true" />
+            <element signature="e#41853#41865#0" expanded="true" />
+            <element signature="e#42363#42364#0" expanded="true" />
+            <element signature="e#42696#43743#0" expanded="true" />
+            <element signature="e#43093#43113#0" expanded="true" />
+            <element signature="e#43732#43733#0" expanded="true" />
+            <element signature="e#47138#47167#1" expanded="true" />
+            <element signature="e#48540#48541#0" expanded="true" />
+            <element signature="e#48577#48578#0" expanded="true" />
+            <element signature="e#48664#48665#0" expanded="true" />
+            <element signature="e#48708#48709#0" expanded="true" />
+            <element signature="e#49110#49120#0" expanded="true" />
+            <element signature="e#51642#51649#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Nunchee/src/main/java/com/smartboxtv/movistartv/activities/SearchActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="176" column="49" selection-start="6647" selection-end="6647" vertical-scroll-proportion="0.6096441" vertical-offset="1271" max-vertical-offset="4760">
+          <folding>
+            <element signature="e#4487#4871#0" expanded="true" />
+            <element signature="e#4860#4861#0" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
   </component>

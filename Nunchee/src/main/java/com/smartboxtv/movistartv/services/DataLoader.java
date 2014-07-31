@@ -62,6 +62,7 @@ import com.smartboxtv.movistartv.data.models.UserTwitterJSON;
 import com.smartboxtv.movistartv.data.modelssm.LiveStream;
 import com.smartboxtv.movistartv.data.modelssm.LiveStreamSchedule;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
+import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.social.Facebook;
 import com.smartboxtv.movistartv.social.Twitter;
 
@@ -72,16 +73,19 @@ public class DataLoader {
     private final long EXPIRE = 10000;
 
     public static final String BASE_URL = "https://api.streammanager.co/api/";
-
     public static final String API_TOKEN = "8fc221e56408966fe7999c7c1edff220";
 
     private static final String SERVICES_URL_TRIVIA = "http://190.215.44.18/wcfTrivia/TriviaService.svc/";
+    private static final String SERVICES_URL_TRIVIA_AMAZON = "http://wcftrivia.sbtvapps.com/TriviaService.svc/";
 
     private static final String SERVICES_URL_POLLS = "http://190.215.44.18/wcfPolls/TriviaService.svc/";
+    private static final String SERVICES_URL_POLLS_AMAZON = "http://wcfpolls.sbtvapps.com/TriviaService.svc/";//"http://190.215.44.18/wcfPolls/TriviaService.svc/";
 
-    private static final String SERVICES_URL = "http://190.215.44.18/wcfNunchee2/GLFService.svc/";
+    private static final String SERVICES_URL =  "http://190.215.44.18/wcfNunchee2/GLFService.svc/";
+    private static final String SERVICES_URL_AMAZON =   "http://nunchee.sbtvapps.com/GLFService.svc/"; //"http://190.215.44.18/wcfNunchee2/GLFService.svc/";
 
     private static final String SERVICES_URL_TRENDING = "http://190.215.44.18/wcfNunchee2/GLFService.svc/Trending";
+    private static final String SERVICES_URL_TRENDING_AMAZON =  "http://nunchee.sbtvapps.com/GLFService.svc/Trending"; //"http://190.215.44.18/wcfNunchee2/GLFService.svc/Trending";
 
     private static final String URL_TWITTER = "https://api.twitter.com/1.1/statuses/";
 
@@ -93,29 +97,35 @@ public class DataLoader {
 
     private final AQuery aq;
 
+    public boolean CONNECT_AWS = false;
+
     private List<FeedJSON> listaHistorial = new ArrayList<FeedJSON>();
 
     public DataLoader(Context actividad) {
         this.actividad = actividad;
-        aq = new AQuery(actividad);
+        this.aq = new AQuery(actividad);
     }
     public DataLoader(Activity actividad) {
         this.actividad = actividad;
-        aq = new AQuery(actividad);
+        this.aq = new AQuery(actividad);
     }
 
-    // 1
+    //1
     public void loginService(String parametro, final DataLoadedHandler<String> handler) {
 
         Map<String, Object> map = new HashMap<String, Object>();
-        String aux = SERVICES_URL.trim()+"login/"+parametro.trim();
 
-        Log.e("","");
+        URL_FINAL = new StringBuilder();
 
-        URL_FINAL = new StringBuilder(aux.length());
-        URL_FINAL.append(aux.trim());
+        if((CONNECT_AWS == false)){
+            URL_FINAL.append(SERVICES_URL);
+        }else{
+            URL_FINAL.append(SERVICES_URL_AMAZON);
+        }
+        URL_FINAL.append("login/");
+        URL_FINAL.append(parametro);
 
-        Log.e("URL",URL_FINAL.toString());
+        Log.e("URL", URL_FINAL.toString());
 
         aq.ajax(URL_FINAL.toString(), map , String.class, new AjaxCallback<String>(){
             @Override
@@ -137,80 +147,33 @@ public class DataLoader {
         });
     }
 
-    public void loadLiveStreamList(final DataLoadedHandler<LiveStream> loadedHandler) {
-        String url = String.format("%slive-stream?token=%s", BASE_URL, API_TOKEN);
-        Log.e("Url",url);
-        aq.ajax(url, JSONObject.class, new AjaxCallback<JSONObject>() {
-
-            @Override
-            public void callback(String url, JSONObject object, AjaxStatus status) {
-                try{
-                    if (!object.isNull("data") && object.getString("status").equals("OK")) {
-                        JSONArray list = object.getJSONArray("data");
-                        List<LiveStream> streams = new ArrayList<LiveStream>();
-                        for (int i = 0; i < list.length(); ++i) {
-                            JSONObject raw = list.getJSONObject(i);
-                            streams.add(parseJsonObject(raw, LiveStream.class));
-                        }
-
-                        loadedHandler.loaded(streams);
-                    }
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                    Log.e(TAG, e.getMessage());
-                }
-            }
-        });
-    }
-
-    public void loadLiveStreamSchedule(final LiveStream stream, final DataLoadedHandler<LiveStreamSchedule> loadedHandler) {
-
-        String url = String.format("%slive-stream/%s/schedule?token=%s", BASE_URL, stream.getLiveStreamId(), API_TOKEN);
-        Log.e("Url",url);
-        aq.ajax(url, JSONObject.class, new AjaxCallback<JSONObject>() {
-
-            @Override
-            public void callback(String url, JSONObject object, AjaxStatus status) {
-                try{
-                    if (!object.isNull("data") && object.getString("status").equals("OK")) {
-                        JSONArray list = object.getJSONArray("data");
-                        List<LiveStreamSchedule> schedule = new ArrayList<LiveStreamSchedule>();
-                        for (int i = 0; i < list.length(); ++i) {
-                            JSONObject raw = list.getJSONObject(i);
-                            LiveStreamSchedule item = parseJsonObject(raw, LiveStreamSchedule.class);
-                            item.setStream(stream);
-                            schedule.add(item);
-                        }
-                        loadedHandler.loaded(schedule);
-                    }
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                    Log.e(TAG, e.getMessage());
-                }
-            }
-        });
-
-    }
     //2
     public void programRandom(final DataLoadedHandler<Program> handler) {
 
-        URL_FINAL = new StringBuilder();    URL_FINAL.append(SERVICES_URL.trim());  URL_FINAL.append("ProgramRandom");
-        aq.ajax(URL_FINAL.toString(), JSONArray.class, new AjaxCallback<JSONArray>(){
+        URL_FINAL = new StringBuilder();
+
+        if((CONNECT_AWS == false)){
+            URL_FINAL.append(SERVICES_URL);
+        }
+        else{
+            URL_FINAL.append(SERVICES_URL_AMAZON);
+        }
+        URL_FINAL.append("ProgramRandom");
+
+        aq.ajax(URL_FINAL.toString(), JSONArray.class, new AjaxCallback<JSONArray>() {
 
             @Override
             public void callback(String url, JSONArray object, AjaxStatus status) {
-                 try {
+                try {
                     List<Program> list = new ArrayList<Program>();
-                    for(int i =0;i<object.length();i++){
+                    for (int i = 0; i < object.length(); i++) {
 
-                        Program p = parseJsonObject(object.getJSONObject(i),Program.class);
+                        Program p = parseJsonObject(object.getJSONObject(i), Program.class);
                         p.setListaImage(new ArrayList<Image>());
 
                         JSONArray jImagen = object.getJSONObject(i).getJSONArray("MainImages");
-                        for(int j = 0;j < jImagen.length();j++){
-                            p.getListaImage().add(parseJsonObject(jImagen.getJSONObject(j),Image.class));
+                        for (int j = 0; j < jImagen.length(); j++) {
+                            p.getListaImage().add(parseJsonObject(jImagen.getJSONObject(j), Image.class));
                         }
                         list.add(p);
                     }
@@ -226,17 +189,26 @@ public class DataLoader {
     //3
     public void getCategories(final DataLoadedHandler<CategorieChannel> handler) {
 
-        URL_FINAL = new StringBuilder();    URL_FINAL.append(SERVICES_URL.trim());  URL_FINAL.append("Categories");
+        URL_FINAL = new StringBuilder();
 
-        aq.ajax(URL_FINAL.toString(), JSONArray.class, new AjaxCallback<JSONArray>(){
+        if((CONNECT_AWS == false)){
+            URL_FINAL.append(SERVICES_URL);
+        }
+        else{
+            URL_FINAL.append(SERVICES_URL_AMAZON);
+        }
+
+        URL_FINAL.append("Categories");
+
+        aq.ajax(URL_FINAL.toString(), JSONArray.class, new AjaxCallback<JSONArray>() {
             @Override
             public void callback(String url, JSONArray object, AjaxStatus status) {
                 try {
 
                     List<CategorieChannel> list = new ArrayList<CategorieChannel>();
-                    for(int i =0;i<object.length();i++){
+                    for (int i = 0; i < object.length(); i++) {
 
-                        CategorieChannel cc = parseJsonObject(object.getJSONObject(i),CategorieChannel.class);
+                        CategorieChannel cc = parseJsonObject(object.getJSONObject(i), CategorieChannel.class);
                         list.add(cc);
                     }
                     handler.loaded(list);
@@ -249,39 +221,51 @@ public class DataLoader {
     }
 
     //4
-    public void getProgramByCategories(final DataLoadedHandler<Program> handler, String idNunchee,Date date, int idCategoria) {
+    public void getProgramByCategories(final DataLoadedHandler<Program> handler, String idNunchee, Date date, int idCategoria) {
 
-        URL_FINAL = new StringBuilder();    URL_FINAL.append(SERVICES_URL.trim());  URL_FINAL.append("ProgramByChannelCategory/");
+        URL_FINAL = new StringBuilder();
+
+        if((CONNECT_AWS == false)){
+            URL_FINAL.append(SERVICES_URL);
+        }
+        else{
+            URL_FINAL.append(SERVICES_URL_AMAZON);
+        }
+
+        URL_FINAL.append("ProgramByChannelCategory/");
+
         String parametro =formatDate(date)+";"+idCategoria+";"+idNunchee ;
         String parametroBase64 = Base64.encodeToString(parametro.getBytes(), Base64.NO_WRAP);
-        URL_FINAL.append(parametroBase64);
 
-        AjaxCallback<JSONArray> ajaxCallback = new AjaxCallback<JSONArray>();
-        aq.ajax(URL_FINAL.toString(), JSONArray.class, new AjaxCallback<JSONArray>(){
+        Log.e("url Categories","-> "+parametro);
+
+        URL_FINAL.append(parametroBase64);
+        Log.e("url Categories","-> "+URL_FINAL.toString());
+        
+        aq.ajax(URL_FINAL.toString(), JSONArray.class, new AjaxCallback<JSONArray>() {
             @Override
             public void callback(String url, JSONArray object, AjaxStatus status) {
 
                 try {
                     List<Program> listaPrograma = new ArrayList<Program>();
 
-                    /*Log.e(" Status"," "+status.getTime().toString());
-                    Log.e(" Status Duration"," "+status.getDuration());
-                    Log.e(" Status Expired"," "+status.getMessage());*/
+                    for (int i = 0; i < object.length(); i++) {
 
-                    for(int i = 0 ; i < object.length(); i++){
-
-                        Program p = parseJsonObject(object.getJSONObject(i),Program.class);
+                        Program p = parseJsonObject(object.getJSONObject(i), Program.class);
                         p.setListaImage(new ArrayList<Image>());
 
 
                         JSONArray jImagen = object.getJSONObject(i).getJSONArray("MainImages");
-                        for(int j = 0;j < jImagen.length();j++){
-                           p.getListaImage().add(parseJsonObject(jImagen.getJSONObject(j),Image.class));
+                        for (int j = 0; j < jImagen.length(); j++) {
+                            p.getListaImage().add(parseJsonObject(jImagen.getJSONObject(j), Image.class));
                         }
                         JSONArray jCanal = object.getJSONObject(i).getJSONArray("PChannel");
-                        p.setPChannel(parseJsonObject(jCanal.getJSONObject(0),Channel.class));
+                        p.setPChannel(parseJsonObject(jCanal.getJSONObject(0), Channel.class));
 
-                        listaPrograma.add(p);
+                        if(jImagen.length()>1){
+                            listaPrograma.add(p);
+                        }
+
                     }
                     handler.loaded(listaPrograma);
 
@@ -293,38 +277,53 @@ public class DataLoader {
         });
     }
 
-    //5
+    //5     // ACCIONES SOCIALES
     public void actionLike( String idUser, String idAction, String idProgram, String idChannel){
 
-        URL_FINAL = new StringBuilder();    URL_FINAL.append(SERVICES_URL.trim());  URL_FINAL.append("action/");
+        URL_FINAL = new StringBuilder();
+
+        if((CONNECT_AWS == false)){
+            URL_FINAL.append(SERVICES_URL);
+        }
+        else{
+            URL_FINAL.append(SERVICES_URL_AMAZON);
+        }
+
+        URL_FINAL.append("action/");
         URL_FINAL.append(idUser);    URL_FINAL.append(",");  URL_FINAL.append(idAction); URL_FINAL.append(",");
         URL_FINAL.append(idProgram);   URL_FINAL.append(",");  URL_FINAL.append(idChannel);  URL_FINAL.append(",");
         URL_FINAL.append("0");
 
-        aq.ajax(URL_FINAL.toString(), String.class, new AjaxCallback<String>(){
+        aq.ajax(URL_FINAL.toString(), String.class, new AjaxCallback<String>() {
             @Override
             public void callback(String url, String object, AjaxStatus status) {
-                Log.e("LIKE FACEBOOK",object);
+                Log.e("LIKE FACEBOOK", object);
             }
         });
     }
 
-    //6     // ACCION DE FAVORITE   // GET
+    //6
     public void actionShare( String idUser, String idAction, String idProgram, String idChannel){
 
-        URL_FINAL = new StringBuilder();    URL_FINAL.append(SERVICES_URL.trim());  URL_FINAL.append("action/");
+        URL_FINAL = new StringBuilder();
+
+        if((CONNECT_AWS == false)){
+            URL_FINAL.append(SERVICES_URL);
+        }else{
+            URL_FINAL.append(SERVICES_URL_AMAZON);
+        }
+
+        URL_FINAL.append("action/");
         URL_FINAL.append(idUser);    URL_FINAL.append(",");  URL_FINAL.append(idAction); URL_FINAL.append(",");
         URL_FINAL.append(idProgram);   URL_FINAL.append(",");  URL_FINAL.append(idChannel);
         URL_FINAL.append(",");  URL_FINAL.append("0");
 
-        aq.ajax(URL_FINAL.toString(), String.class, new AjaxCallback<String>(){
+        aq.ajax(URL_FINAL.toString(), String.class, new AjaxCallback<String>() {
 
             @Override
             public void callback(String url, String object, AjaxStatus status) {
-                Log.e("SHARE",object);
+                Log.e("SHARE", object);
             }
-
-
         });
 
     }
@@ -332,12 +331,21 @@ public class DataLoader {
     //7
     public void actionFavorite( String idUser, String idAction, String idProgram, String idChannel){
 
-        URL_FINAL = new StringBuilder();    URL_FINAL.append(SERVICES_URL.trim());  URL_FINAL.append("action/");
+        URL_FINAL = new StringBuilder();
+
+        if((CONNECT_AWS == false)){
+            URL_FINAL.append(SERVICES_URL);
+        }
+        else{
+            URL_FINAL.append(SERVICES_URL_AMAZON);
+        }
+
+        URL_FINAL.append("action/");
         URL_FINAL.append(idUser);URL_FINAL.append(",");  URL_FINAL.append(idAction);
         URL_FINAL.append(",");  URL_FINAL.append(idProgram);   URL_FINAL.append(",");
         URL_FINAL.append(idChannel);  URL_FINAL.append(",");  URL_FINAL.append("0");
 
-        aq.ajax(URL_FINAL.toString(), String.class, new AjaxCallback<String>(){
+        aq.ajax(URL_FINAL.toString(), String.class, new AjaxCallback<String>() {
 
         });
     }
@@ -345,15 +353,23 @@ public class DataLoader {
     //8
     public void actionCheckIn( String idUser, String idAction, String idProgram, String idChannel){
 
-        URL_FINAL = new StringBuilder();    URL_FINAL.append(SERVICES_URL.trim());  URL_FINAL.append("action/");
+        URL_FINAL = new StringBuilder();
+        if((CONNECT_AWS == false)){
+            URL_FINAL.append(SERVICES_URL);
+        }
+        else{
+            URL_FINAL.append(SERVICES_URL_AMAZON);
+        }
+
+        URL_FINAL.append("action/");
         URL_FINAL.append(idUser);URL_FINAL.append(",");  URL_FINAL.append(idAction);
         URL_FINAL.append(",");  URL_FINAL.append(idProgram);   URL_FINAL.append(",");
         URL_FINAL.append(idChannel);  URL_FINAL.append(",");  URL_FINAL.append("0");
 
-        aq.ajax(URL_FINAL.toString(), String.class, new AjaxCallback<String>(){
+        aq.ajax(URL_FINAL.toString(), String.class, new AjaxCallback<String>() {
             @Override
             public void callback(String url, String object, AjaxStatus status) {
-                Log.e("Check In",object);
+                Log.e("Check In", object);
             }
         });
     }
@@ -361,12 +377,21 @@ public class DataLoader {
     //9
     public void actionPreview( String idUser, String idAction, String idProgram, String idChannel){
 
-        URL_FINAL = new StringBuilder();    URL_FINAL.append(SERVICES_URL.trim());  URL_FINAL.append("action/");
+        URL_FINAL = new StringBuilder();
+
+        if((CONNECT_AWS == false)){
+            URL_FINAL.append(SERVICES_URL);
+        }
+        else{
+            URL_FINAL.append(SERVICES_URL_AMAZON);
+        }
+
+        URL_FINAL.append("action/");
         URL_FINAL.append(idUser);    URL_FINAL.append(",");  URL_FINAL.append(idAction);
         URL_FINAL.append(",");  URL_FINAL.append(idProgram);   URL_FINAL.append(",");  URL_FINAL.append(idChannel);
         URL_FINAL.append(",");  URL_FINAL.append("0");
 
-        aq.ajax(URL_FINAL.toString(), String.class, new AjaxCallback<String>(){
+        aq.ajax(URL_FINAL.toString(), String.class, new AjaxCallback<String>() {
 
         });
     }
@@ -374,21 +399,30 @@ public class DataLoader {
     //10
     public void getFavoritesPrograms(final DataLoadedHandler<Program> handler, String idNunchee, String fecha){
 
-        URL_FINAL = new StringBuilder();    URL_FINAL.append(SERVICES_URL.trim());  URL_FINAL.append("FavoriteGuide/");
+        URL_FINAL = new StringBuilder();
+
+        if((CONNECT_AWS == false)){
+            URL_FINAL.append(SERVICES_URL);
+        }
+        else{
+            URL_FINAL.append(SERVICES_URL_AMAZON);
+        }
+
+        URL_FINAL.append("FavoriteGuide/");
         URL_FINAL.append(idNunchee);        URL_FINAL.append(",");  URL_FINAL.append(fecha);
 
-        aq.ajax(URL_FINAL.toString(),JSONArray.class, EXPIRE ,new AjaxCallback<JSONArray>(){
+        Log.e("URL Favoritos", URL_FINAL.toString());
+
+        aq.ajax(URL_FINAL.toString(), JSONArray.class, EXPIRE, new AjaxCallback<JSONArray>() {
 
             @Override
             public void callback(String url, JSONArray object, AjaxStatus status) {
                 try {
                     List<Program> favorites = new ArrayList<Program>();
-                    /*Log.e(" Status"," "+status.getTime().toString());
-                    Log.e(" Status Duration"," "+status.getDuration());
-                    Log.e(" Status Expired"," "+status.getMessage());*/
 
-                    for(int i = 0; i< object.length() ;i++){
-                        for(int k = 0; k < object.getJSONObject(i).getJSONArray("Favorites").length();k++){
+                    for (int i = 0; i < object.length(); i++) {
+
+                        for (int k = 0; k < object.getJSONObject(i).getJSONArray("Favorites").length(); k++) {
 
                             Program p = parseJsonObject(object.getJSONObject(i).getJSONArray("Favorites")
                                     .getJSONObject(k), Program.class);
@@ -398,8 +432,8 @@ public class DataLoader {
                             JSONArray jImagen = object.getJSONObject(i).getJSONArray("Favorites")
                                     .getJSONObject(k).getJSONArray("MainImages");
 
-                            for(int j = 0; j<jImagen.length(); j++){
-                                p.getListaImage().add(parseJsonObject(jImagen.getJSONObject(j),Image.class));
+                            for (int j = 0; j < jImagen.length(); j++) {
+                                p.getListaImage().add(parseJsonObject(jImagen.getJSONObject(j), Image.class));
                             }
 
                             JSONArray jCanal = object.getJSONObject(i).getJSONArray("Favorites")
@@ -410,11 +444,10 @@ public class DataLoader {
                         }
                     }
                     handler.loaded(favorites);
-                }
-                catch(Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     handler.error(e.getMessage());
-                    Log.e("Error carga favoritos","error -> "+e.getMessage());
+                    Log.e("Error carga favoritos", "error -> " + e.getMessage());
                 }
             }
         });
@@ -429,7 +462,7 @@ public class DataLoader {
         String parametros64 = Base64.encodeToString(parametros.getBytes(), Base64.NO_WRAP);
 
         URL_FINAL.append(parametros64);
-        aq.ajax(URL_FINAL.toString(),JSONObject.class,new AjaxCallback<JSONObject>(){
+        aq.ajax(URL_FINAL.toString(), JSONObject.class, new AjaxCallback<JSONObject>() {
 
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
@@ -450,8 +483,7 @@ public class DataLoader {
                         guia.add(c);*/
                     //}
                     handler.loaded(guia);
-                }
-                catch(Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     handler.error(e.getMessage());
                 }
@@ -460,53 +492,59 @@ public class DataLoader {
     }
 
     //12
-    public void getPreview(final DataLoadedHandler<Program> handler, String idPrograma, String idCanal, String idNunchee,String fechaInicio, String fechaFin) {
+    public void getPreview(final DataLoadedHandler<Program> handler, String idPrograma, String idCanal, String idNunchee, String fechaInicio, String fechaFin) {
 
-        URL_FINAL = new StringBuilder();    URL_FINAL.append(SERVICES_URL.trim());  URL_FINAL.append("ProgramDataById/");
+        URL_FINAL = new StringBuilder();
+
+        if((CONNECT_AWS == false)){
+            URL_FINAL.append(SERVICES_URL);
+        }
+        else{
+            URL_FINAL.append(SERVICES_URL_AMAZON);
+        }
+        URL_FINAL.append("ProgramDataById/");
         URL_FINAL.append(idPrograma);   URL_FINAL.append(",");  URL_FINAL.append(idCanal);  URL_FINAL.append(",");
         URL_FINAL.append(idNunchee);    URL_FINAL.append(",");  URL_FINAL.append(fechaInicio);  URL_FINAL.append(",");  URL_FINAL.append(fechaFin);
 
-        aq.ajax(URL_FINAL.toString(), JSONObject.class, new AjaxCallback<JSONObject>(){
+        aq.ajax(URL_FINAL.toString(), JSONObject.class, new AjaxCallback<JSONObject>() {
 
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
                 try {
 
-                    Program p = parseJsonObject(object,Program.class);
+                    Program p = parseJsonObject(object, Program.class);
                     p.setListaImage(new ArrayList<Image>());
 
-                    if(!object.isNull("MainImages")){
+                    if (!object.isNull("MainImages")) {
                         JSONArray jImage = object.getJSONArray("MainImages");
 
-                        for(int j = 0;j < jImage.length();j++){
-                            p.getListaImage().add(parseJsonObject(jImage.getJSONObject(j),Image.class));
+                        for (int j = 0; j < jImage.length(); j++) {
+                            p.getListaImage().add(parseJsonObject(jImage.getJSONObject(j), Image.class));
                         }
 
                         JSONArray jsonArray = object.getJSONArray("PChannel");
-                        if(jsonArray!= null && jsonArray.length()>0){
+                        if (jsonArray != null && jsonArray.length() > 0) {
 
                             Channel c = parseJsonObject(jsonArray.getJSONObject(0), Channel.class);
                             p.setPChannel(c);
                         }
                     }
-                    if(!object.isNull("Tweets")){
+                    if (!object.isNull("Tweets")) {
 
                         JSONArray jTw = object.getJSONArray("Tweets");
                         p.setTweets(new ArrayList<Tweets>());
 
-                        for(int j = 0 ;j<jTw.length();j++){
-                            p.getTweets().add(parseJsonObject(jTw.getJSONObject(j),Tweets.class));
+                        for (int j = 0; j < jTw.length(); j++) {
+                            p.getTweets().add(parseJsonObject(jTw.getJSONObject(j), Tweets.class));
                         }
-                    }
-                    else{
+                    } else {
                         p.setTweets(null);
                     }
                     handler.loaded(p);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                     handler.error(e.getMessage());
-                    Log.e("ERROR",e.getMessage());
+                    Log.e("ERROR", e.getMessage());
                 }
             }
         });
@@ -515,36 +553,44 @@ public class DataLoader {
     //13
     public void getTrivia(final DataLoadedHandler<Trivia> handler, String programa){
 
-        URL_FINAL = new StringBuilder();    URL_FINAL.append(SERVICES_URL_TRIVIA.trim());
+        URL_FINAL = new StringBuilder();
+
+        if((CONNECT_AWS == false)){
+            URL_FINAL.append(SERVICES_URL_TRIVIA);
+        }
+        else{
+            URL_FINAL.append(SERVICES_URL_TRIVIA_AMAZON);
+        }
+
         URL_FINAL.append("Game/");  URL_FINAL.append(programa);
 
-        aq.ajax(URL_FINAL.toString(), JSONObject.class, new AjaxCallback<JSONObject>(){
+        Log.e("URL Trivia", URL_FINAL.toString());
+        aq.ajax(URL_FINAL.toString(), JSONObject.class, new AjaxCallback<JSONObject>() {
 
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
                 try {
 
                     Trivia t = parseJsonObject(object, Trivia.class);
-                    t.setPreguntas( new ArrayList<TriviaQuestion>());
+                    t.setPreguntas(new ArrayList<TriviaQuestion>());
 
                     JSONArray preguntas = object.getJSONArray("Question");
-                    for(int i = 0 ;i < preguntas.length(); i++){
+                    for (int i = 0; i < preguntas.length(); i++) {
 
                         TriviaQuestion q = parseJsonObject(preguntas.getJSONObject(i), TriviaQuestion.class);
                         q.setRespuestas(new ArrayList<TriviaAnswers>());
 
                         JSONArray respuestas = preguntas.getJSONObject(i).getJSONArray("Answers");
-                        for(int j = 0; j< respuestas.length();j++){
+                        for (int j = 0; j < respuestas.length(); j++) {
 
                             TriviaAnswers a = parseJsonObject(preguntas.getJSONObject(i).getJSONArray("Answers")
-                                    .getJSONObject(j),TriviaAnswers.class);
+                                    .getJSONObject(j), TriviaAnswers.class);
                             q.getRespuestas().add(a);
                         }
                         t.getPreguntas().add(q);
                     }
                     handler.loaded(t);
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     handler.error(e.getMessage());
                     e.printStackTrace();
                 }
@@ -555,17 +601,24 @@ public class DataLoader {
     //14
     public void getScoreTrivia( final DataLoadedHandler<String> dataLoadedHandler,String idNunchee){
 
-        URL_FINAL = new StringBuilder();    URL_FINAL.append(SERVICES_URL_TRIVIA.trim());
+        URL_FINAL = new StringBuilder();
+
+        if((CONNECT_AWS == false)){
+            URL_FINAL.append(SERVICES_URL_TRIVIA);
+        }
+        else{
+            URL_FINAL.append(SERVICES_URL_TRIVIA_AMAZON);
+        }
+
         URL_FINAL.append("Score/"); URL_FINAL.append(idNunchee);
 
-        aq.ajax(URL_FINAL.toString(), String.class, new AjaxCallback<String>(){
+        aq.ajax(URL_FINAL.toString(), String.class, new AjaxCallback<String>() {
 
             @Override
             public void callback(String url, String object, AjaxStatus status) {
                 try {
-                    dataLoadedHandler.loaded(object.replace('"','\0'));
-                }
-                catch (Exception e){
+                    dataLoadedHandler.loaded(object.replace('"', '\0'));
+                } catch (Exception e) {
                     e.printStackTrace();
                     dataLoadedHandler.error(" ");
                 }
@@ -576,10 +629,19 @@ public class DataLoader {
     //15
     public void getPolls(final DataLoadedHandler<Polls> handler, String programa){
 
-        URL_FINAL = new StringBuilder();    URL_FINAL.append(SERVICES_URL_POLLS.trim());
+        URL_FINAL = new StringBuilder();
+
+        if((CONNECT_AWS == false)){
+            URL_FINAL.append(SERVICES_URL_POLLS);
+        }
+        else{
+            URL_FINAL.append(SERVICES_URL_POLLS_AMAZON);
+        }
+
         URL_FINAL.append("Game/");  URL_FINAL.append(programa);
 
-        aq.ajax(URL_FINAL.toString(), JSONObject.class, new AjaxCallback<JSONObject>(){
+        Log.e("URL POLLS",URL_FINAL.toString());
+        aq.ajax(URL_FINAL.toString(), JSONObject.class, new AjaxCallback<JSONObject>() {
 
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
@@ -589,25 +651,24 @@ public class DataLoader {
                     p.setPreguntas(new ArrayList<PollsQuestions>());
 
                     JSONArray preguntas = object.getJSONArray("Question");
-                    for(int i = 0 ;i < preguntas.length(); i++){
+                    for (int i = 0; i < preguntas.length(); i++) {
 
                         PollsQuestions q = parseJsonObject(preguntas.getJSONObject(i), PollsQuestions.class);
                         q.setRespuestas(new ArrayList<PollsAnswers>());
 
                         JSONArray respuestas = preguntas.getJSONObject(i).getJSONArray("Answers");
 
-                        for(int j = 0; j< respuestas.length();j++){
+                        for (int j = 0; j < respuestas.length(); j++) {
 
                             PollsAnswers a = parseJsonObject(preguntas.getJSONObject(i).getJSONArray("Answers")
-                                    .getJSONObject(j),PollsAnswers.class);
+                                    .getJSONObject(j), PollsAnswers.class);
                             q.getRespuestas().add(a);
                         }
 
                         p.getPreguntas().add(q);
                     }
                     handler.loaded(p);
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     handler.error(e.getMessage());
                     e.printStackTrace();
                 }
@@ -618,11 +679,20 @@ public class DataLoader {
     //16
     public void getRecomendaciones(final DataLoadedHandler<Recommendations> handler, String idPrograma ,String idCanal, String idNunchee){
 
-        URL_FINAL = new StringBuilder(); URL_FINAL.append(SERVICES_URL.trim());
+        URL_FINAL = new StringBuilder();
+
+        if((CONNECT_AWS == false)){
+            URL_FINAL.append(SERVICES_URL);
+        }
+        else{
+            URL_FINAL.append(SERVICES_URL_AMAZON);
+        }
+
         URL_FINAL.append("Recomendations/"); URL_FINAL.append(idPrograma);
         URL_FINAL.append(","); URL_FINAL.append(idCanal); URL_FINAL.append(",");URL_FINAL.append(idNunchee);
 
-        aq.ajax(URL_FINAL.toString(), JSONObject.class, new AjaxCallback<JSONObject>(){
+        Log.e("URL RECOMENDACIONES", URL_FINAL.toString());
+        aq.ajax(URL_FINAL.toString(), JSONObject.class, new AjaxCallback<JSONObject>() {
 
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
@@ -631,36 +701,34 @@ public class DataLoader {
                     Recommendations r = parseJsonObject(object, Recommendations.class);
                     r.setSameCategoria(new ArrayList<Program>());
 
-                    if(!object.isNull("Recommendations")){
-                        if(!object.getJSONObject("Recommendations").isNull("SameCategory")){
+                    if (!object.isNull("Recommendations")) {
+                        if (!object.getJSONObject("Recommendations").isNull("SameCategory")) {
 
                             JSONArray programas = object.getJSONObject("Recommendations").getJSONArray("SameCategory");
 
-                            for(int i = 0; i< programas.length();i++){
-                                if(!programas.isNull(i)){
+                            for (int i = 0; i < programas.length(); i++) {
+                                if (!programas.isNull(i)) {
 
                                     JSONObject o = (programas.getJSONObject(i));
-                                    Program p = parseJsonObject(o,Program.class);
+                                    Program p = parseJsonObject(o, Program.class);
 
                                     p.setListaImage(new ArrayList<Image>());
                                     JSONArray images = programas.getJSONObject(i).getJSONArray("MainImages");
 
-                                    for(int j = 0; j < images.length() ; j++){
-                                        p.getListaImage().add(parseJsonObject(images.getJSONObject(j),Image.class));
+                                    for (int j = 0; j < images.length(); j++) {
+                                        p.getListaImage().add(parseJsonObject(images.getJSONObject(j), Image.class));
                                     }
                                     r.getSameCategoria().add(p);
                                 }
                             }
                         }
-                        Log.e("Recomendaciones Data Loader",r.getSameCategoria().toString());
+                        Log.e("Recomendaciones Data Loader", r.getSameCategoria().toString());
                         handler.loaded(r);
-                    }
-                    else{
+                    } else {
                         //r = null;
                         handler.loaded((Recommendations) null);
                     }
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     handler.error(e.getMessage());
                     e.printStackTrace();
                 }
@@ -671,20 +739,27 @@ public class DataLoader {
     //17
     public void getTrendingChannel(final DataLoadedHandler<TrendingChannel> handler){
 
-        aq.ajax(SERVICES_URL_TRENDING, JSONArray.class, new AjaxCallback<JSONArray>(){
+        String url;
+        if((CONNECT_AWS == false)){
+            url = SERVICES_URL_TRENDING;
+        }
+        else{
+            url = SERVICES_URL_TRENDING_AMAZON;
+        }
+        Log.e("URL Trendding",url);
+        aq.ajax(url, JSONArray.class, new AjaxCallback<JSONArray>() {
 
             @Override
             public void callback(String url, JSONArray object, AjaxStatus status) {
                 try {
                     List<TrendingChannel> list = new ArrayList<TrendingChannel>();
-                    for(int i = 0; i< object.length();i++){
+                    for (int i = 0; i < object.length(); i++) {
 
                         TrendingChannel trendingChannel = parseJsonObject(object.getJSONObject(i), TrendingChannel.class);
                         list.add(trendingChannel);
                     }
                     handler.loaded(list);
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     handler.error(e.getMessage());
 
@@ -697,7 +772,8 @@ public class DataLoader {
     //18
     public void getTimeLine(final DataLoadedHandler<UserTwitterJSON> dataLoadedHandle){
 
-        URL_FINAL = new StringBuilder();    URL_FINAL.append(URL_TWITTER);
+        URL_FINAL = new StringBuilder();
+        URL_FINAL.append(URL_TWITTER);
         URL_FINAL.append("home_timeline.json"); //URL_FINAL.append("/count=50");
 
         TwitterHandle twitterHandle = new TwitterHandle((Activity) actividad, Twitter.API_KEY,Twitter.API_SECRET);
@@ -732,17 +808,16 @@ public class DataLoader {
         URL_FINAL = new StringBuilder();    URL_FINAL.append(URL_TWITTER); URL_FINAL.append("update.json");
 
         Map<String, String> map = new HashMap<String, String>();
-        map.put("status",tw);
+        map.put("status", tw);
 
         TwitterHandle twitterHandle = new TwitterHandle((Activity) actividad, Twitter.API_KEY,Twitter.API_SECRET);
-        aq.auth(twitterHandle).ajax(URL_FINAL.toString(), map , String.class, new AjaxCallback<String>(){
+        aq.auth(twitterHandle).ajax(URL_FINAL.toString(), map, String.class, new AjaxCallback<String>() {
 
             @Override
             public void callback(String url, String object, AjaxStatus status) {
-                try{
+                try {
                     dataLoadedHandle.loaded("OK");
-                }
-                catch(Exception e){
+                } catch (Exception e) {
                     dataLoadedHandle.error("Ups!");
                     //Log.e("Update estado Tw",e.getMessage());
                 }
@@ -756,30 +831,29 @@ public class DataLoader {
         URL_FINAL.append("https://graph.facebook.com/me/friends?fields=installed,username,picture,name");
 
         FacebookHandle facebookHandle = new FacebookHandle((Activity) actividad, Facebook.APP_ID, Facebook.PERMISSIONS);
-        aq.auth(facebookHandle).ajax(URL_FINAL.toString(),JSONObject.class, new AjaxCallback<JSONObject>(){
+        aq.auth(facebookHandle).ajax(URL_FINAL.toString(), JSONObject.class, new AjaxCallback<JSONObject>() {
 
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
 
-                try{
-                    List<UserFacebook> listUser =  new ArrayList<UserFacebook>();
+                try {
+                    List<UserFacebook> listUser = new ArrayList<UserFacebook>();
                     JSONArray jsonArray = object.getJSONArray("data");
 
-                    for(int i = 0; i < jsonArray.length(); i++){
+                    for (int i = 0; i < jsonArray.length(); i++) {
 
-                        if(!jsonArray.getJSONObject(i).isNull("installed")){
-                            UserFacebook  user = parseJsonObject(object.getJSONArray("data")
-                                    .getJSONObject(i),UserFacebook.class);
+                        if (!jsonArray.getJSONObject(i).isNull("installed")) {
+                            UserFacebook user = parseJsonObject(object.getJSONArray("data")
+                                    .getJSONObject(i), UserFacebook.class);
 
-                            Log.e("Friends",user.getNombre());
+                            Log.e("Friends", user.getNombre());
                             listUser.add(user);
                         }
                     }
                     dataLoadedHandler.loaded(listUser);
 
-                }
-                catch (Exception e){
-                    Log.e("Friends","catch "+e.getMessage());
+                } catch (Exception e) {
+                    Log.e("Friends", "catch " + e.getMessage());
                     dataLoadedHandler.error(e.getMessage());
                 }
             }
@@ -793,7 +867,14 @@ public class DataLoader {
     //21
     public void votoEncuesta(String idRespuesta){
 
-        URL_FINAL = new StringBuilder();URL_FINAL.append(SERVICES_URL_POLLS.trim());
+        URL_FINAL = new StringBuilder();
+
+        if((CONNECT_AWS == false)){
+            URL_FINAL.append(SERVICES_URL_POLLS);
+        }
+        else{
+            URL_FINAL.append(SERVICES_URL_POLLS_AMAZON);
+        }
         URL_FINAL.append("/Voto/"); URL_FINAL.append(idRespuesta);
 
         aq.ajax(URL_FINAL.toString(), String.class, new AjaxCallback<String>() {
@@ -801,42 +882,50 @@ public class DataLoader {
 
     }
 
+    //22
     public void getFavoriteTodos (final DataLoadedHandler<Program> dataLoadedHandler, String idNunchee){
 
-        URL_FINAL = new StringBuilder(); URL_FINAL.append(SERVICES_URL);
+        URL_FINAL = new StringBuilder();
+
+        if((CONNECT_AWS == false)){
+            URL_FINAL.append(SERVICES_URL);
+        }
+        else{
+            URL_FINAL.append(SERVICES_URL_AMAZON);
+        }
+
         URL_FINAL.append("FavoriteGuideTodos/"); URL_FINAL.append(idNunchee);
 
-        aq.ajax(URL_FINAL.toString(),JSONArray.class, new AjaxCallback<JSONArray>(){
+        aq.ajax(URL_FINAL.toString(), JSONArray.class, new AjaxCallback<JSONArray>() {
             @Override
             public void callback(String url, JSONArray object, AjaxStatus status) {
-                try{
+                try {
 
                     List<Program> lista = new ArrayList<Program>();
-                    for(int i = 0;i< object.length() ;i++){
+                    for (int i = 0; i < object.length(); i++) {
 
                         JSONArray favorito = object.getJSONObject(i).getJSONArray("Favorites");
 
-                        for(int j = 0; j < favorito.length() ;j++){
+                        for (int j = 0; j < favorito.length(); j++) {
 
-                            Program p = parseJsonObject(favorito.getJSONObject(j),Program.class);
+                            Program p = parseJsonObject(favorito.getJSONObject(j), Program.class);
                             p.setListaImage(new ArrayList<Image>());
 
                             Channel c = parseJsonObject(favorito.getJSONObject(j)
-                                    .getJSONArray("PChannel").getJSONObject(0),Channel.class);
+                                    .getJSONArray("PChannel").getJSONObject(0), Channel.class);
 
                             p.setPChannel(c);
                             JSONArray imagenes = favorito.getJSONObject(j).getJSONArray("MainImages");
 
-                            for(int k = 0 ; k < imagenes.length();k++){
-                                p.getListaImage().add(parseJsonObject(imagenes.getJSONObject(k),Image.class));
+                            for (int k = 0; k < imagenes.length(); k++) {
+                                p.getListaImage().add(parseJsonObject(imagenes.getJSONObject(k), Image.class));
                             }
                             lista.add(p);
                         }
                     }
                     dataLoadedHandler.loaded(lista);
-                }
-                catch (Exception e){
-                    Log.e("Favoritos ","Todos "+e.getMessage());
+                } catch (Exception e) {
+                    Log.e("Favoritos ", "Todos " + e.getMessage());
                     e.printStackTrace();
                     dataLoadedHandler.error(e.getMessage());
                 }
@@ -845,14 +934,22 @@ public class DataLoader {
 
     }
 
+    //23
     public  void deleteFavorite(String idNunchee, String time){
 
-        URL_FINAL = new StringBuilder();   URL_FINAL.append(SERVICES_URL);
+        URL_FINAL = new StringBuilder();
+
+        if((CONNECT_AWS == false)){
+            URL_FINAL.append(SERVICES_URL);
+        }else{
+            URL_FINAL.append(SERVICES_URL_AMAZON);
+        }
+
         URL_FINAL.append("favoriteUpdateOff/"); URL_FINAL.append(idNunchee);
         URL_FINAL.append(",");  URL_FINAL.append("4");  URL_FINAL.append(",");
         URL_FINAL.append(time);
 
-        aq.ajax(URL_FINAL.toString(), String.class, new AjaxCallback<String>(){
+        aq.ajax(URL_FINAL.toString(), String.class, new AjaxCallback<String>() {
             @Override
             public void callback(String url, String object, AjaxStatus status) {
                 super.callback(url, object, status);
@@ -861,14 +958,22 @@ public class DataLoader {
 
     }
 
+    //24
     public void updateScoreTrvia(String score,String level, String idNunchee, String nameProgram){
 
-        URL_FINAL = new StringBuilder(); URL_FINAL.append(SERVICES_URL_TRIVIA);
+        URL_FINAL = new StringBuilder();
+
+        if((CONNECT_AWS == false)){
+            URL_FINAL.append(SERVICES_URL_TRIVIA);
+        }else{
+            URL_FINAL.append(SERVICES_URL_TRIVIA_AMAZON);
+        }
+
         URL_FINAL.append("Trivia/");    URL_FINAL.append(score);  URL_FINAL.append(",");
         URL_FINAL.append(level);    URL_FINAL.append(",");  URL_FINAL.append(idNunchee);
         URL_FINAL.append(",");  URL_FINAL.append(nameProgram);
 
-        aq.ajax(URL_FINAL.toString(), String.class,new AjaxCallback<String>(){
+        aq.ajax(URL_FINAL.toString(), String.class, new AjaxCallback<String>() {
 
             @Override
             public void callback(String url, String object, AjaxStatus status) {
@@ -878,12 +983,21 @@ public class DataLoader {
         });
     }
 
+    //25
     public void getTweets(DataLoadedHandler<Tweets> dataLoadedHandler,String idProgram, String idChannel){
 
-        URL_FINAL = new StringBuilder(); URL_FINAL.append(SERVICES_URL);
+        URL_FINAL = new StringBuilder();
+
+        if((CONNECT_AWS == false)){
+            URL_FINAL.append(SERVICES_URL);
+        }
+        else{
+            URL_FINAL.append(SERVICES_URL_AMAZON);
+        }
+
         URL_FINAL.append("tweets"); URL_FINAL.append(idProgram); URL_FINAL.append(",");
         URL_FINAL.append(idChannel);
-        aq.ajax(URL_FINAL.toString(), JSONArray.class, new AjaxCallback<JSONArray>(){
+        aq.ajax(URL_FINAL.toString(), JSONArray.class, new AjaxCallback<JSONArray>() {
             @Override
             public void callback(String url, JSONArray object, AjaxStatus status) {
                 super.callback(url, object, status);
@@ -893,10 +1007,20 @@ public class DataLoader {
         });
 
     }
+
+    //26
     public void search(final DataLoadedHandler<Program> dataLoadedHandler, String algo){
 
-        URL_FINAL = new StringBuilder(); URL_FINAL.append(SERVICES_URL);  URL_FINAL.append("Search/"); URL_FINAL.append(algo);
-        Log.e("URL",URL_FINAL.toString());
+        URL_FINAL = new StringBuilder();
+
+        if((CONNECT_AWS == true)){
+            URL_FINAL.append(SERVICES_URL);
+        }else{
+            URL_FINAL.append(SERVICES_URL_AMAZON);
+        }
+
+        URL_FINAL.append("Search/"); URL_FINAL.append(algo);
+        Log.e("URL", URL_FINAL.toString());
         aq.ajax(URL_FINAL.toString(), JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
@@ -907,14 +1031,14 @@ public class DataLoader {
                     for (int i = 0; i < jsonArray.length(); i++) {
 
                         Program p = parseJsonObject(jsonArray.getJSONObject(i), Program.class);
-                        Log.e("Programa",p.getTitle());
+                        Log.e("Programa", p.getTitle());
                         Channel c = parseJsonObject(jsonArray.getJSONObject(i).getJSONArray("PChannel").getJSONObject(0), Channel.class);
                         p.setPChannel(c);
                         JSONArray imagenes = jsonArray.getJSONObject(i).getJSONArray("MainImages");
 
                         ArrayList<Image> imagesList = new ArrayList<Image>();
 
-                        for(int k = 0 ; k < imagenes.length();k++){
+                        for (int k = 0; k < imagenes.length(); k++) {
                             imagesList.add(parseJsonObject(imagenes.getJSONObject(k), Image.class));
                         }
                         p.listaImage = imagesList;
@@ -932,10 +1056,19 @@ public class DataLoader {
         });
     }
 
+    //27
     public void feed(final DataLoadedHandler<FeedJSON> dataLoadedHandler, List<String> ids){
 
         URL_FINAL = new StringBuilder();
-        URL_FINAL.append(SERVICES_URL); URL_FINAL.append("Feeds");
+
+        if((CONNECT_AWS == false)){
+            URL_FINAL.append(SERVICES_URL);
+        }
+        else{
+            URL_FINAL.append(SERVICES_URL_AMAZON);
+        }
+
+        URL_FINAL.append("Feeds");
 
         String parametros,parametros64;
         parametros = UserPreference.getIdNunchee(actividad)+";";
@@ -966,9 +1099,70 @@ public class DataLoader {
     public void cancel(){
         aq.ajaxCancel();
     }
-    public static String formatDate ( Date date)  {
+    public void loadLiveStreamList(final DataLoadedHandler<LiveStream> loadedHandler) {
+        String url = String.format("%slive-stream?token=%s", BASE_URL, API_TOKEN);
+        Log.e("Url",url);
+        aq.ajax(url, JSONObject.class, new AjaxCallback<JSONObject>() {
 
-        SimpleDateFormat targetFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ssZZZ" );
+            @Override
+            public void callback(String url, JSONObject object, AjaxStatus status) {
+                try{
+                    if (!object.isNull("data") && object.getString("status").equals("OK")) {
+                        JSONArray list = object.getJSONArray("data");
+                        List<LiveStream> streams = new ArrayList<LiveStream>();
+                        for (int i = 0; i < list.length(); ++i) {
+                            JSONObject raw = list.getJSONObject(i);
+                            streams.add(parseJsonObject(raw, LiveStream.class));
+                        }
+
+                        loadedHandler.loaded(streams);
+                    }
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e(TAG, e.getMessage());
+                }
+            }
+        });
+    }
+
+    public void loadLiveStreamSchedule(final LiveStream stream, final DataLoadedHandler<LiveStreamSchedule> loadedHandler) {
+
+        String url = String.format("%slive-stream/%s/schedule?token=%s", BASE_URL, stream.getLiveStreamId(), API_TOKEN);
+        Log.e("Url",url);
+        aq.ajax(url, JSONObject.class, new AjaxCallback<JSONObject>() {
+            @Override
+            public void callback(String url, JSONObject object, AjaxStatus status) {
+                try{
+                    if (!object.isNull("data") && object.getString("status").equals("OK")) {
+                        JSONArray list = object.getJSONArray("data");
+                        List<LiveStreamSchedule> schedule = new ArrayList<LiveStreamSchedule>();
+                        for (int i = 0; i < list.length(); ++i) {
+                            JSONObject raw = list.getJSONObject(i);
+                            LiveStreamSchedule item = parseJsonObject(raw, LiveStreamSchedule.class);
+                            item.setStream(stream);
+                            schedule.add(item);
+                        }
+                        loadedHandler.loaded(schedule);
+                    }
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e(TAG, e.getMessage());
+                }
+            }
+        });
+    }
+
+    public String formatDate ( Date date)  {
+
+        SimpleDateFormat targetFormat;
+        if((CONNECT_AWS == false)){
+            targetFormat= new SimpleDateFormat("dd-MM-yyyy HH:mm:ssZZZ" );
+        }
+        else{
+            targetFormat= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss" );
+        }
 
         return  ""+targetFormat.format(date);
 

@@ -14,7 +14,9 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +44,7 @@ public class RecommendedActivity extends ActionBarActivity {
     private List<Program> programas;
     private TextView textContinuar;
     private RelativeLayout skip;
+    private RelativeLayout layer;
     private AQuery aq;
     private int indice;
     private final int MAX = 5;
@@ -63,15 +66,15 @@ public class RecommendedActivity extends ActionBarActivity {
 
         final Button saltar = (Button) findViewById(R.id.volver_recomendacion);
         final TextView nombre = (TextView) findViewById(R.id.nombre_contacto);
-        final RelativeLayout r = (RelativeLayout) findViewById(R.id.exit);
+        layer  = (RelativeLayout) findViewById(R.id.exit);
 
         textContinuar = (TextView) findViewById(R.id.volver_text);
         skip = (RelativeLayout) findViewById(R.id.container_saltar);
 
-        r.setOnClickListener(new View.OnClickListener() {
+        layer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                r.setVisibility(View.GONE);
+                layer.setVisibility(View.GONE);
             }
         });
 
@@ -169,6 +172,7 @@ public class RecommendedActivity extends ActionBarActivity {
 
             @Override
             public void loaded(List<Program> data) {
+                Log.e("Numero de recomendado","--> "+data.size());
 
                 programas = data;
                 for(int i = 0; i < 8 ;i++){
@@ -176,12 +180,14 @@ public class RecommendedActivity extends ActionBarActivity {
                     indice = i;
                 }
             }
+
             @Override
             public void error(String error) {
-                super.error(error);
-                Log.e("Recommend Activity error", " LoadData error --> " + error);
-                DialogError dialogError = new DialogError();
+                Log.e("Recommend Activity error", " LoadDataMore error --> " + error);
+                clean();
+                DialogError dialogError = new DialogError("Por el momento no hay recomendaciones");
                 dialogError.show(getSupportFragmentManager(),"");
+                super.error(error);
             }
         });
     }
@@ -191,18 +197,18 @@ public class RecommendedActivity extends ActionBarActivity {
 
             @Override
             public void loaded(List<Program> data) {
-
+                Log.e("Numero de recomendado","--> "+data.size());
                 for (Program aData : data) {
                     programas.add(aData);
                 }
             }
             @Override
             public void error(String error) {
-                super.error(error);
                 Log.e("Recommend Activity error", " LoadDataMore error --> " + error);
-                DialogError dialogError = new DialogError();
+                clean();
+                DialogError dialogError = new DialogError("Por el momento no más hay recomendaciones");
                 dialogError.show(getSupportFragmentManager(),"");
-
+                super.error(error);
             }
         });
 
@@ -217,14 +223,10 @@ public class RecommendedActivity extends ActionBarActivity {
         catch (IndexOutOfBoundsException e){
             ++intentos;
             loadMoreRecommended();
-
             if(!toast){
                 toast = true;
-                //Toast.makeText(this,"Ups! Algo salió mal",Toast.LENGTH_SHORT).show();
-                //pasarGarbageCollector();
                 DataClean.garbageCollector("Login Activity");
             }
-
             return  null;
         }
     }
@@ -239,6 +241,19 @@ public class RecommendedActivity extends ActionBarActivity {
         listaFragmento[7] = (RecommendedFragment) getSupportFragmentManager().findFragmentById(R.id.recomendacion_8);
     }
 
+    public void clean(){
+        /*TableLayout t = (TableLayout) findViewById(R.id.table_sugerencias);
+        t.setVisibility(View.GONE);*/
+       /* listaFragmento[0].gone();
+        listaFragmento[1].gone();
+        listaFragmento[2].gone();
+        listaFragmento[3].gone();
+        listaFragmento[4].gone();
+        listaFragmento[5].gone();
+        listaFragmento[6].gone();
+        listaFragmento[7].gone();*/
+        layer.setVisibility(View.GONE);
+    }
     @Override
     protected void onDestroy() {
 

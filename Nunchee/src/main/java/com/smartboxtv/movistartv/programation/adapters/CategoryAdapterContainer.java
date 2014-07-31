@@ -65,7 +65,6 @@ public class CategoryAdapterContainer  extends ArrayAdapter<Program> {
        item = convertView;
 
        //this.position = position;
-       Log.e("Category Position","--> "+position);
        //this.parent = parent;
        //setData();
 

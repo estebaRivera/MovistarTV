@@ -68,6 +68,7 @@ import com.smartboxtv.movistartv.data.models.Recommendations;
 import com.smartboxtv.movistartv.data.models.Trivia;
 import com.smartboxtv.movistartv.data.models.Tweets;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
+import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.programation.delegates.PreviewImageFavoriteDelegate;
 import com.smartboxtv.movistartv.programation.menu.About;
 import com.smartboxtv.movistartv.programation.menu.DialogError;
@@ -274,8 +275,9 @@ public class PreviewActivity extends ActionBarActivity {
         blockPreview.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Log.e("<sdvzdf","dfblñfg");
+
                 finish();
+                overridePendingTransition(R.anim.nada, R.anim.fade_out);
             }
         });
 
@@ -613,9 +615,20 @@ public class PreviewActivity extends ActionBarActivity {
     public void cargarPreview(){
 
         SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd HH$mm$ss");
+        SimpleDateFormat dateFormatAWS = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
         final SimpleDateFormat formatHora = new SimpleDateFormat("HH:mm");
         final SimpleDateFormat formatDia = new SimpleDateFormat("MMM dd");
         final Typeface normal = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/SegoeWP.ttf");
+        String fechaInicio, fechaTermino;
+
+        if(!((NUNCHEE)getApplication()).CONNECT_AWS){
+            fechaInicio = dateFormat.format(programa.StartDate);
+            fechaTermino = dateFormat.format(programa.EndDate);
+        }
+        else{
+            fechaInicio = dateFormatAWS.format(programa.StartDate);
+            fechaTermino = dateFormatAWS.format(programa.EndDate);
+        }
 
         if(programa != null){
             //Log.e("Programa", programa.getTitle());
@@ -721,7 +734,7 @@ public class PreviewActivity extends ActionBarActivity {
                     dialogError.show(getSupportFragmentManager(),"");
                 }
             }, programa.getIdProgram(), programa.getPChannel().getChannelID(), UserPreference.getIdNunchee(getApplicationContext()),
-                    dateFormat.format(programa.getStartDate()), dateFormat.format(programa.getEndDate()));
+                    fechaInicio, fechaTermino);
         }
 
     }
@@ -1911,6 +1924,7 @@ public class PreviewActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
                 finish();
+                overridePendingTransition(R.anim.nada, R.anim.fade_out_activity);
             }
         });
         ImageButton configuracion = (ImageButton) view.findViewById(R.id.item_configuracion);

@@ -242,6 +242,7 @@ public class PlayerActivity extends ActionBarActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                overridePendingTransition(R.anim.nada, R.anim.fade_out_activity);
                 finish();
             }
         });

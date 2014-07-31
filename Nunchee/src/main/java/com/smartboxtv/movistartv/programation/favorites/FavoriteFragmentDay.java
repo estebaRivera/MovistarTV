@@ -43,6 +43,7 @@ import com.smartboxtv.movistartv.data.models.Program;
 import com.smartboxtv.movistartv.data.modelssm.datafavorites.ProgramFavoriteSM;
 import com.smartboxtv.movistartv.data.modelssm.datafavorites.ScheduleFavoriteSM;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
+import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.programation.delegates.FavoritoScrollDelegate;
 import com.smartboxtv.movistartv.services.DataLoader;
 import com.smartboxtv.movistartv.services.ServiceManager;
@@ -64,7 +65,7 @@ import java.util.TimeZone;
  */
 public class FavoriteFragmentDay extends Fragment {
 
-    private SimpleDateFormat format, format1, format2, format3, horaFormat;
+    private SimpleDateFormat format, format1, format2, format3, formatAWS, horaFormat;
     private List<List<Program>> listFavorites = new ArrayList<List<Program>>();
     private List<Program> favorites = new ArrayList<Program>();
 
@@ -134,6 +135,8 @@ public class FavoriteFragmentDay extends Fragment {
         format3 = new SimpleDateFormat("dd-MM-yyyy");
         horaFormat = new SimpleDateFormat("HH:mm");
 
+        formatAWS = new SimpleDateFormat("yyyy-MM-dd");
+
         aq = new AQuery(rootView);
 
         setText();
@@ -161,8 +164,12 @@ public class FavoriteFragmentDay extends Fragment {
     public void setDate(Date fecha) {
 
         this.fecha = fecha;
-        dateString = format3.format(fecha);
-
+        if(((NUNCHEE)getActivity().getApplication()).CONNECT_AWS){
+            dateString = format3.format(fecha);
+        }
+        else{
+            dateString = formatAWS.format(fecha);
+        }
     }
 
     public void loadFavorites(){
@@ -181,6 +188,7 @@ public class FavoriteFragmentDay extends Fragment {
             }
             @Override
             public void error(String error) {
+                borraLoading();
                 super.error(error);
             }
         }, UserPreference.getIdNunchee(getActivity()), dateString);

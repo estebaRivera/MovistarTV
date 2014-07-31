@@ -290,6 +290,7 @@ public class SecondPreviewActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
                 finish();
+                overridePendingTransition(R.anim.nada, R.anim.fade_out_activity);
             }
         });
         ImageButton configuracion = (ImageButton) view.findViewById(R.id.item_configuracion);
