@@ -42,8 +42,10 @@ import com.smartboxtv.movistartv.data.preference.UserPreference;
 import com.smartboxtv.movistartv.delgates.FacebookLikeDelegate;
 import com.smartboxtv.movistartv.programation.adapters.CategoryAdapterContainer;
 import com.smartboxtv.movistartv.programation.adapterssm.CategoryAdapterContainerSM;
+import com.smartboxtv.movistartv.programation.menu.DialogError;
 import com.smartboxtv.movistartv.services.DataLoader;
 import com.smartboxtv.movistartv.services.ServiceManager;
+import com.smartboxtv.movistartv.social.DialogMessage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -201,7 +203,7 @@ public class CategoryFragmentContainer extends Fragment{
                         Bitmap screenShot = ScreenShot.takeScreenshot(r);
 
                         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                        screenShot.compress(Bitmap.CompressFormat.JPEG, 95, stream);
+                        screenShot.compress(Bitmap.CompressFormat.JPEG, 80, stream);
                         byte[] byteArray = stream.toByteArray();
 
                         try {
@@ -236,6 +238,9 @@ public class CategoryFragmentContainer extends Fragment{
             @Override
             public void error(String error) {
                 super.error(error);
+                borraLoading();
+                DialogError dialog = new DialogError("Ha tardado más de lo debido");
+                dialog.show(getActivity().getSupportFragmentManager(),"");
             }
 
         }, UserPreference.getIdNunchee(getActivity()),date,idCategoria);
@@ -289,7 +294,7 @@ public class CategoryFragmentContainer extends Fragment{
                         Bitmap screenShot = ScreenShot.takeScreenshot(r);
 
                         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                        screenShot.compress(Bitmap.CompressFormat.JPEG, 95, stream);
+                        screenShot.compress(Bitmap.CompressFormat.JPEG, 80, stream);
                         byte[] byteArray = stream.toByteArray();
 
                         try {
@@ -423,16 +428,12 @@ public class CategoryFragmentContainer extends Fragment{
                             }
 
                             FacebookRequestError error = response.getError();
-                            if (error != null) {
-                                Toast.makeText(getActivity()
-                                        .getApplicationContext(),
-                                        "Ups, algo salió mal, intenta de nuevo",
-                                        Toast.LENGTH_LONG).show();
+                            if (error == null) {
+                                DialogMessage dialogMessage = new DialogMessage("");
+                                dialogMessage.show(getActivity().getSupportFragmentManager(), "");
                             } else {
-                                Toast.makeText(getActivity()
-                                        .getApplicationContext(),
-                                        "Publicado correctamente",
-                                        Toast.LENGTH_LONG).show();
+                                DialogError dialogError = new DialogError("Su mensaje no pudo ser publicado");
+                                dialogError.show(getActivity().getSupportFragmentManager(),"");
                             }
                         }
 

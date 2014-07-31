@@ -56,6 +56,7 @@ import java.util.TimerTask;
 public class LoginActivity extends ActionBarActivity {
 
     private final ArrayList<AnimationClass> listAnimation = new ArrayList<AnimationClass>();
+    private  final String TAG = "LOGIN ERROR";
 
     private TextView fraseInicialAdelante;
     private TextView fraseInicialTrasera;
@@ -86,10 +87,6 @@ public class LoginActivity extends ActionBarActivity {
     private String idString;
     private String imageString;
     private String nameString;
-
-    //private boolean block;
-    //private Animation puntos;
-    //private Animation nada;
 
     // SDK Facebook
     private UiLifecycleHelper uiHelper;
@@ -153,6 +150,8 @@ public class LoginActivity extends ActionBarActivity {
         btnLoginFb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                btnLoginFb.setEnabled(false);
+                btnLoginFb.setClickable(false);
 
                 // Login Facebook SDK
                 uiHelper = new UiLifecycleHelper(LoginActivity.this, new Session.StatusCallback() {
@@ -165,14 +164,13 @@ public class LoginActivity extends ActionBarActivity {
                 uiHelper.onCreate(savedInstanceState);
                 uiHelper.onResume();
 
-                // start Facebook Login
+                // Facebook Login
                 Session.openActiveSession(LoginActivity.this, true, new Session.StatusCallback() {
                     // callback when session changes state
                     @Override
                     public void call(Session session, SessionState state, Exception exception) {
 
                         ((NUNCHEE)getApplication()).session = session;
-                        Log.e("State",""+ state+"- "+exception);
                         if (session.isOpened()) {
                             // make request to the /me API
                             Request.newMeRequest(session, new Request.GraphUserCallback() {
@@ -181,9 +179,7 @@ public class LoginActivity extends ActionBarActivity {
                                 @Override
                                 public void onCompleted(GraphUser user, Response response) {
 
-                                    Log.e("State",""+ Session.getActiveSession().getState()+"- ");
                                     if (user != null ) {
-
                                         //block = false;
                                         UserPreference.setIdFacebook(user.getId(), LoginActivity.this);
                                         UserPreference.setNombreFacebook(user.getName(), LoginActivity.this);
@@ -210,19 +206,18 @@ public class LoginActivity extends ActionBarActivity {
                                                     userNunchee = dataBaseUser.select(idString);
                                                     if(userNunchee == null){
                                                         dataBaseUser.insertUser(idString,imageString,nameString);
-                                                        Log.e("Nombre",nameString);
+                                                        /*Log.e("Nombre",nameString);
                                                         Log.e("id",idString);
-                                                        Log.e("image",imageString);
+                                                        Log.e("image",imageString);*/
                                                     }
                                                     Intent intent = new Intent(LoginActivity.this, RecommendedActivity.class);
-                                                    //finish();
                                                     startActivity(intent);
                                                     overridePendingTransition(R.anim.animacion_arriba, R.anim.animacion_abajo);
-                                                    //finish();
                                             }
 
                                             @Override
                                             public void error(String error) {
+                                                Log.e(TAG,error);
                                                 super.error(error);
 
                                             }
@@ -234,11 +229,6 @@ public class LoginActivity extends ActionBarActivity {
                         }
                     }
                 });
-
-                //uiHelper.onCreate(savedInstanceState);
-                /*Intent intent = new Intent(LoginActivity.this, RecommendedActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.animacion_arriba, R.anim.animacion_abajo);*/
 
             }
         });
@@ -269,8 +259,6 @@ public class LoginActivity extends ActionBarActivity {
         initialPhrase3 = "Ordena, descubre y comparte tus programas favoritos!!";
 
         aparece = AnimationUtils.loadAnimation(this, R.anim.fade_in);
-        //puntos = AnimationUtils.loadAnimation(this,R.anim.puntos);
-        //nada = AnimationUtils.loadAnimation(this,R.anim.nada);
 
         Display display = getWindowManager().getDefaultDisplay();
 
@@ -493,8 +481,9 @@ public class LoginActivity extends ActionBarActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
         randomImage();
+        btnLoginFb.setEnabled(true);
+        btnLoginFb.setClickable(true);
     }
 
     @Override

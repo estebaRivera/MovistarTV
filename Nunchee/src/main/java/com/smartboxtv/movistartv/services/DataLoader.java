@@ -2,6 +2,7 @@ package com.smartboxtv.movistartv.services;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -61,6 +62,7 @@ import com.smartboxtv.movistartv.data.models.UserTwitter;
 import com.smartboxtv.movistartv.data.models.UserTwitterJSON;
 import com.smartboxtv.movistartv.data.modelssm.LiveStream;
 import com.smartboxtv.movistartv.data.modelssm.LiveStreamSchedule;
+import com.smartboxtv.movistartv.data.modelssm.TokenIssue;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
 import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.social.Facebook;
@@ -333,7 +335,7 @@ public class DataLoader {
 
         URL_FINAL = new StringBuilder();
 
-        if((CONNECT_AWS == false)){
+        if(CONNECT_AWS == false){
             URL_FINAL.append(SERVICES_URL);
         }
         else{
@@ -354,7 +356,7 @@ public class DataLoader {
     public void actionCheckIn( String idUser, String idAction, String idProgram, String idChannel){
 
         URL_FINAL = new StringBuilder();
-        if((CONNECT_AWS == false)){
+        if(CONNECT_AWS == false){
             URL_FINAL.append(SERVICES_URL);
         }
         else{
@@ -379,7 +381,7 @@ public class DataLoader {
 
         URL_FINAL = new StringBuilder();
 
-        if((CONNECT_AWS == false)){
+        if(CONNECT_AWS == false){
             URL_FINAL.append(SERVICES_URL);
         }
         else{
@@ -401,7 +403,7 @@ public class DataLoader {
 
         URL_FINAL = new StringBuilder();
 
-        if((CONNECT_AWS == false)){
+        if(CONNECT_AWS == false){
             URL_FINAL.append(SERVICES_URL);
         }
         else{
@@ -496,7 +498,7 @@ public class DataLoader {
 
         URL_FINAL = new StringBuilder();
 
-        if((CONNECT_AWS == false)){
+        if(CONNECT_AWS == false){
             URL_FINAL.append(SERVICES_URL);
         }
         else{
@@ -555,7 +557,7 @@ public class DataLoader {
 
         URL_FINAL = new StringBuilder();
 
-        if((CONNECT_AWS == false)){
+        if(CONNECT_AWS == false){
             URL_FINAL.append(SERVICES_URL_TRIVIA);
         }
         else{
@@ -603,7 +605,7 @@ public class DataLoader {
 
         URL_FINAL = new StringBuilder();
 
-        if((CONNECT_AWS == false)){
+        if(CONNECT_AWS == false){
             URL_FINAL.append(SERVICES_URL_TRIVIA);
         }
         else{
@@ -631,7 +633,7 @@ public class DataLoader {
 
         URL_FINAL = new StringBuilder();
 
-        if((CONNECT_AWS == false)){
+        if(CONNECT_AWS == false){
             URL_FINAL.append(SERVICES_URL_POLLS);
         }
         else{
@@ -681,7 +683,7 @@ public class DataLoader {
 
         URL_FINAL = new StringBuilder();
 
-        if((CONNECT_AWS == false)){
+        if(CONNECT_AWS == false){
             URL_FINAL.append(SERVICES_URL);
         }
         else{
@@ -740,7 +742,7 @@ public class DataLoader {
     public void getTrendingChannel(final DataLoadedHandler<TrendingChannel> handler){
 
         String url;
-        if((CONNECT_AWS == false)){
+        if(CONNECT_AWS == false){
             url = SERVICES_URL_TRENDING;
         }
         else{
@@ -869,7 +871,7 @@ public class DataLoader {
 
         URL_FINAL = new StringBuilder();
 
-        if((CONNECT_AWS == false)){
+        if(CONNECT_AWS == false){
             URL_FINAL.append(SERVICES_URL_POLLS);
         }
         else{
@@ -887,7 +889,7 @@ public class DataLoader {
 
         URL_FINAL = new StringBuilder();
 
-        if((CONNECT_AWS == false)){
+        if(CONNECT_AWS == false){
             URL_FINAL.append(SERVICES_URL);
         }
         else{
@@ -939,7 +941,7 @@ public class DataLoader {
 
         URL_FINAL = new StringBuilder();
 
-        if((CONNECT_AWS == false)){
+        if(CONNECT_AWS == false){
             URL_FINAL.append(SERVICES_URL);
         }else{
             URL_FINAL.append(SERVICES_URL_AMAZON);
@@ -963,7 +965,7 @@ public class DataLoader {
 
         URL_FINAL = new StringBuilder();
 
-        if((CONNECT_AWS == false)){
+        if(CONNECT_AWS == false){
             URL_FINAL.append(SERVICES_URL_TRIVIA);
         }else{
             URL_FINAL.append(SERVICES_URL_TRIVIA_AMAZON);
@@ -1013,7 +1015,7 @@ public class DataLoader {
 
         URL_FINAL = new StringBuilder();
 
-        if((CONNECT_AWS == true)){
+        if(CONNECT_AWS == false){
             URL_FINAL.append(SERVICES_URL);
         }else{
             URL_FINAL.append(SERVICES_URL_AMAZON);
@@ -1061,7 +1063,7 @@ public class DataLoader {
 
         URL_FINAL = new StringBuilder();
 
-        if((CONNECT_AWS == false)){
+        if(CONNECT_AWS == false){
             URL_FINAL.append(SERVICES_URL);
         }
         else{
@@ -1101,7 +1103,7 @@ public class DataLoader {
     }
     public void loadLiveStreamList(final DataLoadedHandler<LiveStream> loadedHandler) {
         String url = String.format("%slive-stream?token=%s", BASE_URL, API_TOKEN);
-        Log.e("Url",url);
+        //Log.e("Url",url);
         aq.ajax(url, JSONObject.class, new AjaxCallback<JSONObject>() {
 
             @Override
@@ -1110,7 +1112,7 @@ public class DataLoader {
                     if (!object.isNull("data") && object.getString("status").equals("OK")) {
                         JSONArray list = object.getJSONArray("data");
                         List<LiveStream> streams = new ArrayList<LiveStream>();
-                        for (int i = 0; i < list.length(); ++i) {
+                        for (int i = 0; i < list.length(); i++) {
                             JSONObject raw = list.getJSONObject(i);
                             streams.add(parseJsonObject(raw, LiveStream.class));
                         }
@@ -1143,15 +1145,70 @@ public class DataLoader {
                             item.setStream(stream);
                             schedule.add(item);
                         }
+                        Log.e("Tamaño jsdbfs","--> "+schedule.size());
                         loadedHandler.loaded(schedule);
                     }
                 }
                 catch (Exception e) {
                     e.printStackTrace();
-                    Log.e(TAG, e.getMessage());
+                    Log.e(TAG+"bcd", e.getMessage());
                 }
             }
         });
+    }
+
+    public void issueTokenForLive(final String mediaId, final int index, final DataLoadedHandler<TokenIssue> handler) {
+
+        String url  ="";
+        /*SharedPreferences prefs = context.getSharedPreferences("co.winsportsonline.wso", Context.MODE_PRIVATE);
+        if(index == 1){
+            url = String.format("http://winsportsonline.com/api/la?access_token=%s",prefs.getString("access_token", null));
+        }else{
+            url = String.format("http://winsportsonline.com/api/la/2?access_token=%s",prefs.getString("access_token", null));
+        }*/
+        aq.ajax(url, JSONObject.class, new AjaxCallback<JSONObject>(){
+            @Override
+            public void callback(String url, JSONObject object, AjaxStatus status) {
+               /*if(checkToken()){
+                    issueTokenForLive(mediaId, index, handler);
+                    Log.e("checkToken",""+checkToken());
+                    return;
+                }*/
+                String res;
+                try{
+                    res = object.getString("s");
+                }catch(Exception e){
+                    res = "e";
+                }
+                if(status.getCode() == 200 && res.equalsIgnoreCase("o")){
+                    //count = 0;
+                    url = String.format("%saccess/issue?type=live&token=%s&id=%s", BASE_URL, API_TOKEN, mediaId);
+                    aq.ajax(url, JSONObject.class, new AjaxCallback<JSONObject>() {
+                        @Override
+                        public void callback(String url, JSONObject object, AjaxStatus status) {
+                            try {
+                                TokenIssue tokenIssue = parseJsonObject(object, TokenIssue.class);
+                                handler.loaded(tokenIssue);
+                            }
+                            catch (Exception exception) {
+                                handler.error("Ups! Intenta de nuevo.");
+                            }
+                        }
+                    });
+                }else if(status.getCode() == 401){
+                    /*if(count < 2){
+                        count ++;
+                        checkToken();
+                        issueTokenForLive(mediaId, index, handler);
+                        return;
+                    }*/
+                }
+                else{
+                    Log.e(TAG,"IssueTokenForLive: code "+status.getCode()+" error "+status.getError());
+                    handler.error("CONTENIDO NO DISPONIBLE EN TU CUENTA.");
+                }
+            }
+        }.header("X-Requested-With","XMLHttpRequest"));
     }
 
     public String formatDate ( Date date)  {

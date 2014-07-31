@@ -28,6 +28,8 @@ import com.smartboxtv.movistartv.data.models.Image;
 import com.smartboxtv.movistartv.data.models.Program;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
 import com.smartboxtv.movistartv.programation.delegates.PreviewImageFavoriteDelegate;
+import com.smartboxtv.movistartv.programation.menu.DialogError;
+import com.smartboxtv.movistartv.social.DialogMessage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -69,6 +71,7 @@ public class HeaderFragment extends Fragment {
     public HeaderFragment(Program program, Program previewProgram) {
         this.programa = program;
         this.programaHora = previewProgram;
+        Log.e("Edtebsdfg","fdgdfgghd");
     }
     // det del delegado cualquiera
     @Override
@@ -96,10 +99,17 @@ public class HeaderFragment extends Fragment {
 
         RelativeLayout check = (RelativeLayout) rootView.findViewById(R.id.second_preview_check_in);
 
+        //numeroCheck.setText(programa.CheckIn);
+
+        if(programa.ICheckIn){
+            check.setAlpha((float) 0.6);
+            check.setEnabled(false);
+            check.setClickable(false);
+        }
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numeroCheck.setText("+"+(programaHora.CheckIn+1));
+                numeroCheck.setText("+"+(programa.CheckIn+1));
                 publishCheckIn();
             }
         });
@@ -251,14 +261,13 @@ public class HeaderFragment extends Fragment {
                             }
                         }
                         FacebookRequestError error = response.getError();
-                        if (error != null) {
-                            Toast.makeText(getActivity(),
-                                    error.getErrorMessage(),
-                                    Toast.LENGTH_SHORT).show();
+
+                        if (error == null) {
+                            DialogMessage dialogMessage = new DialogMessage("");
+                            dialogMessage.show(getActivity().getSupportFragmentManager(), "");
                         } else {
-                            Toast.makeText(getActivity(),
-                                    postId,
-                                    Toast.LENGTH_LONG).show();
+                            DialogError dialogError = new DialogError("Su mensaje no pudo ser publicado");
+                            dialogError.show(getActivity().getSupportFragmentManager(), "");
                         }
                     }
 

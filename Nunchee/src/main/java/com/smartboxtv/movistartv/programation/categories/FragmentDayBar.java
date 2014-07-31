@@ -86,9 +86,8 @@ public class FragmentDayBar extends Fragment {
         backDate = (ImageView) rootView.findViewById(R.id.imagen_hora);
         ahora = (ImageView)rootView.findViewById(R.id.btn_categoria_ahora);
         ahora.setVisibility(View.GONE); visible = false;
-        loadMore = (Button) getActivity().findViewById(R.id.btn_more);
+        //loadMore = (Button) getActivity().findViewById(R.id.btn_more);
 
-        //ImageView imageHorario = (ImageView) rootView.findViewById(R.id.imagen_hora);
         hora = (TextView) rootView.findViewById(R.id.texto_hora);
 
         Typeface bold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SegoeWP-Bold.ttf");
@@ -113,9 +112,9 @@ public class FragmentDayBar extends Fragment {
 
         imprimeFechaInicial();
 
-        Log.e("Actual posicion DP",""+actualPosition.getDp());
+        /*Log.e("Actual posicion DP",""+actualPosition.getDp());
         Log.e("Actual posicion Long",""+actualPosition.getnFecha());
-        Log.e("Fecha actual ",""+new Date (longActual));
+        Log.e("Fecha actual ",""+new Date (longActual));*/
 
         ahora.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,8 +160,8 @@ public class FragmentDayBar extends Fragment {
                                         ahora.setVisibility(View.GONE);
                                         visible = false;
                                     }
-
-                                    horaryDelegate.hiddeButtons();
+                                    if(horaryDelegate!= null)
+                                        horaryDelegate.hiddeButtons();
                                     determinaCompensacion(currHorizontal);
                                     actualizaPosicion(currHorizontal, (firstPosition.getnFecha()) + ((currHorizontal - compensacion) * FIVE_MINUTES) + (FIVE_MINUTES * (delta - 20)));
 
@@ -193,7 +192,8 @@ public class FragmentDayBar extends Fragment {
                                         visible = false;
                                     }
                                     determinaCompensacion(currHorizontal);
-                                    horaryDelegate.hiddeButtons();
+                                    if(horaryDelegate!= null)
+                                        horaryDelegate.hiddeButtons();
                                     actualizaPosicion(currHorizontal,(firstPosition.getnFecha())+((currHorizontal - compensacion)* FIVE_MINUTES)+(FIVE_MINUTES * (delta - 20)));
                                     imprimeFecha();
 

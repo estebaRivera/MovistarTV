@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.smartboxtv.movistartv.R;
+import com.smartboxtv.movistartv.programation.menu.DialogError;
 import com.smartboxtv.movistartv.services.DataLoader;
 
 /**
@@ -32,6 +33,7 @@ public class DialogShare extends DialogFragment {
 
     private String textTw;
     private boolean isTw = false;
+
     public DialogShare() {
         setStyle(android.support.v4.app.DialogFragment.STYLE_NO_TITLE, getTheme());
     }
@@ -108,8 +110,13 @@ public class DialogShare extends DialogFragment {
                             @Override
                             public void done(Exception e) {
                                 dismiss();
-                                if(e != null){
-                                    Toast.makeText(getActivity(),"No Publicado",Toast.LENGTH_SHORT).show();
+
+                                if (e == null) {
+                                    DialogMessage dialogMessage = new DialogMessage("");
+                                    dialogMessage.show(getActivity().getSupportFragmentManager(), "");
+                                } else {
+                                    DialogError dialogError = new DialogError("Su mensaje no pudo ser publicado");
+                                    dialogError.show(getActivity().getSupportFragmentManager(),"");
                                 }
                             }
                         });
@@ -123,11 +130,14 @@ public class DialogShare extends DialogFragment {
                             @Override
                             public void loaded(String data) {
                                 dismiss();
+                                DialogMessage dialogMessage = new DialogMessage("");
+                                dialogMessage.show(getActivity().getSupportFragmentManager(), "");
                             }
 
                             @Override
                             public void error(String error) {
-                                Toast.makeText(getActivity(),"No Publicado",Toast.LENGTH_SHORT).show();
+                                DialogError dialogError = new DialogError("Su mensaje no pudo ser publicado");
+                                dialogError.show(getActivity().getSupportFragmentManager(), "");
                                 dismiss();
                             }
                         },editText.getText().toString());

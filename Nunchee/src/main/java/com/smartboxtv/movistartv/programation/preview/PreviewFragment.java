@@ -1220,7 +1220,7 @@ public class PreviewFragment extends Fragment {
 
                 int posicion =  scrollTw.getScrollY();
 
-                Log.e("posicion",""+posicion);
+                //Log.e("posicion",""+posicion);
                 if(posicion == max || posicion > max){
                     scrollTw.smoothScrollTo(0, 10);
                 }

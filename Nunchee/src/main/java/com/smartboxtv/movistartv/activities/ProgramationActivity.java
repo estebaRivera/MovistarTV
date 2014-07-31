@@ -132,6 +132,7 @@ public class ProgramationActivity extends ActionBarActivity{
     private boolean isTrendingOpen = false;
 
     private List<LiveStreamSchedule> liveStreamSchedules = new ArrayList<LiveStreamSchedule>();
+    private List<LiveStream> liveStreams = new ArrayList<LiveStream>();
 
     private UpdateNotificationDelegate notificationDelegate;
 
@@ -192,13 +193,13 @@ public class ProgramationActivity extends ActionBarActivity{
         ft.commit();
         fg = horaryFragment;
 
-        /*try{
+        try{
             getLiveStreamShedule();
         }
         catch(Exception e){
             e.printStackTrace();
-            Log.e("Error","--> "+e.getMessage());
-        }*/
+            Log.e("Error Live","--> "+e.getMessage());
+        }
 
         DataLoader dataLoader = new DataLoader(getApplication());
         dataLoader.getTrendingChannel( new DataLoader.DataLoadedHandler<TrendingChannel>(){
@@ -449,17 +450,20 @@ public class ProgramationActivity extends ActionBarActivity{
         scrollViewLive = (ScrollView) findViewById(R.id.list_live);
         scrollViewLive.setVisibility(View.GONE);
         final List<LiveSM> list = new ArrayList<LiveSM>();
-        LiveSM live1 = new LiveSM("http://www.puntogeek.com/wp-content/uploads/2010/03/big-buck.jpg","Big  Buck Bunny","MP4",new Date(),"http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4");
+        /*LiveSM live1 = new LiveSM("http://www.puntogeek.com/wp-content/uploads/2010/03/big-buck.jpg","Big  Buck Bunny","MP4",new Date(),"http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4");
         LiveSM live2 = new LiveSM("http://www.observatoriofucatel.cl/wp-content/uploads/2010/11/club-de-la-comedia.jpg","Deportes","En VIVO",new Date(),"http://149.255.39.122/aasd/8741/index.m3u8#www.rojadirecta.me");
-        LiveSM live4 = new LiveSM("http://upload.wikimedia.org/wikipedia/commons/2/2e/13hd.png","Canal 13 HD","En VIVO",new Date(),"http://live.hls.http.13.ztreaming.com/13hd/13hd-900.m3u8");
+        LiveSM live4 = new LiveSM("http://upload.wikimedia.org/wikipedia/commons/2/2e/13hd.png","Canal 13 HD","En VIVO",new Date(),"http://live.hls.http.13.ztreaming.com/13hd/13hd-900.m3u8");*/
 
-       /* for(int i = 0; i < liveStreamSchedules.size() ;i++){
-            list.add(new LiveSM( liveStreamSchedules.get(i).getCode(),liveStreamSchedules.get(i).getName(),"",liveStreamSchedules.get(i).getStartDate(),""));
-        }*/
-        list.add(live1);
+        Log.e("create menu live","create menu lve");
+        for(int i = 0; i < liveStreamSchedules.size() ;i++){
+            list.add(new LiveSM( "http://www.puntogeek.com/wp-content/uploads/2010/03/big-buck.jpg", liveStreamSchedules.get(i).getName(),"",new Date(),""));
+            //Log.e("Imagen",liveStreamSchedules.get(i).getCode());
+            Log.e("Nombre --", liveStreamSchedules.get(i).getName());
+        }
+
+        /*list.add(live1);
         list.add(live2);
-        list.add(live4);
-
+        list.add(live4);*/
 
         LayoutInflater inflater = LayoutInflater.from(this);
 
@@ -598,69 +602,11 @@ public class ProgramationActivity extends ActionBarActivity{
                     } catch (IOException e) {
                         e.printStackTrace();
 
-                        Log.e("Preview","--> "+e.getMessage());
-
                     }
-                    //contenedorActionbarOption.removeAllViews();
                     contenedorMenuBar.removeAllViews();
-
-                    //RelativeLayout containerSearch = (RelativeLayout) findViewById(R.id.container_search);
-                    //containerSearch.setVisibility(View.GONE);
-
                 }
                 else{
                     showSearch = true;
-
-                    /*RelativeLayout containerSearch = (RelativeLayout) findViewById(R.id.container_search);
-                    containerSearch.setVisibility(View.VISIBLE);
-
-                    final EditText editText = (EditText) containerSearch.findViewById(R.id.text_search);
-                    ImageView exit = (ImageView) containerSearch.findViewById(R.id.exit);
-                    ImageView search = (ImageView) containerSearch.findViewById(R.id.image_search);
-                    ImageView searchExit = (ImageView) containerSearch.findViewById(R.id.image_search_exit);
-
-                    View viewLoading = inflaterPrivate.inflate(R.layout.progress_dialog_search, null);
-                    RelativeLayout contenedorLoading = (RelativeLayout)containerSearch .findViewById(R.id.contenedor_loading);
-
-                    LinearLayout wrapper = (LinearLayout) containerSearch.findViewById(R.id.wrapper);
-                    ImageView arrow = (ImageView) containerSearch.findViewById(R.id.search_arrow);
-
-                    //ManagerAnimation.fade(wrapper,arrow,exit);
-
-                    //String text;
-                    search.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Log.e("palabra", editText.getText().toString());
-                            loading();
-
-                        }
-                    });
-                    searchExit.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            //finish();
-                        }
-                    });
-                    exit.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            //finish();
-                        }
-                    });*/
-
-                    /////////////////////////////////////////////////////////////
-
-                    /*isConfiguration = false;
-                    isNotification = false;
-
-                    //contenedorActionbarOption.removeAllViews();
-                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.addToBackStack(null);
-                    SearchFragment dialogError = new SearchFragment();
-                    ft.replace(R.id.contenedor_menu_bar, dialogError);
-                    //ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                    ft.commit();*/
                 }
             }
         });
@@ -1024,7 +970,7 @@ public class ProgramationActivity extends ActionBarActivity{
             @Override
             public void onClick(View view) {
 
-                //ManagerAnimation.selection(recomendado);
+
                 Intent i = new Intent(ProgramationActivity.this, RecommendedActivity.class);
                 startActivity(i);
             }
@@ -1047,39 +993,6 @@ public class ProgramationActivity extends ActionBarActivity{
                     }
                 }*/
                 disconnectFacebookAccount();
-                /*Intent i = new Intent(ProgramationActivity.this, LoginActivity.class);
-                startActivity(i);*/
-                /*String app_id = getString(R.string.app_id);
-                Facebook fb = new Facebook(app_id);
-
-                try {
-                    fb.logout(getApplicationContext());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                AQuery aq = new AQuery(getApplicationContext());
-
-                Session session = Session.getActiveSession();
-                if (session != null) {
-                    session.closeAndClearTokenInformation();
-                    session.close();
-                    if(session.isOpened()){
-                        Log.e("Sessión","Abierta");
-                    }
-                    else if(session.isClosed()){
-                        Log.e("Sessión","Cerrada");
-                    }
-                }
-
-                else
-                {
-                    Session session2 = Session.openActiveSession((Activity)getApplicationContext(), false, null);
-                    if(session2 != null)
-                        session2.closeAndClearTokenInformation();
-                }
-                Session.setActiveSession(null);*/
-
             }
         });
 
@@ -1089,8 +1002,6 @@ public class ProgramationActivity extends ActionBarActivity{
 
     public void disconnectFacebookAccount()
     {
-        //showProgressDialog("Disconnecting Facebook account...");
-
         new AsyncTask<Void, Void, Boolean>()
         {
             @Override
@@ -1104,25 +1015,15 @@ public class ProgramationActivity extends ActionBarActivity{
                 if (Session.getActiveSession() != null)
                     Session.getActiveSession().closeAndClearTokenInformation();
 
-                //clearFacebookInfoFromSharedPreferences();
-
-                // perform any other operations you need to do perform here
-                // such as clearing local database tables and so forth
-
                 return true;
             }
 
             @Override
             protected void onPostExecute(Boolean result)
             {
-                // safety check
-
                 if (result == null || result == false) {
                     onFailedFacebookDisconnect();
                 }
-                /*else if(!isFinishing()){
-                   onSucceededFacebookDisconnect();
-                }*/
 
                 if (result)
                     loginActivity();
@@ -1237,7 +1138,7 @@ public class ProgramationActivity extends ActionBarActivity{
                 Bitmap screenShot = ScreenShot.takeScreenshot(r);
 
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                screenShot.compress(Bitmap.CompressFormat.JPEG, 95, stream);
+                screenShot.compress(Bitmap.CompressFormat.JPEG, 80, stream);
                 byte[] byteArray = stream.toByteArray();
 
                 try {
@@ -1345,7 +1246,7 @@ public class ProgramationActivity extends ActionBarActivity{
                 Bitmap screenShot = ScreenShot.takeScreenshot(r);
 
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                screenShot.compress(Bitmap.CompressFormat.JPEG, 95, stream);
+                screenShot.compress(Bitmap.CompressFormat.JPEG, 80, stream);
                 byte[] byteArray = stream.toByteArray();
 
                 try {
@@ -1389,25 +1290,15 @@ public class ProgramationActivity extends ActionBarActivity{
         dataLoader.loadLiveStreamList(new DataLoader.DataLoadedHandler<LiveStream>(){
             @Override
             public void loaded(List<LiveStream> data) {
-                for(int i = 0 ; i < data.size();i++){
+                liveStreams = data;
 
+                for(int i = 0 ; i < data.size();i++){
                     dataLoader.loadLiveStreamSchedule(data.get(i), new DataLoader.DataLoadedHandler<LiveStreamSchedule>(){
                         @Override
-                        public void loaded(List<LiveStreamSchedule> data) {
-                            liveStreamSchedules = data;
-                            Collections.sort(liveStreamSchedules, new Comparator<LiveStreamSchedule>() {
-                                @Override
-                                public int compare(LiveStreamSchedule lhs, LiveStreamSchedule rhs) {
-                                    if (lhs.getStartDate().getTime() > rhs.getStartDate().getTime()) {
-                                        return 1;
-                                    } else if (lhs.getStartDate().getTime() < rhs.getStartDate().getTime()) {
-                                        return -1;
-                                    } else {
-                                        return 0;
-                                    }
-                                }
-
-                            });
+                        public void loaded(List<LiveStreamSchedule> data2) {
+                            /*for(int j = 0; j < data2.size();j++)
+                                liveStreamSchedules.add(data2.get(j));*/
+                            liveStreamSchedules = data2;
                             createMenuLive();
                         }
 
@@ -1417,6 +1308,18 @@ public class ProgramationActivity extends ActionBarActivity{
                         }
                     });
                 }
+                Collections.sort(liveStreamSchedules, new Comparator<LiveStreamSchedule>() {
+                    @Override
+                    public int compare(LiveStreamSchedule lhs, LiveStreamSchedule rhs) {
+                        if (lhs.getStartDate().getTime() > rhs.getStartDate().getTime()) {
+                            return 1;
+                        } else if (lhs.getStartDate().getTime() < rhs.getStartDate().getTime()) {
+                            return -1;
+                        } else {
+                            return 0;
+                        }
+                    }
+                });
             }
 
             @Override

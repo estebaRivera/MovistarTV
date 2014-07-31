@@ -30,22 +30,8 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
-    <!-- Buscar -->
-    <EditText
-        android:layout_marginLeft="35dp"
-        android:layout_toLeftOf="@+id/icon_search"
-        android:background="?attr/actionBarItemBackground"
-        android:textColor="#55000000"
-        android:visibility="gone"
-        android:layout_width="180dp"
-        android:textAlignment="center"
-        android:layout_centerVertical="true"
-        android:layout_height="42dp"
-        android:focusable="true"
-        android:hint="Buscar"
-        android:id="@+id/item_buscar"/>
 
-    <ImageView
+    <ImageButton
         android:id="@+id/icon_search"
         android:layout_height="36dp"
         android:layout_width="36dp"
@@ -53,20 +39,6 @@
         android:background="@drawable/buscar"
         android:layout_centerVertical="true"
         android:layout_marginRight="10dp" />
-
-    <!-- Mensajes -->
-    <ImageButton
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:src="@drawable/icon_msj"
-        android:layout_toLeftOf="@+id/item_notificaciones"
-        android:background="?attr/actionBarItemBackground"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="5dp"
-        android:scaleType="centerInside"
-        android:visibility="gone"
-        android:id="@+id/item_mensajes"
-        android:layout_marginRight="16dp" />
 
     <!-- Notificaciones -->
 
@@ -81,21 +53,6 @@
         android:layout_height="36dp"
         android:scaleType="centerCrop"
         />
-
-    <!-- Perfil -->
-
-    <!--cl.makeramen.RoundedImageView
-        android:id="@+id/foto_perfil_actionbar"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        app:corner_radius="17dp"
-        android:layout_width="38dp"
-        android:layout_height="38dp"
-        android:scaleType="centerCrop"
-        android:layout_toLeftOf="@+id/item_configuracion"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="70dp"
-        android:visibility="gone" /-->
 
     <!-- Configuración -->
     <ImageButton

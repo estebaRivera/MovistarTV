@@ -40,13 +40,14 @@ public class CategoryFragmentBottomBar extends Fragment {
 
         View rootView = inflater.inflate(R.layout.category_fragment_bar_bottom, container, false);
         gridView = (GridView) (rootView != null ? rootView.findViewById(R.id.gridView) : null);
+
         cargaCategorias();
         //cargaCategoriaSM();
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 adapter.setSelected(v);
                 //adapterSM.setSelected(v);
+                //Log.e("Nombre Categotia",listaCategoria.get(position).channelCategoryName);
                 if(del!=null){
                     del.getCategory(listaCategoria.get(position));
                     //del.getCategory(categorieList.get(position));

@@ -71,19 +71,19 @@ public class SearchActivity extends ActionBarActivity {
     private View viewLoading;
     private LayoutInflater inflaterPrivate;
     private RelativeLayout contenedorLoading;
-    private RelativeLayout contenedorExitMenu;
-    private RelativeLayout contenedorMenuBar;
+    //private RelativeLayout contenedorExitMenu;
+    //private RelativeLayout contenedorMenuBar;
     private RelativeLayout contenedorNoResult;
+    private RelativeLayout contenedorResult;
     //private RelativeLayout contenedorActionbarOption;
-    private boolean isConfiguration = false;
+    /*private boolean isConfiguration = false;
     private boolean isMessage = false;
     private boolean isNotification = false;
     private boolean isSlideMenuOpen = false;
     private boolean fbActivate;
     private boolean showSearch = false;
     private boolean showMenuLive = false;
-    private boolean isTrendingOpen = true;
-
+    private boolean isTrendingOpen = true;*/
     private List<Program> programList = new ArrayList<Program>();
 
     @Override
@@ -100,35 +100,27 @@ public class SearchActivity extends ActionBarActivity {
         inflaterPrivate = LayoutInflater.from(this);
         viewLoading = inflaterPrivate.inflate(R.layout.progress_dialog_search, null);
         contenedorLoading = (RelativeLayout) findViewById(R.id.contenedor_loading);
-        overridePendingTransition(R.anim.fade_actvity, R.anim.fade_out_activity);
-        LinearLayout wrapper = (LinearLayout) findViewById(R.id.wrapper);
         contenedorNoResult = (RelativeLayout) findViewById(R.id.no_result);
+        contenedorResult = (RelativeLayout) findViewById(R.id.contenedor_resultado);
+        overridePendingTransition(R.anim.fade_actvity, R.anim.fade_out_activity);
 
-        //ManagerAnimation.fade(wrapper,arrow,exit);
-
-
+        // Clck button search keyboard
         editText.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ( (keyCode == KeyEvent.KEYCODE_SEARCH)) {
-                    clean();
-                    loading();
                     search(editText.getText().toString());
                     return true;
                 }
-
                 return false;
             }
         });
 
-        //String text;
+        // Search imagebutton wrapper
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("palabra", editText.getText().toString());
-                clean();
-                loading();
-                search(editText.getText().toString());
 
+                search(editText.getText().toString());
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
 
@@ -145,30 +137,20 @@ public class SearchActivity extends ActionBarActivity {
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
-                overridePendingTransition(0, 0);
+                clean();
             }
         });
     }
 
-    public void clean(){
-        RelativeLayout n = (RelativeLayout) findViewById(R.id.no_result);
-        n.setVisibility(View.GONE);
-        /*RelativeLayout r = (RelativeLayout) findViewById(R.id.no_result);
-        r.removeAllViews();*/
-    }
+    public void search(String word){
 
-
-    public void search(String cosa){
-
-        if(!cosa.isEmpty()){
-
+        if(!word.isEmpty()){
+            loading();
             DataLoader dataLoader = new DataLoader(this);
             dataLoader.search(new DataLoader.DataLoadedHandler<Program>(){
                 @Override
                 public void loaded(List<Program> data) {
                     programList = data;
-                    clean();
                     setData();
                     borraLoading();
                 }
@@ -176,10 +158,9 @@ public class SearchActivity extends ActionBarActivity {
                 @Override
                 public void error(String error) {
                     Log.e("Error","--> "+error);
-
                     borraLoading();
                 }
-            },cosa);
+            },word);
         }
         else{
             Toast.makeText(this , "Ingrese una palabra", Toast.LENGTH_LONG).show();
@@ -193,15 +174,16 @@ public class SearchActivity extends ActionBarActivity {
         AQuery aq = new AQuery(this);
 
         if(programList.size() > 0){
-            // RelativeLayout r = (RelativeLayout) rootView.findViewById(R.id.container_message);
 
             contenedorNoResult.setVisibility(View.GONE);
+            contenedorResult.setVisibility(View.VISIBLE);
+
             LinearLayout l = (LinearLayout) findViewById(R.id.list_data_result);
             l.removeAllViews();
+
             SimpleDateFormat dateFormat = new SimpleDateFormat("EEE HH:mm");
             LayoutInflater inf = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            //r.setVisibility(View.VISIBLE);
-            Log.e("update", "reminder +1");
+
             LinearLayout[] list = new LinearLayout [programList.size()];
             for(int i = 0 ; i < programList.size();i++){
 
@@ -241,7 +223,7 @@ public class SearchActivity extends ActionBarActivity {
                         Bitmap screenShot = ScreenShot.takeScreenshot(r);
 
                         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                        screenShot.compress(Bitmap.CompressFormat.JPEG, 95, stream);
+                        screenShot.compress(Bitmap.CompressFormat.JPEG, 80, stream);
                         byte[] byteArray = stream.toByteArray();
 
                         try {
@@ -259,8 +241,8 @@ public class SearchActivity extends ActionBarActivity {
                             intent.putExtra("programa", p);
                             startActivity(intent);
                             overridePendingTransition(R.anim.zoom_in_preview, R.anim.nada);
-                            //rootView.setVisibility(View.GONE);
-                            //onDestroy();
+
+
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -271,17 +253,20 @@ public class SearchActivity extends ActionBarActivity {
             }
         }
         else{
-            Log.e("No resultado","zdgfgzdg");
             contenedorNoResult.setVisibility(View.VISIBLE);
-            contenedorNoResult.bringToFront();
+            contenedorResult.setVisibility(View.GONE);
         }
+    }
+    public void clean(){
+        RelativeLayout n = (RelativeLayout) findViewById(R.id.no_result);
+        n.setVisibility(View.GONE);
+        RelativeLayout r = (RelativeLayout) findViewById(R.id.contenedor_resultado);
+        r.setVisibility(View.GONE);
     }
 
     public void loading(){
 
         clean();
-        LayoutInflater inflaterPrivate = LayoutInflater.from(this);
-
         ImageView imgPopCorn = (ImageView) viewLoading.findViewById(R.id.pop_corn_centro);
         LinearLayout.LayoutParams params = new  LinearLayout.LayoutParams(LinearLayout.LayoutParams
                 .MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
@@ -292,8 +277,6 @@ public class SearchActivity extends ActionBarActivity {
 
         contenedorLoading.addView(viewLoading);
         viewLoading.bringToFront();
-
-        Log.e("Loading","Loading");
 
         contenedorLoading.bringToFront();
         contenedorLoading.setEnabled(false);
@@ -317,8 +300,6 @@ public class SearchActivity extends ActionBarActivity {
         Bitmap bm = BitmapFactory.decodeFile(path);
         back.setImageBitmap(bm);
     }
-
-
 
     private void createActionBar() {
 

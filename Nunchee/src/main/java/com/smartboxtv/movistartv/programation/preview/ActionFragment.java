@@ -45,7 +45,9 @@ import com.smartboxtv.movistartv.data.models.Image;
 import com.smartboxtv.movistartv.data.models.Program;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
 import com.smartboxtv.movistartv.programation.delegates.PreviewImageFavoriteDelegate;
+import com.smartboxtv.movistartv.programation.menu.DialogError;
 import com.smartboxtv.movistartv.services.DataLoader;
+import com.smartboxtv.movistartv.social.DialogMessage;
 import com.smartboxtv.movistartv.social.DialogShare;
 
 import org.json.JSONException;
@@ -447,16 +449,12 @@ public class ActionFragment extends Fragment {
                         }
 
                         FacebookRequestError error = response.getError();
-                        if (error != null) {
-                            Toast.makeText(getActivity()
-                                    .getApplicationContext(),
-                                    "Ups, algo salió mal, intenta de nuevo",
-                                    Toast.LENGTH_LONG).show();
+                        if (error == null) {
+                            DialogMessage dialogMessage = new DialogMessage("");
+                            dialogMessage.show(getActivity().getSupportFragmentManager(), "");
                         } else {
-                            Toast.makeText(getActivity()
-                                    .getApplicationContext(),
-                                    "Publicado correctamente",
-                                    Toast.LENGTH_LONG).show();
+                            DialogError dialogError = new DialogError("Su mensaje no pudo ser publicado");
+                            dialogError.show(getActivity().getSupportFragmentManager(),"");
                         }
                     }
 
@@ -550,16 +548,13 @@ public class ActionFragment extends Fragment {
                         }
 
                         FacebookRequestError error = response.getError();
-                        if (error != null) {
-                            Toast.makeText(getActivity()
-                                    .getApplicationContext(),
-                                    error.getErrorMessage(),
-                                    Toast.LENGTH_SHORT).show();
+
+                        if (error == null) {
+                            DialogMessage dialogMessage = new DialogMessage("");
+                            dialogMessage.show(getActivity().getSupportFragmentManager(), "");
                         } else {
-                            Toast.makeText(getActivity()
-                                    .getApplicationContext(),
-                                    postId,
-                                    Toast.LENGTH_LONG).show();
+                            DialogError dialogError = new DialogError("Su mensaje no pudo ser publicado");
+                            dialogError.show(getActivity().getSupportFragmentManager(),"");
                         }
                     }
 

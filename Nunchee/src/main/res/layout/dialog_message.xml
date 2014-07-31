@@ -8,46 +8,42 @@
     <RelativeLayout
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_width="480dp"
-        android:layout_height="340dp">
+        android:layout_width="400dp"
+        android:layout_height="300dp">
 
         <ImageView
             android:background="@drawable/alertview"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_width="600dp"
-            android:layout_height="400dp" />
-
-        <ImageView
-            android:id="@+id/image_error"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/icon_not_small"
-            android:layout_width="80dp"
-            android:layout_height="80dp" />
+            android:layout_width="400dp"
+            android:layout_height="300dp" />
 
         <TextView
-            android:layout_marginTop="230dp"
             android:id="@+id/text_error"
             android:textColor="#FFFFFF"
             android:alpha="0.7"
             android:textSize="20sp"
             android:layout_centerHorizontal="true"
-            android:text="Oops! algo salió mal, intenta de nuevo"
-            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Su mensaje fue publicado correctamente"
+            android:layout_width="300dp"
+            android:textAlignment="center"
+            android:gravity="center"
             android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/button_aceptar"
-            android:layout_marginTop="275dp"
             android:textColor="#FFFFFF"
             android:alpha="0.7"
             android:textSize="21sp"
             android:layout_centerHorizontal="true"
+            android:layout_below="@+id/text_error"
+            android:layout_marginTop="30dp"
             android:text="Aceptar"
             android:background="#7AB700"
             android:layout_width="130dp"
             android:layout_height="wrap_content" />
+
     </RelativeLayout>
 
 </RelativeLayout>

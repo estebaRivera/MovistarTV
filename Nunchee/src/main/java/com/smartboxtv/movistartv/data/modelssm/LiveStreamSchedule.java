@@ -64,7 +64,7 @@ public class LiveStreamSchedule {
         this.name = name;
     }
 
-    @DataMember(member = "code")
+    /*@DataMember(member = "code")
     public String getCode() {
         return code;
     }
@@ -72,7 +72,7 @@ public class LiveStreamSchedule {
     @DataMember(member = "code")
     public void setCode(String code) {
         this.code = code;
-    }
+    }*/
 
     @DataMember(member = "is_auto_published")
     public boolean isAutoPublished() {

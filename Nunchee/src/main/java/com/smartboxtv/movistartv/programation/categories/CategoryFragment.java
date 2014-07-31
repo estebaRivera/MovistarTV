@@ -44,7 +44,6 @@ public class CategoryFragment extends Fragment {
 
         CategoryDelegateGetCategory delegateGetCategory = new CategoryDelegateGetCategory() {
 
-
             @Override
             public void getCategory(CategorieChannel cc) {
                 categorieChannel = cc;
@@ -54,8 +53,8 @@ public class CategoryFragment extends Fragment {
 
             @Override
             public void getCategory(CategorieChannelSM cc) {
-                categorieChannelSM = cc;
-                fragmentContainer.cargarProgramasSM(categorieChannelSM.getId(),date);
+                //categorieChannelSM = cc;
+                //fragmentContainer.cargarProgramasSM(categorieChannelSM.getId(),date);
             }
 
         } ;

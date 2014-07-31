@@ -50,6 +50,7 @@ public class HoraryFragment extends Fragment {
                     fragmentPrograms.hiddeButton();
                     fragmentPrograms.clean();
                     fragmentPrograms.loadProgramation(d);
+                    fragmentPrograms.hideButton = true;
                     fragmentDayBar.LIMIT_TOP = fragmentPrograms.LIMIT_TOP;
                 }
                 else{
@@ -59,6 +60,7 @@ public class HoraryFragment extends Fragment {
                             fragmentPrograms.hiddeButton();
                             fragmentPrograms.clean();
                             fragmentPrograms.loadProgramation(d);
+                            fragmentPrograms.hideButton = true;
                             //fragmentPrograms.loadProgramationSM(d);
                             fragmentDayBar.LIMIT_TOP = fragmentPrograms.LIMIT_TOP;
                             Log.e(" More Program 1", "1");
@@ -70,6 +72,7 @@ public class HoraryFragment extends Fragment {
                         }
                     }
                     else{
+                        fragmentPrograms.hiddeButton();
                         fragmentPrograms.actualizaPosicion(d,false,false);
                         Log.e("More program 5", "5");
                     }
@@ -103,11 +106,12 @@ public class HoraryFragment extends Fragment {
                 fragmentDayBar.setDateLastProgram(dateLastProgram);
 
                 if(right){                                                                          //Determina si la barra se mueve hacia la izquierda o derecha según el parametro
-
                     fragmentDayBar.actualizaPosicionBarra(6, date.getTime());
+                    fragmentPrograms.hiddeButton();
                 }
                 else{
                     fragmentDayBar.actualizaPosicionBarra(-6, date.getTime());
+                    fragmentPrograms.hiddeButton();
                 }
                 fragmentDayBar.imprimeFecha();
             }

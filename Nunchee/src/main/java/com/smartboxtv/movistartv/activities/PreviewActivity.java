@@ -11,15 +11,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
-import android.graphics.RectF;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -59,6 +52,7 @@ import com.smartboxtv.movistartv.data.database.DataBase;
 
 import com.smartboxtv.movistartv.data.database.DataBaseUser;
 import com.smartboxtv.movistartv.data.database.UserNunchee;
+import com.smartboxtv.movistartv.data.image.ScreenShot;
 import com.smartboxtv.movistartv.data.image.Type;
 import com.smartboxtv.movistartv.data.image.Width;
 import com.smartboxtv.movistartv.data.models.Image;
@@ -73,27 +67,29 @@ import com.smartboxtv.movistartv.programation.delegates.PreviewImageFavoriteDele
 import com.smartboxtv.movistartv.programation.menu.About;
 import com.smartboxtv.movistartv.programation.menu.DialogError;
 import com.smartboxtv.movistartv.programation.menu.NotificationFragment;
-import com.smartboxtv.movistartv.programation.menu.Politica;
 import com.smartboxtv.movistartv.programation.preview.ActionFragment;
 
 import com.smartboxtv.movistartv.programation.preview.BarFragment;
 import com.smartboxtv.movistartv.programation.preview.HeaderFragment;
-import com.smartboxtv.movistartv.programation.preview.PollFragment;
 import com.smartboxtv.movistartv.programation.preview.PollMaxFragment;
 import com.smartboxtv.movistartv.programation.preview.PollMinFragment;
 import com.smartboxtv.movistartv.programation.preview.Preview;
-import com.smartboxtv.movistartv.programation.preview.TriviaFragment;
 import com.smartboxtv.movistartv.programation.preview.TriviaMaxFragment;
 import com.smartboxtv.movistartv.programation.preview.TriviaMinFragment;
 import com.smartboxtv.movistartv.programation.preview.TwFragment;
 import com.smartboxtv.movistartv.programation.preview.TwMaxFragment;
 import com.smartboxtv.movistartv.services.DataLoader;
 import com.smartboxtv.movistartv.services.ServiceManager;
+import com.smartboxtv.movistartv.social.DialogMessage;
 import com.smartboxtv.movistartv.social.DialogShare;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -177,9 +173,15 @@ public class PreviewActivity extends ActionBarActivity {
     private boolean esEncuesta = false;
     private boolean esTw = false;
 
-    private boolean isMessage = false;
+    private boolean showSearch = false;
     private boolean isNotification = false;
     private boolean isConfiguration = false;
+
+    private boolean ICheckIn = false;
+    private boolean ILike = false;
+    private boolean AddFavorite = false;
+    private boolean IReminderProgram = false;
+    private boolean IShare = false;
 
     // Share Facebook
     private static final List<String> PERMISSIONS = Arrays.asList("publish_actions");
@@ -327,6 +329,12 @@ public class PreviewActivity extends ActionBarActivity {
                     i.putExtra("programa", programa);
                     i.putExtra("programaPreview", programaPreview);
                     i.putExtra("click", Preview.TWEETS);
+                    i.putExtra("check",ICheckIn);
+                    i.putExtra("like",ILike);
+                    i.putExtra("share",IShare);
+                    i.putExtra("reminder", IReminderProgram);
+                    i.putExtra("favorite",AddFavorite);
+
                     startActivity(i);
                     overridePendingTransition(R.anim.zoom_in_preview, R.anim.nada);
                     //context.startActivity(i);
@@ -354,6 +362,11 @@ public class PreviewActivity extends ActionBarActivity {
                     i.putExtra("programa", programa);
                     i.putExtra("programaPreview", programaPreview);
                     i.putExtra("click", Preview.POLLS);
+                    i.putExtra("check",ICheckIn);
+                    i.putExtra("like",ILike);
+                    i.putExtra("share",IShare);
+                    i.putExtra("reminder", IReminderProgram);
+                    i.putExtra("favorite",AddFavorite);
                     startActivity(i);
                     overridePendingTransition(R.anim.zoom_in_preview, R.anim.nada);
                     //context.startActivity(i);
@@ -381,6 +394,11 @@ public class PreviewActivity extends ActionBarActivity {
                     i.putExtra("programa", programa);
                     i.putExtra("programaPreview", programaPreview);
                     i.putExtra("click", Preview.TRIVIA);
+                    i.putExtra("check",ICheckIn);
+                    i.putExtra("like",ILike);
+                    i.putExtra("share",IShare);
+                    i.putExtra("reminder", IReminderProgram);
+                    i.putExtra("favorite",AddFavorite);
                     startActivity(i);
                     overridePendingTransition(R.anim.zoom_in_preview, R.anim.nada);
 
@@ -521,6 +539,8 @@ public class PreviewActivity extends ActionBarActivity {
                     btnCheckIn_.setText("+ " + (programaPreview.getCheckIn() + 1));
                     btnCheckIn.setAlpha((float) 0.5);
                     btnCheckIn.setEnabled(false);
+
+                    ICheckIn = true;
                     publishCheckIn();
                 }
                 else{
@@ -545,6 +565,7 @@ public class PreviewActivity extends ActionBarActivity {
                     btnLike.setText((programaPreview.getLike() + 1) + " Likes");
                     btnLike.setEnabled(false);
                     btnLike.setAlpha((float) 0.5);
+                    ILike = true;
                     publishStory();
                 }
                 else{
@@ -568,6 +589,7 @@ public class PreviewActivity extends ActionBarActivity {
 
                 imgFavorite.setVisibility(View.VISIBLE);
                 imgFavorite.bringToFront();
+                AddFavorite = true;
 
             }
         });
@@ -586,6 +608,7 @@ public class PreviewActivity extends ActionBarActivity {
                     btnShare.setEnabled(false);
                     btnShare.startAnimation(animation);
                     btnShare.setAlpha((float) 0.5);
+                    IShare = true;
                 }
                 else{
                     noPublish();
@@ -599,7 +622,7 @@ public class PreviewActivity extends ActionBarActivity {
                 btnReminder.setEnabled(false);
                 btnReminder.startAnimation(animation);
                 btnReminder.setAlpha((float) 0.5);
-
+                IReminderProgram = true;
                 createReminder(programa);
             }
         });
@@ -976,17 +999,7 @@ public class PreviewActivity extends ActionBarActivity {
                         trivia = data;
                         fragmentoTriviaP = new TriviaMinFragment(trivia);
                         fragmentoTriviaMax = new TriviaMaxFragment(programaPreview,trivia, false);
-
-                        /*if(trivia.getPreguntas().size()>0){
-
-                            TriviaFragment fragmentoTrivia = new TriviaFragment(trivia);
-                            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-
-                            ft.replace(R.id.preview_trivia_contenedor, fragmentoTrivia);
-                            ft.commit();
-                        }*/
                     }
-
                 }
 
                 @Override
@@ -1012,17 +1025,7 @@ public class PreviewActivity extends ActionBarActivity {
                         polls = data;
                         fragmentoEncuestaMax = new PollMaxFragment(polls,programa,programaPreview);
                         fragmentoEncuestaP = new PollMinFragment(polls);
-
-                        /*if(polls.getPreguntas().size() > 0) {
-
-                            PollFragment fragmentoEncuesta = new PollFragment(polls);
-                            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                            ft.replace(R.id.preview_encuesta_contenedor, fragmentoEncuesta);
-                            ft.commit();
-                        }*/
                     }
-
-
                 }
                 @Override
                 public void error(String error) {
@@ -1179,14 +1182,6 @@ public class PreviewActivity extends ActionBarActivity {
     }
 
     public void noTws(){
-
-        /*Resources res = getResources();
-        Drawable d = res.getDrawable(R.drawable.no_tweets);
-        ImageView imagen = new ImageView(getApplication());
-
-        imagen.setPadding(5,20,0,0);
-        imagen.setImageDrawable(d);*/
-
         scrollTw.setClickable(false);
         scrollTw.setEnabled(false);
 
@@ -1519,8 +1514,8 @@ public class PreviewActivity extends ActionBarActivity {
         final int contador = programaPreview.getTweets().size();
         final int max = (contador-2) * 85;
 
-        Log.e("Contador",""+contador);
-        Log.e("max",""+max);
+        //Log.e("Contador",""+contador);
+        //Log.e("max",""+max);
 
         TimerTask timerTask = new TimerTask()
         {
@@ -1529,7 +1524,7 @@ public class PreviewActivity extends ActionBarActivity {
 
                 int posicion =  scrollTw.getScrollY();
 
-                Log.e("posicion",""+posicion);
+                //Log.e("posicion",""+posicion);
                 if(posicion == max || posicion > max){
                     scrollTw.smoothScrollTo(0, 10);
                 }
@@ -1772,16 +1767,12 @@ public class PreviewActivity extends ActionBarActivity {
                             }
                         }
                         FacebookRequestError error = response.getError();
-                        if (error != null) {
-                            Toast.makeText(
-                                    getApplicationContext(),
-                                    "Ups, algo salió mal, intenta de nuevo",
-                                    Toast.LENGTH_LONG).show();
+                        if (error == null) {
+                            DialogMessage dialogMessage = new DialogMessage("");
+                            dialogMessage.show(getSupportFragmentManager(), "");
                         } else {
-                            Toast.makeText(
-                                    getApplicationContext(),
-                                    "Publicado correctamente",
-                                    Toast.LENGTH_LONG).show();
+                            DialogError dialogError = new DialogError("Su mensaje no pudo ser publicado");
+                            dialogError.show(getSupportFragmentManager(),"");
                         }
                     }
 
@@ -1825,7 +1816,6 @@ public class PreviewActivity extends ActionBarActivity {
             String urlImage;
 
             if( imagen != null){
-
                 urlImage = imagen.getImagePath();
             }
             else{
@@ -1870,14 +1860,12 @@ public class PreviewActivity extends ActionBarActivity {
                             }
                         }
                         FacebookRequestError error = response.getError();
-                        if (error != null) {
-                            Toast.makeText(getApplicationContext(),
-                                    error.getErrorMessage(),
-                                    Toast.LENGTH_SHORT).show();
+                        if (error == null) {
+                                DialogMessage dialogMessage = new DialogMessage("");
+                                dialogMessage.show(getSupportFragmentManager(), "");
                         } else {
-                            Toast.makeText(getApplicationContext(),
-                                    postId,
-                                    Toast.LENGTH_LONG).show();
+                                DialogError dialogError = new DialogError("Su mensaje no pudo ser publicado");
+                                dialogError.show(getSupportFragmentManager(),"");
                         }
                     }
 
@@ -1927,8 +1915,49 @@ public class PreviewActivity extends ActionBarActivity {
                 overridePendingTransition(R.anim.nada, R.anim.fade_out_activity);
             }
         });
-        ImageButton configuracion = (ImageButton) view.findViewById(R.id.item_configuracion);
+        ImageButton search = (ImageButton) view.findViewById(R.id.icon_search);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!showSearch){
+                    showSearch = false;
+                    isConfiguration = false;
+                    isNotification = false;
 
+                    RelativeLayout r = (RelativeLayout) findViewById(R.id.preview);
+                    Bitmap screenShot = ScreenShot.takeScreenshot(r);
+
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    screenShot.compress(Bitmap.CompressFormat.JPEG, 87, stream);
+                    byte[] byteArray = stream.toByteArray();
+
+                    try {
+                        String filename = getCacheDir()
+                                + File.separator + System.currentTimeMillis() + ".jpg";
+
+                        File f = new File(filename);
+                        f.createNewFile();
+                        FileOutputStream fo = new FileOutputStream(f);
+                        fo.write(byteArray);
+                        fo.close();
+
+                        Intent i = new Intent(PreviewActivity.this, SearchActivity.class);
+                        i.putExtra("background", filename);
+                        startActivityForResult(i, 0);
+                        overridePendingTransition(R.anim.fade_actvity, R.anim.fade_out_activity);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+
+                    }
+                    contenedorActionbarOption.removeAllViews();
+                }
+                else{
+                    showSearch = true;
+                }
+            }
+        });
+        ImageButton configuracion = (ImageButton) view.findViewById(R.id.item_configuracion);
         configuracion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1936,7 +1965,7 @@ public class PreviewActivity extends ActionBarActivity {
                 if (isConfiguration) {
 
                     isConfiguration = false;
-                    isMessage = false;
+                    showSearch = false;
                     isNotification = false;
                     //contenedorLoading.removeAllViews();
                     contenedorActionbarOption.removeAllViews();
@@ -1946,7 +1975,7 @@ public class PreviewActivity extends ActionBarActivity {
                 } else {
 
                     isConfiguration = true;
-                    isMessage = false;
+                    showSearch = false;
                     isNotification = false;
 
                     //contenedorMenuBar.removeAllViews();
@@ -1989,7 +2018,7 @@ public class PreviewActivity extends ActionBarActivity {
                         @Override
                         public void onClick(View view) {
                             isConfiguration = false;
-                            isMessage = false;
+                            showSearch = false;
                             isNotification = false;
                             contenedorActionbarOption.removeAllViews();
                         }
@@ -2032,7 +2061,7 @@ public class PreviewActivity extends ActionBarActivity {
                             contenedorActionbarOption.removeAllViews();
                            // contenedorMenuBar.removeAllViews();
                             isConfiguration = false;
-                            isMessage = false;
+                            showSearch = false;
                             isNotification = false;
 
                             About fg = new About();
@@ -2040,7 +2069,7 @@ public class PreviewActivity extends ActionBarActivity {
                         }
                     });
 
-                    r4.setOnClickListener(new View.OnClickListener() {
+                    /*r4.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
 
@@ -2059,56 +2088,16 @@ public class PreviewActivity extends ActionBarActivity {
                             ft.replace(R.id.contenedor_action_bar, fg);
                             ft.commit();*/
 
-                            fg.show(getSupportFragmentManager(),"");
+                            /*fg.show(getSupportFragmentManager(),"");
                         }
-                    });
+                    });*/
 
                     contenedorActionbarOption.removeAllViews();
                     contenedorActionbarOption.addView(containerConfiguration);
 
-                    /*FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.addToBackStack(null);
-                    ConfigurationFragment dialogError = new ConfigurationFragment();
-                    dialogError.setConfigurationDelegate(configurationDelegate);
-                    ft.replace(R.id.contenedor_preview, dialogError);
-                    ft.commit();*/
-
                 }
             }
         });
-        //ImageView imageProfile = (ImageView) view.findViewById(R.id.foto_perfil_actionbar);
-        ImageButton mensajes = (ImageButton) view.findViewById(R.id.item_mensajes);
-        mensajes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isMessage) {
-
-                    isConfiguration = false;
-                    isNotification = false;
-                    isMessage = false;
-                    contenedorActionbarOption.removeAllViews();
-                    //contenedorMenuBar.removeAllViews();
-                    /*RelativeLayout r = (RelativeLayout) findViewById(R.id.contenedor_preview);
-                    r.removeAllViews();*/
-                } else {
-
-                    isConfiguration = false;
-                    isNotification = false;
-                    isMessage = true;
-
-                    View containerMessage = inflater.inflate(R.layout.action_bar_message, null, false);
-                    contenedorActionbarOption.removeAllViews();
-                   // contenedorMenuBar.removeAllViews();
-                    contenedorActionbarOption.addView(containerMessage);
-                    /*FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.addToBackStack(null);
-                    MessageFragment dialogError = new MessageFragment();
-                    ft.replace(R.id.contenedor_preview, dialogError);
-                    ft.commit();*/
-                }
-            }
-        });
-
         ImageButton notificacion = (ImageButton) view.findViewById(R.id.item_notificaciones);
         notificacion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -2116,21 +2105,15 @@ public class PreviewActivity extends ActionBarActivity {
                 if (isNotification) {
 
                     isConfiguration = false;
-                    isMessage = false;
+                    showSearch = false;
                     isNotification = false;
                     contenedorActionbarOption.removeAllViews();
-                    //contenedorMenuBar.removeAllViews();
-                    /*RelativeLayout r = (RelativeLayout) findViewById(R.id.contenedor_preview);
-                    r.removeAllViews();*/
                 } else {
 
                     isNotification = true;
                     isConfiguration = false;
-                    isMessage = false;
+                    showSearch = false;
 
-                    //View containerNotification = inflater.inflate(R.layout.action_bar_notification, null, false);
-                    //contenedorActionbarOption.removeAllViews();
-                    //ontenedorActionbarOption.addView(containerNotification);
 
                     contenedorActionbarOption.removeAllViews();
                     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -2141,10 +2124,6 @@ public class PreviewActivity extends ActionBarActivity {
                 }
             }
         });
-
-        AQuery aq = new AQuery(view);
-       /* aq.id(imageProfile).image("http://graph.facebook.com/" + UserPreference.getIdFacebook(PreviewActivity.this)
-                + "/picture?type=square");*/
 
         actionBar.setCustomView(view,layout);
 

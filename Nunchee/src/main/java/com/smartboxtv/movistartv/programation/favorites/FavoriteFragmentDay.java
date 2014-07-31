@@ -288,7 +288,7 @@ public class FavoriteFragmentDay extends Fragment {
                             Bitmap screenShot = ScreenShot.takeScreenshot(r);
 
                             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                            screenShot.compress(Bitmap.CompressFormat.JPEG, 95, stream);
+                            screenShot.compress(Bitmap.CompressFormat.JPEG, 80, stream);
                             byte[] byteArray = stream.toByteArray();
 
                             try {
@@ -386,7 +386,7 @@ public class FavoriteFragmentDay extends Fragment {
                         Bitmap screenShot = ScreenShot.takeScreenshot(r);
 
                         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                        screenShot.compress(Bitmap.CompressFormat.JPEG, 95, stream);
+                        screenShot.compress(Bitmap.CompressFormat.JPEG, 80, stream);
                         byte[] byteArray = stream.toByteArray();
 
                         try {
@@ -567,7 +567,7 @@ public class FavoriteFragmentDay extends Fragment {
                             Bitmap screenShot = ScreenShot.takeScreenshot(r);
 
                             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                            screenShot.compress(Bitmap.CompressFormat.JPEG, 95, stream);
+                            screenShot.compress(Bitmap.CompressFormat.JPEG,80, stream);
                             byte[] byteArray = stream.toByteArray();
 
                             try {
@@ -683,7 +683,7 @@ public class FavoriteFragmentDay extends Fragment {
                         Bitmap screenShot = ScreenShot.takeScreenshot(r);
 
                         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                        screenShot.compress(Bitmap.CompressFormat.JPEG, 95, stream);
+                        screenShot.compress(Bitmap.CompressFormat.JPEG, 80, stream);
                         byte[] byteArray = stream.toByteArray();
 
                         try {

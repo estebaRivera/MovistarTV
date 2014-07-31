@@ -3,6 +3,7 @@ package com.smartboxtv.movistartv.activities;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
@@ -18,9 +19,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.androidquery.AQuery;
 import com.smartboxtv.movistartv.R;
 import com.smartboxtv.movistartv.data.clean.DataClean;
+import com.smartboxtv.movistartv.data.image.ScreenShot;
 import com.smartboxtv.movistartv.data.image.Type;
 import com.smartboxtv.movistartv.data.image.Width;
 import com.smartboxtv.movistartv.data.models.Image;
@@ -46,6 +47,10 @@ import com.smartboxtv.movistartv.programation.preview.TwFragment;
 import com.smartboxtv.movistartv.programation.preview.TwMaxFragment;
 import com.smartboxtv.movistartv.social.DialogShare;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,10 +102,17 @@ public class SecondPreviewActivity extends ActionBarActivity {
     private boolean esTw = false;
     private boolean facebookActive;
 
-    private boolean isMessage = false;
     private boolean isNotification = false;
     private boolean isConfiguration = false;
     private boolean fbActivate = true;
+    private boolean showSearch = false;
+
+    private boolean ICheckIn = false;
+    private boolean ILike = false;
+    private boolean AddFavorite = false;
+    private boolean IReminderProgram = false;
+    private boolean IShare = false;
+
     private int option;
 
     public float x;
@@ -189,6 +201,13 @@ public class SecondPreviewActivity extends ActionBarActivity {
         programaPreview = (Program) extra.get("programaPreview");
         String path = extra.getString("background");
 
+
+        ICheckIn = extra.getBoolean("check");
+        ILike = extra.getBoolean("like");
+        IShare = extra.getBoolean("share");
+        IReminderProgram = extra.getBoolean("reminder");
+        AddFavorite = extra.getBoolean("favorite");
+
         Bitmap bm = BitmapFactory.decodeFile(path);
         back.setImageBitmap(bm);
 
@@ -197,7 +216,6 @@ public class SecondPreviewActivity extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
         finish();
     }
 
@@ -293,25 +311,67 @@ public class SecondPreviewActivity extends ActionBarActivity {
                 overridePendingTransition(R.anim.nada, R.anim.fade_out_activity);
             }
         });
-        ImageButton configuracion = (ImageButton) view.findViewById(R.id.item_configuracion);
 
+        ImageButton search = (ImageButton) view.findViewById(R.id.icon_search);
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!showSearch){
+                    showSearch = false;
+                    isConfiguration = false;
+                    isNotification = false;
+
+                    RelativeLayout r = (RelativeLayout) findViewById(R.id.view_parent);
+                    Bitmap screenShot = ScreenShot.takeScreenshot(r);
+
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    screenShot.compress(Bitmap.CompressFormat.JPEG, 87, stream);
+                    byte[] byteArray = stream.toByteArray();
+
+                    try {
+                        String filename = getCacheDir()
+                                + File.separator + System.currentTimeMillis() + ".jpg";
+
+                        File f = new File(filename);
+                        f.createNewFile();
+                        FileOutputStream fo = new FileOutputStream(f);
+                        fo.write(byteArray);
+                        fo.close();
+
+                        Intent i = new Intent(SecondPreviewActivity.this, SearchActivity.class);
+                        i.putExtra("background", filename);
+                        startActivityForResult(i, 0);
+                        overridePendingTransition(R.anim.fade_actvity, R.anim.fade_out_activity);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+
+                    }
+                    contenedorActionbarOption.removeAllViews();
+                }
+                else{
+                    showSearch = true;
+                }
+            }
+        });
+
+        ImageButton configuracion = (ImageButton) view.findViewById(R.id.item_configuracion);
         configuracion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if (isConfiguration) {
-
                     isConfiguration = false;
-                    isMessage = false;
                     isNotification = false;
-
+                    showSearch = false;
                     contenedorActionbarOption.removeAllViews();
 
                 } else {
 
                     isConfiguration = true;
-                    isMessage = false;
                     isNotification = false;
+                    showSearch = false;
 
                     View containerConfiguration = inflater.inflate(R.layout.action_bar_configuration, null, false);
                     Typeface light = Typeface.createFromAsset(getAssets(), "fonts/SegoeWP.ttf");
@@ -350,7 +410,7 @@ public class SecondPreviewActivity extends ActionBarActivity {
                         @Override
                         public void onClick(View view) {
                             isConfiguration = false;
-                            isMessage = false;
+                            showSearch = false;
                             isNotification = false;
                             contenedorActionbarOption.removeAllViews();
                         }
@@ -378,12 +438,6 @@ public class SecondPreviewActivity extends ActionBarActivity {
 
                         }
                     });
-                    r2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                        }
-                    });
 
                     r3.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -393,7 +447,7 @@ public class SecondPreviewActivity extends ActionBarActivity {
                             contenedorActionbarOption.removeAllViews();
 
                             isConfiguration = false;
-                            isMessage = false;
+                            showSearch = false;
                             isNotification = false;
 
                             About fg = new About();
@@ -409,7 +463,7 @@ public class SecondPreviewActivity extends ActionBarActivity {
                             contenedorActionbarOption.removeAllViews();
 
                             isConfiguration = false;
-                            isMessage = false;
+                            showSearch = false;
                             isNotification = false;
 
                             Politica fg = new Politica();
@@ -423,31 +477,6 @@ public class SecondPreviewActivity extends ActionBarActivity {
                 }
             }
         });
-        //ImageView imageProfile = (ImageView) view.findViewById(R.id.foto_perfil_actionbar);
-        ImageButton mensajes = (ImageButton) view.findViewById(R.id.item_mensajes);
-        mensajes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isMessage) {
-
-                    isConfiguration = false;
-                    isNotification = false;
-                    isMessage = false;
-                    contenedorActionbarOption.removeAllViews();
-
-                } else {
-
-                    isConfiguration = false;
-                    isNotification = false;
-                    isMessage = true;
-
-                    View containerMessage = inflater.inflate(R.layout.action_bar_message, null, false);
-                    contenedorActionbarOption.removeAllViews();
-                    contenedorActionbarOption.addView(containerMessage);
-
-                }
-            }
-        });
 
         ImageButton notificacion = (ImageButton) view.findViewById(R.id.item_notificaciones);
         notificacion.setOnClickListener(new View.OnClickListener() {
@@ -456,7 +485,7 @@ public class SecondPreviewActivity extends ActionBarActivity {
                 if (isNotification) {
 
                     isConfiguration = false;
-                    isMessage = false;
+                    showSearch = false;
                     isNotification = false;
                     contenedorActionbarOption.removeAllViews();
 
@@ -464,7 +493,7 @@ public class SecondPreviewActivity extends ActionBarActivity {
 
                     isNotification = true;
                     isConfiguration = false;
-                    isMessage = false;
+                    showSearch = false;
 
                     contenedorActionbarOption.removeAllViews();
                     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -475,11 +504,6 @@ public class SecondPreviewActivity extends ActionBarActivity {
                 }
             }
         });
-
-        AQuery aq = new AQuery(view);
-        /*aq.id(imageProfile).image("http://graph.facebook.com/" + UserPreference.getIdFacebook(SecondPreviewActivity.this)
-                + "/picture?type=square");*/
-
         actionBar.setCustomView(view,layout);
     }
     public  void shareDialog(){

@@ -106,6 +106,8 @@ public class HoraryFragmentPrograms extends Fragment {
     private String url;
     private LayoutInflater inf;
 
+    public boolean hideButton = false;
+
     private boolean activeButtonNow = true;
     private boolean[] llistBoolean;
 
@@ -116,7 +118,6 @@ public class HoraryFragmentPrograms extends Fragment {
     public Date FIRST_LIMIT_TOP;
     public Date FIRST_LIMIT_BOTTOM;
     private Animation mueveDerecha;
-    //private MyClass task;
     private HashMap <String,String> programasCreados = new HashMap <String,String>();
 
     public HoraryFragmentPrograms() {
@@ -194,17 +195,21 @@ public class HoraryFragmentPrograms extends Fragment {
             @Override
             public void onScrollChanged(int l, int t) {
 
-                if((dateActualProgram.getTime() > LIMIT_TOP.getTime() || dateActualProgram.getTime() == LIMIT_TOP.getTime())){
+                //if((dateActualProgram.getTime() > LIMIT_TOP.getTime() || dateActualProgram.getTime() == LIMIT_TOP.getTime())){
+                if((dateActualProgram.getTime() == LIMIT_TOP.getTime())){
                     horizontalScrollView.moveLeft = false;
-                    loadMore.setVisibility(View.VISIBLE);
+                    //if(hideButton == false)
+                        loadMore.setVisibility(View.VISIBLE);
                 }
                 else{
                     horizontalScrollView.moveLeft = true;
                     loadMore.setVisibility(View.GONE);
                 }
-                if((dateActualProgram.getTime() < LIMIT_BOTTOM.getTime() || dateActualProgram.getTime() == LIMIT_BOTTOM.getTime())){
+                //if((dateActualProgram.getTime() < LIMIT_BOTTOM.getTime() || dateActualProgram.getTime() == LIMIT_BOTTOM.getTime())){
+                if((dateActualProgram.getTime() == LIMIT_BOTTOM.getTime())){
                     horizontalScrollView.moveRight = false;
-                    chargeLess.setVisibility(View.VISIBLE);
+                   // if(hideButton == false)
+                        chargeLess.setVisibility(View.VISIBLE);
                 }
                 else{
                     horizontalScrollView.moveRight = true;
@@ -540,7 +545,7 @@ public class HoraryFragmentPrograms extends Fragment {
                                         Bitmap screenShot = ScreenShot.takeScreenshot(r);
 
                                         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                                        screenShot.compress(Bitmap.CompressFormat.JPEG, 95, stream);
+                                        screenShot.compress(Bitmap.CompressFormat.JPEG, 80, stream);
                                         byte[] byteArray = stream.toByteArray();
 
                                         try {
@@ -733,6 +738,7 @@ public class HoraryFragmentPrograms extends Fragment {
         loading.setClickable(false);
 
         containerLoading.setClickable(false);
+        hiddeButton();
     }
 
     public void borraLoading(){
@@ -1025,7 +1031,7 @@ public class HoraryFragmentPrograms extends Fragment {
                             Bitmap screenShot = ScreenShot.takeScreenshot(r);
 
                             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                            screenShot.compress(Bitmap.CompressFormat.JPEG, 95, stream);
+                            screenShot.compress(Bitmap.CompressFormat.JPEG, 80, stream);
                             byte[] byteArray = stream.toByteArray();
 
                             try {

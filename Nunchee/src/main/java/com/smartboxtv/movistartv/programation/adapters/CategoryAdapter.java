@@ -30,7 +30,6 @@ public class CategoryAdapter extends ArrayAdapter<CategorieChannel> {
     }
 
     public View getSelected() {
-
         return view;
     }
 
