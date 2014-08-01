@@ -130,7 +130,7 @@
         <RelativeLayout
             android:id="@+id/trending_channel"
             android:layout_marginTop="0dp"
-            android:layout_height="45dp"
+            android:layout_height="48dp"
             android:layout_width="match_parent">
 
             <ImageView
@@ -204,8 +204,8 @@
         <!-- Item Uno-->
         <RelativeLayout
             android:id="@+id/btn_historial"
-            android:layout_marginTop="5dp"
-            android:layout_height="42dp"
+            android:layout_marginTop="0dp"
+            android:layout_height="45dp"
             android:orientation="horizontal"
             android:layout_width="match_parent">
 
@@ -237,8 +237,8 @@
 
         <RelativeLayout
             android:id="@+id/btn_favoritos"
-            android:layout_marginTop="5dp"
-            android:layout_height="42dp"
+            android:layout_marginTop="0dp"
+            android:layout_height="45dp"
             android:orientation="horizontal"
             android:layout_width="match_parent">
 
@@ -270,8 +270,8 @@
 
         <RelativeLayout
             android:id="@+id/btn_recomendado"
-            android:layout_marginTop="5dp"
-            android:layout_height="42dp"
+            android:layout_marginTop="0dp"
+            android:layout_height="45dp"
             android:orientation="horizontal"
             android:layout_width="match_parent">
 
@@ -304,7 +304,7 @@
         <RelativeLayout
             android:id="@+id/btn_salir"
             android:layout_marginTop="0dp"
-            android:layout_height="42dp"
+            android:layout_height="45dp"
             android:orientation="horizontal"
             android:layout_width="match_parent">
 

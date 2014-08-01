@@ -2,6 +2,7 @@ package com.smartboxtv.movistartv.services;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -14,8 +15,11 @@ import com.smartboxtv.movistartv.data.models.Program;
 import com.smartboxtv.movistartv.data.modelssm.CategorieChannelSM;
 import com.smartboxtv.movistartv.data.modelssm.ChannelSM;
 import com.smartboxtv.movistartv.data.modelssm.EpisodeSM;
+import com.smartboxtv.movistartv.data.modelssm.LiveStream;
+import com.smartboxtv.movistartv.data.modelssm.LiveStreamSchedule;
 import com.smartboxtv.movistartv.data.modelssm.ProgramSM;
 import com.smartboxtv.movistartv.data.modelssm.ScheduleSM;
+import com.smartboxtv.movistartv.data.modelssm.TokenIssue;
 import com.smartboxtv.movistartv.data.modelssm.TweetSM;
 import com.smartboxtv.movistartv.data.modelssm.datacategory.ChannelCategorySM;
 import com.smartboxtv.movistartv.data.modelssm.datacategory.ProgramsCategorySM;
@@ -63,15 +67,17 @@ public class ServiceManager {
 
     private final String USER = "53bd9aa7a3dc124c3af9b5c6";
 
-    private static final String SERVICES_URL_TRIVIA = "http://190.215.44.18/wcfTrivia/TriviaService.svc/";
-
-    private static final String SERVICES_URL_POLLS = "http://190.215.44.18/wcfPolls/TriviaService.svc/";
-
     private static final String SERVICES_URL = "http://192.168.1.173:8000/api/1.0/guide/";
+
+    public static final String BASE_URL = "https://api.streammanager.co/api/";
+
+    public static final String API_TOKEN = "bace2022792e7943635001c8696a013f";//"b5430d55dc64849b1a34e877267e72ba";//"8fc221e56408966fe7999c7c1edff220";
 
     private static final String SERVICES_URL_TRENDING = "http://190.215.44.18/wcfNunchee2/GLFService.svc/Trending";
 
     private static final String URL_TWITTER = "https://api.twitter.com/1.1/statuses/";
+
+    public static final String REFRESH_GRANT_TYPE = "refresh_token";
 
     private static String URL_FEED, URL_FEED_PARAMETROS;
 
@@ -541,6 +547,114 @@ public class ServiceManager {
             }
         });
     }
+
+    public void loadLiveStreamList(final ServiceManagerHandler<LiveStream> loadedHandler) {
+        String url = String.format("%slive-stream?token=%s", BASE_URL, API_TOKEN);
+        //Log.e("Url Copiar",url);
+        aq.ajax(url, JSONObject.class, new AjaxCallback<JSONObject>() {
+
+            @Override
+            public void callback(String url, JSONObject object, AjaxStatus status) {
+                try{
+                    if (!object.isNull("data") && object.getString("status").equals("OK")) {
+                        JSONArray list = object.getJSONArray("data");
+                        List<LiveStream> streams = new ArrayList<LiveStream>();
+                        for (int i = 0; i < list.length(); i++) {
+                            JSONObject raw = list.getJSONObject(i);
+                            streams.add(parseJsonObject(raw, LiveStream.class));
+                        }
+
+                        loadedHandler.loaded(streams);
+                    }
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e(TAG, e.getMessage());
+                }
+            }
+        });
+    }
+
+    public void loadLiveStreamSchedule(final LiveStream stream, final ServiceManagerHandler<LiveStreamSchedule> loadedHandler) {
+
+        String url = String.format("%slive-stream/%s/schedule?token=%s", BASE_URL, stream.getLiveStreamId(), API_TOKEN);
+        //Log.e("Url Stram Shedule",url);
+        aq.ajax(url, JSONObject.class, new AjaxCallback<JSONObject>() {
+            @Override
+            public void callback(String url, JSONObject object, AjaxStatus status) {
+                try{
+                    if (!object.isNull("data") && object.getString("status").equals("OK")) {
+                        JSONArray list = object.getJSONArray("data");
+                        List<LiveStreamSchedule> schedule = new ArrayList<LiveStreamSchedule>();
+                        for (int i = 0; i < list.length(); ++i) {
+                            JSONObject raw = list.getJSONObject(i);
+                            LiveStreamSchedule item = parseJsonObject(raw, LiveStreamSchedule.class);
+                            item.setStream(stream);
+                            schedule.add(item);
+                        }
+                        //Log.e("Tamaño jsdbfs","--> "+schedule.size());
+                        loadedHandler.loaded(schedule);
+                    }
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e(TAG+" loadLiveStreamShedule", e.getMessage());
+                }
+            }
+        });
+    }
+    public void issueTokenForLive(String mediaId, final ServiceManagerHandler<TokenIssue> handler) {
+        String url = String.format("%saccess/issue?type=live&token=%s&id=%s", BASE_URL, API_TOKEN, mediaId);
+        //url = String.format("http://winsportsonline.com/api/la?access_token=%s",prefs.getString("access_token", null));
+        //Log.e("URL Live 1","-> "+url);
+        aq.ajax(url, JSONObject.class, new AjaxCallback<JSONObject>() {
+
+            @Override
+            public void callback(String url, JSONObject object, AjaxStatus status) {
+
+                try {
+                    TokenIssue tokenIssue = parseJsonObject(object, TokenIssue.class);
+                    String u = String.format("%saccess/issue?type=live&token=%s&id=%s", BASE_URL, API_TOKEN,tokenIssue.getAccessToken() );
+                    //Log.e("URL Live 2","-> "+u);
+                    handler.loaded(tokenIssue);
+                }
+                catch (Exception exception) {
+                    handler.error(exception.getMessage());
+                }
+            }
+        });
+    }
+
+    /*public Boolean checkToken(final int cont){
+        try{
+            SharedPreferences prefs = context.getSharedPreferences("co.winsportsonline.wso", Context.MODE_PRIVATE);
+            String url = String.format("%s?grant_type=%s&refres_token=%s", URL_LOGIN, REFRESH_GRANT_TYPE, prefs.getString("refresh_token", null));
+            final Boolean[] res = {false};
+            aq.ajax(url, JSONObject.class, new AjaxCallback<JSONObject>(){
+                @Override
+                public void callback(String url, JSONObject accessObj, AjaxStatus status) {
+                    try{
+                        saveAccessData(accessObj.getString("token_type"),
+                                accessObj.getString("access_token"),
+                                accessObj.getString("refresh_token"));
+                        res[0] = true;
+                    }catch(Exception e){
+                        if(cont==1){
+                            res[0] = false;
+                        }else{
+                            res[0] = checkToken(1);
+                        }
+                    }
+                }
+            }.header("X-Requested-With","XMLHttpRequest"));
+            return res[0];
+        }catch(Exception e){
+            Log.e(TAG,"CheckToken: "+e.getMessage());
+        }
+        return false;
+    }*/
+
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////O/////T/////R/////O/////S////////////////////////////////////////////////////////////////////

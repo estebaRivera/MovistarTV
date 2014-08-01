@@ -12,6 +12,7 @@
         android:layout_width="290dp"
         android:layout_height="match_parent"
         android:layout_marginLeft="0dp">
+
         <!-- Item Cero-->
         <RelativeLayout
             android:id="@+id/user_profile"
@@ -54,8 +55,8 @@
         <!-- Item Cinco -->
         <RelativeLayout
             android:id="@+id/btn_en_vivo"
-            android:layout_marginTop="5dp"
-            android:layout_height="50dp"
+            android:layout_marginTop="3dp"
+            android:layout_height="52dp"
             android:orientation="horizontal"
             android:layout_width="match_parent">
 
@@ -95,6 +96,7 @@
                 android:background="@drawable/btn_menos"
                 android:layout_height="25dp"
                 android:layout_width="25dp" />
+
         </RelativeLayout>
 
         <ScrollView
@@ -105,9 +107,9 @@
             android:overScrollMode="never"
             android:smoothScrollbar="false"
             android:scrollbars="none"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="210dp"
-            android:visibility="gone"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
 
@@ -116,6 +118,24 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/contenedor_live"
+                    android:layout_width="match_parent"
+                    android:layout_height="210dp">
+
+                    <TextView
+                        android:id="@+id/texto_no_live"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:text="No hay programación disponible"
+                        android:textSize="13sp"
+                        android:textColor="#FFFFFF"
+                        android:alpha="0.6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
 
             </LinearLayout>
 
@@ -128,8 +148,8 @@
 
         <RelativeLayout
             android:id="@+id/trending_channel"
-            android:layout_marginTop="0dp"
-            android:layout_height="50dp"
+            android:layout_marginTop="3dp"
+            android:layout_height="52dp"
             android:layout_width="match_parent">
 
             <ImageView
@@ -200,8 +220,8 @@
 
         <RelativeLayout
             android:id="@+id/btn_historial"
-            android:layout_marginTop="5dp"
-            android:layout_height="50dp"
+            android:layout_marginTop="3dp"
+            android:layout_height="52dp"
             android:layout_width="match_parent">
 
             <Button
@@ -232,8 +252,8 @@
 
         <RelativeLayout
             android:id="@+id/btn_favoritos"
-            android:layout_marginTop="5dp"
-            android:layout_height="50dp"
+            android:layout_marginTop="3dp"
+            android:layout_height="52dp"
             android:layout_width="match_parent">
 
             <Button
@@ -264,8 +284,8 @@
 
         <RelativeLayout
             android:id="@+id/btn_recomendado"
-            android:layout_marginTop="5dp"
-            android:layout_height="50dp"
+            android:layout_marginTop="3dp"
+            android:layout_height="52dp"
             android:orientation="horizontal"
             android:layout_width="match_parent">
 
@@ -297,8 +317,8 @@
 
         <RelativeLayout
             android:id="@+id/btn_salir"
-            android:layout_marginTop="5dp"
-            android:layout_height="50dp"
+            android:layout_marginTop="3dp"
+            android:layout_height="52dp"
             android:orientation="horizontal"
             android:layout_width="match_parent">
 

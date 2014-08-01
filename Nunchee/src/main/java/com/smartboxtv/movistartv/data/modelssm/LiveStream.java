@@ -2,13 +2,14 @@ package com.smartboxtv.movistartv.data.modelssm;
 
 import com.smartboxtv.movistartv.services.DataMember;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Esteban- on 25-07-14.
  */
-public class LiveStream {
+public class LiveStream implements Serializable {
 
     private String liveStreamId;
     private String account;
@@ -204,13 +205,13 @@ public class LiveStream {
         this.recordingDateDiff = recordingDateDiff;
     }
 
-   /* public TokenIssue getTokenIssued() {
+   public TokenIssue getTokenIssued() {
         return tokenIssued;
     }
 
     public void setTokenIssued(TokenIssue tokenIssued) {
         this.tokenIssued = tokenIssued;
-    }*/
+    }
 
     public List<LiveStreamSchedule> getScheduledEvents() {
         return scheduledEvents;

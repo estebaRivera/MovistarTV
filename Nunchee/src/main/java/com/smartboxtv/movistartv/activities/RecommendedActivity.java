@@ -257,7 +257,6 @@ public class RecommendedActivity extends ActionBarActivity {
     @Override
     protected void onDestroy() {
 
-        this.programas.clear();
         this.aq.clear();
         this.listaFragmento[0].onDestroy();
         this.listaFragmento[1].onDestroy();

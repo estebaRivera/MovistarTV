@@ -65,14 +65,14 @@ public class HoraryFragmentPrograms extends Fragment {
 
     private RelativeLayout containerLoading;
 
-    private Program firstProgram;
-    private Program lastProgram;
+    //private Program firstProgram;
+    //private Program lastProgram;
 
     private List<Channel> guide = new ArrayList<Channel>();
     private List<ChannelSM> guideSM = new ArrayList<ChannelSM>();
 
     private int DELTA;
-    private final int THIRTY_MINUTES = 1800000;
+    //private final int THIRTY_MINUTES = 1800000;
 
     private final Date now = new Date();
     private Date dateActualShow = now;
@@ -252,7 +252,7 @@ public class HoraryFragmentPrograms extends Fragment {
         };
         horizontalScrollView.setDel(delegate);
         Date ahora = aproximaFecha(now.getTime());
-        FIRST_LIMIT_TOP = new Date(ahora.getTime()+ 10800000);// 3,5 horas
+        FIRST_LIMIT_TOP = new Date(ahora.getTime()+ 16200000);////14400000  3 horas
         FIRST_LIMIT_BOTTOM = new Date(ahora.getTime() - 1800000 );//-1800000
         loadProgramation(new Date(ahora.getTime() ));
         //loadProgramationSM(new Date(ahora.getTime()) );
@@ -290,7 +290,7 @@ public class HoraryFragmentPrograms extends Fragment {
         dateActualShow = d;
         final Date nowDate = d;
 
-        LIMIT_TOP = new Date(nowDate.getTime() + 10800000);// 3 horas // 1260000
+        LIMIT_TOP = new Date(nowDate.getTime() + 16200000);// 10800000 3 horas
         LIMIT_BOTTOM = new Date(nowDate.getTime() - 1800000 );//-1800000
 
         if(barDayDelegate != null){
@@ -305,7 +305,7 @@ public class HoraryFragmentPrograms extends Fragment {
         }
 
 
-        Log.e("URL programacion",getURL(nowDate,"1"));
+        //Log.e("URL programacion",getURL(nowDate,"1"));
 
         final AQuery aq = new AQuery(getActivity());
         aq.ajax(getURL(nowDate,"1"), JSONObject.class, new AjaxCallback<JSONObject>(){
@@ -824,13 +824,13 @@ public class HoraryFragmentPrograms extends Fragment {
 
             //final Date now = ;
             aq = new AQuery(getActivity());
-            final Date date = new Date(dateActualShow.getTime()+9000000);
+            //final Date date = new Date(dateActualShow.getTime()+9000000);
             /*SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ssZZZ");
             String horas = "2";
             String parametros = format.format(date)+";"+UserPreference.getIdNunchee(getActivity())+";"+horas+"";
             String parametros64 = Base64.encodeToString(parametros.getBytes(), Base64.NO_WRAP);
             url = SERVICES_URL+parametros64;*/
-            url = getURL(new Date(dateActualShow.getTime()+9000000), "2");
+            url = getURL(new Date(dateActualShow.getTime()+10800000), "3");// 10800000 --2
             inf = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 

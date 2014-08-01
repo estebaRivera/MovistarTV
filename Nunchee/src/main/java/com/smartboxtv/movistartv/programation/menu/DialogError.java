@@ -23,7 +23,6 @@ public class DialogError extends DialogFragment {
         setStyle(DialogFragment.STYLE_NO_TITLE, getTheme());
         mensaje = error;
     }
-
     public DialogError() {
         setStyle(DialogFragment.STYLE_NO_TITLE, getTheme());
     }

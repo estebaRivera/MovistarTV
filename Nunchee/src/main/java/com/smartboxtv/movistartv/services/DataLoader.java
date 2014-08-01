@@ -75,7 +75,7 @@ public class DataLoader {
     private final long EXPIRE = 10000;
 
     public static final String BASE_URL = "https://api.streammanager.co/api/";
-    public static final String API_TOKEN = "8fc221e56408966fe7999c7c1edff220";
+    public static final String API_TOKEN = "bace2022792e7943635001c8696a013f";//"8fc221e56408966fe7999c7c1edff220";
 
     private static final String SERVICES_URL_TRIVIA = "http://190.215.44.18/wcfTrivia/TriviaService.svc/";
     private static final String SERVICES_URL_TRIVIA_AMAZON = "http://wcftrivia.sbtvapps.com/TriviaService.svc/";
@@ -508,6 +508,7 @@ public class DataLoader {
         URL_FINAL.append(idPrograma);   URL_FINAL.append(",");  URL_FINAL.append(idCanal);  URL_FINAL.append(",");
         URL_FINAL.append(idNunchee);    URL_FINAL.append(",");  URL_FINAL.append(fechaInicio);  URL_FINAL.append(",");  URL_FINAL.append(fechaFin);
 
+        Log.e("URL Previe",URL_FINAL.toString());
         aq.ajax(URL_FINAL.toString(), JSONObject.class, new AjaxCallback<JSONObject>() {
 
             @Override
@@ -1103,7 +1104,7 @@ public class DataLoader {
     }
     public void loadLiveStreamList(final DataLoadedHandler<LiveStream> loadedHandler) {
         String url = String.format("%slive-stream?token=%s", BASE_URL, API_TOKEN);
-        //Log.e("Url",url);
+        Log.e("Url Copiar",url);
         aq.ajax(url, JSONObject.class, new AjaxCallback<JSONObject>() {
 
             @Override
@@ -1131,7 +1132,7 @@ public class DataLoader {
     public void loadLiveStreamSchedule(final LiveStream stream, final DataLoadedHandler<LiveStreamSchedule> loadedHandler) {
 
         String url = String.format("%slive-stream/%s/schedule?token=%s", BASE_URL, stream.getLiveStreamId(), API_TOKEN);
-        Log.e("Url",url);
+        Log.e("Url Stram Shedule",url);
         aq.ajax(url, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
@@ -1145,13 +1146,13 @@ public class DataLoader {
                             item.setStream(stream);
                             schedule.add(item);
                         }
-                        Log.e("Tamaño jsdbfs","--> "+schedule.size());
+                        //Log.e("Tamaño jsdbfs","--> "+schedule.size());
                         loadedHandler.loaded(schedule);
                     }
                 }
                 catch (Exception e) {
                     e.printStackTrace();
-                    Log.e(TAG+"bcd", e.getMessage());
+                    Log.e(TAG+" loadLiveStreamShedule", e.getMessage());
                 }
             }
         });

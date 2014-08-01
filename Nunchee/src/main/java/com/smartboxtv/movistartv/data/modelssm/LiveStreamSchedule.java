@@ -2,12 +2,13 @@ package com.smartboxtv.movistartv.data.modelssm;
 
 import com.smartboxtv.movistartv.services.DataMember;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Esteban- on 25-07-14.
  */
-public class LiveStreamSchedule {
+public class LiveStreamSchedule implements Serializable {
 
     private String eventId;
     private Date endDate;

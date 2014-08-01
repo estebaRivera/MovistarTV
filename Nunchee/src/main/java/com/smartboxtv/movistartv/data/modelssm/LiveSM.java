@@ -13,15 +13,18 @@ public class LiveSM implements Serializable{
     public String fecha;
     public Date date;
     public String url;
+    public LiveStreamSchedule liveStreamSchedule;
 
-    public LiveSM(String image, String nombre, String fecha, Date date, String url) {
+    public LiveSM(String image, String nombre, String fecha, Date date, String url, LiveStreamSchedule live) {
         this.image = image;
         this.nombre = nombre;
         this.fecha = fecha;
         this.date = date;
         this.url = url;
+        this.liveStreamSchedule = live;
     }
 
     public LiveSM() {
+
     }
 }

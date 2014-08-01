@@ -45,25 +45,24 @@ public class PlayerActivity extends ActionBarActivity {
     private boolean isShowControlBar = false;
     //private LiveSM programLive;
 
-    private boolean esTrivia = false;
+    /*private boolean esTrivia = false;
     private boolean esEncuesta = false;
-    private boolean esTw = false;
+    private boolean esTw = false;*/
 
-    private boolean isMessage = false;
     private boolean isNotification = false;
     private boolean isConfiguration = false;
     private boolean fbActivate;
 
     private ProgressDialog progress;
 
-    private RelativeLayout contenedorAnimacion;
+   /* private RelativeLayout contenedorAnimacion;
     private RelativeLayout contenedorTw;
     private RelativeLayout contenedorTrivia;
     private RelativeLayout contenedorEncuesta;
     private RelativeLayout contenedorSugeridos;
     private RelativeLayout contenedorHeader;
     private RelativeLayout contenedorLoading;
-    private RelativeLayout contenedorActionbarOption;
+    private RelativeLayout contenedorActionbarOption;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +70,7 @@ public class PlayerActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.player_activity);
         DataClean.garbageCollector("Player Activity");
-
+        Log.e("paso Player","7");
         Bundle extra = this.getIntent().getExtras();
         LiveSM liveProgram = (LiveSM) extra.get("live");
 
@@ -86,7 +85,7 @@ public class PlayerActivity extends ActionBarActivity {
 
         ImageView background = (ImageView) findViewById(R.id.background);
         background.setImageBitmap(image);
-
+        Log.e("paso Player","8");
         videoView = (VideoView) findViewById(R.id.video_player);
 
        // String url = "http://live.hls.http.13.ztreaming.com/13hd/13hd-900.m3u8";
@@ -97,17 +96,13 @@ public class PlayerActivity extends ActionBarActivity {
                 if (isShowControlBar) {
                     isShowControlBar = false;
                     hidenControlBar();
-                    Log.e("hiden", "  kdsfnfsdkjn");
                 } else {
                     isShowControlBar = true;
                     showControlBar();
-                    Log.e("show", "  kdsfnfsdkjn");
                 }
                 return false;
             }
         });
-
-        //String url = "http://hls01-07.az.myvideo.az/hls-live/livepkgr/idman/idman/idman.m3u8#www.rojadirecta.me";
 
         ImageButton tv = (ImageButton) findViewById(R.id.btn_tv);
         ImageButton play = (ImageButton) findViewById(R.id.btn_play);
@@ -127,9 +122,11 @@ public class PlayerActivity extends ActionBarActivity {
 
         start(liveProgram);
         createActionBar();
+        fullScreen();
     }
 
     void start(LiveSM live){
+        Log.e("paso Player","9");
         videoView.setVideoPath(live.url);
         videoView.start();
         progress.dismiss();
@@ -171,22 +168,8 @@ public class PlayerActivity extends ActionBarActivity {
             ActionBar actionBar = getSupportActionBar();
             actionBar.hide();
 
-            /*RelativeLayout r = (RelativeLayout) findViewById(R.id.control_bar);
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) r.getLayoutParams();
-            params.addRule(RelativeLayout.ALIGN_BASELINE, R.id.video_player);
-            params.width = params.MATCH_PARENT;
-            params.height = 50;
-            r.setLayoutParams(params);
-            //r.setVisibility(View.GONE);
-
-            RelativeLayout.LayoutParams paramsVideo = (RelativeLayout.LayoutParams) videoView.getLayoutParams();
-            paramsVideo.height = params.MATCH_PARENT;
-            paramsVideo.width =  params.MATCH_PARENT;
-            videoView.setLayoutParams(paramsVideo);*/
-
             RelativeLayout r = (RelativeLayout) findViewById(R.id.container_video_player);
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) r.getLayoutParams();
-            //params.addRule(RelativeLayout.ALIGN_BASELINE, R.id.video_player);
             params.width = params.MATCH_PARENT;
             params.height = params.MATCH_PARENT;
             r.setLayoutParams(params);
@@ -197,20 +180,6 @@ public class PlayerActivity extends ActionBarActivity {
             ActionBar actionBar = getSupportActionBar();
             actionBar.show();
 
-            /*RelativeLayout r = (RelativeLayout) findViewById(R.id.control_bar);
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) r.getLayoutParams();
-            params.width = 620;
-            params.height = 50;
-
-            RelativeLayout.LayoutParams params1 = (RelativeLayout.LayoutParams) videoView.getLayoutParams();
-            params1.height = 430;
-            params1.width = 620;
-
-            videoView.setLayoutParams(params1);
-            r.setLayoutParams(params);
-
-            //params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);*/
-
             RelativeLayout r = (RelativeLayout) findViewById(R.id.container_video_player);
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) r.getLayoutParams();
 
@@ -220,7 +189,6 @@ public class PlayerActivity extends ActionBarActivity {
         }
 
     }
-
     private void createActionBar() {
 
         ActionBar actionBar = getSupportActionBar();
@@ -255,17 +223,16 @@ public class PlayerActivity extends ActionBarActivity {
                 if (isConfiguration) {
 
                     isConfiguration = false;
-                    isMessage = false;
                     isNotification = false;
                     //contenedorLoading.removeAllViews();
-                    contenedorActionbarOption.removeAllViews();
+                    //contenedorActionbarOption.removeAllViews();
                     //contenedorMenuBar.removeAllViews();
                     /*RelativeLayout r = (RelativeLayout) findViewById(R.id.contenedor_action_bar);
                     r.removeAllViews();*/
                 } else {
 
                     isConfiguration = true;
-                    isMessage = false;
+                    //isMessage = false;
                     isNotification = false;
 
                     //contenedorMenuBar.removeAllViews();
@@ -308,9 +275,8 @@ public class PlayerActivity extends ActionBarActivity {
                         @Override
                         public void onClick(View view) {
                             isConfiguration = false;
-                            isMessage = false;
                             isNotification = false;
-                            contenedorActionbarOption.removeAllViews();
+                            //contenedorActionbarOption.removeAllViews();
                         }
                     });
 
@@ -347,11 +313,10 @@ public class PlayerActivity extends ActionBarActivity {
                         @Override
                         public void onClick(View view) {
 
-                            contenedorLoading.removeAllViews();
-                            contenedorActionbarOption.removeAllViews();
+                            //contenedorLoading.removeAllViews();
+                            //contenedorActionbarOption.removeAllViews();
                             // contenedorMenuBar.removeAllViews();
                             isConfiguration = false;
-                            isMessage = false;
                             isNotification = false;
 
                             About fg = new About();
@@ -363,67 +328,18 @@ public class PlayerActivity extends ActionBarActivity {
                         @Override
                         public void onClick(View view) {
 
-                            contenedorLoading.removeAllViews();
-                            contenedorActionbarOption.removeAllViews();
-                            //contenedorMenuBar.removeAllViews();
+                            //contenedorLoading.removeAllViews();
+                            //contenedorActionbarOption.removeAllViews();
                             isConfiguration = false;
-                            isMessage = false;
                             isNotification = false;
 
-                            //FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-
                             Politica fg = new Politica();
-
-                            /*ft.addToBackStack(null);
-                            ft.replace(R.id.contenedor_action_bar, fg);
-                            ft.commit();*/
-
                             fg.show(getSupportFragmentManager(),"");
                         }
                     });
 
-                    contenedorActionbarOption.removeAllViews();
-                    contenedorActionbarOption.addView(containerConfiguration);
-
-                    /*FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.addToBackStack(null);
-                    ConfigurationFragment dialogError = new ConfigurationFragment();
-                    dialogError.setConfigurationDelegate(configurationDelegate);
-                    ft.replace(R.id.contenedor_preview, dialogError);
-                    ft.commit();*/
-
-                }
-            }
-        });
-        //ImageView imageProfile = (ImageView) view.findViewById(R.id.foto_perfil_actionbar);
-        ImageButton mensajes = (ImageButton) view.findViewById(R.id.item_mensajes);
-        mensajes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isMessage) {
-
-                    isConfiguration = false;
-                    isNotification = false;
-                    isMessage = false;
-                    contenedorActionbarOption.removeAllViews();
-                    //contenedorMenuBar.removeAllViews();
-                    /*RelativeLayout r = (RelativeLayout) findViewById(R.id.contenedor_preview);
-                    r.removeAllViews();*/
-                } else {
-
-                    isConfiguration = false;
-                    isNotification = false;
-                    isMessage = true;
-
-                    View containerMessage = inflater.inflate(R.layout.action_bar_message, null, false);
-                    contenedorActionbarOption.removeAllViews();
-                    // contenedorMenuBar.removeAllViews();
-                    contenedorActionbarOption.addView(containerMessage);
-                    /*FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.addToBackStack(null);
-                    MessageFragment dialogError = new MessageFragment();
-                    ft.replace(R.id.contenedor_preview, dialogError);
-                    ft.commit();*/
+                    //contenedorActionbarOption.removeAllViews();
+                    //contenedorActionbarOption.addView(containerConfiguration);
                 }
             }
         });
@@ -435,23 +351,17 @@ public class PlayerActivity extends ActionBarActivity {
                 if (isNotification) {
 
                     isConfiguration = false;
-                    isMessage = false;
+                    //isMessage = false;
                     isNotification = false;
-                    contenedorActionbarOption.removeAllViews();
-                    //contenedorMenuBar.removeAllViews();
-                    /*RelativeLayout r = (RelativeLayout) findViewById(R.id.contenedor_preview);
-                    r.removeAllViews();*/
+                    //contenedorActionbarOption.removeAllViews();
+
                 } else {
 
                     isNotification = true;
                     isConfiguration = false;
-                    isMessage = false;
+                    //isMessage = false;
 
-                    //View containerNotification = inflater.inflate(R.layout.action_bar_notification, null, false);
                     //contenedorActionbarOption.removeAllViews();
-                    //ontenedorActionbarOption.addView(containerNotification);
-
-                    contenedorActionbarOption.removeAllViews();
                     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                     ft.addToBackStack(null);
                     NotificationFragment dialogError = new NotificationFragment();
@@ -460,10 +370,6 @@ public class PlayerActivity extends ActionBarActivity {
                 }
             }
         });
-
-        AQuery aq = new AQuery(view);
-       /* aq.id(imageProfile).image("http://graph.facebook.com/" + UserPreference.getIdFacebook(PlayerActivity.this)
-                + "/picture?type=square");*/
 
         actionBar.setCustomView(view,layout);
 

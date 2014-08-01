@@ -150,8 +150,8 @@ public class LoginActivity extends ActionBarActivity {
         btnLoginFb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnLoginFb.setEnabled(false);
-                btnLoginFb.setClickable(false);
+                //btnLoginFb.setEnabled(false);
+                //btnLoginFb.setClickable(false);
 
                 // Login Facebook SDK
                 uiHelper = new UiLifecycleHelper(LoginActivity.this, new Session.StatusCallback() {

@@ -32,7 +32,7 @@
             android:textColor="#FFFFFF"
             android:textSize="14sp"
             android:text="Vertigo extremo"
-            android:layout_marginLeft="80dp"
+            android:layout_marginLeft="75dp"
             android:layout_marginTop="18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -40,9 +40,10 @@
         <TextView
             android:id="@+id/date_live"
             android:textColor="#FFFFFF"
+            android:alpha="0.6"
             android:textSize="11sp"
             android:text="En VIVO"
-            android:layout_marginLeft="80dp"
+            android:layout_marginLeft="75dp"
             android:layout_marginTop="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -52,7 +53,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="1dp"
             android:layout_centerVertical="true"
             android:background="@drawable/icon_play_live"/>
 
