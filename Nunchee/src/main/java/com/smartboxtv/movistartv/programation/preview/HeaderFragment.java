@@ -61,9 +61,13 @@ public class HeaderFragment extends Fragment {
     private SimpleDateFormat formatHora;
     private SimpleDateFormat formatDia;
 
+    private RelativeLayout check;
+
     private static final List<String> PERMISSIONS = Arrays.asList("publish_actions");
     private boolean pendingPublishReauthorization = false;
     private AQuery aq;
+
+    public int NCheckIn = 0;
 
     // Un delegado cualquiera
     private PreviewImageFavoriteDelegate imageFavoriteDelegate;
@@ -71,7 +75,6 @@ public class HeaderFragment extends Fragment {
     public HeaderFragment(Program program, Program previewProgram) {
         this.programa = program;
         this.programaHora = previewProgram;
-        Log.e("Edtebsdfg","fdgdfgghd");
     }
     // det del delegado cualquiera
     @Override
@@ -79,7 +82,7 @@ public class HeaderFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.preview_fg_header, container, false);
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH$mm$ss");
+        //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH$mm$ss");
         Typeface normal = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SegoeWP.ttf");
         Typeface bold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SegoeWP-Bold.ttf");
         Typeface light = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SegoeWP-Light.ttf");
@@ -87,7 +90,6 @@ public class HeaderFragment extends Fragment {
 
         formatHora = new SimpleDateFormat("HH:mm");
         formatDia = new SimpleDateFormat("MMM dd");
-        normal = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SegoeWP.ttf");
         aq = new AQuery(rootView);
 
         // TextView
@@ -97,11 +99,13 @@ public class HeaderFragment extends Fragment {
         txtDescription = (TextView) rootView.findViewById(R.id.preview_descripcion);
         containerCheckIn = (RelativeLayout) rootView.findViewById(R.id.container_check_c);
 
-        RelativeLayout check = (RelativeLayout) rootView.findViewById(R.id.second_preview_check_in);
+        check = (RelativeLayout) rootView.findViewById(R.id.second_preview_check_in);
 
         //numeroCheck.setText(programa.CheckIn);
+        Log.e("numero de Check","--> "+NCheckIn);
 
         if(programa.ICheckIn){
+            numeroCheck.setText("+"+(NCheckIn));
             check.setAlpha((float) 0.6);
             check.setEnabled(false);
             check.setClickable(false);
@@ -109,7 +113,7 @@ public class HeaderFragment extends Fragment {
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numeroCheck.setText("+"+(programa.CheckIn+1));
+                Toast.makeText(getActivity(),"Publicando...",Toast.LENGTH_LONG).show();
                 publishCheckIn();
             }
         });
@@ -149,8 +153,6 @@ public class HeaderFragment extends Fragment {
 
 
         txtDescription.setText(programa.getDescription());
-
-        numeroCheck.setText("+"+programaHora.CheckIn);
         //txtChannel.setText(programa.getPChannel().getChannelCallLetter() + " " + programa.getPChannel().getChannelNumber());
 
 
@@ -263,6 +265,10 @@ public class HeaderFragment extends Fragment {
                         FacebookRequestError error = response.getError();
 
                         if (error == null) {
+                            numeroCheck.setText("+"+(programa.CheckIn+1));
+                            check.setAlpha((float) 0.6);
+                            check.setEnabled(false);
+                            check.setClickable(false);
                             DialogMessage dialogMessage = new DialogMessage("");
                             dialogMessage.show(getActivity().getSupportFragmentManager(), "");
                         } else {

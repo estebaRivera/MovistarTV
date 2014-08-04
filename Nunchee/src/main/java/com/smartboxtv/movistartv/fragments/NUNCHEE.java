@@ -11,7 +11,7 @@ import com.facebook.Session;
 public class NUNCHEE extends Application {
 
     public Session session = null;
-    public boolean CONNECT_AWS = false;
+    public boolean CONNECT_AWS = true;
     public boolean CONNECT_SERVICES_PYTHON = false;
 
     @Override

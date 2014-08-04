@@ -1,19 +1,13 @@
 package com.smartboxtv.movistartv.activities;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 
-import com.smartboxtv.movistartv.Adapter.AdapterPagerTutorial;
+import com.smartboxtv.movistartv.adapter.AdapterPagerTutorial;
 import com.smartboxtv.movistartv.R;
-import com.smartboxtv.movistartv.data.preference.UserPreference;
 import com.smartboxtv.movistartv.fragments.TutorialFragment;
 
 import java.util.ArrayList;

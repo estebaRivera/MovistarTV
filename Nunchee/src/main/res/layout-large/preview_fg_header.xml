@@ -13,11 +13,11 @@
         android:layout_height="150dp">
 
         <ImageView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/preview_cabeza_fondo"
-            android:scaleType="centerCrop"
-            android:background="@drawable/backdrop_placeholder"
+            android:scaleType="center"
+            android:background="@drawable/program_placeholder2"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true" />
 

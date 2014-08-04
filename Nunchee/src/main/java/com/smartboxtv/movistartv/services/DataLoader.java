@@ -99,13 +99,14 @@ public class DataLoader {
 
     private final AQuery aq;
 
-    public boolean CONNECT_AWS = false;
+    public boolean CONNECT_AWS = true;
 
     private List<FeedJSON> listaHistorial = new ArrayList<FeedJSON>();
 
     public DataLoader(Context actividad) {
         this.actividad = actividad;
         this.aq = new AQuery(actividad);
+
     }
     public DataLoader(Activity actividad) {
         this.actividad = actividad;
@@ -508,7 +509,7 @@ public class DataLoader {
         URL_FINAL.append(idPrograma);   URL_FINAL.append(",");  URL_FINAL.append(idCanal);  URL_FINAL.append(",");
         URL_FINAL.append(idNunchee);    URL_FINAL.append(",");  URL_FINAL.append(fechaInicio);  URL_FINAL.append(",");  URL_FINAL.append(fechaFin);
 
-        Log.e("URL Previe",URL_FINAL.toString());
+        Log.e("URL Preview",URL_FINAL.toString());
         aq.ajax(URL_FINAL.toString(), JSONObject.class, new AjaxCallback<JSONObject>() {
 
             @Override
@@ -694,7 +695,7 @@ public class DataLoader {
         URL_FINAL.append("Recomendations/"); URL_FINAL.append(idPrograma);
         URL_FINAL.append(","); URL_FINAL.append(idCanal); URL_FINAL.append(",");URL_FINAL.append(idNunchee);
 
-        Log.e("URL RECOMENDACIONES", URL_FINAL.toString());
+        Log.e("URL RECOMENDACIONES  --", URL_FINAL.toString());
         aq.ajax(URL_FINAL.toString(), JSONObject.class, new AjaxCallback<JSONObject>() {
 
             @Override
@@ -716,11 +717,15 @@ public class DataLoader {
                                     Program p = parseJsonObject(o, Program.class);
 
                                     p.setListaImage(new ArrayList<Image>());
-                                    JSONArray images = programas.getJSONObject(i).getJSONArray("MainImages");
+                                    //JSONArray images = programas.getJSONObject(i).getJSONArray("MainImages");
+                                    if(!o.isNull("MainImages")){
+                                        JSONArray images = o.getJSONArray("MainImages");
 
-                                    for (int j = 0; j < images.length(); j++) {
-                                        p.getListaImage().add(parseJsonObject(images.getJSONObject(j), Image.class));
+                                        for (int j = 0; j < images.length(); j++) {
+                                            p.getListaImage().add(parseJsonObject(images.getJSONObject(j), Image.class));
+                                        }
                                     }
+
                                     r.getSameCategoria().add(p);
                                 }
                             }
@@ -733,6 +738,7 @@ public class DataLoader {
                     }
                 } catch (Exception e) {
                     handler.error(e.getMessage());
+                    Log.e("","");
                     e.printStackTrace();
                 }
             }

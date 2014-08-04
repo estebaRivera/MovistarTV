@@ -129,7 +129,7 @@ public class ProgramationActivity extends ActionBarActivity{
     private boolean isConfiguration = false;
     private boolean isNotification = false;
     private boolean isSlideMenuOpen = false;
-    private boolean fbActivate;
+    //private boolean fbActivate;
     private boolean showSearch = false;
     private boolean isMenuLiveOpen = false;
     private boolean isTrendingOpen = false;
@@ -191,7 +191,7 @@ public class ProgramationActivity extends ActionBarActivity{
 
         dataBaseUser = new DataBaseUser(getApplicationContext(),"",null,0);
         userNunchee = dataBaseUser.select(UserPreference.getIdFacebook(getApplicationContext()));
-        fbActivate = userNunchee.isFacebookActive;
+        //fbActivate = userNunchee.isFacebookActive;
 
         ft =  getSupportFragmentManager().beginTransaction();
         ft.add(R.id.contenedor, horaryFragment);
@@ -702,9 +702,16 @@ public class ProgramationActivity extends ActionBarActivity{
                     txtTutorial2.setTypeface(light);
 
                     final ImageView fb = (ImageView) r1.findViewById(R.id.fb_active);
-                    if(!fbActivate){
+
+                    UserNunchee u = dataBaseUser.select(UserPreference.getIdFacebook(getApplication()));
+                    dataBaseUser.close();
+                    if(u.isFacebookActive == false){
                         fb.setAlpha((float)0.3);
                         txtAutoPost2.setText("Activa tu post en Facebook");
+                    }
+                    else{
+                        fb.setAlpha((float)1);
+                        txtAutoPost2.setText("Desactiva tu post en Facebook");
                     }
 
                     ImageView exit = (ImageView) containerConfiguration.findViewById(R.id.exit);
@@ -722,8 +729,8 @@ public class ProgramationActivity extends ActionBarActivity{
                         public void onClick(View view) {
                             ManagerAnimation.selection(r1);
                             AnimatorSet set = new AnimatorSet();
-
-                            if(fbActivate){
+                            UserNunchee u = dataBaseUser.select(UserPreference.getIdFacebook(getApplication()));
+                            if(u.isFacebookActive == true){
                                 set.playTogether(
                                         ObjectAnimator.ofFloat(fb, "alpha", 0.3f),
                                         ObjectAnimator.ofFloat(fb, "scaleX", 1, 1.3f),
@@ -753,11 +760,11 @@ public class ProgramationActivity extends ActionBarActivity{
                                     public void onAnimationRepeat(Animator animator) {
                                     }
                                 });
-                                fbActivate = false;
+                                //fbActivate = false;
                                 txtAutoPost2.setText("Activa tu post en Facebook");
-                                userNunchee.isFacebookActive = fbActivate;
+                                userNunchee.isFacebookActive = false;
                                 dataBaseUser.updateFacebookActive(UserPreference.getIdFacebook(getApplicationContext()), userNunchee);
-
+                                dataBaseUser.close();
                             }
                             else{
 
@@ -790,11 +797,12 @@ public class ProgramationActivity extends ActionBarActivity{
                                     public void onAnimationRepeat(Animator animator) {
                                     }
                                 });
-                                fbActivate = true;
+                                //fbActivate = true;
                                 txtAutoPost2.setText("Desactiva tu post en Facebook");
 
-                                userNunchee.isFacebookActive = fbActivate;
+                                userNunchee.isFacebookActive = true;
                                 dataBaseUser.updateFacebookActive(UserPreference.getIdFacebook(getApplicationContext()),userNunchee);
+                                dataBaseUser.close();
                             }
 
                         }
@@ -876,7 +884,7 @@ public class ProgramationActivity extends ActionBarActivity{
                     isNotification = true;
                     isConfiguration = false;
                     showSearch = false;
-
+                    contenedorMenuBar.removeAllViews();
                     //contenedorActionbarOption.removeAllViews();
                     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                     ft.addToBackStack(null);

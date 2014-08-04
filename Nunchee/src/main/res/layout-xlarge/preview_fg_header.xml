@@ -16,7 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/preview_cabeza_fondo"
-            android:background="@drawable/backdrop_placeholder"
+            android:background="@drawable/program_placeholder2"
+            android:scaleType="centerCrop"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true" />
 

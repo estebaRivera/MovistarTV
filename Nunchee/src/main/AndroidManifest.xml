@@ -40,6 +40,7 @@
         <activity
             android:name=".activities.PreviewActivity"
             android:label="@string/empty"
+            android:noHistory = "true"
             android:screenOrientation="sensorLandscape" >
         </activity>
         <activity
@@ -50,16 +51,19 @@
         <activity
             android:name=".activities.TutorialActivity"
             android:label="@string/empty"
+            android:noHistory = "true"
             android:screenOrientation="sensorLandscape" >
         </activity>
         <activity
             android:name=".activities.PlayerActivity"
             android:label="@string/empty"
+            android:noHistory = "true"
             android:screenOrientation="sensorLandscape" >
         </activity>
         <activity
             android:name=".activities.SearchActivity"
             android:label="@string/empty"
+            android:noHistory = "true"
             android:screenOrientation="sensorLandscape" >
         </activity>
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id"/>

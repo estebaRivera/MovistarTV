@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -20,7 +21,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.smartboxtv.movistartv.R;
+import com.smartboxtv.movistartv.animation.ManagerAnimation;
 import com.smartboxtv.movistartv.data.clean.DataClean;
+import com.smartboxtv.movistartv.data.database.DataBaseUser;
+import com.smartboxtv.movistartv.data.database.UserNunchee;
 import com.smartboxtv.movistartv.data.image.ScreenShot;
 import com.smartboxtv.movistartv.data.image.Type;
 import com.smartboxtv.movistartv.data.image.Width;
@@ -62,6 +66,9 @@ public class SecondPreviewActivity extends ActionBarActivity {
 
     private RelativeLayout contenedorLoading;
     private RelativeLayout contenedorActionbarOption;
+
+    private DataBaseUser dataBaseUser;
+    private UserNunchee userNunchee;
 
     private RelativeLayout wrapperTrivia;
     private RelativeLayout wrapperPolls;
@@ -139,6 +146,9 @@ public class SecondPreviewActivity extends ActionBarActivity {
         cuadrante2 = (RelativeLayout) findViewById(R.id.cuadrante2);
         cuadrante3 = (RelativeLayout) findViewById(R.id.cuadrante3);
         cuadrante4 = (RelativeLayout) findViewById(R.id.cuadrante4);
+
+        dataBaseUser = new DataBaseUser(getApplicationContext(),"",null,0);
+        userNunchee = dataBaseUser.select(UserPreference.getIdFacebook(getApplicationContext()));
 
         loadExtra();
         loadListener();
@@ -221,9 +231,29 @@ public class SecondPreviewActivity extends ActionBarActivity {
 
     public void loadFragment(){
 
+        programaPreview.ICheckIn = ICheckIn;
+        if(ICheckIn == true){
+            programaPreview.setCheckIn(programaPreview.getCheckIn() +1);
+            //Log.e(programaPreview.getTitle()+" Cantidad de Check IN","--> "+programaPreview.getCheckIn());
+        }
+        programaPreview.ILike = ILike;
+        if(ILike == true){
+            programaPreview.setLike(programaPreview.getLike()+1);
+        }
+        programaPreview.IsFavorite = AddFavorite;
+
         // Inicio de fragmentos
-        fragmentoAccion = new ActionFragment(programaPreview,programa); // ver bien
+        fragmentoAccion = new ActionFragment(programaPreview,programa);
+        fragmentoAccion.IReminder = IReminderProgram;
+        fragmentoAccion.IShare = IShare;
+
         fragmentoHeader = new HeaderFragment(programaPreview,programa);
+        if(ICheckIn == true){
+            fragmentoHeader.NCheckIn = programa.getCheckIn() + 1;
+        }
+        else{
+            fragmentoHeader.NCheckIn = programa.getCheckIn();
+        }
         fragmentoBarra = new BarFragment();
         fragmentoEncuestaP = new PollMinFragment(polls);
         fragmentoTriviaP = new TriviaMinFragment(trivia);
@@ -377,7 +407,7 @@ public class SecondPreviewActivity extends ActionBarActivity {
                     Typeface light = Typeface.createFromAsset(getAssets(), "fonts/SegoeWP.ttf");
                     Typeface bold = Typeface.createFromAsset(getAssets(), "fonts/SegoeWP-Bold.ttf");
 
-                    RelativeLayout r1 = (RelativeLayout) containerConfiguration.findViewById(R.id.config_auto_post);
+                    final RelativeLayout r1 = (RelativeLayout) containerConfiguration.findViewById(R.id.config_auto_post);
                     RelativeLayout r2 = (RelativeLayout) containerConfiguration.findViewById(R.id.config_tutorial);
                     RelativeLayout r3 = (RelativeLayout) containerConfiguration.findViewById(R.id.config_acerca_de);
                     RelativeLayout r4 = (RelativeLayout) containerConfiguration.findViewById(R.id.confif_terminos_y_condiciones);
@@ -404,6 +434,17 @@ public class SecondPreviewActivity extends ActionBarActivity {
 
                     final ImageView fb = (ImageView) r1.findViewById(R.id.fb_active);
 
+                    UserNunchee u = dataBaseUser.select(UserPreference.getIdFacebook(getApplication()));
+                    dataBaseUser.close();
+                    if(u.isFacebookActive == false){
+                        fb.setAlpha((float)0.3);
+                        txtAutoPost2.setText("Activa tu post en Facebook");
+                    }
+                    else{
+                        fb.setAlpha((float)1);
+                        txtAutoPost2.setText("Desactiva tu post en Facebook");
+                    }
+
                     ImageView exit = (ImageView) containerConfiguration.findViewById(R.id.exit);
 
                     exit.setOnClickListener(new View.OnClickListener() {
@@ -420,20 +461,85 @@ public class SecondPreviewActivity extends ActionBarActivity {
                         @Override
                         public void onClick(View view) {
 
-                            if(fbActivate){
-                                fbActivate = false;
-                                txtAutoPost2.setText("Desactiva tu post en Facebook");
+                            ManagerAnimation.selection(r1);
+                            AnimatorSet set = new AnimatorSet();
 
-                                fb.setAlpha((float)1);
-                                UserPreference.setFacebookActive(true,getApplication());
+                            UserNunchee u = dataBaseUser.select(UserPreference.getIdFacebook(getApplication()));
+                            dataBaseUser.close();
 
+                            if(u.isFacebookActive == true){
+                                set.playTogether(
+                                        ObjectAnimator.ofFloat(fb, "alpha", 0.3f),
+                                        ObjectAnimator.ofFloat(fb, "scaleX", 1, 1.3f),
+                                        ObjectAnimator.ofFloat(fb, "scaleY", 1, 1.3f));
+                                set.setDuration(400);
+                                set.start();
+                                set.addListener(new Animator.AnimatorListener() {
+                                    @Override
+                                    public void onAnimationStart(Animator animator) {
+                                    }
+
+                                    @Override
+                                    public void onAnimationEnd(Animator animator) {
+                                        AnimatorSet aux = new AnimatorSet();
+                                        aux.playTogether(
+                                                ObjectAnimator.ofFloat(fb, "scaleX", 1.3f, 1f),
+                                                ObjectAnimator.ofFloat(fb, "scaleY", 1.3f, 1f));
+                                        aux.setDuration(400);
+                                        aux.start();
+                                    }
+
+                                    @Override
+                                    public void onAnimationCancel(Animator animator) {
+                                    }
+
+                                    @Override
+                                    public void onAnimationRepeat(Animator animator) {
+                                    }
+                                });
+                                //fbActivate = false;
+                                txtAutoPost2.setText("Activa tu post en Facebook");
+                                userNunchee.isFacebookActive = false;
+                                dataBaseUser.updateFacebookActive(UserPreference.getIdFacebook(getApplicationContext()), userNunchee);
+                                dataBaseUser.close();
                             }
                             else{
-                                fbActivate = true;
-                                txtAutoPost2.setText("Activa tu post en Facebook");
 
-                                fb.setAlpha((float)0.3);
-                                UserPreference.setFacebookActive(false,getApplication());
+                                set.playTogether(
+                                        ObjectAnimator.ofFloat(fb, "alpha",  1f),
+                                        ObjectAnimator.ofFloat(fb, "scaleX", 1, 1.3f),
+                                        ObjectAnimator.ofFloat(fb, "scaleY", 1, 1.35f));
+                                set.setDuration(400);
+                                set.start();
+                                set.addListener(new Animator.AnimatorListener() {
+                                    @Override
+                                    public void onAnimationStart(Animator animator) {
+                                    }
+
+                                    @Override
+                                    public void onAnimationEnd(Animator animator) {
+                                        AnimatorSet aux = new AnimatorSet();
+                                        aux.playTogether(
+                                                ObjectAnimator.ofFloat(fb, "scaleX", 1.3f, 1f),
+                                                ObjectAnimator.ofFloat(fb, "scaleY", 1.3f, 1f));
+                                        aux.setDuration(400);
+                                        aux.start();
+                                    }
+
+                                    @Override
+                                    public void onAnimationCancel(Animator animator) {
+                                    }
+
+                                    @Override
+                                    public void onAnimationRepeat(Animator animator) {
+                                    }
+                                });
+                                //fbActivate = true;
+                                txtAutoPost2.setText("Desactiva tu post en Facebook");
+
+                                userNunchee.isFacebookActive = true;
+                                dataBaseUser.updateFacebookActive(UserPreference.getIdFacebook(getApplicationContext()), userNunchee);
+                                dataBaseUser.close();
                             }
 
                         }
@@ -510,11 +616,9 @@ public class SecondPreviewActivity extends ActionBarActivity {
 
         SimpleDateFormat hora = new SimpleDateFormat("yyyy-MM-dd' 'HH'$'mm'$'ss");
 
-        String url = "http://nunchee.tv/program.html?program="+programa.getIdProgram()+"&channel="+programa
-                .getPChannel().getChannelID()+"&user="+UserPreference.getIdNunchee(getApplication())+"&action=2&startdate="
-                +hora.format(programa.getStartDate())+"&enddate="+hora.format(programa.getEndDate());
+        String url = "http://www.movistar.cl/PortalMovistarWeb/tv-digital/guia-de-canales";
 
-        Image imagen = programaPreview.getImageWidthType(Width.ORIGINAL_IMAGE, Type.SQUARE_IMAGE);
+        Image imagen = programaPreview.getImageWidthType(Width.ORIGINAL_IMAGE, Type.BACKDROP_IMAGE);
         String imageUrl;
 
         if( imagen != null){

@@ -29,9 +29,7 @@ public class CategoryAdapter extends ArrayAdapter<CategorieChannel> {
         list = listaCategoria;
     }
 
-    public View getSelected() {
-        return view;
-    }
+
 
     /*public void setSelected(View view) {
 
@@ -44,12 +42,18 @@ public class CategoryAdapter extends ArrayAdapter<CategorieChannel> {
         this.view = view;
     }*/
 
+    public View getSelected() {
+
+        return view;
+    }
+
     public void setSelected(View view) {
 
         if(this.view != null){
-            this.view.setBackgroundColor(Color.parseColor("#7AB700"));
+            this.view.setBackgroundColor(Color.parseColor("#17354B"));
         }
-        view.setBackgroundColor(Color.parseColor("#17354B"));
+
+        view.setBackgroundColor(Color.parseColor("#7AB700"));
         this.view = view;
     }
 

@@ -37,6 +37,8 @@ import com.smartboxtv.movistartv.data.image.Width;
 import com.smartboxtv.movistartv.data.models.Channel;
 import com.smartboxtv.movistartv.data.models.Image;
 import com.smartboxtv.movistartv.data.models.Program;
+import com.smartboxtv.movistartv.data.modelssm.ChannelSM;
+import com.smartboxtv.movistartv.data.modelssm.ScheduleSM;
 import com.smartboxtv.movistartv.data.modelssm.datacategory.ProgramsCategorySM;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
 import com.smartboxtv.movistartv.delgates.FacebookLikeDelegate;
@@ -72,8 +74,8 @@ public class CategoryFragmentContainer extends Fragment{
     private CategoryAdapterContainer adapter;
     private CategoryAdapterContainerSM adapterSM;
     private List<Program> programList = new ArrayList<Program>();
-    //private List<ScheduleSM> scheduleSMList = new ArrayList<ScheduleSM>();
-    //private List<ChannelSM> listChannel = new ArrayList<ChannelSM>();
+    private List<ScheduleSM> scheduleSMList = new ArrayList<ScheduleSM>();
+    private List<ChannelSM> listChannel = new ArrayList<ChannelSM>();
     private List<ProgramsCategorySM> listPrograms = new ArrayList<ProgramsCategorySM>();
 
     private Program program;
@@ -191,13 +193,6 @@ public class CategoryFragmentContainer extends Fragment{
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                         Program p = programList.get(i);
-                        //Log.e("Programa preview--", p.getTitle());
-                        /*PreviewFragment preview = new PreviewFragment(p);
-                        preview.setPrograma(p);
-                        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                        ft.addToBackStack(null);
-                        ft.replace(R.id.contenedor_preview, preview);
-                        ft.commit();*/
 
                         RelativeLayout r = (RelativeLayout) getActivity().findViewById(R.id.view_parent);
                         Bitmap screenShot = ScreenShot.takeScreenshot(r);
@@ -229,10 +224,6 @@ public class CategoryFragmentContainer extends Fragment{
                     }
                 });
 
-                /*fin = System.currentTimeMillis();
-                delta = fin - inicio;
-                Log.e("Tiempo categoria","Tiempo final "+delta);*/
-
                 borraLoading();
             }
             @Override
@@ -261,7 +252,7 @@ public class CategoryFragmentContainer extends Fragment{
 
                 listPrograms = data;
                 ordenaListaSM();
-                //List<ScheduleSM> totalSchedule = new ArrayList<ScheduleSM>();
+                List<ScheduleSM> totalSchedule = new ArrayList<ScheduleSM>();
                 int count = 0;
                 /*for (int i = 0 ; i < data.size() ;i++){
                     for(int j = 0; j < data.get(i).listSchedule.size();j++){
@@ -270,7 +261,7 @@ public class CategoryFragmentContainer extends Fragment{
                         count = count + data.get(i).listSchedule.size();
                     }
                 }*/
-                //listChannel.get(0).listSchedule = scheduleSMList;
+                listChannel.get(0).listSchedule = scheduleSMList;
                 adapterSM = new CategoryAdapterContainerSM(getActivity(),listPrograms);
                 adapterSM.setFacebookDelegate(facebookDelegate);
                 gridView.setAdapter(adapterSM);
@@ -325,6 +316,8 @@ public class CategoryFragmentContainer extends Fragment{
             @Override
             public void error(String error) {
                 Log.e("DATA ERROR","--> "+error);
+                DialogError dialogError = new DialogError("Ha tardado más de lo debido");
+                dialogError.show(getActivity().getSupportFragmentManager(), "");
             }
         },"1","CHL","ES",format.format(inicio),format.format(end),"1",""+idCategoria);
     }
@@ -373,9 +366,7 @@ public class CategoryFragmentContainer extends Fragment{
                 }
                 SimpleDateFormat hora = new SimpleDateFormat("yyyy-MM-dd' 'HH'$'mm'$'ss");
 
-                String url = "http://nunchee.tv/program.html?program="+program.getIdProgram()+"&channel="
-                        +program.getPChannel().getChannelID()+"&user="+UserPreference.getIdNunchee(getActivity())
-                        +"&action=2&startdate="+hora.format(program.getStartDate())+"&enddate="+hora.format(program.getEndDate());
+                String url = "http://www.movistar.cl/PortalMovistarWeb/tv-digital/guia-de-canales";
 
                 Image imagen = program.getImageWidthType(Width.ORIGINAL_IMAGE,Type.SQUARE_IMAGE);
                 String urlImage;
@@ -468,9 +459,7 @@ public class CategoryFragmentContainer extends Fragment{
             }
             SimpleDateFormat hora = new SimpleDateFormat("yyyy-MM-dd' 'HH'$'mm'$'ss");
 
-            String url = "http://nunchee.tv/program.html?program="+program.getIdProgram()+"&channel="
-                    +program.getPChannel().getChannelID()+"&user="+UserPreference.getIdNunchee(getActivity())
-                    +"&action=2&startdate="+hora.format(program.getStartDate())+"&enddate="+hora.format(program.getEndDate());
+            String url = "http://www.movistar.cl/PortalMovistarWeb/tv-digital/guia-de-canales";
 
             String imagen;
 

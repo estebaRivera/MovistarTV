@@ -73,6 +73,9 @@ public class ActionFragment extends Fragment {
     private Button btnShare;
     private Button btnReminder;
 
+    public boolean IReminder = false;
+    public boolean IShare = false;
+
     private Animation animacion;
     private PreviewImageFavoriteDelegate imageFavoriteDelegate;
 
@@ -135,11 +138,19 @@ public class ActionFragment extends Fragment {
             btnFavorite.setEnabled(false);
             btnFavorite.setAlpha((float) 0.5);
         }
+        if(IReminder == true){
+            btnReminder.setEnabled(false);
+            btnReminder.setAlpha((float) 0.5);
+        };
+        if(IShare == true){
+            btnShare.setEnabled(false);
+            btnShare.setAlpha((float) 0.5);
+        }
 
-        Drawable drwFocusShare = res.getDrawable(R.drawable.compartir_foco_acc);
+        /*Drawable drwFocusShare = res.getDrawable(R.drawable.compartir_foco_acc);
         Drawable drwFocusFavorite = res.getDrawable(R.drawable.favorito_foco_acc);
         Drawable drwFocusLike = res.getDrawable(R.drawable.like_foco_acc);
-        Drawable drwFocusReminder = res.getDrawable(R.drawable.recordar_foco_acc);
+        Drawable drwFocusReminder = res.getDrawable(R.drawable.recordar_foco_acc);*/
 
         btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,10 +161,11 @@ public class ActionFragment extends Fragment {
                         data.actionLike(UserPreference.getIdNunchee(getActivity()), "2", previewProgram.getIdProgram(),
                                 previewProgram.getPChannel().getChannelID());
 
-                        btnLike.startAnimation(animacion);
+                        /*btnLike.startAnimation(animacion);
                         btnLike.setText((previewProgram.getLike() + 1) + " Likes");
                         btnLike.setEnabled(false);
-                        btnLike.setAlpha((float) 0.5);
+                        btnLike.setAlpha((float) 0.5);*/
+                        Toast.makeText(getActivity(),"Publicando...",Toast.LENGTH_LONG).show();
                         publishStory();
                     }
                     else{
@@ -162,7 +174,6 @@ public class ActionFragment extends Fragment {
                 }
                 catch(Exception e){
                     e.printStackTrace();
-                    Toast.makeText(getActivity(),"Oops! algo inesperado pasó",Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -450,6 +461,10 @@ public class ActionFragment extends Fragment {
 
                         FacebookRequestError error = response.getError();
                         if (error == null) {
+                            btnLike.startAnimation(animacion);
+                            btnLike.setText((previewProgram.getLike() + 1) + " Likes");
+                            btnLike.setEnabled(false);
+                            btnLike.setAlpha((float) 0.5);
                             DialogMessage dialogMessage = new DialogMessage("");
                             dialogMessage.show(getActivity().getSupportFragmentManager(), "");
                         } else {

@@ -12,6 +12,7 @@ import android.widget.GridView;
 import com.smartboxtv.movistartv.R;
 import com.smartboxtv.movistartv.data.models.CategorieChannel;
 import com.smartboxtv.movistartv.data.modelssm.CategorieChannelSM;
+import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.programation.adapters.CategoryAdapter;
 import com.smartboxtv.movistartv.programation.adapterssm.CategoryAdapterSM;
 import com.smartboxtv.movistartv.programation.delegates.CategoryDelegateGetCategory;
@@ -41,20 +42,32 @@ public class CategoryFragmentBottomBar extends Fragment {
         View rootView = inflater.inflate(R.layout.category_fragment_bar_bottom, container, false);
         gridView = (GridView) (rootView != null ? rootView.findViewById(R.id.gridView) : null);
 
-        cargaCategorias();
-        //cargaCategoriaSM();
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                adapter.setSelected(v);
-                //adapterSM.setSelected(v);
-                //Log.e("Nombre Categotia",listaCategoria.get(position).channelCategoryName);
-                if(del!=null){
-                    del.getCategory(listaCategoria.get(position));
-                    //del.getCategory(categorieList.get(position));
+        if(((NUNCHEE)getActivity().getApplication()).CONNECT_SERVICES_PYTHON == true){
+            cargaCategoriaSM();
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                    adapterSM.setSelected(v);
+                    if(del!=null){
+                        del.getCategory(categorieList.get(position));
+                    }
                 }
-            }
 
-        });
+            });
+        }
+        else{
+            cargaCategorias();
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                    adapter.setSelected(v);
+                    if(del!=null){
+                        del.getCategory(listaCategoria.get(position));
+                    }
+                }
+
+            });
+        }
+
+
         return rootView;
     }
 
@@ -90,7 +103,6 @@ public class CategoryFragmentBottomBar extends Fragment {
         serviceManager.getCategories(new ServiceManager.ServiceManagerHandler<CategorieChannelSM>(){
             @Override
             public void loaded(List<CategorieChannelSM> data) {
-//                Log.e("DATA",data.toString());
                 categorieList = data;
                 ordenaCategoriasSM();
                 adapterSM = new CategoryAdapterSM(getActivity(),categorieList);

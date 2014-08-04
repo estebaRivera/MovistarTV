@@ -1,4 +1,4 @@
-package com.smartboxtv.movistartv.Adapter;
+package com.smartboxtv.movistartv.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

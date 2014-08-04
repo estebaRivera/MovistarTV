@@ -1,5 +1,8 @@
 package com.smartboxtv.movistartv.activities;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -47,6 +50,7 @@ import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphObject;
 import com.facebook.widget.FacebookDialog;
 import com.smartboxtv.movistartv.R;
+import com.smartboxtv.movistartv.animation.ManagerAnimation;
 import com.smartboxtv.movistartv.data.clean.DataClean;
 import com.smartboxtv.movistartv.data.database.DataBase;
 
@@ -143,7 +147,7 @@ public class PreviewActivity extends ActionBarActivity {
     private List<Tweets> twitts = new ArrayList<Tweets>();
     private AQuery aq;
     private String path;
-    //private View rootView;
+
     private Animation animation;
     private Animation animLeft;
     private Trivia trivia = new Trivia();
@@ -288,8 +292,6 @@ public class PreviewActivity extends ActionBarActivity {
         userNunchee = dataBaseUser.select(UserPreference.getIdFacebook(getApplicationContext()));
         fbActivate = userNunchee.isFacebookActive;
 
-        // Check In
-
         btnCheckIn.setVisibility(View.GONE);
         btnCheckIn_.setVisibility(View.GONE);
 
@@ -309,10 +311,15 @@ public class PreviewActivity extends ActionBarActivity {
 
         aq = new AQuery(this);
 
-        obtieneEncuesta();
-        //cargarPreviewSM();
-        cargarPreview();
-        obtieneRecomendaciones();
+        if(((NUNCHEE) getApplication()).CONNECT_SERVICES_PYTHON == true){
+            cargarPreviewSM();
+        }
+        else{
+            obtieneEncuesta();
+            cargarPreview();
+            obtieneRecomendaciones();
+        }
+
 
         // Capturas de eventos de los contenedores para la animación
         contenedorTw.setOnClickListener(new View.OnClickListener() {
@@ -334,10 +341,10 @@ public class PreviewActivity extends ActionBarActivity {
                     i.putExtra("share",IShare);
                     i.putExtra("reminder", IReminderProgram);
                     i.putExtra("favorite",AddFavorite);
-
+                    i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                     startActivity(i);
                     overridePendingTransition(R.anim.zoom_in_preview, R.anim.nada);
-                    //context.startActivity(i);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.e("Error","errorszdvzv --> "+e.getMessage());
@@ -367,8 +374,10 @@ public class PreviewActivity extends ActionBarActivity {
                     i.putExtra("share",IShare);
                     i.putExtra("reminder", IReminderProgram);
                     i.putExtra("favorite",AddFavorite);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                     startActivity(i);
                     overridePendingTransition(R.anim.zoom_in_preview, R.anim.nada);
+                    onDestroy();
                     //context.startActivity(i);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -399,8 +408,10 @@ public class PreviewActivity extends ActionBarActivity {
                     i.putExtra("share",IShare);
                     i.putExtra("reminder", IReminderProgram);
                     i.putExtra("favorite",AddFavorite);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                     startActivity(i);
                     overridePendingTransition(R.anim.zoom_in_preview, R.anim.nada);
+                    onDestroy();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -530,17 +541,18 @@ public class PreviewActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
 
-                if(fbActivate){
+                if(fbActivate == true){
                     DataLoader data = new DataLoader(getApplicationContext());
                     data.actionCheckIn(UserPreference.getIdNunchee(getApplicationContext()), "7", programaPreview.getIdProgram(),
                             programaPreview.getPChannel().getChannelID());
 
-                    btnCheckIn.startAnimation(animation);
+                    /*btnCheckIn.startAnimation(animation);
                     btnCheckIn_.setText("+ " + (programaPreview.getCheckIn() + 1));
                     btnCheckIn.setAlpha((float) 0.5);
                     btnCheckIn.setEnabled(false);
 
-                    ICheckIn = true;
+                    ICheckIn = true;*/
+                    Toast.makeText(getApplication(),"Publicando...",Toast.LENGTH_LONG).show();
                     publishCheckIn();
                 }
                 else{
@@ -556,16 +568,17 @@ public class PreviewActivity extends ActionBarActivity {
             public void onClick(View view) {
 
 
-                if(fbActivate){
+                if(fbActivate == true){
                     DataLoader data = new DataLoader(getApplicationContext());
                     data.actionLike(UserPreference.getIdNunchee(getApplicationContext()), "2", programaPreview.getIdProgram(),
                             programaPreview.getPChannel().getChannelID());
 
-                    btnLike.startAnimation(animation);
+                    /*btnLike.startAnimation(animation);
                     btnLike.setText((programaPreview.getLike() + 1) + " Likes");
                     btnLike.setEnabled(false);
                     btnLike.setAlpha((float) 0.5);
-                    ILike = true;
+                    ILike = true;*/
+                    Toast.makeText(getApplication(),"Publicando...",Toast.LENGTH_LONG).show();
                     publishStory();
                 }
                 else{
@@ -598,7 +611,7 @@ public class PreviewActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
 
-                if(fbActivate){
+                if(fbActivate == true){
                     DataLoader data = new DataLoader(getApplication());
                     data.actionShare(UserPreference.getIdNunchee(getApplication()), "3", programaPreview.getIdProgram()
                             , programaPreview.getPChannel().getChannelID());
@@ -654,7 +667,7 @@ public class PreviewActivity extends ActionBarActivity {
         }
 
         if(programa != null){
-            //Log.e("Programa", programa.getTitle());
+            Log.e("Programa guia", programa.getIdProgram());
             DataLoader dataLoader = new DataLoader(getApplication());
             dataLoader.getPreview(new DataLoader.DataLoadedHandler<Program>() {
 
@@ -662,8 +675,9 @@ public class PreviewActivity extends ActionBarActivity {
                 public void loaded(final Program data) {
 
                     programaPreview = data;
+                    Log.e("Programa preview", programaPreview.getIdProgram());
                     // Inicialización de Fragmentos
-                    Log.e("Programa", data.getTitle());
+                    Log.e("Programa preview", data.getTitle());
                     fragmentoHeader = new HeaderFragment(programaPreview, programa);
                     fragmentoAccion = new ActionFragment(programaPreview, programa);
                     PreviewImageFavoriteDelegate delegate = new PreviewImageFavoriteDelegate() {
@@ -678,7 +692,6 @@ public class PreviewActivity extends ActionBarActivity {
                     fragmentoTwMax = new TwMaxFragment(programaPreview);
                     fragmentoBarra = new BarFragment();
                     //programa = data;
-
                     txtName.setText(data.getTitle());
                     txtName.setTypeface(normal);
                     txtDate.setText(capitalize(formatDia.format(programa.getStartDate())) + ", " +
@@ -876,13 +889,8 @@ public class PreviewActivity extends ActionBarActivity {
                     DialogError dialogError = new DialogError();
                     dialogError.show(getSupportFragmentManager(),"");
                 }
-            },"UserNunchee",programa.getIdProgram(),programa.IdEpisode ,programa.getPChannel().channelCallLetter,programa.getPChannel().channelImageURL,programa.StartDate,programa.getEndDate());
-
-            /*DataLoader dataLoader = new DataLoader(getApplication());
-            dataLoader.getPreview(new DataLoader.DataLoadedHandler<Program>() {*/
-
-            /*}, programa.getIdProgram(), programa.getPChannel().getChannelID(), UserPreference.getIdNunchee(getApplicationContext()),
-                    dateFormat.format(programa.getStartDate()), dateFormat.format(programa.getEndDate()));*/
+            },"UserNunchee",programa.getIdProgram(),programa.IdEpisode ,programa.getPChannel().channelCallLetter,programa.getPChannel()
+                    .channelImageURL,programa.StartDate,programa.getEndDate());
         }
 
     }
@@ -898,7 +906,6 @@ public class PreviewActivity extends ActionBarActivity {
 
                     if (data != null) {
                         Log.e("ObtieneRecomendacion", programa.getTitle());
-                        //recomendaciones = data;
 
 
                         if (data.getSameCategoria().size() > 0) {
@@ -912,7 +919,7 @@ public class PreviewActivity extends ActionBarActivity {
                                     r1.setVisibility(View.VISIBLE);
                                     r1.startAnimation(animLeft);
                                     aq.id(R.id.sugerencia_imagen1).image(imagen.getImagePath());
-                                    Log.e("1 Url Image R1 -->", imagen.getImagePath());
+                                    //Log.e("1 Url Image R1 -->", imagen.getImagePath());
                                     sugerencia1.setText(data.getSameCategoria().get(i).getTitle());
                                 }
 
@@ -922,7 +929,7 @@ public class PreviewActivity extends ActionBarActivity {
                                         r2.setVisibility(View.VISIBLE);
                                         r2.startAnimation(animLeft);
                                         aq.id(R.id.sugerencia_imagen2).image(imagen.getImagePath());
-                                        Log.e("2 Url Image R2 -->", imagen.getImagePath());
+                                        //Log.e("2 Url Image R2 -->", imagen.getImagePath());
                                         sugerencia2.setText(data.getSameCategoria().get(i).getTitle());
                                     }
                                     else{
@@ -939,7 +946,7 @@ public class PreviewActivity extends ActionBarActivity {
                                         r3.setVisibility(View.VISIBLE);
                                         r3.startAnimation(animLeft);
                                         aq.id(R.id.sugerencia_imagen3).image(imagen.getImagePath());
-                                        Log.e("3 Url Image R3 -->",imagen.getImagePath());
+                                        //Log.e("3 Url Image R3 -->",imagen.getImagePath());
                                         sugerencia3.setText(data.getSameCategoria().get(i).getTitle());
                                     }
                                     else{
@@ -947,14 +954,14 @@ public class PreviewActivity extends ActionBarActivity {
                                             r2.setVisibility(View.VISIBLE);
                                             r2.startAnimation(animLeft);
                                             aq.id(R.id.sugerencia_imagen2).image(imagen.getImagePath());
-                                            Log.e("3 Url Image R2 -->",imagen.getImagePath());
+                                            //Log.e("3 Url Image R2 -->",imagen.getImagePath());
                                             sugerencia2.setText(data.getSameCategoria().get(i).getTitle());
                                         }
                                         else{
                                             r1.setVisibility(View.VISIBLE);
                                             r1.startAnimation(animLeft);
                                             aq.id(R.id.sugerencia_imagen1).image(imagen.getImagePath());
-                                            Log.e(" 3 Url Image R1 -->",imagen.getImagePath());
+                                            //Log.e(" 3 Url Image R1 -->",imagen.getImagePath());
                                             sugerencia1.setText(data.getSameCategoria().get(i).getTitle());
                                         }
 
@@ -987,7 +994,8 @@ public class PreviewActivity extends ActionBarActivity {
     private void obtieneTrivia(){
 
         if(programa != null){
-
+            //Log.e("id Programa Trivia",programa.getIdProgram());
+            //Log.e("Nombre Programa Trivia",programa.getTitle());
             DataLoader dataLoader = new DataLoader(getApplication());
             dataLoader.getTrivia(new DataLoader.DataLoadedHandler<Trivia>() {
 
@@ -995,7 +1003,6 @@ public class PreviewActivity extends ActionBarActivity {
                 public void loaded(final Trivia data) {
 
                     if(data != null){
-
                         trivia = data;
                         fragmentoTriviaP = new TriviaMinFragment(trivia);
                         fragmentoTriviaMax = new TriviaMaxFragment(programaPreview,trivia, false);
@@ -1015,7 +1022,8 @@ public class PreviewActivity extends ActionBarActivity {
     private void obtieneEncuesta(){
 
         if(programa != null){
-
+            //Log.e("id Programa Encuesta",programa.getIdProgram());
+            //Log.e("Nombre Programa Encuesta",programa.getTitle());
             DataLoader dataLoader = new DataLoader(getApplication());
             dataLoader.getPolls(new DataLoader.DataLoadedHandler<Polls>() {
                 @Override
@@ -1172,8 +1180,15 @@ public class PreviewActivity extends ActionBarActivity {
             i.putExtra("programa", programa);
             i.putExtra("programaPreview", programaPreview);
             i.putExtra("click", Preview.TWEETS);
+            i.putExtra("check",ICheckIn);
+            i.putExtra("like",ILike);
+            i.putExtra("share",IShare);
+            i.putExtra("reminder", IReminderProgram);
+            i.putExtra("favorite",AddFavorite);
+            i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(i);
             overridePendingTransition(R.anim.zoom_in_preview, R.anim.nada);
+
             //context.startActivity(i);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1672,11 +1687,9 @@ public class PreviewActivity extends ActionBarActivity {
 
         SimpleDateFormat hora = new SimpleDateFormat("yyyy-MM-dd' 'HH'$'mm'$'ss");
 
-        String url = "http://nunchee.tv/program.html?program="+programa.getIdProgram()+"&channel="+programa
-                .getPChannel().getChannelID()+"&user="+UserPreference.getIdNunchee(getApplication())+"&action=2&startdate="
-                +hora.format(programa.getStartDate())+"&enddate="+hora.format(programa.getEndDate());
+        String url = "http://www.movistar.cl/PortalMovistarWeb/tv-digital/guia-de-canales";
 
-        Image imagen = programaPreview.getImageWidthType(Width.ORIGINAL_IMAGE,Type.SQUARE_IMAGE);
+        Image imagen = programaPreview.getImageWidthType(Width.ORIGINAL_IMAGE, Type.BACKDROP_IMAGE);
         String imageUrl;
 
         if( imagen != null){
@@ -1711,11 +1724,9 @@ public class PreviewActivity extends ActionBarActivity {
                 session.requestNewPublishPermissions(newPermissionsRequest);
                 return;
             }
-            SimpleDateFormat hora = new SimpleDateFormat("yyyy-MM-dd' 'HH'$'mm'$'ss");
+            //SimpleDateFormat hora = new SimpleDateFormat("yyyy-MM-dd' 'HH'$'mm'$'ss");
 
-            String url = "http://nunchee.tv/program.html?program="+programa.getIdProgram()+"&channel="+programa
-                    .getPChannel().getChannelID()+"&user="+UserPreference.getIdNunchee(getApplication())+"&action=2&startdate="
-                    +hora.format(programa.getStartDate())+"&enddate="+hora.format(programa.getEndDate());
+            String url = "http://www.movistar.cl/PortalMovistarWeb/tv-digital/guia-de-canales";
 
             Image imagen = programaPreview.getImageWidthType(Width.ORIGINAL_IMAGE,Type.SQUARE_IMAGE);
             String urlImage;
@@ -1768,6 +1779,13 @@ public class PreviewActivity extends ActionBarActivity {
                         }
                         FacebookRequestError error = response.getError();
                         if (error == null) {
+
+                            btnLike.startAnimation(animation);
+                            btnLike.setText((programaPreview.getLike() + 1) + " Likes");
+                            btnLike.setEnabled(false);
+                            btnLike.setAlpha((float) 0.5);
+                            ILike = true;
+
                             DialogMessage dialogMessage = new DialogMessage("");
                             dialogMessage.show(getSupportFragmentManager(), "");
                         } else {
@@ -1808,9 +1826,7 @@ public class PreviewActivity extends ActionBarActivity {
             }
             SimpleDateFormat hora = new SimpleDateFormat("yyyy-MM-dd' 'HH'$'mm'$'ss");
 
-            String url = "http://nunchee.tv/program.html?program="+programa.getIdProgram()+"&channel="+programa
-                    .getPChannel().getChannelID()+"&user="+UserPreference.getIdNunchee(getApplication())+"&action=2&startdate="
-                    +hora.format(programa.getStartDate())+"&enddate="+hora.format(programa.getEndDate());
+            String url = "http://www.movistar.cl/PortalMovistarWeb/tv-digital/guia-de-canales";
 
             Image imagen = programaPreview.getImageWidthType(Width.ORIGINAL_IMAGE,Type.SQUARE_IMAGE);
             String urlImage;
@@ -1861,6 +1877,11 @@ public class PreviewActivity extends ActionBarActivity {
                         }
                         FacebookRequestError error = response.getError();
                         if (error == null) {
+                                btnCheckIn.startAnimation(animation);
+                                btnCheckIn_.setText("+ " + (programaPreview.getCheckIn() + 1));
+                                btnCheckIn.setAlpha((float) 0.5);
+                                btnCheckIn.setEnabled(false);
+                                ICheckIn = true;
                                 DialogMessage dialogMessage = new DialogMessage("");
                                 dialogMessage.show(getSupportFragmentManager(), "");
                         } else {
@@ -1967,11 +1988,8 @@ public class PreviewActivity extends ActionBarActivity {
                     isConfiguration = false;
                     showSearch = false;
                     isNotification = false;
-                    //contenedorLoading.removeAllViews();
                     contenedorActionbarOption.removeAllViews();
-                    //contenedorMenuBar.removeAllViews();
-                    /*RelativeLayout r = (RelativeLayout) findViewById(R.id.contenedor_action_bar);
-                    r.removeAllViews();*/
+
                 } else {
 
                     isConfiguration = true;
@@ -1983,7 +2001,7 @@ public class PreviewActivity extends ActionBarActivity {
                     Typeface light = Typeface.createFromAsset(getAssets(), "fonts/SegoeWP.ttf");
                     Typeface bold = Typeface.createFromAsset(getAssets(), "fonts/SegoeWP-Bold.ttf");
 
-                    RelativeLayout r1 = (RelativeLayout) containerConfiguration.findViewById(R.id.config_auto_post);
+                    final RelativeLayout r1 = (RelativeLayout) containerConfiguration.findViewById(R.id.config_auto_post);
                     RelativeLayout r2 = (RelativeLayout) containerConfiguration.findViewById(R.id.config_tutorial);
                     RelativeLayout r3 = (RelativeLayout) containerConfiguration.findViewById(R.id.config_acerca_de);
                     RelativeLayout r4 = (RelativeLayout) containerConfiguration.findViewById(R.id.confif_terminos_y_condiciones);
@@ -2009,8 +2027,17 @@ public class PreviewActivity extends ActionBarActivity {
                     txtTutorial2.setTypeface(light);
 
                     final ImageView fb = (ImageView) r1.findViewById(R.id.fb_active);
-                    //final Drawable noFb = getResources().getDrawable(R.drawable.fb_logo_blue_50);
-                    //final Drawable siFb = getResources().getDrawable(R.drawable.fb_logo_blue_50_active);
+
+                    UserNunchee u = dataBaseUser.select(UserPreference.getIdFacebook(getApplication()));
+                    dataBaseUser.close();
+                    if(u.isFacebookActive == false){
+                        fb.setAlpha((float)0.3);
+                        txtAutoPost2.setText("Activa tu post en Facebook");
+                    }
+                    else{
+                        fb.setAlpha((float)1);
+                        txtAutoPost2.setText("Desactiva tu post en Facebook");
+                    }
 
                     ImageView exit = (ImageView) containerConfiguration.findViewById(R.id.exit);
 
@@ -2028,20 +2055,85 @@ public class PreviewActivity extends ActionBarActivity {
                         @Override
                         public void onClick(View view) {
 
-                            if(fbActivate){
-                                fbActivate = false;
-                                txtAutoPost2.setText("Desactiva tu post en Facebook");
-                                //fb.setImageDrawable(siFb);
-                                fb.setAlpha((float)1);
-                                UserPreference.setFacebookActive(true,getApplication());
+                            ManagerAnimation.selection(r1);
+                            AnimatorSet set = new AnimatorSet();
 
+                            UserNunchee u = dataBaseUser.select(UserPreference.getIdFacebook(getApplication()));
+                            dataBaseUser.close();
+
+                            if(u.isFacebookActive == true){
+                                set.playTogether(
+                                        ObjectAnimator.ofFloat(fb, "alpha", 0.3f),
+                                        ObjectAnimator.ofFloat(fb, "scaleX", 1, 1.3f),
+                                        ObjectAnimator.ofFloat(fb, "scaleY", 1, 1.3f));
+                                set.setDuration(400);
+                                set.start();
+                                set.addListener(new Animator.AnimatorListener() {
+                                    @Override
+                                    public void onAnimationStart(Animator animator) {
+                                    }
+
+                                    @Override
+                                    public void onAnimationEnd(Animator animator) {
+                                        AnimatorSet aux = new AnimatorSet();
+                                        aux.playTogether(
+                                                ObjectAnimator.ofFloat(fb, "scaleX", 1.3f, 1f),
+                                                ObjectAnimator.ofFloat(fb, "scaleY", 1.3f, 1f));
+                                        aux.setDuration(400);
+                                        aux.start();
+                                    }
+
+                                    @Override
+                                    public void onAnimationCancel(Animator animator) {
+                                    }
+
+                                    @Override
+                                    public void onAnimationRepeat(Animator animator) {
+                                    }
+                                });
+                                //fbActivate = false;
+                                txtAutoPost2.setText("Activa tu post en Facebook");
+                                userNunchee.isFacebookActive = false;
+                                dataBaseUser.updateFacebookActive(UserPreference.getIdFacebook(getApplicationContext()), userNunchee);
+                                dataBaseUser.close();
                             }
                             else{
-                                fbActivate = true;
-                                txtAutoPost2.setText("Activa tu post en Facebook");
-                                //fb.setImageDrawable(noFb);
-                                fb.setAlpha((float)0.3);
-                                UserPreference.setFacebookActive(false,getApplication());
+
+                                set.playTogether(
+                                        ObjectAnimator.ofFloat(fb, "alpha",  1f),
+                                        ObjectAnimator.ofFloat(fb, "scaleX", 1, 1.3f),
+                                        ObjectAnimator.ofFloat(fb, "scaleY", 1, 1.35f));
+                                set.setDuration(400);
+                                set.start();
+                                set.addListener(new Animator.AnimatorListener() {
+                                    @Override
+                                    public void onAnimationStart(Animator animator) {
+                                    }
+
+                                    @Override
+                                    public void onAnimationEnd(Animator animator) {
+                                        AnimatorSet aux = new AnimatorSet();
+                                        aux.playTogether(
+                                                ObjectAnimator.ofFloat(fb, "scaleX", 1.3f, 1f),
+                                                ObjectAnimator.ofFloat(fb, "scaleY", 1.3f, 1f));
+                                        aux.setDuration(400);
+                                        aux.start();
+                                    }
+
+                                    @Override
+                                    public void onAnimationCancel(Animator animator) {
+                                    }
+
+                                    @Override
+                                    public void onAnimationRepeat(Animator animator) {
+                                    }
+                                });
+                                //fbActivate = true;
+                                txtAutoPost2.setText("Desactiva tu post en Facebook");
+
+                                userNunchee.isFacebookActive = true;
+                                dataBaseUser.updateFacebookActive(UserPreference.getIdFacebook(getApplicationContext()),userNunchee);
+                                dataBaseUser.close();
                             }
 
                         }

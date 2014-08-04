@@ -112,7 +112,6 @@ public class DataBaseUser extends SQLiteOpenHelper {
 
     public void updateFacebookActive(String id, UserNunchee user){
 
-
             SQLiteDatabase db = getWritableDatabase();
             ContentValues valores = new ContentValues();
 

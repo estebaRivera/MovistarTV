@@ -40,7 +40,7 @@
 
             <ImageView
                 android:scaleType="centerCrop"
-                android:background="@drawable/backdrop_placeholder"
+                android:background="@drawable/program_placeholder2"
                 android:id="@+id/imagen_canal"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent" />
