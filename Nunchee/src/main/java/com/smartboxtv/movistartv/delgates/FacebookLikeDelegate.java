@@ -9,4 +9,5 @@ public abstract class FacebookLikeDelegate {
 
     public void like(Program p){}
     public void checkin(Program p){}
+    public void noPublish(){}
 }

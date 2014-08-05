@@ -29,6 +29,8 @@ public class HoraryFragment extends Fragment {
     private boolean activeButtonNow = true;
     private boolean moveToOrigen = false;
 
+    private Date MAX_LIMIT;
+
     public HoraryFragment() {
     }
 

@@ -87,6 +87,7 @@ public class FavoriteFragmentDay extends Fragment {
     // Loading
     private FrameLayout containerLoading;
     private View loading;
+    private Animation animacion;
     // delete
     private Long fin,delta, inicio = System.currentTimeMillis();
 
@@ -117,6 +118,8 @@ public class FavoriteFragmentDay extends Fragment {
         fin = System.currentTimeMillis();
         delta = fin - inicio;
         //Log.e("Tiempo FavoriteFragmentDay","Tiempo inicial "+delta);
+
+        animacion = AnimationUtils.loadAnimation(getActivity(), R.anim.agranda);
 
         textDay = (TextView) (rootView != null ? rootView.findViewById(R.id.favorito_dia) : null);
         textDate = (TextView) rootView.findViewById(R.id.favorito_fecha);
@@ -320,7 +323,7 @@ public class FavoriteFragmentDay extends Fragment {
                     linearLayoutUnico.addView(singleProgram[j]);
 
                     // Boton Recordar
-                    ImageView recordar = (ImageView) singleProgram[j].findViewById(R.id.favorito_imagen_horario);
+                    final ImageView recordar = (ImageView) singleProgram[j].findViewById(R.id.favorito_imagen_horario);
 
                     recordar.setTag(listFavorites.get(i).get(j));
                     recordar.setOnClickListener(new View.OnClickListener() {
@@ -328,6 +331,9 @@ public class FavoriteFragmentDay extends Fragment {
                         public void onClick(View view) {
 
                             Program p = (Program) view.getTag();
+                            recordar.setEnabled(false);
+                            recordar.startAnimation(animacion);
+                            recordar.setAlpha((float) 0.5);
                             createReminder(p);
                         }
                     });
@@ -345,7 +351,7 @@ public class FavoriteFragmentDay extends Fragment {
                 TextView canal = (TextView) containerPrograms[i].findViewById(R.id.favorito_programa_unico_texto_canal);
 
                 ImageView foto = (ImageView) containerPrograms[i].findViewById(R.id.favorito_programa_unico_imagen);
-                Button recordar = (Button) containerPrograms[i].findViewById(R.id.favorito_programa_unico_boton_recordar);
+                final Button recordar = (Button) containerPrograms[i].findViewById(R.id.favorito_programa_unico_boton_recordar);
 
                 recordar.setTag(listFavorites.get(i).get(0));
                 recordar.setOnClickListener(new View.OnClickListener() {
@@ -353,6 +359,9 @@ public class FavoriteFragmentDay extends Fragment {
                     public void onClick(View view) {
 
                         Program p = (Program) view.getTag();
+                        recordar.setEnabled(false);
+                        recordar.startAnimation(animacion);
+                        recordar.setAlpha((float) 0.5);
                         createReminder(p);
                     }
                 });
@@ -530,8 +539,6 @@ public class FavoriteFragmentDay extends Fragment {
                     horaPrograma.setTypeface(normal);
                     sinopsisPrograma.setTypeface(normal);
 
-
-
                     //SET TEXT
                     if(listFavoriteSM.get(i).schedule.get(j).name.length() > 29)
                         nombrePrograma.setText(listFavoriteSM.get(i).schedule.get(j).name.replace(".","").substring(0,26)+"...");
@@ -542,16 +549,12 @@ public class FavoriteFragmentDay extends Fragment {
 
                     sinopsisPrograma.setText(listFavoriteSM.get(i).schedule.get(j).description);
 
-                    //singleProgram[j].setTag(listFavoriteSM.get(i).schedule.get(j));
-
                     Program program = new Program();
                     program.IdProgram = ""+listFavoriteSM.get(i).id;
                     program.PChannel = new Channel();
                     program.PChannel.channelID = ""+listFavoriteSM.get(i).getSchedule().get(j).channel.id;
                     program.PChannel.channelImageURL = listFavoriteSM.get(i).getSchedule().get(j).channel.image;
                     program.PChannel.channelNumber = ""+listFavoriteSM.get(i).getSchedule().get(j).channel.id;
-                    //Log.e("Favorite program", listFavoriteSM.get(i).getSchedule().get(j).channel.image);
-                    //Log.e("Favorite program", listFavoriteSM.get(i).getSchedule().get(j).channel.callLetter);
                     program.PChannel.channelCallLetter = listFavoriteSM.get(i).getSchedule().get(j).channel.callLetter;
                     program.Title = listFavoriteSM.get(i).name;
                     program.StartDate = listFavoriteSM.get(i).getSchedule().get(j).startDate;
@@ -590,7 +593,7 @@ public class FavoriteFragmentDay extends Fragment {
                                 i.putExtra("programa", p);
                                 startActivity(i);
                                 getActivity().overridePendingTransition(R.anim.zoom_in_preview, R.anim.nada);
-                                //context.startActivity(i);
+
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -608,6 +611,7 @@ public class FavoriteFragmentDay extends Fragment {
                     recordar.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+
 
                             ScheduleFavoriteSM  s = (ScheduleFavoriteSM) view.getTag();
                             createReminder(s,listFavoriteSM.get(finalI).name,""+listFavoriteSM.get(finalI).id,listFavoriteSM.get(finalI).image);
@@ -749,7 +753,6 @@ public class FavoriteFragmentDay extends Fragment {
     }
 
     public boolean isToday(Date d){
-        //Calendar c = Calendar.getInstance();
         return d.getDay() == new Date().getDay();
     }
 
@@ -804,24 +807,17 @@ public class FavoriteFragmentDay extends Fragment {
                     + horaFormat.format(p.getStartDate())+" | "+ horaFormat.format(p.getEndDate())+" "+p.getEpisodeTitle());
 
         values.put(CalendarContract.Events.CALENDAR_ID, calID);
-        //values.put(CalendarContract.Reminders.MINUTES, 3);
         values.put(CalendarContract.Events.EVENT_TIMEZONE, timeZone.getID());
         values.put(CalendarContract.Events.ALL_DAY,0);
 
 
         Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
-        //Log.e("Uri",""+CalendarContract.Events.CONTENT_URI);
 
         long eventID = Long.parseLong( uri != null ? uri.getLastPathSegment() : null);
 
-        //Log.e("EventID",""+eventID);
-        //Log.e("Uri Reminder",""+CalendarContract.Reminders.CONTENT_URI);
         ContentValues reminderValues = new ContentValues();
-
-        //reminderValues.put(CalendarContract.Reminders.MINUTES, 3);
         reminderValues.put(CalendarContract.Reminders.EVENT_ID, eventID);
         reminderValues.put(CalendarContract.Reminders.METHOD, CalendarContract.Reminders.METHOD_ALERT);
-        //Uri _reminder = cr.insert(CalendarContract.Reminders.CONTENT_URI, reminderValues);*/
 
         DataBase dataBase = new DataBase(getActivity(),"",null,1);
         SQLiteDatabase db = dataBase.getWritableDatabase();
@@ -847,7 +843,6 @@ public class FavoriteFragmentDay extends Fragment {
             db.execSQL(query);
         }
         db.close();
-
         Toast t = Toast.makeText(getActivity(),p.getTitle()+" agregado a tus recordatorios",Toast.LENGTH_LONG);
         t.show();
 
@@ -896,18 +891,14 @@ public class FavoriteFragmentDay extends Fragment {
 
 
         Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
-        //Log.e("Uri",""+CalendarContract.Events.CONTENT_URI);
 
         long eventID = Long.parseLong( uri != null ? uri.getLastPathSegment() : null);
 
-        //Log.e("EventID",""+eventID);
-        //Log.e("Uri Reminder",""+CalendarContract.Reminders.CONTENT_URI);
         ContentValues reminderValues = new ContentValues();
 
         reminderValues.put(CalendarContract.Reminders.MINUTES, 3);
         reminderValues.put(CalendarContract.Reminders.EVENT_ID, eventID);
         reminderValues.put(CalendarContract.Reminders.METHOD, CalendarContract.Reminders.METHOD_ALERT);
-        //Uri _reminder = cr.insert(CalendarContract.Reminders.CONTENT_URI, reminderValues);*/
 
         DataBase dataBase = new DataBase(getActivity(),"",null,1);
         SQLiteDatabase db = dataBase.getWritableDatabase();

@@ -463,7 +463,7 @@ public class ProgramationActivity extends ActionBarActivity{
 
         for(int i = 0; i < liveStreamSchedules.size() ;i++){
             list.add(new LiveSM( "", liveStreamSchedules.get(i).getName(),"",liveStreamSchedules.get(i).getStartDate(),"",liveStreamSchedules.get(i)));
-            Log.e("Nombre --", liveStreamSchedules.get(i).getName());
+            //Log.e("Nombre --", liveStreamSchedules.get(i).getName());
         }
 
         /*list.add(live1);
@@ -496,11 +496,11 @@ public class ProgramationActivity extends ActionBarActivity{
                 ImageButton play = (ImageButton) program.findViewById(R.id.play_live);
 
                 // Comprobación del largo del texto
-                if(list.get(count).nombre.length()< 28){
+                if(list.get(count).nombre.length()< 26){
                     name.setText(list.get(count).nombre);
                 }
                 else{
-                    name.setText(list.get(count).nombre.substring(0,25)+"...");
+                    name.setText(list.get(count).nombre.substring(0,24)+"...");
                 }
                 // Comprobración del programa En VIVO
                 if(ahora >  fecha.getTime()){
@@ -537,11 +537,11 @@ public class ProgramationActivity extends ActionBarActivity{
                 ImageButton play = (ImageButton) program.findViewById(R.id.play_live);
 
                 // comprobación del latgo del texto
-                if(list.get(count).nombre.length()< 28){
+                if(list.get(count).nombre.length()< 26){
                     name.setText(list.get(count).nombre);
                 }
                 else{
-                    name.setText(list.get(count).nombre.substring(0,25)+"...");
+                    name.setText(list.get(count).nombre.substring(0,24)+"...");
                 }
                 // Comprobración del programa En VIVO
                 if(ahora >  fecha.getTime()){

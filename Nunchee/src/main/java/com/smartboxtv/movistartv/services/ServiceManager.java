@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.smartboxtv.movistartv.data.database.UserNunchee;
 import com.smartboxtv.movistartv.data.models.Channel;
 import com.smartboxtv.movistartv.data.models.FeedJSON;
 import com.smartboxtv.movistartv.data.models.Program;
@@ -27,6 +28,8 @@ import com.smartboxtv.movistartv.data.modelssm.datafavorites.ChannelFavoriteSM;
 import com.smartboxtv.movistartv.data.modelssm.datafavorites.ProgramFavoriteSM;
 import com.smartboxtv.movistartv.data.modelssm.datafavorites.ScheduleFavoriteSM;
 import com.smartboxtv.movistartv.data.modelssm.datahorary.DataResultSM;
+import com.smartboxtv.movistartv.data.modelssm.datarecommendation.EpisodeRecommendationSM;
+import com.smartboxtv.movistartv.data.modelssm.datarecommendation.RecommendationSM;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,8 +42,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * Created by Esteban- on 16-06-14.
@@ -65,13 +70,15 @@ public class ServiceManager {
 
     private final String TEST_URL = "http://54.207.109.226:5500/api/1.0/guide/";
 
-    private final String USER = "53bd9aa7a3dc124c3af9b5c6";
+    private final String USER = "53bdadc825822c11f84fc067";
 
-    private static final String SERVICES_URL = "http://192.168.1.173:8000/api/1.0/guide/";
+    private static final String BASE_URL_SERVICES = "http://23.21.72.216:80/nunchee/api/1.0/guide";
 
-    public static final String BASE_URL = "https://api.streammanager.co/api/";
+    private static final String BASE_URL_SERVICES_RECOMMENDATION = "http://23.21.72.216:80/nunchee/api/1.0/recommendation";
 
-    public static final String API_TOKEN = "bace2022792e7943635001c8696a013f";//"b5430d55dc64849b1a34e877267e72ba";//"8fc221e56408966fe7999c7c1edff220";
+    private static final String BASE_URL_STREAM_MANAGER = "https://api.streammanager.co/api/";
+
+    private static final String API_TOKEN = "bace2022792e7943635001c8696a013f";//"b5430d55dc64849b1a34e877267e72ba";//"8fc221e56408966fe7999c7c1edff220";
 
     private static final String SERVICES_URL_TRENDING = "http://190.215.44.18/wcfNunchee2/GLFService.svc/Trending";
 
@@ -117,15 +124,15 @@ public class ServiceManager {
 
     // Geo
 
-    // Catedories
-
+    // CATEGORIES
+    // Servicio numero 1
     public void getCategories(final ServiceManagerHandler<CategorieChannelSM> handler, String language, int id){
         inicio = System.currentTimeMillis();
 
-        //URL = SERVICES_URL+"getCategories?table="+id+"&language="+language;
-        URL = TEST_URL+"getCategories?table="+id+"&language="+language;
-        Log.e(TAG,URL);
+        URL = BASE_URL_SERVICES+"getCategories?table="+id+"&language="+language;
+        //URL = TEST_URL+"getCategories?table="+id+"&language="+language;
 
+        Log.e(TAG+" getCategories",URL);
         aq.ajax(URL,JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
@@ -170,19 +177,18 @@ public class ServiceManager {
         });
     }
 
+    //  Servicio numero 2
     public void getProgramationByCategories(final ServiceManagerHandler<ProgramsCategorySM> handler, String userNunchee, String country, String language, String dateStart,
                                             String dateEnd, String deviceType, String idCategory ){
 
-        userNunchee = "53a4397f25822c0710b299e9";
-        inicio = System.currentTimeMillis();
-       /* URL =   SERVICES_URL+"getPrograms?user="+userNunchee+"&country="+country+"&language="+language+"&start="+dateStart+"&end="+dateEnd+"&device_type"
-                +"channel_image_type=3&program_image_type=1";*/
+       userNunchee = "53a4397f25822c0710b299e9";
+       inicio = System.currentTimeMillis();
+       URL =   BASE_URL_SERVICES+"getPrograms?user="+userNunchee+"&country="+country+"&language="+language+"&start="+dateStart+"&end="+dateEnd+"&device_type"
+                +"channel_image_type=3&program_image_type=1";
         //Log.e(TAG,URL);
 
-
-        //URL = "http://192.168.1.173:8000/api/1.0/guide/getPrograms?user="+USER+"&category="+idCategory+"&start="+dateStart+"&end="+dateEnd+"&device_type=1&channel_image_type=4&program_image_type=0";
-        URL = TEST_URL+"getPrograms?user="+USER+"&category="+idCategory+"&start="+dateStart+"&end="+dateEnd+"&device_type=1&channel_image_type=4&program_image_type=0";
-        Log.e("URL","---> "+URL);
+        //URL = TEST_URL+"getPrograms?user="+USER+"&category="+idCategory+"&start="+dateStart+"&end="+dateEnd+"&device_type=1&channel_image_type=4&program_image_type=0";
+        Log.e(TAG+" getProgramationbyCategories",URL);
 
         aq.ajax(URL,JSONObject.class,new AjaxCallback<JSONObject>(){
             @Override
@@ -226,8 +232,9 @@ public class ServiceManager {
             }
         });
     }
-    // Horary
 
+    // HORARY
+    // Servicio numero 3
     public void getProgramation(final ServiceManagerHandler<ChannelSM> handler, String userNunchee, String dateStart,
                                             String dateEnd, String deviceType, String idCategory ){
 
@@ -235,17 +242,14 @@ public class ServiceManager {
         dateStart = "07:00:00 01-07-2014";
         dateEnd = "12:00:00 01-07-2014";
         inicio = System.currentTimeMillis();
-       /* URL =   SERVICES_URL+"guideForUser?user="+userNunchee+"&country="+country+"&language="+language+"&start="+dateStart+"&end="+dateEnd+"&device_type"
-                +"channel_image_type=3&program_image_type=1";*/
 
+        URL =   BASE_URL_SERVICES+"guideForUser?user="+userNunchee+"&start="+dateStart+"&end="+dateEnd+"&device_type"
+                +"channel_image_type=3&program_image_type=1";
 
-        /*URL = "http://192.168.1.173:8000/api/1.0/guide/guideForUser?user="+userNunchee+"&start="+dateStart+"&end="+dateEnd+"&device_type=1" +
+       /* URL = TEST_URL+"guideForUser?user="+USER+"&start="+dateStart+"&end="+dateEnd+"&device_type=1" +
                 "&channel_image_type=3&program_image_type=1";*/
 
-        URL = TEST_URL+"guideForUser?user="+USER+"&start="+dateStart+"&end="+dateEnd+"&device_type=1" +
-                "&channel_image_type=3&program_image_type=1";
-
-        Log.e(TAG,URL);
+        Log.e(TAG+" getProgramation",URL);
         aq.ajax(URL,JSONObject.class,new AjaxCallback<JSONObject>(){
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
@@ -309,18 +313,19 @@ public class ServiceManager {
             }
         });
     }
-    // Favorites
 
+    // FAVORITES
+    //  Servicio numero 4
     public void getFavoriteForDay( final ServiceManagerHandler<ProgramFavoriteSM> handler, String userNunchee, String startDate, String endDate){
 
-        userNunchee = "53a4397f25822c0710b299e9";
+        userNunchee = "53bdadc825822c11f84fc067";
 
         //URL = SERVICES_URL+"getFavoriteForDay?user="+userNunchee+"&date="+startDate+"&device_type=1&channel_image_type=4&program_image_type=2";
         //Log.e("URL favorite",URL);
         //URL = "http://192.168.1.173:8000/api/1.0/guide/getFavoriteForDay?user=53a4397f25822c0710b299e9&date=24-06-2014&device_type=1&channel_image_type=4&program_image_type=2";
 
         URL = TEST_URL+"getFavoriteForDay?user="+USER+"&date="+startDate+"&device_type=1&channel_image_type=4&program_image_type=2";
-        Log.e("Favorite","--> "+URL);
+        Log.e(TAG+" getFavoriteForDay",URL);
         AjaxCallback<JSONObject> ajaxCallback = new AjaxCallback<JSONObject>(){
             @Override
             public void callback( String url, JSONObject object, AjaxStatus status) {
@@ -373,15 +378,15 @@ public class ServiceManager {
         ajaxCallback.setTimeout(15000);
         aq.ajax(URL,JSONObject.class, ajaxCallback);
     }
-    // Preview
 
+    // PREVIEW
+    //  Servicio numero 5
     public void getPreview(final ServiceManagerHandler<Program> handler,String userNunchee, String idProgram, String idEpisode, String nombreCanal, String imageCanal, Date start, Date end){
 
-        userNunchee = "53a4397f25822c0710b299e9";
-        //URL = SERVICES_URL+"getProgram?user="+userNunchee+"&program="+idProgram+"&device_type=1";
+        userNunchee = "53bdadc825822c11f84fc067";
 
-        URL = TEST_URL+"getProgram?user="+USER+"&program="+idProgram+"&device_type=1";
-        //URL = "http://192.168.1.173:8000/api/1.0/guide/getProgram?user=53a4397f25822c0710b299e9&program=1763&device_type=1"; /// program
+        URL =   BASE_URL_SERVICES+"getProgram?user="+userNunchee+"&program="+idProgram+"&device_type=1";
+        //URL = TEST_URL+"getProgram?user="+USER+"&program="+idProgram+"&device_type=1";
 
         final Program p = new Program();
         p.PChannel = new Channel();
@@ -429,11 +434,9 @@ public class ServiceManager {
         else if(idEpisode.isEmpty()){
             idEpisode = "1";
         }
-        //URL = SERVICES_URL+"getEpisode?user="+userNunchee+"&episode="+idEpisode;
-        URL = TEST_URL+"getEpisode?user="+USER+"&episode="+idEpisode;
-        Log.e("URL episodes","--> "+URL);
-        //URL = "http://192.168.1.173:8000/api/1.0/guide/getEpisode?user=53a4397f25822c0710b299e9&episode=5144";
-
+        URL = BASE_URL_SERVICES+"getEpisode?user="+userNunchee+"&episode="+idEpisode;
+        //URL = TEST_URL+"getEpisode?user="+USER+"&episode="+idEpisode;
+        Log.e(TAG+" getEpisodes",URL);;
         aq.ajax(URL,JSONObject.class, new AjaxCallback<JSONObject>(){
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
@@ -468,12 +471,13 @@ public class ServiceManager {
             }
         });
     }
-    // Tweets
+    // TWETTS
+    // Servicio numero 6
     public void getTweets(final ServiceManagerHandler<TweetSM> handler, String searchValues, String limit, boolean retweet){
 
-        URL = SERVICES_URL+"getTwitt?search_values="+searchValues+"&retweet=false&limit="+limit;
+        URL = BASE_URL_SERVICES+"/getTwitt?search_values="+searchValues+"&retweet=false&limit="+limit;
         //URL = "http://192.168.1.173:8000/api/1.0/guide/getTwitt?search_values=%23tvn&retweet=false";
-
+        Log.e(TAG+" getTweets",URL);
         aq.ajax(URL, JSONObject.class, new AjaxCallback<JSONObject>(){
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
@@ -504,19 +508,237 @@ public class ServiceManager {
             }
         });
     }
-    // Trivia
-    // Polls
-    // Action Social
+    // TRIVIA
 
-    public void addLike(){
+    // POLLS
 
+    // ACTION SOCIAL
+    // Servicio numero
+    public void addLike(final ServiceManagerHandler<String> handler,String userNunchee, String idChannel, String idProgram, String idDevice){
+
+        userNunchee = "53bdadc825822c11f84fc067";   idChannel = "96";   idProgram = "1763"; idDevice = "123456789";
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        URL = "http://23.21.72.216:80/nunchee/api/1.0/guide/addLike?user="+userNunchee+"&device="+idDevice+"&channel="+idChannel+"&program="+idProgram;
+        aq.ajax(URL,map,String.class, new AjaxCallback<String>(){
+            @Override
+            public void callback(String url, String object, AjaxStatus status) {
+                super.callback(url, object, status);
+                Log.e("status",status.getMessage());
+                Log.e("object",object);
+                if(object != null){
+                    try{
+                        handler.loaded(object);
+                    }
+                    catch(Exception e){
+                        e.printStackTrace();
+                        Log.e(TAG+"addLike",e.getMessage());
+                        handler.error(e.getMessage());
+                    }
+                }
+                else{
+                    Log.e(TAG+" addLike",ERROR);
+                }
+            }
+        } );
     }
-    // Recommendations
-    // Search
-    public void search(final ServiceManagerHandler<DataResultSM> handler, String userNunchee, String text){
+    // Servicio numero
+    public void removeLike(final ServiceManagerHandler<String> handler, String userNunchee, String idProgram){
 
-        userNunchee = "53a4397f25822c0710b299e9";
-        URL = "http://192.168.1.173:8000/api/1.0/guide/search?user="+userNunchee+"&country=CL&title="+text+"&language=0&limit=5&device_type=1&image_type=0";
+        userNunchee = "53bdadc825822c11f84fc067";   idProgram = "1763";
+        URL = "http://23.21.72.216:80/nunchee/api/1.0/guide/removeLike?user="+userNunchee+"&program="+idProgram;
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        aq.ajax(URL, map, String.class , new AjaxCallback<String>(){
+            @Override
+            public void callback(String url, String object, AjaxStatus status) {
+                super.callback(url, object, status);
+                Log.e("status",status.getMessage());
+                Log.e("object",object);
+                if(object != null){
+                    try{
+                        handler.loaded(object);
+                    }
+                    catch(Exception e){
+                        e.printStackTrace();
+                        Log.e(TAG+"removeLike",e.getMessage());
+                        handler.error(e.getMessage());
+                    }
+                }
+                else{
+                    Log.e(TAG+" removeLike",ERROR);
+                }
+            }
+        });
+    }
+
+    // Servicio numero
+    public void addFavorite(final ServiceManagerHandler<String> handler,String userNunchee, String idChannel, String idProgram, String idDevice){
+
+        userNunchee = "53bdadc825822c11f84fc067";   idChannel = "96";   idProgram = "1763"; idDevice = "123456789";
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        URL = "http://23.21.72.216:80/nunchee/api/1.0/guide/addFavorite?user="+userNunchee+"&device="+idDevice+"&channel="+idChannel+"&program="+idProgram;
+        aq.ajax(URL,map,String.class, new AjaxCallback<String>(){
+            @Override
+            public void callback(String url, String object, AjaxStatus status) {
+                super.callback(url, object, status);
+                Log.e("status-",status.getMessage());
+                Log.e("object-",object);
+                if(object != null){
+                    try{
+                        handler.loaded(object);
+                    }
+                    catch(Exception e){
+                        e.printStackTrace();
+                        Log.e(TAG+"addFavorite",e.getMessage());
+                        handler.error(e.getMessage());
+                    }
+                }
+                else{
+                    Log.e(TAG+" addFavorite",ERROR);
+                }
+            }
+        } );
+    }
+    // Servicio numero
+    public void removeFavorite(final ServiceManagerHandler<String> handler, String userNunchee, String idProgram){
+
+        userNunchee = "53bdadc825822c11f84fc067";   idProgram = "1763";
+        URL = "http://23.21.72.216:80/nunchee/api/1.0/guide/removeFavorite?user="+userNunchee+"&program="+idProgram;
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        aq.ajax(URL, map, String.class , new AjaxCallback<String>(){
+            @Override
+            public void callback(String url, String object, AjaxStatus status) {
+                super.callback(url, object, status);
+                Log.e("status--",status.getMessage());
+                Log.e("object--",object);
+                if(object != null){
+                    try{
+                        handler.loaded(object);
+                    }
+                    catch(Exception e){
+                        e.printStackTrace();
+                        Log.e(TAG+"removeFavorite",e.getMessage());
+                        handler.error(e.getMessage());
+                    }
+                }
+                else{
+                    Log.e(TAG+" removeFavorite",ERROR);
+                }
+            }
+        });
+    }
+
+    // Servicio numero
+    public void addCheckIn(final ServiceManagerHandler<String> handler,String userNunchee, String idChannel, String idProgram, String idDevice){
+
+        userNunchee = "53bdadc825822c11f84fc067";   idChannel = "96";   idProgram = "1763"; idDevice = "123456789";
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        URL = "http://23.21.72.216:80/nunchee/api/1.0/guide/addCheckIn?user="+userNunchee+"&device="+idDevice+"&channel="+idChannel+"&program="+idProgram;
+        //URL = "http://23.21.72.216:80/nunchee/api/1.0/guide/addCheckIn?user=53bdadc825822c11f84fc067&device=123456789&channel=96&program=1763";
+        aq.ajax(URL,map,String.class, new AjaxCallback<String>(){
+            @Override
+            public void callback(String url, String object, AjaxStatus status) {
+                super.callback(url, object, status);
+                Log.e("status check",status.getMessage());
+                Log.e("object check",object);
+                if(object != null){
+                    try{
+                        handler.loaded(object);
+                    }
+                    catch(Exception e){
+                        e.printStackTrace();
+                        Log.e(TAG+"addFavorite",e.getMessage());
+                        handler.error(e.getMessage());
+                    }
+                }
+                else{
+                    Log.e(TAG+" addFavorite",ERROR);
+                }
+            }
+        } );
+    }
+    // Servicio numero
+    public void addShared(final ServiceManagerHandler<String> handler,String userNunchee, String idChannel, String idProgram, String idDevice){
+
+        userNunchee = "53bdadc825822c11f84fc067";   idChannel = "96";   idProgram = "1763"; idDevice = "123456789";
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        URL = "http://23.21.72.216:80/nunchee/api/1.0/guide/addFavorite?user="+userNunchee+"&device="+idDevice+"&channel="+idChannel+"&program="+idProgram;
+        aq.ajax(URL,map,String.class, new AjaxCallback<String>(){
+            @Override
+            public void callback(String url, String object, AjaxStatus status) {
+                super.callback(url, object, status);
+                Log.e("status shared",status.getMessage());
+                Log.e("object shared",object);
+                if(object != null){
+                    try{
+                        handler.loaded(object);
+                    }
+                    catch(Exception e){
+                        e.printStackTrace();
+                        Log.e(TAG+"addFavorite",e.getMessage());
+                        handler.error(e.getMessage());
+                    }
+                }
+                else{
+                    Log.e(TAG+" addFavorite",ERROR);
+                }
+            }
+        } );
+    }
+    public void getLike(String userNunchee, String deviceType, int imageType){
+        userNunchee = "53bdadc825822c11f84fc067";
+        URL = BASE_URL_SERVICES+"/getLike?user"+userNunchee+"&device_type=1&program_image_type=1";
+    }
+    // RECOMMENDATIONS
+
+    public void getRecommendations(final ServiceManagerHandler<RecommendationSM> handler , String userNunchee, String idProgram, String deviceType,String date){
+        userNunchee = "53bdadc825822c11f84fc067";
+        idProgram = "1763";
+        date = "12%3A00%3A00%2005-08-2014"; // 12:00:00 05-08-2014
+        deviceType = "1";
+        String imageType = "1";
+        URL = BASE_URL_SERVICES_RECOMMENDATION+"/getRecommendation?user="+userNunchee+"&program="+idProgram+"&device_type="+deviceType+"&image_type="+imageType+"&date="+date;
+        //URL = "http://23.21.72.216:80/nunchee/api/1.0/recommendation/getRecommendation?user=53bdadc825822c11f84fc067&program=1763&device_type=1&image_type=1&date=12%3A00%3A00%2005-08-2014";
+
+        aq.ajax(URL, JSONObject.class, new AjaxCallback<JSONObject>() {
+            @Override
+            public void callback(String url, JSONObject object, AjaxStatus status) {
+
+                if (object != null) {
+                    try {
+                        List<RecommendationSM> listRecommendation = new ArrayList<RecommendationSM>();
+                        JSONArray recommendation = object.getJSONObject("data").getJSONArray("recommendation");
+
+                        for (int i = 0; i < recommendation.length(); i++) {
+                            RecommendationSM r = parseJsonObject(recommendation.getJSONObject(i), RecommendationSM.class);
+                            //if (!recommendation.getJSONObject(i).isNull("episode")) {
+                                EpisodeRecommendationSM e = parseJsonObject(recommendation.getJSONObject(i).getJSONObject("episode"), EpisodeRecommendationSM.class);
+                                r.episode = e;
+                            //}*/
+                            listRecommendation.add(r);
+                        }
+                        handler.loaded(listRecommendation);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        handler.error(e.getMessage());
+                        Log.e(TAG + " getRecommendation", e.getMessage());
+                    }
+                } else {
+                    Log.e(TAG + " getRecommendation", ERROR);
+                }
+            }
+        });
+    }
+
+    // SEARCH
+    public void search(final ServiceManagerHandler<DataResultSM> handler, String userNunchee, String text){
+        userNunchee = "53bdadc825822c11f84fc067";
+        URL = BASE_URL_SERVICES+"/search?user="+userNunchee+"&country=CL&title="+text+"&language=0&limit=5&device_type=1&image_type=0";
 
         aq.ajax(URL,JSONObject.class,new AjaxCallback<JSONObject>(){
 
@@ -548,9 +770,9 @@ public class ServiceManager {
         });
     }
 
+    // LIVE
     public void loadLiveStreamList(final ServiceManagerHandler<LiveStream> loadedHandler) {
-        String url = String.format("%slive-stream?token=%s", BASE_URL, API_TOKEN);
-        //Log.e("Url Copiar",url);
+        String url = String.format("%slive-stream?token=%s", BASE_URL_STREAM_MANAGER, API_TOKEN);
         aq.ajax(url, JSONObject.class, new AjaxCallback<JSONObject>() {
 
             @Override
@@ -577,7 +799,7 @@ public class ServiceManager {
 
     public void loadLiveStreamSchedule(final LiveStream stream, final ServiceManagerHandler<LiveStreamSchedule> loadedHandler) {
 
-        String url = String.format("%slive-stream/%s/schedule?token=%s", BASE_URL, stream.getLiveStreamId(), API_TOKEN);
+        String url = String.format("%slive-stream/%s/schedule?token=%s", BASE_URL_STREAM_MANAGER, stream.getLiveStreamId(), API_TOKEN);
         //Log.e("Url Stram Shedule",url);
         aq.ajax(url, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
@@ -604,9 +826,8 @@ public class ServiceManager {
         });
     }
     public void issueTokenForLive(String mediaId, final ServiceManagerHandler<TokenIssue> handler) {
-        String url = String.format("%saccess/issue?type=live&token=%s&id=%s", BASE_URL, API_TOKEN, mediaId);
-        //url = String.format("http://winsportsonline.com/api/la?access_token=%s",prefs.getString("access_token", null));
-        //Log.e("URL Live 1","-> "+url);
+
+        String url = String.format("%saccess/issue?type=live&token=%s&id=%s", BASE_URL_STREAM_MANAGER, API_TOKEN, mediaId);
         aq.ajax(url, JSONObject.class, new AjaxCallback<JSONObject>() {
 
             @Override
@@ -614,8 +835,7 @@ public class ServiceManager {
 
                 try {
                     TokenIssue tokenIssue = parseJsonObject(object, TokenIssue.class);
-                    String u = String.format("%saccess/issue?type=live&token=%s&id=%s", BASE_URL, API_TOKEN,tokenIssue.getAccessToken() );
-                    //Log.e("URL Live 2","-> "+u);
+                    String u = String.format("%saccess/issue?type=live&token=%s&id=%s", BASE_URL_STREAM_MANAGER, API_TOKEN,tokenIssue.getAccessToken() );
                     handler.loaded(tokenIssue);
                 }
                 catch (Exception exception) {

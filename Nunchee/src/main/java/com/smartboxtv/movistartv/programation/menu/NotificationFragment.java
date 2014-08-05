@@ -99,8 +99,6 @@ public class NotificationFragment extends Fragment {
             }
         });
 
-
-
         reminderList =  dataBase.getReminder();
         updateReminder();
 
@@ -217,12 +215,13 @@ public class NotificationFragment extends Fragment {
     }
 
     public void updateReminder(){
-        long now = new Date().getTime();
+        long inferior = new Date().getTime();
+        long superior = inferior + 600000;
         long starDate;
         //Log.e("update","reminder");
         for(int i = 0 ;i < reminderList.size();i++){
             starDate = Long.parseLong(reminderList.get(i).getStrDate().replace(" ",""));
-            if(starDate > now ){
+            if(starDate > inferior && starDate <superior){
                 updateReminderList.add(reminderList.get(i));
             }
         }

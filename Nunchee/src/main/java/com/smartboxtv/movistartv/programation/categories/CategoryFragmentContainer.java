@@ -115,13 +115,16 @@ public class CategoryFragmentContainer extends Fragment{
         // Publish Facebook
         dataBaseUser = new DataBaseUser(getActivity(),"",null,0);
         userNunchee = dataBaseUser.select(UserPreference.getIdFacebook(getActivity()));
+        dataBaseUser.close();
         fbActivate = userNunchee.isFacebookActive;
 
         facebookDelegate= new FacebookLikeDelegate() {
             @Override
             public void like(Program p) {
-
                 program = p;
+                userNunchee = dataBaseUser.select(UserPreference.getIdFacebook(getActivity()));
+                dataBaseUser.close();
+                fbActivate = userNunchee.isFacebookActive;
                 Log.e("Programa Like ", p.getTitle());
                 if(p != null){
                     if(fbActivate)
@@ -148,6 +151,11 @@ public class CategoryFragmentContainer extends Fragment{
                     Log.e("Action Check In ","Programa Null");
                 }
             }
+
+            @Override
+            public void noPublish() {
+                noPublish();
+            }
         };
         return rootView;
     }
@@ -160,7 +168,7 @@ public class CategoryFragmentContainer extends Fragment{
     };
 
     public void noPublish(){
-        Toast.makeText(getActivity(),"Activa el Autopost para poder publicar",Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(),"Activa el autopost para poder publicar",Toast.LENGTH_LONG).show();
     }
 
     public void cargarProgramas(int idCategoria, Date date){
@@ -235,6 +243,8 @@ public class CategoryFragmentContainer extends Fragment{
             }
 
         }, UserPreference.getIdNunchee(getActivity()),date,idCategoria);
+
+        Log.e("hora categoria",date.toString());
     }
 
     public void cargarProgramasSM(int idCategoria, Date date){
@@ -279,7 +289,7 @@ public class CategoryFragmentContainer extends Fragment{
                         p.PChannel.channelImageURL = listPrograms.get(i).channel.urlImage;
                         p.IdProgram = ""+listPrograms.get(i).id;
                         p.IdEpisode = ""+listPrograms.get(i).episode.id;
-                        Log.e("Id Episode","--> "+listPrograms.get(i).episode.id);
+                        //Log.e("Id Episode","--> "+listPrograms.get(i).episode.id);
 
                         RelativeLayout r = (RelativeLayout) getActivity().findViewById(R.id.view_parent);
                         Bitmap screenShot = ScreenShot.takeScreenshot(r);
@@ -355,7 +365,6 @@ public class CategoryFragmentContainer extends Fragment{
             if (session != null){
 
                 // Check for publish permissions
-                Log.e("Session","No null");
                 List<String> permissions = session.getPermissions();
                 if (!isSubsetOf(PERMISSIONS, permissions)) {
                     pendingPublishReauthorization = true;
@@ -368,7 +377,7 @@ public class CategoryFragmentContainer extends Fragment{
 
                 String url = "http://www.movistar.cl/PortalMovistarWeb/tv-digital/guia-de-canales";
 
-                Image imagen = program.getImageWidthType(Width.ORIGINAL_IMAGE,Type.SQUARE_IMAGE);
+                Image imagen = program.getImageWidthType(Width.ORIGINAL_IMAGE,Type.BACKDROP_IMAGE);
                 String urlImage;
 
                 if( imagen != null){

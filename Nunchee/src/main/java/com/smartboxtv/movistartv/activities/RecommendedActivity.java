@@ -27,11 +27,13 @@ import com.smartboxtv.movistartv.animation.ManagerAnimation;
 import com.smartboxtv.movistartv.data.clean.DataClean;
 import com.smartboxtv.movistartv.data.models.Program;
 import com.smartboxtv.movistartv.R;
+import com.smartboxtv.movistartv.data.modelssm.datarecommendation.RecommendationSM;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
 import com.smartboxtv.movistartv.delgates.RecommendedDelegate;
 import com.smartboxtv.movistartv.fragments.RecommendedFragment;
 import com.smartboxtv.movistartv.programation.menu.DialogError;
 import com.smartboxtv.movistartv.services.DataLoader;
+import com.smartboxtv.movistartv.services.ServiceManager;
 
 import java.util.List;
 
@@ -108,6 +110,22 @@ public class RecommendedActivity extends ActionBarActivity {
             }
         });
 
+        /*ServiceManager serviceManager = new ServiceManager(this);
+        serviceManager.removeFavorite(new ServiceManager.ServiceManagerHandler<String>() {
+            @Override
+            public void loaded(String data) {
+                super.loaded(data);
+                Log.e("DATA LOAD","LOAD");
+                Log.e("DATA LOAD",data);
+            }
+
+            @Override
+            public void error(String error) {
+                super.error(error);
+                Log.e("DATA LOAD","ERROR");
+            }
+        }, "", "");*/
+
         RecommendedDelegate delegate = new RecommendedDelegate() {
 
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -116,8 +134,6 @@ public class RecommendedActivity extends ActionBarActivity {
                     first = false;
                     ManagerAnimation.alpha(skip);
                     textContinuar.setText("Continuar");
-                    //Drawable d = getResources().getDrawable(R.drawable.suggestion_go);
-                    //saltar.setBackground(d);
                 }
                 Program newProgram;
                 do{
@@ -134,8 +150,6 @@ public class RecommendedActivity extends ActionBarActivity {
                     first = false;
                     ManagerAnimation.alpha(skip);
                     textContinuar.setText("Continuar");
-                    //Drawable d = getResources().getDrawable(R.drawable.suggestion_go);
-                    //saltar.setBackground(d);
                 }
                 Program newProgram;
                 do{

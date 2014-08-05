@@ -104,10 +104,10 @@ public class SecondPreviewActivity extends ActionBarActivity {
     private Program programa;
     private Program programaPreview;
 
-    private boolean esTrivia = false;
+    /*private boolean esTrivia = false;
     private boolean esEncuesta = false;
     private boolean esTw = false;
-    private boolean facebookActive;
+    private boolean facebookActive;*/
 
     private boolean isNotification = false;
     private boolean isConfiguration = false;
@@ -497,7 +497,7 @@ public class SecondPreviewActivity extends ActionBarActivity {
                                     public void onAnimationRepeat(Animator animator) {
                                     }
                                 });
-                                //fbActivate = false;
+                                fbActivate = false;
                                 txtAutoPost2.setText("Activa tu post en Facebook");
                                 userNunchee.isFacebookActive = false;
                                 dataBaseUser.updateFacebookActive(UserPreference.getIdFacebook(getApplicationContext()), userNunchee);
@@ -534,7 +534,7 @@ public class SecondPreviewActivity extends ActionBarActivity {
                                     public void onAnimationRepeat(Animator animator) {
                                     }
                                 });
-                                //fbActivate = true;
+                                fbActivate = true;
                                 txtAutoPost2.setText("Desactiva tu post en Facebook");
 
                                 userNunchee.isFacebookActive = true;
@@ -618,7 +618,7 @@ public class SecondPreviewActivity extends ActionBarActivity {
 
         String url = "http://www.movistar.cl/PortalMovistarWeb/tv-digital/guia-de-canales";
 
-        Image imagen = programaPreview.getImageWidthType(Width.ORIGINAL_IMAGE, Type.BACKDROP_IMAGE);
+        Image imagen = programa.getImageWidthType(Width.ORIGINAL_IMAGE, Type.BACKDROP_IMAGE);
         String imageUrl;
 
         if( imagen != null){

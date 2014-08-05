@@ -237,13 +237,14 @@ public class DataLoader {
 
         URL_FINAL.append("ProgramByChannelCategory/");
 
-        String parametro =formatDate(date)+";"+idCategoria+";"+idNunchee ;
+        String parametro = formatDate(new Date(date.getTime()- 14400000))+";"+idCategoria+";"+idNunchee ;
         String parametroBase64 = Base64.encodeToString(parametro.getBytes(), Base64.NO_WRAP);
 
         Log.e("url Categories","-> "+parametro);
 
         URL_FINAL.append(parametroBase64);
         Log.e("url Categories","-> "+URL_FINAL.toString());
+        Log.e("Data Categorie",formatDate(date));
         
         aq.ajax(URL_FINAL.toString(), JSONArray.class, new AjaxCallback<JSONArray>() {
             @Override

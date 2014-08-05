@@ -834,9 +834,7 @@ public class PollMaxFragment extends Fragment {
 
         SimpleDateFormat hora = new SimpleDateFormat("yyyy-MM-dd' 'HH'$'mm'$'ss");
 
-        String url = "http://nunchee.tv/program.html?program="+programa.getIdProgram()+"&channel="+programa
-                .getPChannel().getChannelID()+"&user="+UserPreference.getIdNunchee(getActivity())+"&action=2&startdate="
-                +hora.format(programa.getStartDate())+"&enddate="+hora.format(programa.getEndDate());
+        String url = "http://www.movistar.cl/PortalMovistarWeb/tv-digital/guia-de-canales";
 
         Image imagen = programaPreview.getImageWidthType(Width.ORIGINAL_IMAGE,Type.SQUARE_IMAGE);
         String imageUrl;

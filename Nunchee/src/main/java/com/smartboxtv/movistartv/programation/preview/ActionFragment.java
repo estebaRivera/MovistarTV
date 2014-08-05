@@ -57,6 +57,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -156,7 +157,9 @@ public class ActionFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 try{
-                    if(fbActivate){
+                    userNunchee = dataBaseUser.select(UserPreference.getIdFacebook(getActivity().getApplicationContext()));
+                    dataBaseUser.close();
+                    if(userNunchee.isFacebookActive){
                         DataLoader data = new DataLoader(getActivity());
                         data.actionLike(UserPreference.getIdNunchee(getActivity()), "2", previewProgram.getIdProgram(),
                                 previewProgram.getPChannel().getChannelID());
@@ -202,7 +205,9 @@ public class ActionFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if(fbActivate){
+                userNunchee = dataBaseUser.select(UserPreference.getIdFacebook(getActivity().getApplicationContext()));
+                dataBaseUser.close();
+                if(userNunchee.isFacebookActive){
 
                     DataLoader data = new DataLoader(getActivity());
                     data.actionShare(UserPreference.getIdNunchee(getActivity()), "3", previewProgram.getIdProgram(),
@@ -220,6 +225,12 @@ public class ActionFragment extends Fragment {
             }
         });
 
+        long ahora = new Date().getTime();
+
+        if(programa.StartDate.getTime() < ahora){
+            btnReminder.setEnabled(false);
+            btnReminder.setAlpha((float) 0.5);
+        }
         btnReminder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -237,7 +248,7 @@ public class ActionFragment extends Fragment {
     }
 
     public void noPublish(){
-        Toast.makeText(getActivity(),"Activa el Autopost para poder publicar",Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(),"Activa el autopost para poder publicar",Toast.LENGTH_LONG).show();
     }
     public void setImageFavoriteDelegate(PreviewImageFavoriteDelegate imageFavoriteDelegate) {
         this.imageFavoriteDelegate = imageFavoriteDelegate;
@@ -367,7 +378,7 @@ public class ActionFragment extends Fragment {
 
         String url = "http://www.movistar.cl/PortalMovistarWeb/tv-digital/programacion";
 
-        Image imagen = programa.getImageWidthType(Width.ORIGINAL_IMAGE,Type.SQUARE_IMAGE);
+        Image imagen = programa.getImageWidthType(Width.ORIGINAL_IMAGE,Type.BACKDROP_IMAGE);
         String imageUrl;
 
         if( imagen != null){
@@ -505,9 +516,7 @@ public class ActionFragment extends Fragment {
             }
             SimpleDateFormat hora = new SimpleDateFormat("yyyy-MM-dd' 'HH'$'mm'$'ss");
 
-            String url = "http://nunchee.tv/program.html?program="+programa.getIdProgram()+"&channel="
-                    +programa.getPChannel().getChannelID()+"&user="+ UserPreference.getIdNunchee(getActivity())
-                    +"&action=2&startdate="+hora.format(programa.getStartDate())+"&enddate="+hora.format(programa.getEndDate());
+            String url = "http://www.movistar.cl/PortalMovistarWeb/tv-digital/guia-de-canales";
 
             Image imagen = previewProgram.getImageWidthType(Width.ORIGINAL_IMAGE,Type.SQUARE_IMAGE);
             String urlImage;
