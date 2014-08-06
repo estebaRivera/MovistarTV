@@ -1277,7 +1277,7 @@
 
             </RelativeLayout>
 
-            <RelativeLayout
+            <!--RelativeLayout
                 android:id="@+id/preview_animado_contenedor"
                 android:orientation="vertical"
                 android:layout_width="1280dp"
@@ -1339,7 +1339,8 @@
                     android:layout_width="643dp"
                     android:layout_marginLeft="637dp">
                 </RelativeLayout>
-            </RelativeLayout>
+            </RelativeLayout-->
+
         </RelativeLayout>
     </ScrollView>
 

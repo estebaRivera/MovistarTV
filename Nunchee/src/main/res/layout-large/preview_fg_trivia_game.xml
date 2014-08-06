@@ -143,6 +143,41 @@
                         android:text="Respuesta 1"
                         />
 
+                    <RelativeLayout
+                        android:background="#00000000"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/image_check_correcta"
+                            android:background="@drawable/trivia_correcta"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:layout_marginRight="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_width="23dp"
+                            android:layout_height="23dp"/>
+
+                        <ImageView
+                            android:id="@+id/image_check_incorrecta"
+                            android:background="@drawable/trivia_incorrecta"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="15dp"
+                            android:visibility="gone"
+                            android:layout_centerVertical="true"
+                            android:layout_width="23dp"
+                            android:layout_height="23dp"/>
+
+                        <ImageView
+                            android:id="@+id/margin_check"
+                            android:background="@drawable/activo_bg"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:layout_width="5dp"
+                            android:layout_height="match_parent" />
+
+                    </RelativeLayout>
+
                 </LinearLayout>
 
                 <!-- Respuesta 2-->
@@ -177,6 +212,40 @@
                         android:text="Respuesta 1"
                         />
 
+                    <RelativeLayout
+                        android:background="#00000000"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/image_check_correcta"
+                            android:background="@drawable/trivia_correcta"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:layout_marginRight="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_width="23dp"
+                            android:layout_height="23dp"/>
+
+                        <ImageView
+                            android:id="@+id/image_check_incorrecta"
+                            android:background="@drawable/trivia_incorrecta"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="15dp"
+                            android:visibility="gone"
+                            android:layout_centerVertical="true"
+                            android:layout_width="23dp"
+                            android:layout_height="23dp"/>
+
+                        <ImageView
+                            android:id="@+id/margin_check"
+                            android:background="@drawable/activo_bg"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:layout_width="5dp"
+                            android:layout_height="match_parent" />
+
+                    </RelativeLayout>
                 </LinearLayout>
 
                 <!-- Respuesta 3-->
@@ -211,6 +280,40 @@
                         android:text="Respuesta 1"
                         />
 
+                    <RelativeLayout
+                        android:background="#00000000"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/image_check_correcta"
+                            android:background="@drawable/trivia_correcta"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:layout_marginRight="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_width="23dp"
+                            android:layout_height="23dp"/>
+
+                        <ImageView
+                            android:id="@+id/image_check_incorrecta"
+                            android:background="@drawable/trivia_incorrecta"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="15dp"
+                            android:visibility="gone"
+                            android:layout_centerVertical="true"
+                            android:layout_width="23dp"
+                            android:layout_height="23dp"/>
+
+                        <ImageView
+                            android:id="@+id/margin_check"
+                            android:background="@drawable/activo_bg"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:layout_width="5dp"
+                            android:layout_height="match_parent" />
+
+                    </RelativeLayout>
                 </LinearLayout>
 
                 <!-- Respuesta 4-->
@@ -244,6 +347,40 @@
                         android:layout_marginLeft="28dp"
                         android:text="Respuesta 1"
                         />
+                    <RelativeLayout
+                        android:background="#00000000"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/image_check_correcta"
+                            android:background="@drawable/trivia_correcta"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:layout_marginRight="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_width="23dp"
+                            android:layout_height="23dp"/>
+
+                        <ImageView
+                            android:id="@+id/image_check_incorrecta"
+                            android:background="@drawable/trivia_incorrecta"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="15dp"
+                            android:visibility="gone"
+                            android:layout_centerVertical="true"
+                            android:layout_width="23dp"
+                            android:layout_height="23dp"/>
+
+                        <ImageView
+                            android:id="@+id/margin_check"
+                            android:background="@drawable/activo_bg"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:layout_width="5dp"
+                            android:layout_height="match_parent" />
+
+                    </RelativeLayout>
                 </LinearLayout>
 
             </RelativeLayout>
@@ -311,6 +448,41 @@
                         android:text="Respuesta 1"
                         />
 
+                    <RelativeLayout
+                        android:background="#00000000"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/image_check_correcta"
+                            android:background="@drawable/trivia_correcta"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:layout_marginRight="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"/>
+
+                        <ImageView
+                            android:id="@+id/image_check_incorrecta"
+                            android:background="@drawable/trivia_incorrecta"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="15dp"
+                            android:visibility="gone"
+                            android:layout_centerVertical="true"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"/>
+
+                        <ImageView
+                            android:id="@+id/margin_check"
+                            android:background="@drawable/activo_bg"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:layout_width="5dp"
+                            android:layout_height="match_parent" />
+
+                    </RelativeLayout>
+
                 </LinearLayout>
 
                 <!-- Respuesta 2-->
@@ -345,6 +517,40 @@
                         android:text="Respuesta 1"
                         />
 
+                    <RelativeLayout
+                        android:background="#00000000"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/image_check_correcta"
+                            android:background="@drawable/trivia_correcta"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:layout_marginRight="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"/>
+
+                        <ImageView
+                            android:id="@+id/image_check_incorrecta"
+                            android:background="@drawable/trivia_incorrecta"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="15dp"
+                            android:visibility="gone"
+                            android:layout_centerVertical="true"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"/>
+
+                        <ImageView
+                            android:id="@+id/margin_check"
+                            android:background="@drawable/activo_bg"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:layout_width="5dp"
+                            android:layout_height="match_parent" />
+
+                    </RelativeLayout>
                 </LinearLayout>
 
                 <!--Respuesta 3 -->
@@ -379,6 +585,40 @@
                         android:text="Respuesta 1"
                         />
 
+                    <RelativeLayout
+                        android:background="#00000000"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/image_check_correcta"
+                            android:background="@drawable/trivia_correcta"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:layout_marginRight="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"/>
+
+                        <ImageView
+                            android:id="@+id/image_check_incorrecta"
+                            android:background="@drawable/trivia_incorrecta"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="15dp"
+                            android:visibility="gone"
+                            android:layout_centerVertical="true"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"/>
+
+                        <ImageView
+                            android:id="@+id/margin_check"
+                            android:background="@drawable/activo_bg"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:layout_width="5dp"
+                            android:layout_height="match_parent" />
+
+                    </RelativeLayout>
                 </LinearLayout>
 
                 <!-- Respuesta 4-->
@@ -412,6 +652,40 @@
                         android:layout_marginLeft="28dp"
                         android:text="Respuesta 1"/>
 
+                    <RelativeLayout
+                        android:background="#00000000"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/image_check_correcta"
+                            android:background="@drawable/trivia_correcta"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:layout_marginRight="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"/>
+
+                        <ImageView
+                            android:id="@+id/image_check_incorrecta"
+                            android:background="@drawable/trivia_incorrecta"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="15dp"
+                            android:visibility="gone"
+                            android:layout_centerVertical="true"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"/>
+
+                        <ImageView
+                            android:id="@+id/margin_check"
+                            android:background="@drawable/activo_bg"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:layout_width="5dp"
+                            android:layout_height="match_parent" />
+
+                    </RelativeLayout>
                 </LinearLayout>
 
             </RelativeLayout>
@@ -419,7 +693,7 @@
             <!-- Trivia Imagenes-->
             <RelativeLayout
                 android:id="@+id/trivia_imagenes"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content">
 
@@ -432,7 +706,8 @@
                     android:textSize="21sp"
                     android:textStyle="bold"
                     android:alpha="0.9"
-                    android:layout_marginLeft="35dp"/>
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginTop="10dp" />
 
                 <TextView
                     android:id="@+id/trivia_numero_pregunta_juego"
@@ -454,7 +729,7 @@
                     android:fadingEdgeLength="0dp"
                     android:overScrollMode="never"
                     android:smoothScrollbar="false"
-                    android:layout_marginTop="70dp">
+                    android:layout_marginTop="55dp">
 
                     <RelativeLayout
                         android:layout_height="330dp"
@@ -466,32 +741,156 @@
                             android:layout_marginLeft="100dp"
                             android:layout_height="240dp"
                             android:layout_width="190dp"
-                            android:scaleType="centerCrop"/>
-                        <ImageView
-                            android:id="@+id/trivia_imagen2"
-                            android:layout_centerVertical="true"
-                            android:layout_toRightOf="@+id/trivia_imagen1"
-                            android:layout_marginLeft="30dp"
-                            android:layout_height="240dp"
-                            android:layout_width="190dp"
+                            android:background="#FFFFFF"
                             android:scaleType="centerCrop"/>
 
-                        <ImageView
-                            android:id="@+id/trivia_imagen3"
+                        <!-- IMAGEN 1-->
+                        <RelativeLayout
+                            android:id="@+id/contenedor_trivia_imagen1"
                             android:layout_centerVertical="true"
-                            android:layout_toRightOf="@+id/trivia_imagen2"
-                            android:layout_marginLeft="30dp"
-                            android:layout_height="240dp"
-                            android:layout_width="190dp"
-                            android:scaleType="centerCrop"/>
-                        <ImageView
-                            android:id="@+id/trivia_imagen4"
+                            android:layout_marginLeft="100dp"
+                            android:layout_height="260dp"
+                            android:layout_width="190dp">
+
+                            <ImageView
+                                android:id="@+id/trivia_imagen1"
+                                android:layout_alignParentTop="true"
+                                android:layout_height="240dp"
+                                android:layout_width="match_parent"
+                                android:background="#FFFFFF"
+                                android:scaleType="centerCrop"/>
+
+                            <ImageView
+                                android:id="@+id/image_check_correcta1"
+                                android:background="@drawable/trivia_correcta"
+                                android:layout_centerHorizontal="true"
+                                android:visibility="gone"
+                                android:layout_alignParentBottom="true"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp" />
+
+                            <ImageView
+                                android:id="@+id/image_check_incorrecta1"
+                                android:background="@drawable/trivia_incorrecta"
+                                android:visibility="gone"
+                                android:layout_centerHorizontal="true"
+                                android:layout_alignParentBottom="true"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp" />
+
+
+                        </RelativeLayout>
+
+                        <!-- IMAGEN 2-->
+                        <RelativeLayout
+                            android:id="@+id/contenedor_trivia_imagen2"
                             android:layout_centerVertical="true"
-                            android:layout_toRightOf="@+id/trivia_imagen3"
                             android:layout_marginLeft="30dp"
-                            android:layout_height="240dp"
-                            android:layout_width="190dp"
-                            android:scaleType="centerCrop"/>
+                            android:layout_toRightOf="@+id/contenedor_trivia_imagen1"
+                            android:layout_height="260dp"
+                            android:layout_width="190dp">
+
+                            <ImageView
+                                android:id="@+id/trivia_imagen2"
+                                android:layout_height="240dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_width="match_parent"
+                                android:background="#FFFFFF"
+                                android:scaleType="centerCrop"/>
+
+                            <ImageView
+                                android:id="@+id/image_check_correcta2"
+                                android:background="@drawable/trivia_correcta"
+                                android:layout_centerHorizontal="true"
+                                android:visibility="gone"
+                                android:layout_alignParentBottom="true"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp" />
+
+                            <ImageView
+                                android:id="@+id/image_check_incorrecta2"
+                                android:background="@drawable/trivia_incorrecta"
+                                android:visibility="gone"
+                                android:layout_centerHorizontal="true"
+                                android:layout_alignParentBottom="true"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp" />
+
+                        </RelativeLayout>
+
+                        <!-- IMAGEN 3-->
+                        <RelativeLayout
+                            android:id="@+id/contenedor_trivia_imagen3"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/contenedor_trivia_imagen2"
+                            android:layout_marginLeft="30dp"
+                            android:layout_height="260dp"
+                            android:layout_width="190dp">
+
+                            <ImageView
+                                android:id="@+id/trivia_imagen3"
+                                android:layout_height="240dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_width="match_parent"
+                                android:background="#FFFFFF"
+                                android:scaleType="centerCrop"/>
+
+                            <ImageView
+                                android:id="@+id/image_check_correcta3"
+                                android:background="@drawable/trivia_correcta"
+                                android:layout_centerHorizontal="true"
+                                android:visibility="gone"
+                                android:layout_alignParentBottom="true"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp" />
+
+                            <ImageView
+                                android:id="@+id/image_check_incorrecta3"
+                                android:background="@drawable/trivia_incorrecta"
+                                android:visibility="gone"
+                                android:layout_centerHorizontal="true"
+                                android:layout_alignParentBottom="true"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp" />
+
+                        </RelativeLayout>
+
+                        <!-- IMAGEN 4-->
+                        <RelativeLayout
+                            android:id="@+id/contenedor_trivia_imagen4"
+                            android:layout_toRightOf="@+id/contenedor_trivia_imagen3"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_height="260dp"
+                            android:layout_width="190dp">
+
+                            <ImageView
+                                android:id="@+id/trivia_imagen4"
+                                android:layout_height="240dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_width="match_parent"
+                                android:background="#FFFFFF"
+                                android:scaleType="centerCrop"/>
+
+                            <ImageView
+                                android:id="@+id/image_check_correcta4"
+                                android:background="@drawable/trivia_correcta"
+                                android:layout_centerHorizontal="true"
+                                android:visibility="gone"
+                                android:layout_alignParentBottom="true"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp" />
+
+                            <ImageView
+                                android:id="@+id/image_check_incorrecta4"
+                                android:background="@drawable/trivia_incorrecta"
+                                android:visibility="gone"
+                                android:layout_centerHorizontal="true"
+                                android:layout_alignParentBottom="true"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp" />
+
+                        </RelativeLayout>
 
                     </RelativeLayout>
 

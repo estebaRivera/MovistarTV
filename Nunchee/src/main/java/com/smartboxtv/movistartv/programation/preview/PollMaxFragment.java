@@ -1,5 +1,9 @@
 package com.smartboxtv.movistartv.programation.preview;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -121,9 +125,6 @@ public class PollMaxFragment extends Fragment {
         fbActivate = userNunchee.isFacebookActive;
 
         if(polls.getPreguntas().isEmpty()){
-
-            /*contenedorNoEncuesta.setVisibility(View.VISIBLE);
-            contenedorNoEncuesta.bringToFront();*/
             nopolls();
         }
         else{
@@ -281,17 +282,37 @@ public class PollMaxFragment extends Fragment {
         linearLayout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                linearLayout1.setBackgroundColor(Color.parseColor("#034767"));
+                ImageView margen = (ImageView) linearLayout1.findViewById(R.id.margin_check);
+                margen.setVisibility(View.VISIBLE);
+                ObjectAnimator anim = ObjectAnimator.ofFloat(linearLayout1, View.ALPHA, 1f);
+                AnimatorSet animSet = new AnimatorSet();
+                animSet.play(anim);
+                animSet.setDuration(1300);
+                animSet.start();
+                animSet.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+                    }
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+                        DataLoader dataLoader = new DataLoader(getActivity());
+                        dataLoader.votoEncuesta("" + polls.getPreguntas().get(contador).getRespuestas().get(0).getIdAnswer());
 
-                DataLoader dataLoader = new DataLoader(getActivity());
-                dataLoader.votoEncuesta("" + polls.getPreguntas().get(contador).getRespuestas().get(0).getIdAnswer());
+                        polls.getPreguntas().get(contador).getRespuestas().get(0).setVotos(polls.getPreguntas()
+                                .get(contador).getRespuestas().get(0).getVotos()+1);
 
-                polls.getPreguntas().get(contador).getRespuestas().get(0).setVotos(polls.getPreguntas()
-                        .get(contador).getRespuestas().get(0).getVotos()+1);
-
-                cantidadVotos[contador] = cantidadVotos[contador]+1;
-                contadorRespuesta = 0;
-                setDataResultado();
-
+                        cantidadVotos[contador] = cantidadVotos[contador]+1;
+                        contadorRespuesta = 0;
+                        setDataResultado();
+                    }
+                    @Override
+                    public void onAnimationCancel(Animator animator) {
+                    }
+                    @Override
+                    public void onAnimationRepeat(Animator animator) {
+                    }
+                });
             }
         });
 
@@ -299,60 +320,148 @@ public class PollMaxFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                DataLoader dataLoader = new DataLoader(getActivity());
-                dataLoader.votoEncuesta("" + polls.getPreguntas().get(contador).getRespuestas().get(1).getIdAnswer());
+                linearLayout2.setBackgroundColor(Color.parseColor("#034767"));
+                ImageView margen = (ImageView) linearLayout2.findViewById(R.id.margin_check);
+                margen.setVisibility(View.VISIBLE);
+                ObjectAnimator anim = ObjectAnimator.ofFloat(linearLayout2, View.ALPHA, 1f);
+                AnimatorSet animSet = new AnimatorSet();
+                animSet.play(anim);
+                animSet.setDuration(1300);
+                animSet.start();
+                animSet.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+                    }
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+                        DataLoader dataLoader = new DataLoader(getActivity());
+                        dataLoader.votoEncuesta("" + polls.getPreguntas().get(contador).getRespuestas().get(1).getIdAnswer());
 
-                polls.getPreguntas().get(contador).getRespuestas().get(1).setVotos(polls.getPreguntas()
-                        .get(contador).getRespuestas().get(1).getVotos()+1);
+                        polls.getPreguntas().get(contador).getRespuestas().get(1).setVotos(polls.getPreguntas()
+                                .get(contador).getRespuestas().get(1).getVotos()+1);
 
-                cantidadVotos[contador] = cantidadVotos[contador]+1;
-                contadorRespuesta = 1;
-                setDataResultado();
+                        cantidadVotos[contador] = cantidadVotos[contador]+1;
+                        contadorRespuesta = 1;
+                        setDataResultado();
+                    }
+                    @Override
+                    public void onAnimationCancel(Animator animator) {
+                    }
+                    @Override
+                    public void onAnimationRepeat(Animator animator) {
+                    }
+                });
             }
         });
         linearLayout3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                DataLoader dataLoader = new DataLoader(getActivity());
-                dataLoader.votoEncuesta("" + polls.getPreguntas().get(contador).getRespuestas().get(2).getIdAnswer());
+                linearLayout3.setBackgroundColor(Color.parseColor("#034767"));
+                ImageView margen = (ImageView) linearLayout3.findViewById(R.id.margin_check);
+                margen.setVisibility(View.VISIBLE);
+                ObjectAnimator anim = ObjectAnimator.ofFloat(linearLayout3, View.ALPHA, 1f);
+                AnimatorSet animSet = new AnimatorSet();
+                animSet.play(anim);
+                animSet.setDuration(1300);
+                animSet.start();
+                animSet.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+                    }
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+                        DataLoader dataLoader = new DataLoader(getActivity());
+                        dataLoader.votoEncuesta("" + polls.getPreguntas().get(contador).getRespuestas().get(2).getIdAnswer());
 
-                polls.getPreguntas().get(contador).getRespuestas().get(2).setVotos(polls.getPreguntas()
-                        .get(contador).getRespuestas().get(2).getVotos()+1);
+                        polls.getPreguntas().get(contador).getRespuestas().get(2).setVotos(polls.getPreguntas()
+                                .get(contador).getRespuestas().get(2).getVotos()+1);
 
-                cantidadVotos[contador] = cantidadVotos[contador]+1;
-                contadorRespuesta = 2;
-                setDataResultado();
+                        cantidadVotos[contador] = cantidadVotos[contador]+1;
+                        contadorRespuesta = 1;
+                        setDataResultado();
+                    }
+                    @Override
+                    public void onAnimationCancel(Animator animator) {
+                    }
+                    @Override
+                    public void onAnimationRepeat(Animator animator) {
+                    }
+                });
             }
         });
         linearLayout4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                DataLoader dataLoader = new DataLoader(getActivity());
-                dataLoader.votoEncuesta("" + polls.getPreguntas().get(contador).getRespuestas().get(3).getIdAnswer());
+                linearLayout4.setBackgroundColor(Color.parseColor("#034767"));
+                ImageView margen = (ImageView) linearLayout4.findViewById(R.id.margin_check);
+                margen.setVisibility(View.VISIBLE);
+                ObjectAnimator anim = ObjectAnimator.ofFloat(linearLayout4, View.ALPHA, 1f);
+                AnimatorSet animSet = new AnimatorSet();
+                animSet.play(anim);
+                animSet.setDuration(1300);
+                animSet.start();
+                animSet.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+                    }
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+                        DataLoader dataLoader = new DataLoader(getActivity());
+                        dataLoader.votoEncuesta("" + polls.getPreguntas().get(contador).getRespuestas().get(3).getIdAnswer());
 
-                polls.getPreguntas().get(contador).getRespuestas().get(3).setVotos(polls.getPreguntas()
-                        .get(contador).getRespuestas().get(3).getVotos()+1);
+                        polls.getPreguntas().get(contador).getRespuestas().get(3).setVotos(polls.getPreguntas()
+                                .get(contador).getRespuestas().get(3).getVotos()+1);
 
-                cantidadVotos[contador] = cantidadVotos[contador]+1;
-                contadorRespuesta = 3;
-                setDataResultado();
+                        cantidadVotos[contador] = cantidadVotos[contador]+1;
+                        contadorRespuesta = 3;
+                        setDataResultado();
+                    }
+                    @Override
+                    public void onAnimationCancel(Animator animator) {
+                    }
+                    @Override
+                    public void onAnimationRepeat(Animator animator) {
+                    }
+                });
             }
         });
         linearLayout5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                DataLoader dataLoader = new DataLoader(getActivity());
-                dataLoader.votoEncuesta("" + polls.getPreguntas().get(contador).getRespuestas().get(4).getIdAnswer());
+                linearLayout5.setBackgroundColor(Color.parseColor("#034767"));
+                ImageView margen = (ImageView) linearLayout5.findViewById(R.id.margin_check);
+                margen.setVisibility(View.VISIBLE);
+                ObjectAnimator anim = ObjectAnimator.ofFloat(linearLayout5, View.ALPHA, 1f);
+                AnimatorSet animSet = new AnimatorSet();
+                animSet.play(anim);
+                animSet.setDuration(1300);
+                animSet.start();
+                animSet.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+                    }
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+                        DataLoader dataLoader = new DataLoader(getActivity());
+                        dataLoader.votoEncuesta("" + polls.getPreguntas().get(contador).getRespuestas().get(4).getIdAnswer());
 
-                polls.getPreguntas().get(contador).getRespuestas().get(4).setVotos(polls.getPreguntas()
-                        .get(contador).getRespuestas().get(4).getVotos()+1);
+                        polls.getPreguntas().get(contador).getRespuestas().get(4).setVotos(polls.getPreguntas()
+                                .get(contador).getRespuestas().get(4).getVotos()+1);
 
-                cantidadVotos[contador] = cantidadVotos[contador]+1;
-                contadorRespuesta = 4;
-                setDataResultado();
+                        cantidadVotos[contador] = cantidadVotos[contador]+1;
+                        contadorRespuesta = 4;
+                        setDataResultado();
+                    }
+                    @Override
+                    public void onAnimationCancel(Animator animator) {
+                    }
+                    @Override
+                    public void onAnimationRepeat(Animator animator) {
+                    }
+                });
             }
         });
 

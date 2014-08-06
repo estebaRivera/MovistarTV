@@ -69,6 +69,8 @@ public class FragmentDayBar extends Fragment {
     public Date LIMIT_BOTTOM;
     public Date FIRST_LIMIT_TOP;
     public Date FIRST_LIMIT_BOTTOM;
+    public Date MAX_LIMIT;
+
     public boolean scroll = false;
     private boolean isAnimation = true;
     private AnimatorSet set;

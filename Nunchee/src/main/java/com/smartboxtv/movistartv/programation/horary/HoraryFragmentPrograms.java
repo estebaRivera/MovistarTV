@@ -117,6 +117,9 @@ public class HoraryFragmentPrograms extends Fragment {
     public Date LIMIT_BOTTOM;
     public Date FIRST_LIMIT_TOP;
     public Date FIRST_LIMIT_BOTTOM;
+
+    public Date MAX_LIMIT;
+
     private Animation mueveDerecha;
     private HashMap <String,String> programasCreados = new HashMap <String,String>();
 
@@ -195,7 +198,11 @@ public class HoraryFragmentPrograms extends Fragment {
             @Override
             public void onScrollChanged(int l, int t) {
 
-                //if((dateActualProgram.getTime() > LIMIT_TOP.getTime() || dateActualProgram.getTime() == LIMIT_TOP.getTime())){
+                if(dateActualProgram.getTime() >= MAX_LIMIT.getTime()){
+                    horizontalScrollView.moveLeft = false;
+                    return;
+                }
+
                 if((dateActualProgram.getTime() == LIMIT_TOP.getTime())){
                     horizontalScrollView.moveLeft = false;
                     //if(hideButton == false)
@@ -205,11 +212,12 @@ public class HoraryFragmentPrograms extends Fragment {
                     horizontalScrollView.moveLeft = true;
                     loadMore.setVisibility(View.GONE);
                 }
-                //if((dateActualProgram.getTime() < LIMIT_BOTTOM.getTime() || dateActualProgram.getTime() == LIMIT_BOTTOM.getTime())){
+
                 if((dateActualProgram.getTime() == LIMIT_BOTTOM.getTime())){
                     horizontalScrollView.moveRight = false;
                    // if(hideButton == false)
-                        chargeLess.setVisibility(View.VISIBLE);
+                        if(dateActualProgram.getTime() != FIRST_LIMIT_BOTTOM.getTime())
+                            chargeLess.setVisibility(View.VISIBLE);
                 }
                 else{
                     horizontalScrollView.moveRight = true;

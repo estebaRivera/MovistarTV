@@ -237,7 +237,7 @@ public class DataLoader {
 
         URL_FINAL.append("ProgramByChannelCategory/");
 
-        String parametro = formatDate(new Date(date.getTime()- 14400000))+";"+idCategoria+";"+idNunchee ;
+        String parametro = formatDate(new Date(date.getTime()- 10800000))+";"+idCategoria+";"+idNunchee ;
         String parametroBase64 = Base64.encodeToString(parametro.getBytes(), Base64.NO_WRAP);
 
         Log.e("url Categories","-> "+parametro);

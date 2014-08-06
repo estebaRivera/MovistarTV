@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.smartboxtv.movistartv.R;
+import com.smartboxtv.movistartv.delgates.DialogErrorDelegate;
 
 /**
  * Created by Esteban- on 09-05-14.
@@ -18,6 +19,8 @@ import com.smartboxtv.movistartv.R;
 public class DialogError extends DialogFragment {
 
     private String mensaje = "";
+    private DialogErrorDelegate delegate;
+
 
     public DialogError(String error) {
         setStyle(DialogFragment.STYLE_NO_TITLE, getTheme());
@@ -47,6 +50,9 @@ public class DialogError extends DialogFragment {
             @Override
             public void onClick(View view) {
                 getDialog().dismiss();
+                if(delegate != null){
+                    delegate.onBack();
+                }
             }
         });
 
@@ -61,5 +67,9 @@ public class DialogError extends DialogFragment {
         //getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
 
         return rootView;
+    }
+
+    public void setDelegate(DialogErrorDelegate delegate) {
+        this.delegate = delegate;
     }
 }

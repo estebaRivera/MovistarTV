@@ -1,7 +1,11 @@
 package com.smartboxtv.movistartv.programation.preview;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -75,9 +79,9 @@ public class TriviaGameFragment extends Fragment {
     private int NIVEL_ACTUAL;
     private int VIDAS;
     private int PUNTAJE_TOTAL;
-    private int[] indiceFacil;
+    /*private int[] indiceFacil;
     private int[] indiceMedio;
-    private int[] indiceDificil;
+    private int[] indiceDificil;*/
     private ProgressBar progressBar;
     private final TareaAsincrona tarea = new TareaAsincrona();
 
@@ -86,8 +90,8 @@ public class TriviaGameFragment extends Fragment {
     private Resources res;
     private DataGameTrivia dataGameTrivia;
     private DataBaseTrivia dataBaseTrivia;
-    private boolean nextLevel = true;
-    private boolean gameOver = false;
+    //private boolean nextLevel = true;
+    //private boolean gameOver = false;
 
     public TriviaGameFragment() {
     }
@@ -123,7 +127,7 @@ public class TriviaGameFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.preview_fg_trivia_game, container, false);
 
-        nextLevel = true;
+        //nextLevel = true;
         TRIVIA_ACTUAL = 0;
         ImageView corazon1 = (ImageView) rootView.findViewById(R.id.trivia_vida_1);
         ImageView corazon2 = (ImageView) rootView.findViewById(R.id.trivia_vida_2);
@@ -131,11 +135,11 @@ public class TriviaGameFragment extends Fragment {
 
         Drawable d = getResources().getDrawable(R.drawable.vida_trivia);
 
-        Log.e("Trivia Actual",trivia.getPreguntas().get(TRIVIA_ACTUAL).getText());
+        /*Log.e("Trivia Actual",trivia.getPreguntas().get(TRIVIA_ACTUAL).getText());
         Log.e("Trivia Actual tamaño",""+trivia.getPreguntas().size());
         Log.e("Nivel Actual",""+ NIVEL_ACTUAL);
         Log.e("Trivia Nivel ", "" + trivia.getPreguntas().get(TRIVIA_ACTUAL).getLevel());
-        Log.e("VIDAS ", "" + GameTrivia.getVIDA_TRIVIA(getActivity(),program.getTitle()));
+        Log.e("VIDAS ", "" + GameTrivia.getVIDA_TRIVIA(getActivity(),program.getTitle()));*/
 
         dataBaseTrivia = new DataBaseTrivia(getActivity(),"",null,0);
 
@@ -216,10 +220,10 @@ public class TriviaGameFragment extends Fragment {
         respuesta4 = (TextView) contenedorTriviaTexto.findViewById(R.id.respuesta4);
         numero = (TextView) contenedorTriviaTexto.findViewById(R.id.trivia_numero_pregunta_juego);
 
-        LinearLayout respuestaTexto1 = (LinearLayout) contenedorTriviaTexto.findViewById(R.id.trivia_pregunta_1);
-        LinearLayout respuestaTexto2 = (LinearLayout) contenedorTriviaTexto.findViewById(R.id.trivia_pregunta_2);
-        LinearLayout respuestaTexto3 = (LinearLayout) contenedorTriviaTexto.findViewById(R.id.trivia_pregunta_3);
-        LinearLayout respuestaTexto4 = (LinearLayout) contenedorTriviaTexto.findViewById(R.id.trivia_pregunta_4);
+        final LinearLayout respuestaTexto1 = (LinearLayout) contenedorTriviaTexto.findViewById(R.id.trivia_pregunta_1);
+        final LinearLayout respuestaTexto2 = (LinearLayout) contenedorTriviaTexto.findViewById(R.id.trivia_pregunta_2);
+        final LinearLayout respuestaTexto3 = (LinearLayout) contenedorTriviaTexto.findViewById(R.id.trivia_pregunta_3);
+        final LinearLayout respuestaTexto4 = (LinearLayout) contenedorTriviaTexto.findViewById(R.id.trivia_pregunta_4);
 
         if(!tipo1.get(TRIVIA_ACTUAL).getRespuestas().isEmpty()){
 
@@ -236,7 +240,61 @@ public class TriviaGameFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 hayRespuesta = true;
-                esCorrecta(q.getRespuestas().get(0).isValor());
+
+                respuestaTexto1.setBackgroundColor(Color.parseColor("#034767"));
+                ImageView margen = (ImageView) respuestaTexto1.findViewById(R.id.margin_check);
+                margen.setVisibility(View.VISIBLE);
+
+                if(q.getRespuestas().get(0).isValor()){
+                    ImageView check = (ImageView) respuestaTexto1.findViewById(R.id.image_check_correcta);
+                    check.setVisibility(View.VISIBLE);
+
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(check, "alpha", 1f);
+                    AnimatorSet animSet = new AnimatorSet();
+                    animSet.play(anim);
+                    animSet.setDuration(1300);
+                    animSet.start();
+                    animSet.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            esCorrecta(q.getRespuestas().get(0).isValor());
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
+                }
+                else{
+                    ImageView check = (ImageView) respuestaTexto1.findViewById(R.id.image_check_incorrecta);
+                    check.setVisibility(View.VISIBLE);
+
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(check, "alpha", 1f);
+                    AnimatorSet animSet = new AnimatorSet();
+                    animSet.play(anim);
+                    animSet.setDuration(1300);
+                    animSet.start();
+                    animSet.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            esCorrecta(q.getRespuestas().get(0).isValor());
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
+                }
             }
         });
 
@@ -244,7 +302,61 @@ public class TriviaGameFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 hayRespuesta = true;
-                esCorrecta(q.getRespuestas().get(1).isValor());
+
+                respuestaTexto2.setBackgroundColor(Color.parseColor("#034767"));
+                ImageView margen = (ImageView) respuestaTexto2.findViewById(R.id.margin_check);
+                margen.setVisibility(View.VISIBLE);
+
+                if(q.getRespuestas().get(1).isValor()){
+                    ImageView check = (ImageView) respuestaTexto2.findViewById(R.id.image_check_correcta);
+                    check.setVisibility(View.VISIBLE);
+
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(check, "alpha", 1f);
+                    AnimatorSet animSet = new AnimatorSet();
+                    animSet.play(anim);
+                    animSet.setDuration(1300);
+                    animSet.start();
+                    animSet.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            esCorrecta(q.getRespuestas().get(1).isValor());
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
+                }
+                else{
+                    ImageView check = (ImageView) respuestaTexto2.findViewById(R.id.image_check_incorrecta);
+                    check.setVisibility(View.VISIBLE);
+
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(check, "alpha", 1f);
+                    AnimatorSet animSet = new AnimatorSet();
+                    animSet.play(anim);
+                    animSet.setDuration(1300);
+                    animSet.start();
+                    animSet.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            esCorrecta(q.getRespuestas().get(1).isValor());
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
+                }
             }
         });
 
@@ -252,7 +364,61 @@ public class TriviaGameFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 hayRespuesta = true;
-                esCorrecta(q.getRespuestas().get(2).isValor());
+
+                respuestaTexto3.setBackgroundColor(Color.parseColor("#034767"));
+                ImageView margen = (ImageView) respuestaTexto3.findViewById(R.id.margin_check);
+                margen.setVisibility(View.VISIBLE);
+
+                if(q.getRespuestas().get(2).isValor()){
+                    ImageView check = (ImageView) respuestaTexto3.findViewById(R.id.image_check_correcta);
+                    check.setVisibility(View.VISIBLE);
+
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(check, "alpha", 1f);
+                    AnimatorSet animSet = new AnimatorSet();
+                    animSet.play(anim);
+                    animSet.setDuration(1300);
+                    animSet.start();
+                    animSet.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            esCorrecta(q.getRespuestas().get(2).isValor());
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
+                }
+                else{
+                    ImageView check = (ImageView) respuestaTexto3.findViewById(R.id.image_check_incorrecta);
+                    check.setVisibility(View.VISIBLE);
+
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(check, "alpha", 1f);
+                    AnimatorSet animSet = new AnimatorSet();
+                    animSet.play(anim);
+                    animSet.setDuration(1300);
+                    animSet.start();
+                    animSet.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            esCorrecta(q.getRespuestas().get(2).isValor());
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
+                }
             }
         });
 
@@ -260,11 +426,66 @@ public class TriviaGameFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 hayRespuesta = true;
-                esCorrecta(q.getRespuestas().get(3).isValor());
+
+                respuestaTexto4.setBackgroundColor(Color.parseColor("#034767"));
+                ImageView margen = (ImageView) respuestaTexto4.findViewById(R.id.margin_check);
+                margen.setVisibility(View.VISIBLE);
+
+                if(q.getRespuestas().get(3).isValor()){
+                    ImageView check = (ImageView) respuestaTexto4.findViewById(R.id.image_check_correcta);
+                    check.setVisibility(View.VISIBLE);
+
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(check, "alpha",1f);
+                    AnimatorSet animSet = new AnimatorSet();
+                    animSet.play(anim);
+                    animSet.setDuration(1300);
+                    animSet.start();
+                    animSet.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            esCorrecta(q.getRespuestas().get(3).isValor());
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
+                }
+                else{
+                    ImageView check = (ImageView) respuestaTexto4.findViewById(R.id.image_check_incorrecta);
+                    check.setVisibility(View.VISIBLE);
+
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(check, "alpha", 1f);
+                    AnimatorSet animSet = new AnimatorSet();
+                    animSet.play(anim);
+                    animSet.setDuration(1300);
+                    animSet.start();
+                    animSet.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            esCorrecta(q.getRespuestas().get(3).isValor());
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
+                }
             }
         });
 
     }
+
     public void setDataTipo2(final TriviaQuestion q){
 
         if(contenedorTriviaImagenUnica.getVisibility() == View.VISIBLE)
@@ -276,10 +497,10 @@ public class TriviaGameFragment extends Fragment {
         if(contenedorTriviaTexto.getVisibility() == View.VISIBLE)
             contenedorTriviaTexto.setVisibility(View.GONE);
 
-        ImageView imagen1 = (ImageView) contenedorTriviaImagenes.findViewById(R.id.trivia_imagen1);
-        ImageView imagen2 = (ImageView) contenedorTriviaImagenes.findViewById(R.id.trivia_imagen2);
-        ImageView imagen3 = (ImageView) contenedorTriviaImagenes.findViewById(R.id.trivia_imagen3);
-        ImageView imagen4 = (ImageView) contenedorTriviaImagenes.findViewById(R.id.trivia_imagen4);
+        final ImageView imagen1 = (ImageView) contenedorTriviaImagenes.findViewById(R.id.trivia_imagen1);
+        final ImageView imagen2 = (ImageView) contenedorTriviaImagenes.findViewById(R.id.trivia_imagen2);
+        final ImageView imagen3 = (ImageView) contenedorTriviaImagenes.findViewById(R.id.trivia_imagen3);
+        final ImageView imagen4 = (ImageView) contenedorTriviaImagenes.findViewById(R.id.trivia_imagen4);
 
         segundos = (TextView) contenedorTriviaImagenes.findViewById(R.id.trivia_texto_timer);
         pregunta = (TextView) contenedorTriviaImagenes.findViewById(R.id.trivia_pregunta_juego);
@@ -301,7 +522,56 @@ public class TriviaGameFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 hayRespuesta = true;
-                esCorrecta(q.getRespuestas().get(0).isValor());
+                if(q.getRespuestas().get(0).isValor()){
+                    ImageView check = (ImageView) contenedorTriviaImagenes.findViewById(R.id.image_check_correcta1);
+                    check.setVisibility(View.VISIBLE);
+
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(check, "alpha", 1f);
+                    AnimatorSet animSet = new AnimatorSet();
+                    animSet.play(anim);
+                    animSet.setDuration(1300);
+                    animSet.start();
+                    animSet.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            esCorrecta(q.getRespuestas().get(0).isValor());
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
+                }
+                else{
+                    ImageView check = (ImageView) contenedorTriviaImagenes.findViewById(R.id.image_check_incorrecta1);
+                    check.setVisibility(View.VISIBLE);
+
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(check, "alpha", 1f);
+                    AnimatorSet animSet = new AnimatorSet();
+                    animSet.play(anim);
+                    animSet.setDuration(1300);
+                    animSet.start();
+                    animSet.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            esCorrecta(q.getRespuestas().get(0).isValor());
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
+                }
             }
         });
 
@@ -309,7 +579,56 @@ public class TriviaGameFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 hayRespuesta = true;
-                esCorrecta(q.getRespuestas().get(1).isValor());
+                if(q.getRespuestas().get(1).isValor()){
+                    ImageView check = (ImageView) contenedorTriviaImagenes.findViewById(R.id.image_check_correcta2);
+                    check.setVisibility(View.VISIBLE);
+
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(check, "alpha", 1f);
+                    AnimatorSet animSet = new AnimatorSet();
+                    animSet.play(anim);
+                    animSet.setDuration(1300);
+                    animSet.start();
+                    animSet.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            esCorrecta(q.getRespuestas().get(1).isValor());
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
+                }
+                else{
+                    ImageView check = (ImageView) contenedorTriviaImagenes.findViewById(R.id.image_check_incorrecta2);
+                    check.setVisibility(View.VISIBLE);
+
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(check, "alpha", 1f);
+                    AnimatorSet animSet = new AnimatorSet();
+                    animSet.play(anim);
+                    animSet.setDuration(1300);
+                    animSet.start();
+                    animSet.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            esCorrecta(q.getRespuestas().get(1).isValor());
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
+                }
             }
         });
 
@@ -317,7 +636,56 @@ public class TriviaGameFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 hayRespuesta = true;
-                esCorrecta(q.getRespuestas().get(2).isValor());
+                if(q.getRespuestas().get(2).isValor()){
+                    ImageView check = (ImageView) contenedorTriviaImagenes.findViewById(R.id.image_check_correcta3);
+                    check.setVisibility(View.VISIBLE);
+
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(check, "alpha", 1f);
+                    AnimatorSet animSet = new AnimatorSet();
+                    animSet.play(anim);
+                    animSet.setDuration(1300);
+                    animSet.start();
+                    animSet.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            esCorrecta(q.getRespuestas().get(2).isValor());
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
+                }
+                else{
+                    ImageView check = (ImageView) contenedorTriviaImagenes.findViewById(R.id.image_check_incorrecta3);
+                    check.setVisibility(View.VISIBLE);
+
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(check, "alpha", 1f);
+                    AnimatorSet animSet = new AnimatorSet();
+                    animSet.play(anim);
+                    animSet.setDuration(1300);
+                    animSet.start();
+                    animSet.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            esCorrecta(q.getRespuestas().get(2).isValor());
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
+                }
             }
         });
 
@@ -325,11 +693,61 @@ public class TriviaGameFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 hayRespuesta = true;
-                esCorrecta(q.getRespuestas().get(3).isValor());
+                if(q.getRespuestas().get(3).isValor()){
+                    ImageView check = (ImageView) contenedorTriviaImagenes.findViewById(R.id.image_check_correcta4);
+                    check.setVisibility(View.VISIBLE);
+
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(check, "alpha", 1f);
+                    AnimatorSet animSet = new AnimatorSet();
+                    animSet.play(anim);
+                    animSet.setDuration(1300);
+                    animSet.start();
+                    animSet.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            esCorrecta(q.getRespuestas().get(3).isValor());
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
+                }
+                else{
+                    ImageView check = (ImageView) contenedorTriviaImagenes.findViewById(R.id.image_check_incorrecta4);
+                    check.setVisibility(View.VISIBLE);
+
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(check, "alpha", 1f);
+                    AnimatorSet animSet = new AnimatorSet();
+                    animSet.play(anim);
+                    animSet.setDuration(1300);
+                    animSet.start();
+                    animSet.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            esCorrecta(q.getRespuestas().get(3).isValor());
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
+                }
             }
         });
 
     }
+
     public void setDataTipo3(final TriviaQuestion q){
 
         if(contenedorTriviaImagenUnica.getVisibility() == View.GONE)
@@ -348,10 +766,10 @@ public class TriviaGameFragment extends Fragment {
         respuesta3 = (TextView) contenedorTriviaImagenUnica.findViewById(R.id.respuesta3);
         respuesta4 = (TextView) contenedorTriviaImagenUnica.findViewById(R.id.respuesta4);
 
-        LinearLayout respuestaImagenUnica1 = (LinearLayout) contenedorTriviaImagenUnica.findViewById(R.id.trivia_pregunta_1);
-        LinearLayout respuestaImagenUnica2 = (LinearLayout) contenedorTriviaImagenUnica.findViewById(R.id.trivia_pregunta_2);
-        LinearLayout respuestaImagenUnica3 = (LinearLayout) contenedorTriviaImagenUnica.findViewById(R.id.trivia_pregunta_3);
-        LinearLayout respuestaImagenUnica4 = (LinearLayout) contenedorTriviaImagenUnica.findViewById(R.id.trivia_pregunta_4);
+        final LinearLayout respuestaImagenUnica1 = (LinearLayout) contenedorTriviaImagenUnica.findViewById(R.id.trivia_pregunta_1);
+        final LinearLayout respuestaImagenUnica2 = (LinearLayout) contenedorTriviaImagenUnica.findViewById(R.id.trivia_pregunta_2);
+        final LinearLayout respuestaImagenUnica3 = (LinearLayout) contenedorTriviaImagenUnica.findViewById(R.id.trivia_pregunta_3);
+        final LinearLayout respuestaImagenUnica4 = (LinearLayout) contenedorTriviaImagenUnica.findViewById(R.id.trivia_pregunta_4);
 
         imagen = (ImageView) contenedorTriviaImagenUnica.findViewById(R.id.trivia_imagen_juego);
         numero = (TextView) contenedorTriviaImagenUnica.findViewById(R.id.trivia_numero_pregunta_juego);
@@ -374,31 +792,240 @@ public class TriviaGameFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 hayRespuesta = true;
-                esCorrecta(q.getRespuestas().get(0).isValor());
+                respuestaImagenUnica1.setBackgroundColor(Color.parseColor("#034767"));
+                ImageView margen = (ImageView) respuestaImagenUnica1.findViewById(R.id.margin_check);
+                margen.setVisibility(View.VISIBLE);
+
+                if(q.getRespuestas().get(0).isValor()){
+                    ImageView check = (ImageView) respuestaImagenUnica1.findViewById(R.id.image_check_correcta);
+                    check.setVisibility(View.VISIBLE);
+
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(check, "alpha", 1f);
+                    AnimatorSet animSet = new AnimatorSet();
+                    animSet.play(anim);
+                    animSet.setDuration(1300);
+                    animSet.start();
+                    animSet.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            esCorrecta(q.getRespuestas().get(0).isValor());
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
+                }
+                else{
+                    ImageView check = (ImageView) respuestaImagenUnica1.findViewById(R.id.image_check_incorrecta);
+                    check.setVisibility(View.VISIBLE);
+
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(check, "alpha", 1f);
+                    AnimatorSet animSet = new AnimatorSet();
+                    animSet.play(anim);
+                    animSet.setDuration(1300);
+                    animSet.start();
+                    animSet.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            esCorrecta(q.getRespuestas().get(0).isValor());
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
+                }
             }
         });
 
         respuestaImagenUnica2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                hayRespuesta = true;
-                esCorrecta(q.getRespuestas().get(1).isValor());
+                respuestaImagenUnica2.setBackgroundColor(Color.parseColor("#034767"));
+                ImageView margen = (ImageView) respuestaImagenUnica2.findViewById(R.id.margin_check);
+                margen.setVisibility(View.VISIBLE);
+
+                if(q.getRespuestas().get(1).isValor()){
+                    ImageView check = (ImageView) respuestaImagenUnica2.findViewById(R.id.image_check_correcta);
+                    check.setVisibility(View.VISIBLE);
+
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(check, "alpha", 1f);
+                    AnimatorSet animSet = new AnimatorSet();
+                    animSet.play(anim);
+                    animSet.setDuration(1300);
+                    animSet.start();
+                    animSet.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            esCorrecta(q.getRespuestas().get(0).isValor());
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
+                }
+                else{
+                    ImageView check = (ImageView) respuestaImagenUnica2.findViewById(R.id.image_check_incorrecta);
+                    check.setVisibility(View.VISIBLE);
+
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(check, "alpha", 1f);
+                    AnimatorSet animSet = new AnimatorSet();
+                    animSet.play(anim);
+                    animSet.setDuration(1300);
+                    animSet.start();
+                    animSet.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            esCorrecta(q.getRespuestas().get(1).isValor());
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
+                }
             }
         });
 
         respuestaImagenUnica3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                hayRespuesta = true;
-                esCorrecta(q.getRespuestas().get(2).isValor());
+                respuestaImagenUnica3.setBackgroundColor(Color.parseColor("#034767"));
+                ImageView margen = (ImageView) respuestaImagenUnica3.findViewById(R.id.margin_check);
+                margen.setVisibility(View.VISIBLE);
+
+                if(q.getRespuestas().get(2).isValor()){
+                    ImageView check = (ImageView) respuestaImagenUnica3.findViewById(R.id.image_check_correcta);
+                    check.setVisibility(View.VISIBLE);
+
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(check, "alpha", 1f);
+                    AnimatorSet animSet = new AnimatorSet();
+                    animSet.play(anim);
+                    animSet.setDuration(1300);
+                    animSet.start();
+                    animSet.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            esCorrecta(q.getRespuestas().get(0).isValor());
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
+                }
+                else{
+                    ImageView check = (ImageView) respuestaImagenUnica3.findViewById(R.id.image_check_incorrecta);
+                    check.setVisibility(View.VISIBLE);
+
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(check, "alpha", 1f);
+                    AnimatorSet animSet = new AnimatorSet();
+                    animSet.play(anim);
+                    animSet.setDuration(1300);
+                    animSet.start();
+                    animSet.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            esCorrecta(q.getRespuestas().get(2).isValor());
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
+                }
             }
         });
 
         respuestaImagenUnica4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                hayRespuesta = true;
-                esCorrecta(q.getRespuestas().get(3).isValor());
+                respuestaImagenUnica4.setBackgroundColor(Color.parseColor("#034767"));
+                ImageView margen = (ImageView) respuestaImagenUnica4.findViewById(R.id.margin_check);
+                margen.setVisibility(View.VISIBLE);
+
+                if(q.getRespuestas().get(3).isValor()){
+                    ImageView check = (ImageView) respuestaImagenUnica4.findViewById(R.id.image_check_correcta);
+                    check.setVisibility(View.VISIBLE);
+
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(check, "alpha", 1f);
+                    AnimatorSet animSet = new AnimatorSet();
+                    animSet.play(anim);
+                    animSet.setDuration(1300);
+                    animSet.start();
+                    animSet.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            esCorrecta(q.getRespuestas().get(3).isValor());
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
+                }
+                else{
+                    ImageView check = (ImageView) respuestaImagenUnica4.findViewById(R.id.image_check_incorrecta);
+                    check.setVisibility(View.VISIBLE);
+
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(check, "alpha", 1f);
+                    AnimatorSet animSet = new AnimatorSet();
+                    animSet.play(anim);
+                    animSet.setDuration(1300);
+                    animSet.start();
+                    animSet.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            esCorrecta(q.getRespuestas().get(3).isValor());
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
+                }
             }
         });
     }
@@ -473,7 +1100,7 @@ public class TriviaGameFragment extends Fragment {
 
             textoResultado.setText("Respuesta Incorrecta");
             textoPuntaje.setVisibility(View.GONE);
-            nextLevel = false;
+            //nextLevel = false;
             d2 = res.getDrawable(R.drawable.icon_no_coins);
             imagen.setBackground(d2);
             VIDAS--;

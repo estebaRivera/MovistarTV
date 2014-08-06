@@ -29,7 +29,13 @@ public class HoraryFragment extends Fragment {
     private boolean activeButtonNow = true;
     private boolean moveToOrigen = false;
 
-    private Date MAX_LIMIT;
+    private final long HORA   = 3600000;
+    private final long DIA    = HORA * 24;
+    private final long DIA_x9 = DIA * 9;
+
+    private Date ahora = new Date();
+    private Date MAX_LIMIT = new Date(ahora.getTime()+ DIA_x9);
+    private Date MIN_LIMIT;
 
     public HoraryFragment() {
     }
@@ -39,6 +45,10 @@ public class HoraryFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.horary_fragment, container, false);
         DataClean.garbageCollector("Horary Fragment");
+
+        MIN_LIMIT = aproximaFecha(new Date(ahora.getTime()- 1800000).getTime());
+        fragmentPrograms.MAX_LIMIT  =   MAX_LIMIT;
+        fragmentDayBar.MAX_LIMIT    =   MAX_LIMIT;
 
         HoraryDelegate horaryDelegate = new HoraryDelegate() {
 
@@ -132,12 +142,10 @@ public class HoraryFragment extends Fragment {
                 fragmentDayBar.FIRST_LIMIT_BOTTOM = firstBottom;
             }
 
-
             @Override
             public void updateFlag(boolean b) {                                                     // Actualiza variable que determina scroll o carga
                fragmentDayBar.scroll = b;
             }
-
 
             @Override
             public void updatePositionBar(Date d) {
@@ -147,10 +155,7 @@ public class HoraryFragment extends Fragment {
 
             @Override
             public void hiddeChargeLess() {
-
             }
-
-
         };
 
         fragmentPrograms.setBarDayDelegate(barDayDelegate);
@@ -162,6 +167,13 @@ public class HoraryFragment extends Fragment {
         ft.commit();
 
         return rootView;
+    }
+
+    public Date aproximaFecha(long date){
+
+        long residuo = date % (300000 * 6);
+        date = date - residuo;
+        return new Date(date);
     }
 
     @Override

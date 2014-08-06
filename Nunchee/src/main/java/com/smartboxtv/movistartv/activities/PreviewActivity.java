@@ -66,6 +66,7 @@ import com.smartboxtv.movistartv.data.models.Recommendations;
 import com.smartboxtv.movistartv.data.models.Trivia;
 import com.smartboxtv.movistartv.data.models.Tweets;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
+import com.smartboxtv.movistartv.delgates.DialogErrorDelegate;
 import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.programation.delegates.PreviewImageFavoriteDelegate;
 import com.smartboxtv.movistartv.programation.menu.About;
@@ -234,13 +235,13 @@ public class PreviewActivity extends ActionBarActivity {
         contenedorHeader = (RelativeLayout) findViewById(R.id.preview_programa);
         contenedorSugeridos = (RelativeLayout) findViewById(R.id.preview_sugerencias);
         contenedorAccion = (LinearLayout) findViewById(R.id.preview_accion);
-        contenedorAnimacion = (RelativeLayout) findViewById(R.id.preview_animado_contenedor);
+        /*contenedorAnimacion = (RelativeLayout) findViewById(R.id.preview_animado_contenedor);
         contenedorAnimacion.setVisibility(View.GONE);
 
         // Suplentes
         RelativeLayout encuestaSuplente = (RelativeLayout) findViewById(R.id.preview_animado_encuesta);
         RelativeLayout triviaSuplente = (RelativeLayout) findViewById(R.id.preview_animado_trivia);
-        RelativeLayout twSuplente = (RelativeLayout) findViewById(R.id.preview_animado_tw);
+        RelativeLayout twSuplente = (RelativeLayout) findViewById(R.id.preview_animado_tw);*/
 
         RelativeLayout s1 = (RelativeLayout) findViewById(R.id.s1);
         RelativeLayout s2 = (RelativeLayout) findViewById(R.id.s2);
@@ -316,6 +317,7 @@ public class PreviewActivity extends ActionBarActivity {
         }
         else{
             obtieneEncuesta();
+            obtieneTrivia();
             cargarPreview();
             obtieneRecomendaciones();
         }
@@ -375,7 +377,6 @@ public class PreviewActivity extends ActionBarActivity {
                     i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                     startActivity(i);
                     overridePendingTransition(R.anim.zoom_in_preview, R.anim.nada);
-                    onDestroy();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -408,128 +409,11 @@ public class PreviewActivity extends ActionBarActivity {
                     i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                     startActivity(i);
                     overridePendingTransition(R.anim.zoom_in_preview, R.anim.nada);
-                    onDestroy();
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
-            }
-        });
-
-        // Suplente
-        encuestaSuplente.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (!esEncuesta) {
-
-                    esTrivia = false;
-                    esEncuesta = true;
-                    esTw = false;
-
-                    RelativeLayout r = (RelativeLayout) findViewById(R.id.preview_animado_encuesta);
-                    r.setVisibility(View.GONE);
-
-                    RelativeLayout r1 = (RelativeLayout) findViewById(R.id.preview_animado_tw);
-
-                    if (r1.getVisibility() == View.GONE) {
-                        r1.setVisibility(View.VISIBLE);
-                    }
-
-                    RelativeLayout r2 = (RelativeLayout) findViewById(R.id.preview_animado_trivia);
-
-                    if (r2.getVisibility() == View.GONE) {
-                        r2.setVisibility(View.VISIBLE);
-                    }
-
-                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-
-                    ft.remove(fragmentoEncuestaP);
-                    ft.remove(fragmentoBarra);
-
-                    ft.replace(R.id.preview_animado_tw, fragmentoTw);
-                    ft.replace(R.id.preview_animado_trivia, fragmentoTriviaP);
-                    ft.replace(R.id.preview_animado_max, fragmentoEncuestaMax);
-                    ft.replace(R.id.preview_barra, fragmentoBarra);
-                    ft.commit();
-                }
-            }
-        });
-
-        triviaSuplente.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (!esTrivia) {
-
-                    esTrivia = true;
-                    esEncuesta = false;
-                    esTw = false;
-
-                    RelativeLayout r = (RelativeLayout) findViewById(R.id.preview_animado_trivia);
-                    r.setVisibility(View.GONE);
-
-                    RelativeLayout r1 = (RelativeLayout) findViewById(R.id.preview_animado_encuesta);
-
-                    if (r1.getVisibility() == View.GONE) {
-                        r1.setVisibility(View.VISIBLE);
-                    }
-
-                    RelativeLayout r2 = (RelativeLayout) findViewById(R.id.preview_animado_tw);
-
-                    if (r2.getVisibility() == View.GONE) {
-                        r2.setVisibility(View.VISIBLE);
-                    }
-
-                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-
-                    ft.remove(fragmentoTriviaP);
-                    ft.remove(fragmentoBarra);
-
-                    ft.replace(R.id.preview_animado_tw, fragmentoTw);
-                    ft.replace(R.id.preview_animado_encuesta, fragmentoEncuestaP);
-                    ft.replace(R.id.preview_animado_max, fragmentoTriviaMax);
-                    ft.replace(R.id.preview_barra, fragmentoBarra);
-                    ft.commit();
-                }
-
-            }
-        });
-
-        twSuplente.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (!esTw) {
-
-                    esTrivia = false;
-                    esEncuesta = false;
-                    esTw = true;
-
-                    RelativeLayout r = (RelativeLayout) findViewById(R.id.preview_animado_tw);
-                    r.setVisibility(View.GONE);
-
-                    RelativeLayout r1 = (RelativeLayout) findViewById(R.id.preview_animado_encuesta);
-                    r1.setVisibility(View.VISIBLE);
-
-                    RelativeLayout r2 = (RelativeLayout) findViewById(R.id.preview_animado_trivia);
-                    r2.setVisibility(View.VISIBLE);
-
-                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-
-                    ft.remove(fragmentoTw);
-                    ft.remove(fragmentoBarra);
-
-                    ft.commit();
-
-                    ft = getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.preview_animado_encuesta, fragmentoEncuestaP);
-                    ft.replace(R.id.preview_animado_trivia, fragmentoTriviaP);
-                    ft.replace(R.id.preview_animado_max, fragmentoTwMax);
-                    ft.replace(R.id.preview_barra, fragmentoBarra);
-                    ft.commit();
-                }
             }
         });
 
@@ -543,12 +427,6 @@ public class PreviewActivity extends ActionBarActivity {
                     data.actionCheckIn(UserPreference.getIdNunchee(getApplicationContext()), "7", programaPreview.getIdProgram(),
                             programaPreview.getPChannel().getChannelID());
 
-                    /*btnCheckIn.startAnimation(animation);
-                    btnCheckIn_.setText("+ " + (programaPreview.getCheckIn() + 1));
-                    btnCheckIn.setAlpha((float) 0.5);
-                    btnCheckIn.setEnabled(false);
-
-                    ICheckIn = true;*/
                     Toast.makeText(getApplication(),"Publicando...",Toast.LENGTH_LONG).show();
                     publishCheckIn();
                 }
@@ -570,11 +448,6 @@ public class PreviewActivity extends ActionBarActivity {
                     data.actionLike(UserPreference.getIdNunchee(getApplicationContext()), "2", programaPreview.getIdProgram(),
                             programaPreview.getPChannel().getChannelID());
 
-                    /*btnLike.startAnimation(animation);
-                    btnLike.setText((programaPreview.getLike() + 1) + " Likes");
-                    btnLike.setEnabled(false);
-                    btnLike.setAlpha((float) 0.5);
-                    ILike = true;*/
                     Toast.makeText(getApplication(),"Publicando...",Toast.LENGTH_LONG).show();
                     publishStory();
                 }
@@ -677,9 +550,10 @@ public class PreviewActivity extends ActionBarActivity {
                 public void loaded(final Program data) {
 
                     programaPreview = data;
+
                     Log.e("Programa preview", programaPreview.getIdProgram());
-                    // Inicialización de Fragmentos
                     Log.e("Programa preview", data.getTitle());
+
                     fragmentoHeader = new HeaderFragment(programaPreview, programa);
                     fragmentoAccion = new ActionFragment(programaPreview, programa);
                     PreviewImageFavoriteDelegate delegate = new PreviewImageFavoriteDelegate() {
@@ -689,11 +563,10 @@ public class PreviewActivity extends ActionBarActivity {
                         }
                     };
                     fragmentoAccion.setImageFavoriteDelegate(delegate);
-                    //fragmentoAccion.setDelegadoIMagenFavoritoPreview(delegadoIMagenFavoritoPreview);
                     fragmentoTw = new TwFragment(programaPreview);
                     fragmentoTwMax = new TwMaxFragment(programaPreview);
                     fragmentoBarra = new BarFragment();
-                    //programa = data;
+
                     txtName.setText(data.getTitle());
                     txtName.setTypeface(normal);
                     txtDate.setText(capitalize(formatDia.format(programa.getStartDate())) + ", " +
@@ -759,26 +632,35 @@ public class PreviewActivity extends ActionBarActivity {
                         noTws();
                     }
                     borraLoading();
-                    obtieneTrivia();
-                    //obtieneEncuesta();
                 }
 
                 @Override
                 public void error(String error) {
+
                     super.error(error);
                     Log.e("Preview error  ", " error --> " + error);
-                    borraLoading();
+                    RelativeLayout r = (RelativeLayout) findViewById(R.id.preview_loading);
+                    r.setVisibility(View.GONE);
 
-                    DialogError dialogError = new DialogError();
+                    DialogError dialogError = new DialogError("Oops! En este momento no podemos mostrar este contenido");
+                    DialogErrorDelegate delegate = new DialogErrorDelegate() {
+                        @Override
+                        public void onBack() {
+                           finishActivityH();
+                        }
+                    };
+                    dialogError.setDelegate(delegate);
                     dialogError.show(getSupportFragmentManager(),"");
-
-                    DialogMessage message = new DialogMessage();
-                    message.show(getSupportFragmentManager(),"");
+                    borraLoading();
                 }
             }, programa.getIdProgram(), programa.getPChannel().getChannelID(), UserPreference.getIdNunchee(getApplicationContext()),
                     fechaInicio, fechaTermino);
         }
 
+    }
+    public void finishActivityH(){
+        finish();
+        //onDestroy();
     }
     public void cargarPreviewSM(){
 
@@ -1004,6 +886,7 @@ public class PreviewActivity extends ActionBarActivity {
 
                     if(data != null){
                         trivia = data;
+                        Log.e("Trivia","Cargada");
                         fragmentoTriviaP = new TriviaMinFragment(trivia);
                         fragmentoTriviaMax = new TriviaMaxFragment(programaPreview,trivia, false);
                     }
@@ -1029,6 +912,7 @@ public class PreviewActivity extends ActionBarActivity {
 
                     if (data != null) {
                         polls = data;
+                        Log.e("Encuesta","Cargada");
                         fragmentoEncuestaMax = new PollMaxFragment(polls,programa,programaPreview);
                         fragmentoEncuestaP = new PollMinFragment(polls);
                     }
@@ -1036,7 +920,7 @@ public class PreviewActivity extends ActionBarActivity {
                 @Override
                 public void error(String error) {
                     super.error(error);
-                    Log.e("Preview error", " Encuenta error --> " + error);
+                    Log.e("Preview error", " Encuesta error --> " + error);
                 }
             }, programa.getTitle());
         }
