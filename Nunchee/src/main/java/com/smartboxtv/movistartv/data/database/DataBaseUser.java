@@ -52,7 +52,7 @@ public class DataBaseUser extends SQLiteOpenHelper {
                 null, null, null, null, null);
         DataGameTrivia dataGameTrivia;
 
-        Log.e("Select", "valor " + id);
+        //Log.e("Select", "valor " + id);
 
         c.moveToNext();
         if(c != null && c.getCount()>0 ){

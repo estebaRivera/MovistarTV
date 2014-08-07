@@ -878,28 +878,45 @@ public class PreviewActivity extends ActionBarActivity {
 
         if(programa != null){
 
-            DataLoader dataLoader = new DataLoader(getApplication());
-            dataLoader.getTrivia(new DataLoader.DataLoadedHandler<Trivia>() {
+            //if(((NUNCHEE)getApplication()).CONNECT_SERVICES_PYTHON == false){
+            if(false){
+                DataLoader dataLoader = new DataLoader(getApplication());
+                dataLoader.getTrivia(new DataLoader.DataLoadedHandler<Trivia>() {
 
-                @Override
-                public void loaded(final Trivia data) {
+                    @Override
+                    public void loaded(final Trivia data) {
 
-                    if(data != null){
-                        trivia = data;
-                        Log.e("Trivia","Cargada");
-                        fragmentoTriviaP = new TriviaMinFragment(trivia);
-                        fragmentoTriviaMax = new TriviaMaxFragment(programaPreview,trivia, false);
+                        if(data != null){
+                            trivia = data;
+                            Log.e("Trivia","Cargada");
+                            fragmentoTriviaP = new TriviaMinFragment(trivia);
+                            fragmentoTriviaMax = new TriviaMaxFragment(programaPreview,trivia, false);
+                        }
                     }
-                }
 
-                @Override
-                public void error(String error) {
-                    super.error(error);
-                    Log.e("Preview error", " Trivia error --> " + error);
-                }
-            }, programa.getTitle());
+                    @Override
+                    public void error(String error) {
+                        super.error(error);
+                        Log.e("Preview error", " Trivia error --> " + error);
+                    }
+                }, programa.getTitle());
+            }
+            else{
+                ServiceManager serviceManager = new ServiceManager(getApplication());
+                serviceManager.getTrivia( new ServiceManager.ServiceManagerHandler<Trivia>(){
+
+                    @Override
+                    public void loaded(final Trivia data) {
+                        if(data != null){
+                            trivia = data;
+                            Log.e("Trivia SM","Cargada");
+                            fragmentoTriviaP = new TriviaMinFragment(trivia);
+                            fragmentoTriviaMax = new TriviaMaxFragment(programaPreview,trivia, false);
+                        }
+                    }
+                }, "1763","","");
+            }
         }
-
     }
 
     private void obtieneEncuesta(){

@@ -3,6 +3,7 @@ package com.smartboxtv.movistartv.services;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -13,6 +14,9 @@ import com.smartboxtv.movistartv.data.database.UserNunchee;
 import com.smartboxtv.movistartv.data.models.Channel;
 import com.smartboxtv.movistartv.data.models.FeedJSON;
 import com.smartboxtv.movistartv.data.models.Program;
+import com.smartboxtv.movistartv.data.models.Trivia;
+import com.smartboxtv.movistartv.data.models.TriviaAnswers;
+import com.smartboxtv.movistartv.data.models.TriviaQuestion;
 import com.smartboxtv.movistartv.data.modelssm.CategorieChannelSM;
 import com.smartboxtv.movistartv.data.modelssm.ChannelSM;
 import com.smartboxtv.movistartv.data.modelssm.DataLoginSM;
@@ -31,11 +35,16 @@ import com.smartboxtv.movistartv.data.modelssm.datafavorites.ScheduleFavoriteSM;
 import com.smartboxtv.movistartv.data.modelssm.datahorary.DataResultSM;
 import com.smartboxtv.movistartv.data.modelssm.datarecommendation.EpisodeRecommendationSM;
 import com.smartboxtv.movistartv.data.modelssm.datarecommendation.RecommendationSM;
+import com.smartboxtv.movistartv.data.preference.UserPreferenceSM;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
@@ -54,49 +63,42 @@ import java.util.Map;
 public class ServiceManager {
 
     private static final String TAG = "SERVICE MANAGER";
-
     private static final String ERROR = "SERVICIO CAIDO";
-
     private final long EXPIRE = 10000;
 
     private final int PROGRAM_TYPE_BACKDROP = 0;
-
     private final int PROGRAM_TYPE_POSTER = 1;
-
     private final int PROGRAM_TYPE_SQUARE = 2;
-
     private final int CHANNEL_TYPE_ICON_LIGHT = 3;
-
     private final int CHANNEL_TYPE_ICON_DARK = 4;
 
     private final String TEST_URL = "http://54.207.109.226:5500/api/1.0/guide/";
-
     private final String USER = "53bdadc825822c11f84fc067";
 
     private static final String BASE_URL_SERVICES = "http://23.21.72.216:80/nunchee/api/1.0/guide";
+    private static final String BASE_URL_SERVICES_USER = "http://23.21.72.216:80/nunchee/api/1.0/users";
 
     private static final String BASE_URL_SERVICES_RECOMMENDATION = "http://23.21.72.216:80/nunchee/api/1.0/recommendation";
-
     private static final String BASE_URL_STREAM_MANAGER = "https://api.streammanager.co/api/";
 
     private static final String API_TOKEN = "b5430d55dc64849b1a34e877267e72ba";//"b5430d55dc64849b1a34e877267e72ba";//"bace2022792e7943635001c8696a013f";
-
     private static final String SERVICES_URL_TRENDING = "http://190.215.44.18/wcfNunchee2/GLFService.svc/Trending";
-
     private static final String URL_TWITTER = "https://api.twitter.com/1.1/statuses/";
-
     public static final String REFRESH_GRANT_TYPE = "refresh_token";
-
-    private static String URL_FEED, URL_FEED_PARAMETROS;
-
-    private String URL;
-
-    private final Context context;
+    private static String tokenMovistar;
+    private static String tokenFacebook;
+    private static String idDevice;
 
     private AQuery aq;
-
+    private String URL;
     private long inicio, fin, delta;
+    private final Context context;
 
+    private int nivelTrivia = 1;
+    private Trivia trivia;
+    private List<TriviaQuestion> questions;
+
+    private int count = 0;
 
     private List<FeedJSON> listaHistorial = new ArrayList<FeedJSON>();
 
@@ -115,54 +117,103 @@ public class ServiceManager {
 
     }
 
+
     public void  loginFacebook( final ServiceManagerHandler<DataLoginSM> handler, final String token, final String deviceId){
 
         String deviceType = "1";
-        URL = BASE_URL_SERVICES+"/loginFacebook?facebook_token="+token+"&device_id"+deviceId+"&device_type="+deviceType;
+        URL = BASE_URL_SERVICES_USER+"/loginFacebook?facebook_token="+token+"&device_id="+deviceId+"&device_type="+deviceType;
+        tokenFacebook = token;
+        idDevice = deviceId;
+        Log.e(TAG +"url login", URL);
         Map<String, Object> map = new HashMap<String, Object>();
 
-        aq.ajax(URL,map, JSONObject.class, new AjaxCallback<JSONObject>(){
+        aq.ajax(URL, map, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
                 super.callback(url, object, status);
-                if(object!= null && status.getCode() == 200){
-                    try{
-                       if(object.getString("message").equals("ok")){
-                           JSONObject data = object.getJSONObject("data");
-                           String id = data.getString("user");
-                           String token = data.getString("token");
-                           DataLoginSM dataLoginSM = new DataLoginSM ();
-                           dataLoginSM.id = id;
-                           dataLoginSM.token = token;
-                           handler.loaded(dataLoginSM);
-                        }
-                        else if(object.getString("message").equals("The user not exists")){
-                            userFacebook( new ServiceManagerHandler<String>(){
+                if (object != null && status.getCode() == 200) {
+                    try {
+                        Log.e("DFG", object.getString("message"));
+                        if (object.getString("message").equals("OK")) {
+                            JSONObject data = object.getJSONObject("data");
+                            String id = data.getString("user");
+                            String token = data.getString("token");
+                            DataLoginSM dataLoginSM = new DataLoginSM();
+                            dataLoginSM.id = id;
+                            dataLoginSM.token = token;
+                            tokenMovistar = token;
+                            Log.e("token Movistar TV", token);
+                            AutoLogin autoLogin = new AutoLogin();
+                            autoLogin.execute();
+                            handler.loaded(dataLoginSM);
+
+                        }else if (object.getString("message").equals("The user not exists") && count < 3) {
+
+                            count++;
+                            Log.e("Registro","Usuario");
+                            userFacebook(new ServiceManagerHandler<String>() {
                                 @Override
                                 public void loaded(String data) {
-                                    loginFacebook(handler,token,deviceId);
+                                    loginFacebook(handler, token, deviceId);
                                 }
 
                                 @Override
                                 public void error(String error) {
                                     super.error(error);
                                 }
-                            },token);
+                            }, token);
                         }
-                    }
-                    catch (Exception e){
+                        else if(object.getString("message").equals("#2 - Users(1) at the limit(1), you need to close 1 session(s)")){
+                            Log.e("Limite de tiempo","Limite de tiempo");
+                        }
+                        else{
+                            Log.e("Ni una"," Waaaaaaaaaaa");
+                        }
+                    } catch (Exception e) {
                         e.printStackTrace();
-                        Log.e(TAG+" loginFacebook",e.getMessage());
+                        Log.e(TAG + " loginFacebook", e.getMessage());
                         handler.error(e.getMessage());
                     }
-                }
-
-                else{
-                    Log.e(TAG+" loginFacebook-",ERROR);
+                } else {
+                    Log.e(TAG + " loginFacebook-", ERROR);
+                    Log.e(TAG, object.toString());
                     handler.error(ERROR);
                 }
             }
-        });
+        }.header("Content-Type", "application/x-www-form-urlencoded"));
+    }
+
+    public void  reLoginFacebook( final String facebookToken, final String deviceId){
+
+        String deviceType = "1";
+        URL = BASE_URL_SERVICES_USER+"/loginFacebook?facebook_token="+facebookToken+"&device_id="+deviceId+"&device_type="+deviceType+"&device_token="+tokenMovistar;
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        Log.e(TAG+" reLogin",URL);
+        aq.ajax(URL,map, JSONObject.class, new AjaxCallback<JSONObject>() {
+            @Override
+            public void callback(String url, JSONObject object, AjaxStatus status) {
+                super.callback(url, object, status);
+                if (object != null && status.getCode() == 200) {
+                    try {
+                        if (object.getString("message").equals("OK")) {
+                            JSONObject data = object.getJSONObject("data");
+                            String id = data.getString("user");
+                            String token = data.getString("token");
+                            tokenMovistar = token;
+                            Log.e(TAG +"Token nuevo ", tokenMovistar);
+                            AutoLogin autoLogin = new AutoLogin();
+                            autoLogin.execute();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.e(TAG + " n ", e.getMessage());
+                    }
+                } else {
+                    Log.e(TAG + " reLoginFacebook-", ERROR);
+                }
+            }
+        }.header("Content-Type", "application/x-www-form-urlencoded"));
     }
 
     public void userFacebook( final ServiceManagerHandler<String> handler,String token){
@@ -170,19 +221,62 @@ public class ServiceManager {
         String language = "es";
         String provider = "1";
 
-        URL = BASE_URL_SERVICES+"/userFacebook?facebook_token="+token+"&language="+language+"&provider="+provider;
+        URL = BASE_URL_SERVICES_USER+"/userFacebook?facebook_token="+token+"&language="+language+"&provider="+provider;
         Map<String, Object> map = new HashMap<String, Object>();
 
-        aq.ajax(URL,map,JSONObject.class, new AjaxCallback<JSONObject>(){
+        Log.e("userFacebook",URL);
+        aq.ajax(URL, map, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
 
+                if (object != null) {
+                    try {
+                        String result = object.getString("message");
+                        if (result.equals("OK")){
+                            handler.loaded(result);
+                        }
+                        else{
+                            Log.e("Error 5656", result);
+                            handler.error(result);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        handler.error(e.getMessage());
+                        Log.e(TAG + " userFacebook", e.getMessage());
+                    }
+                } else {
+                    handler.error("object null");
+                }
             }
-        });
-
+        }.header("Content-Type", "application/x-www-form-urlencoded"));
     }
-    public void logout(){
+    public void logoutFacebook(final ServiceManagerHandler <String> handler,String facebookToken, String deviceId, String deviceType, String deviceToken){
 
+        URL = BASE_URL_SERVICES_USER+"/logoutFacebook?facebook_token="+facebookToken+"&device_id"+deviceId+"&device_type"+deviceType+"&device_token"+deviceToken;
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        Log.e(TAG, URL);
+        aq.ajax(URL, map, JSONObject.class, new AjaxCallback<JSONObject>() {
+
+            @Override
+            public void callback(String url, JSONObject object, AjaxStatus status) {
+
+                if (object != null && status.getCode() == 200) {
+
+                    try {
+                        if (object.getString("message").equals("OK")) {
+                            handler.loaded("OK");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.e(TAG + " logoutFacebook", e.getMessage());
+                        handler.error(e.getMessage());
+                    }
+                } else {
+                    handler.error(ERROR);
+                }
+            }
+        }.header("Content-Type", "application/x-www-form-urlencoded"));
     }
 
     // Geo
@@ -193,7 +287,6 @@ public class ServiceManager {
         inicio = System.currentTimeMillis();
 
         URL = BASE_URL_SERVICES+"getCategories?table="+id+"&language="+language;
-        //URL = TEST_URL+"getCategories?table="+id+"&language="+language;
 
         Log.e(TAG+" getCategories",URL);
         aq.ajax(URL,JSONObject.class, new AjaxCallback<JSONObject>() {
@@ -553,18 +646,78 @@ public class ServiceManager {
                     catch(Exception e){
                         e.printStackTrace();
                         handler.error(e.getMessage());
-                        Log.e("Error tw","-->"+e.getMessage());
+                        Log.e("Error tw", "-->" + e.getMessage());
                     }
                 }
                 else{
 
-                    Log.e(ERROR,"getTwwts");
+                    Log.e(ERROR, "getTwwts");
                 }
 
             }
         });
     }
     // TRIVIA
+
+    public void getTrivia(final ServiceManagerHandler<Trivia> handler,final String idPrograma,final String userNunchee,final String level){
+
+        /*userNunchee = "53bdadc825822c11f84fc067";
+        level = "1";*/
+        URL = "http://23.21.72.216:80/nunchee/api/1.0/guide/getQuestions?user=53bdadc825822c11f84fc067&program=1763&level="+nivelTrivia;
+
+        if(nivelTrivia == 1){
+            trivia = new Trivia();
+            questions = new ArrayList<TriviaQuestion>();
+            trivia.setPreguntas(questions);
+        }
+
+        Log.e(TAG+ " getTrivia", URL);
+        aq.ajax(URL, JSONObject.class, new AjaxCallback<JSONObject>() {
+            @Override
+            public void callback(String url, JSONObject object, AjaxStatus status) {
+
+                if (object != null && status.getCode() == 200) {
+                    try {
+                        nivelTrivia++;
+                        JSONArray data = object.getJSONArray("data");
+                        for(int i = 0; i <  data.length() ;i++){
+                            TriviaQuestion question = new TriviaQuestion();
+                            question.setLevel(nivelTrivia);
+                            question.setId(data.getJSONObject(i).getInt("id"));
+                            question.setType(data.getJSONObject(i).getInt("type"));
+                            question.setText(data.getJSONObject(i).getString("text"));
+                            question.setTextAlt(data.getJSONObject(i).getString("text"));
+
+                            JSONArray answers = data.getJSONObject(i).getJSONArray("answers");
+                            List<TriviaAnswers> listTriviaAnswers = new ArrayList<TriviaAnswers>();
+                            for(int j = 0; j < answers.length();j++){
+
+                                TriviaAnswers triviaAnswers = new TriviaAnswers();
+                                triviaAnswers.setRespuesta(answers.getJSONObject(j).getString("text"));
+                                triviaAnswers.setValor(answers.getJSONObject(j).getBoolean("real_option"));
+                                listTriviaAnswers.add(triviaAnswers);
+                            }
+                            question.setRespuestas(listTriviaAnswers);
+                            questions.add(question);
+                        }
+                        if(nivelTrivia < 4){
+                            getTrivia(handler, idPrograma,userNunchee,level);
+                        }
+                        else{
+                            nivelTrivia = 1;
+                            handler.loaded(trivia);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.e(TAG + " getTrivia ", e.getMessage());
+                        handler.error(e.getMessage());
+                    }
+                } else {
+                    Log.e(TAG + " getTrivia", ERROR);
+                }
+            }
+        });
+    }
 
     // POLLS
 
@@ -774,9 +927,9 @@ public class ServiceManager {
             }
         } );
     }
-    // RECOMMENDATIONS
 
-    public void getRecommendations(final ServiceManagerHandler<RecommendationSM> handler , String userNunchee, String idProgram, String deviceType,String date){
+    // RECOMMENDATIONS
+    public void getRecommendations(final ServiceManagerHandler<RecommendationSM> handler , String userNunchee, String idProgram, String deviceType, String date){
         userNunchee = "53bdadc825822c11f84fc067";
         idProgram = "1763";
         date = "12%3A00%3A00%2005-08-2014"; // 12:00:00 05-08-2014
@@ -1021,7 +1174,6 @@ public class ServiceManager {
                 }
             }
         }
-
         return result;
     }
 
@@ -1053,8 +1205,51 @@ public class ServiceManager {
         }
 
         public void error(String error) {
-
         }
+    }
+
+    public String getTokenMovistar(){
+        return UserPreferenceSM.getTokenMovistar(this.context);
+    }
+
+    public class AutoLogin extends AsyncTask<Void,Void,Void>{
+
+        private long inicio;
+        private long fin;
+        private long delta;
+        private final int MINUTO = 60000;
+        private final int MINUTO_x15 = MINUTO * 15;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //Log.e("PreExecute","AutoLogin");
+            inicio = System.currentTimeMillis();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            do{
+                fin = System.currentTimeMillis();
+                delta = fin - inicio;
+            }while(delta <MINUTO_x15);
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            //Log.e("POST Execute","AutoLogin");
+            reLoginFacebook(tokenFacebook,tokenMovistar);
+        }
+
     }
 
 }

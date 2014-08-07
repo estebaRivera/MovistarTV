@@ -12,7 +12,6 @@ import java.util.List;
 public class TriviaQuestion implements Serializable {
 
     private List<TriviaAnswers> respuestas = new ArrayList<TriviaAnswers>();
-
     private int id;
     private int level;
     private String text;

@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Base64;
@@ -37,8 +38,10 @@ import com.smartboxtv.movistartv.animation.AnimationClass;
 import com.smartboxtv.movistartv.data.clean.DataClean;
 import com.smartboxtv.movistartv.data.database.DataBaseUser;
 import com.smartboxtv.movistartv.data.database.UserNunchee;
+import com.smartboxtv.movistartv.data.modelssm.DataLoginSM;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
 import com.smartboxtv.movistartv.R;
+import com.smartboxtv.movistartv.data.preference.UserPreferenceSM;
 import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.services.DataLoader;
 import com.smartboxtv.movistartv.services.ServiceManager;
@@ -56,7 +59,7 @@ import java.util.TimerTask;
 public class LoginActivity extends ActionBarActivity {
 
     private final ArrayList<AnimationClass> listAnimation = new ArrayList<AnimationClass>();
-    private  final String TAG = "LOGIN ERROR";
+    private  final String TAG = "LOGIN";
 
     private TextView fraseInicialAdelante;
     private TextView fraseInicialTrasera;
@@ -168,9 +171,8 @@ public class LoginActivity extends ActionBarActivity {
                 Session.openActiveSession(LoginActivity.this, true, new Session.StatusCallback() {
                     // callback when session changes state
                     @Override
-                    public void call(Session session, SessionState state, Exception exception) {
+                    public void call(final Session session, SessionState state, Exception exception) {
 
-                        ((NUNCHEE)getApplication()).session = session;
                         if (session.isOpened()) {
                             // make request to the /me API
                             Request.newMeRequest(session, new Request.GraphUserCallback() {
@@ -180,59 +182,95 @@ public class LoginActivity extends ActionBarActivity {
                                 public void onCompleted(GraphUser user, Response response) {
 
                                     if (user != null ) {
-                                        //block = false;
-                                        UserPreference.setIdFacebook(user.getId(), LoginActivity.this);
-                                        UserPreference.setNombreFacebook(user.getName(), LoginActivity.this);
-                                        String parametro = "0;"
 
-                                                + user.getName() + ";"
-                                                + "http://graph.facebook.com/" + UserPreference.getIdFacebook(LoginActivity.this) + "/picture?type=normal;"
-                                                + user.getId() + ";"
-                                                + user.getUsername() + ";"
-                                                + user.getProperty("email");
-                                                idString = user.getId();
-                                                nameString = user.getName();
-                                                imageString = "http://graph.facebook.com/" + UserPreference.getIdFacebook(LoginActivity.this) + "/picture?type=normal;";
+                                        if(((NUNCHEE)getApplication()).CONNECT_SERVICES_PYTHON == false){
+                                            UserPreference.setIdFacebook(user.getId(), LoginActivity.this);
+                                            UserPreference.setNombreFacebook(user.getName(), LoginActivity.this);
+                                            String parametro = "0;"
 
-                                        String parametroBase64 = Base64.encodeToString(parametro.getBytes(), Base64.NO_WRAP);
-                                        DataLoader dataLogin = new DataLoader(LoginActivity.this);
-                                        dataLogin.loginService(parametroBase64, new DataLoader.DataLoadedHandler<String>() {
+                                                    + user.getName() + ";"
+                                                    + "http://graph.facebook.com/" + UserPreference.getIdFacebook(LoginActivity.this) + "/picture?type=normal;"
+                                                    + user.getId() + ";"
+                                                    + user.getUsername() + ";"
+                                                    + user.getProperty("email");
+                                            idString = user.getId();
+                                            nameString = user.getName();
+                                            imageString = "http://graph.facebook.com/" + UserPreference.getIdFacebook(LoginActivity.this) + "/picture?type=normal;";
 
-                                            @Override
-                                            public void loaded(String data) {
-                                                super.loaded(data);
+                                            String parametroBase64 = Base64.encodeToString(parametro.getBytes(), Base64.NO_WRAP);
+                                            DataLoader dataLogin = new DataLoader(LoginActivity.this);
+                                            dataLogin.loginService(parametroBase64, new DataLoader.DataLoadedHandler<String>() {
+
+                                                @Override
+                                                public void loaded(String data) {
+                                                    super.loaded(data);
 
                                                     dataBaseUser = new DataBaseUser(getApplicationContext(),"",null,0);
                                                     userNunchee = dataBaseUser.select(idString);
                                                     if(userNunchee == null){
                                                         dataBaseUser.insertUser(idString,imageString,nameString);
-                                                        /*Log.e("Nombre",nameString);
-                                                        Log.e("id",idString);
-                                                        Log.e("image",imageString);*/
                                                     }
                                                     Intent intent = new Intent(LoginActivity.this, RecommendedActivity.class);
                                                     startActivity(intent);
                                                     overridePendingTransition(R.anim.animacion_arriba, R.anim.animacion_abajo);
-                                            }
+                                                }
 
-                                            @Override
-                                            public void error(String error) {
-                                                Log.e(TAG,error);
-                                                super.error(error);
+                                                @Override
+                                                public void error(String error) {
+                                                    Log.e(TAG,error);
+                                                    super.error(error);
 
+                                                }
+                                            });
+                                        }
+                                        else{
+                                            // Servicio nuevo Login
+                                            UserPreferenceSM.setIdFacebook(user.getId(), LoginActivity.this);
+                                            UserPreferenceSM.setNombreFacebook(user.getName(), LoginActivity.this);
+
+                                            idString = user.getId();
+                                            nameString = user.getName();
+                                            imageString = "http://graph.facebook.com/" + UserPreference.getIdFacebook(LoginActivity.this) + "/picture?type=normal;";
+
+                                            String android_id = Settings.Secure.getString(getContentResolver(),
+                                                    Settings.Secure.ANDROID_ID);
+                                            ServiceManager serviceManager = new ServiceManager(getApplication());
+                                            serviceManager.loginFacebook(new ServiceManager.ServiceManagerHandler<DataLoginSM>(){
+                                                @Override
+                                                public void loaded(DataLoginSM data) {
+
+                                                    dataBaseUser = new DataBaseUser(getApplicationContext(),"",null,0);
+                                                    userNunchee = dataBaseUser.select(idString);
+                                                    if(userNunchee == null){
+                                                        dataBaseUser.insertUser(idString,imageString,nameString);
+                                                    }
+
+                                                    UserPreferenceSM.setIdNunchee(data.id, LoginActivity.this);
+                                                    Intent intent = new Intent(LoginActivity.this, RecommendedActivity.class);
+                                                    startActivity(intent);
+                                                    overridePendingTransition(R.anim.animacion_arriba, R.anim.animacion_abajo);
+                                                }
+
+                                                @Override
+                                                public void error(String error) {
+                                                    super.error(error);
+                                                    Log.e(TAG+" Login Service",error);
+                                                }
                                             }
-                                        });
+                                                    , session.getAccessToken(), android_id);
+                                        }
+                                       /* */
+
                                     }
+
                                 }
 
                             }).executeAsync();
                         }
                     }
                 });
-
             }
         });
-
         timer.cancel();
         timer.purge();
 
