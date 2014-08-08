@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.androidquery.util.BitmapCache;
 import com.smartboxtv.movistartv.R;
 import com.smartboxtv.movistartv.animation.ManagerAnimation;
 import com.smartboxtv.movistartv.data.clean.DataClean;
@@ -127,6 +128,10 @@ public class SecondPreviewActivity extends ActionBarActivity {
     public float width;
     public float height;
 
+    private Bitmap bm;
+
+    private  String path;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -209,7 +214,7 @@ public class SecondPreviewActivity extends ActionBarActivity {
         listTweets = (List<Tweets>) extra.get("tweets");
         programa = (Program) extra.get("programa");
         programaPreview = (Program) extra.get("programaPreview");
-        String path = extra.getString("background");
+        path = extra.getString("background");
 
 
         ICheckIn = extra.getBoolean("check");
@@ -218,7 +223,7 @@ public class SecondPreviewActivity extends ActionBarActivity {
         IReminderProgram = extra.getBoolean("reminder");
         AddFavorite = extra.getBoolean("favorite");
 
-        Bitmap bm = BitmapFactory.decodeFile(path);
+        bm = BitmapFactory.decodeFile(path);
         back.setImageBitmap(bm);
 
         option = extra.getInt("click");
@@ -749,6 +754,22 @@ public class SecondPreviewActivity extends ActionBarActivity {
             }
         });
     }
+
+    @Override
+    protected void onDestroy() {
+        /*Bitmap bm = BitmapFactory.decodeFile(path);
+        BitmapFactory.Options bfOptions = new  BitmapFactory.Options ();
+        bfOptions.inDither = false ;                      // Desactivar tramado
+        bfOptions.inPurgeable = true ;                    // Dile a GC que si se necesita memoria libre, el mapa de bits se puede borrar
+        bfOptions.inInputShareable = true ;               // Qué tipo de referencia se utiliza para recuperar los datos de mapa de bits después de estar claro, cuando se va a utilizar en el futuro
+        bfOptions.inTempStorage = new  byte [32 * 1024];*/
+
+        bm.recycle();
+        Bitmap
+        super.onDestroy();
+    }
+
+
     public void back(View mueve){
 
         ObjectAnimator animTranslationX = ObjectAnimator.ofFloat(mueve, View.TRANSLATION_X, 0); // 657;

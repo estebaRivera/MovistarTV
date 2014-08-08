@@ -678,7 +678,6 @@ public class ServiceManager {
 
                 if (object != null && status.getCode() == 200) {
                     try {
-                        nivelTrivia++;
                         JSONArray data = object.getJSONArray("data");
                         for(int i = 0; i <  data.length() ;i++){
                             TriviaQuestion question = new TriviaQuestion();
@@ -686,7 +685,7 @@ public class ServiceManager {
                             question.setId(data.getJSONObject(i).getInt("id"));
                             question.setType(data.getJSONObject(i).getInt("type"));
                             question.setText(data.getJSONObject(i).getString("text"));
-                            question.setTextAlt(data.getJSONObject(i).getString("text"));
+                            question.setTextAlt(data.getJSONObject(i).getString("image"));
 
                             JSONArray answers = data.getJSONObject(i).getJSONArray("answers");
                             List<TriviaAnswers> listTriviaAnswers = new ArrayList<TriviaAnswers>();
@@ -700,11 +699,12 @@ public class ServiceManager {
                             question.setRespuestas(listTriviaAnswers);
                             questions.add(question);
                         }
+                        nivelTrivia++;
                         if(nivelTrivia < 4){
                             getTrivia(handler, idPrograma,userNunchee,level);
                         }
                         else{
-                            nivelTrivia = 1;
+                            nivelTrivia = 0;
                             handler.loaded(trivia);
                         }
                     } catch (Exception e) {

@@ -36,6 +36,7 @@ import com.smartboxtv.movistartv.data.models.Trivia;
 import com.smartboxtv.movistartv.data.models.TriviaQuestion;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
 import com.smartboxtv.movistartv.data.trivia.GameTrivia;
+import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.services.DataLoader;
 
 import java.util.ArrayList;
@@ -75,23 +76,20 @@ public class TriviaGameFragment extends Fragment {
 
     private final int  TIEMPO = 100;
     private int sg = 10;
-    private int TRIVIA_ACTUAL;
+    private int TRIVIA_ACTUAL = 0;
     private int NIVEL_ACTUAL;
     private int VIDAS;
     private int PUNTAJE_TOTAL;
-    /*private int[] indiceFacil;
-    private int[] indiceMedio;
-    private int[] indiceDificil;*/
+
     private ProgressBar progressBar;
     private final TareaAsincrona tarea = new TareaAsincrona();
 
     private boolean  hayRespuesta = false;
+    private boolean CONNECT_SERVICES_PYTHON;
     private AQuery aq;
     private Resources res;
     private DataGameTrivia dataGameTrivia;
     private DataBaseTrivia dataBaseTrivia;
-    //private boolean nextLevel = true;
-    //private boolean gameOver = false;
 
     public TriviaGameFragment() {
     }
@@ -99,6 +97,8 @@ public class TriviaGameFragment extends Fragment {
     public TriviaGameFragment(Trivia returntrivia, Trivia trivia, Program program) {
 
         this.trivia = trivia;
+        Log.e("trivia 1",""+this.trivia.getPreguntas().size());
+        Log.e("trivia 2",""+trivia.getPreguntas().size());
         this.returnTrivia = returntrivia;
         this.program = program;
 
@@ -116,7 +116,7 @@ public class TriviaGameFragment extends Fragment {
         GameTrivia.setVIDA_TRIVIA(getActivity(),3 , program.getTitle());
 
         TriviaMaxFragment fragmentoTrivia = new TriviaMaxFragment(program,trivia, true);
-        FragmentTransaction ft =getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.addToBackStack(null);
         ft.replace(R.id.contenedor_trivia,fragmentoTrivia);
         ft.commit();
@@ -127,7 +127,6 @@ public class TriviaGameFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.preview_fg_trivia_game, container, false);
 
-        //nextLevel = true;
         TRIVIA_ACTUAL = 0;
         ImageView corazon1 = (ImageView) rootView.findViewById(R.id.trivia_vida_1);
         ImageView corazon2 = (ImageView) rootView.findViewById(R.id.trivia_vida_2);
@@ -135,20 +134,15 @@ public class TriviaGameFragment extends Fragment {
 
         Drawable d = getResources().getDrawable(R.drawable.vida_trivia);
 
-        /*Log.e("Trivia Actual",trivia.getPreguntas().get(TRIVIA_ACTUAL).getText());
-        Log.e("Trivia Actual tamaño",""+trivia.getPreguntas().size());
-        Log.e("Nivel Actual",""+ NIVEL_ACTUAL);
-        Log.e("Trivia Nivel ", "" + trivia.getPreguntas().get(TRIVIA_ACTUAL).getLevel());
-        Log.e("VIDAS ", "" + GameTrivia.getVIDA_TRIVIA(getActivity(),program.getTitle()));*/
-
         dataBaseTrivia = new DataBaseTrivia(getActivity(),"",null,0);
-
         dataGameTrivia = dataBaseTrivia.selectGame(program.Title);
 
         if(dataGameTrivia == null){
             dataBaseTrivia.insertGameTrivia(program.Title);
             dataGameTrivia = dataBaseTrivia.selectGame(program.Title);
         }
+
+        CONNECT_SERVICES_PYTHON = ((NUNCHEE)getActivity().getApplication()).CONNECT_SERVICES_PYTHON;
 
         NIVEL_ACTUAL = dataGameTrivia.nivel;
         VIDAS = dataGameTrivia.vidas;
@@ -508,13 +502,21 @@ public class TriviaGameFragment extends Fragment {
 
         if(!tipo2.get(TRIVIA_ACTUAL).getRespuestas().isEmpty()){
 
-            aq.id(imagen1).image(URL+q.getRespuestas().get(0).getRespuesta());
-            aq.id(imagen2).image(URL+q.getRespuestas().get(1).getRespuesta());
-            aq.id(imagen3).image(URL+q.getRespuestas().get(2).getRespuesta());
-            aq.id(imagen4).image(URL+q.getRespuestas().get(3).getRespuesta());
+            if(CONNECT_SERVICES_PYTHON == false){
+                aq.id(imagen1).image(URL+q.getRespuestas().get(0).getRespuesta());
+                aq.id(imagen2).image(URL+q.getRespuestas().get(1).getRespuesta());
+                aq.id(imagen3).image(URL+q.getRespuestas().get(2).getRespuesta());
+                aq.id(imagen4).image(URL+q.getRespuestas().get(3).getRespuesta());
+            }
+            else{
+                aq.id(imagen1).image(q.getRespuestas().get(0).getRespuesta());
+                aq.id(imagen2).image(q.getRespuestas().get(1).getRespuesta());
+                aq.id(imagen3).image(q.getRespuestas().get(2).getRespuesta());
+                aq.id(imagen4).image(q.getRespuestas().get(3).getRespuesta());
+            }
 
             pregunta.setText(q.getText());
-            numero.setText("Pregunta "+(TRIVIA_ACTUAL+1));
+            numero.setText("Pregunta " + (TRIVIA_ACTUAL + 1));
 
         }
         // Capturas de eventos en trivia ded tipo 2
@@ -783,8 +785,12 @@ public class TriviaGameFragment extends Fragment {
             respuesta3.setText(q.getRespuestas().get(2).getRespuesta());
             respuesta4.setText(q.getRespuestas().get(3).getRespuesta());
 
-            aq.id(imagen).image(URL + q.getTextAlt());
-
+            if(CONNECT_SERVICES_PYTHON == false){
+                aq.id(imagen).image(URL+q.getTextAlt());
+            }
+            else{
+                aq.id(imagen).image(q.getTextAlt());
+            }
         }
 
         // Capturas de eventos en trivia ded tipo 3
@@ -1048,8 +1054,8 @@ public class TriviaGameFragment extends Fragment {
             }
         }
     }
-    public void separateNivel(){
-    }
+
+
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void esCorrecta(boolean respuesta){
 
@@ -1338,6 +1344,8 @@ public class TriviaGameFragment extends Fragment {
 
             progressBar.setProgress(0);
 
+            if(((NUNCHEE)getActivity().getApplication()).CONNECT_SERVICES_PYTHON == false){
+
                 switch (trivia.getPreguntas().get(TRIVIA_ACTUAL).getType()){
 
                     case 1: if(trivia.getPreguntas().size() >= TRIVIA_ACTUAL)
@@ -1352,7 +1360,23 @@ public class TriviaGameFragment extends Fragment {
                                 setDataTipo3(trivia.getPreguntas().get(TRIVIA_ACTUAL));
                             break;
                 }
+            }
+            else{
+                switch (trivia.getPreguntas().get(TRIVIA_ACTUAL).getType()){
 
+                    case 1: if(trivia.getPreguntas().size() >= TRIVIA_ACTUAL)
+                        setDataTipo1(trivia.getPreguntas().get(TRIVIA_ACTUAL));
+                        break;
+
+                    case 2: if(trivia.getPreguntas().size() >= TRIVIA_ACTUAL)
+                        setDataTipo2(trivia.getPreguntas().get(TRIVIA_ACTUAL));
+                        break;
+
+                    case 3: if(trivia.getPreguntas().size() >= TRIVIA_ACTUAL)
+                        setDataTipo3(trivia.getPreguntas().get(TRIVIA_ACTUAL));
+                        break;
+                }
+            }
         }
 
         @Override

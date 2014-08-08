@@ -878,8 +878,8 @@ public class PreviewActivity extends ActionBarActivity {
 
         if(programa != null){
 
-            //if(((NUNCHEE)getApplication()).CONNECT_SERVICES_PYTHON == false){
-            if(false){
+            if(((NUNCHEE)getApplication()).CONNECT_SERVICES_PYTHON == false){
+            //if(false){
                 DataLoader dataLoader = new DataLoader(getApplication());
                 dataLoader.getTrivia(new DataLoader.DataLoadedHandler<Trivia>() {
 
@@ -909,12 +909,25 @@ public class PreviewActivity extends ActionBarActivity {
                     public void loaded(final Trivia data) {
                         if(data != null){
                             trivia = data;
+
+                            for(int i = 0 ; i< data.getPreguntas().size();i++){
+                                Log.e("Pregunta -> "+i+1,data.getPreguntas().get(i).getText());
+                                Log.e("tipo ",""+data.getPreguntas().get(i).getType());
+                                Log.e("nivel",""+data.getPreguntas().get(i).getLevel());
+                            }
                             Log.e("Trivia SM","Cargada");
                             fragmentoTriviaP = new TriviaMinFragment(trivia);
                             fragmentoTriviaMax = new TriviaMaxFragment(programaPreview,trivia, false);
                         }
                     }
+
+                    @Override
+                    public void error(String error) {
+                        super.error(error);
+                        Log.e("Preview error SM", " Trivia error --> " + error);
+                    }
                 }, "1763","","");
+
             }
         }
     }
