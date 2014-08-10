@@ -560,6 +560,11 @@ public class HoraryFragmentPrograms extends Fragment {
                                             String filename = getActivity().getCacheDir()
                                                     + File.separator + System.currentTimeMillis() + ".jpg";
 
+                                            Log.e("Largo del Caché",""+getActivity().getCacheDir().length());
+                                            Log.e("Total del Caché",""+getActivity().getCacheDir().getTotalSpace());
+                                            Log.e("Free del Caché",""+getActivity().getCacheDir().getFreeSpace());
+                                            Log.e("Total del Caché",""+getActivity().getCacheDir().getTotalSpace());
+                                            //Log.e("Largo del Caché",""+getActivity().getCacheDir().);
                                             File f = new File(filename);
                                             f.createNewFile();
                                             FileOutputStream fo = new FileOutputStream(f);

@@ -764,8 +764,9 @@ public class SecondPreviewActivity extends ActionBarActivity {
         bfOptions.inInputShareable = true ;               // Qué tipo de referencia se utiliza para recuperar los datos de mapa de bits después de estar claro, cuando se va a utilizar en el futuro
         bfOptions.inTempStorage = new  byte [32 * 1024];*/
 
-        bm.recycle();
-        Bitmap
+        //bm.recycle();
+
+
         super.onDestroy();
     }
 
