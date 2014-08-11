@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/trivia_nivel_facil"
+    android:layout_marginLeft="0dp"
+    android:layout_height="330dp"
+    android:layout_width="240dp">
+
+    <ImageView
+        android:id="@+id/trivia_imagen"
+        android:scaleType="centerCrop"
+        android:alpha="0.7"
+        android:background="@drawable/poster_placeholder"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
+
+    <ImageView
+        android:scaleType="centerCrop"
+        android:alpha="0.6"
+        android:background="@drawable/bg_trivia_level"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
+
+    <RelativeLayout
+        android:layout_height="48dp"
+        android:layout_width="match_parent"
+        android:background="#0B5276">
+
+        <ImageView
+            android:layout_marginTop="11dp"
+            android:layout_marginLeft="9dp"
+            android:layout_height="24dp"
+            android:layout_width="24dp"
+            android:background="@drawable/puntaje_blanco_trivia"
+            />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="13sp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="45dp"
+            android:text="Dificultad"/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:text="Fácil"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/trivia_boton_facil"
+        android:layout_height="35dp"
+        android:layout_width="110dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/jugar_trivia_level"
+        android:layout_marginBottom="55dp"/>
+
+    <TextView
+        android:id="@+id/trivia_text_vidas"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textSize="13sp"
+        android:text="Vidas"
+        android:textColor="@android:color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+
+    <ImageView
+        android:id="@+id/trivia_vida_facil_1"
+        android:layout_height="35dp"
+        android:layout_width="35dp"
+        android:background="@drawable/vida_foco_trivia"
+        android:layout_below="@+id/trivia_text_vidas"
+        android:layout_toLeftOf="@+id/trivia_vida_facil_2"/>
+
+    <ImageView
+        android:id="@+id/trivia_vida_facil_2"
+        android:layout_height="35dp"
+        android:layout_width="35dp"
+        android:background="@drawable/vida_foco_trivia"
+        android:layout_below="@+id/trivia_text_vidas"
+        android:layout_centerHorizontal="true"/>
+
+    <ImageView
+        android:id="@+id/trivia_vida_facil_3"
+        android:layout_height="35dp"
+        android:layout_width="35dp"
+        android:background="@drawable/vida_foco_trivia"
+        android:layout_below="@+id/trivia_text_vidas"
+        android:layout_toRightOf="@+id/trivia_vida_facil_2"/>
+
+</RelativeLayout>

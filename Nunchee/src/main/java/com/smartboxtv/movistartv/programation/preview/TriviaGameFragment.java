@@ -84,8 +84,9 @@ public class TriviaGameFragment extends Fragment {
     private ProgressBar progressBar;
     private final TareaAsincrona tarea = new TareaAsincrona();
 
-    private boolean  hayRespuesta = false;
+    private boolean hayRespuesta = false;
     private boolean CONNECT_SERVICES_PYTHON;
+    //private boolean isShare = false;
     private AQuery aq;
     private Resources res;
     private DataGameTrivia dataGameTrivia;
@@ -877,7 +878,7 @@ public class TriviaGameFragment extends Fragment {
                         }
                         @Override
                         public void onAnimationEnd(Animator animator) {
-                            esCorrecta(q.getRespuestas().get(0).isValor());
+                            esCorrecta(q.getRespuestas().get(1).isValor());
                         }
                         @Override
                         public void onAnimationCancel(Animator animator) {
@@ -937,7 +938,7 @@ public class TriviaGameFragment extends Fragment {
                         }
                         @Override
                         public void onAnimationEnd(Animator animator) {
-                            esCorrecta(q.getRespuestas().get(0).isValor());
+                            esCorrecta(q.getRespuestas().get(2).isValor());
                         }
                         @Override
                         public void onAnimationCancel(Animator animator) {
@@ -1088,30 +1089,32 @@ public class TriviaGameFragment extends Fragment {
 
             RelativeLayout r = (RelativeLayout) contenedorResultado.findViewById(R.id.trivia_contenedor_moneda);
             AnimationCustom animacion = new AnimationCustom(getActivity());
-
             animacion.rotacion(r);
-            //PUNTAJE_TOTAL = GameTrivia.getPUNTAJE(getActivity(),program.getTitle());
+
             PUNTAJE_TOTAL = dataGameTrivia.puntaje;
             Log.e("Puntaje obtenido",""+puntaje);
             PUNTAJE_TOTAL = PUNTAJE_TOTAL + puntaje;
             Log.e("Puntaje total",""+PUNTAJE_TOTAL);
-            //GameTrivia.setPUNTAJE(getActivity(), PUNTAJE_TOTAL, program.getTitle());
-            //GameTrivia.setVIDA_TRIVIA(getActivity(),VIDAS,program.getTitle());
 
-            dataGameTrivia.puntaje = puntaje;
+            dataGameTrivia.puntaje = PUNTAJE_TOTAL;
             dataGameTrivia.vidas = VIDAS;
+            dataGameTrivia.isShare = true;
+            dataBaseTrivia.updateGame(program.getTitle(),dataGameTrivia);
 
         }
         else{
 
             textoResultado.setText("Respuesta Incorrecta");
             textoPuntaje.setVisibility(View.GONE);
-            //nextLevel = false;
+
             d2 = res.getDrawable(R.drawable.icon_no_coins);
             imagen.setBackground(d2);
             VIDAS--;
             dataGameTrivia.next_level = false;
+            dataGameTrivia.isShare = false;
             dataGameTrivia.vidas = VIDAS;
+
+            dataBaseTrivia.updateGame(program.getTitle(),dataGameTrivia);
 
             if(VIDAS == 0){
                 Toast.makeText(getActivity(),"Has perdido todas la vidas ",Toast.LENGTH_LONG).show();
@@ -1119,29 +1122,34 @@ public class TriviaGameFragment extends Fragment {
             }
         }
 
+
         siguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 tarea.cancel(true);
+                boolean isShare = dataBaseTrivia.selectGameIsShare(program.getTitle());
                 if (tarea.isCancelled()) {
 
                     switch (NIVEL_ACTUAL){
-                        case 1 :    if(dataGameTrivia.game_over){
+                        case 1 :    if(dataGameTrivia.game_over){ // Verifica si el juego ha terminado y reinicia los valores iniciales
                                         dataGameTrivia.vidas = 3;
                                         dataGameTrivia.puntaje = 0;
                                         dataBaseTrivia.updateGame(program.Title,dataGameTrivia);
-                                        TriviaMaxFragment fragmentoTrivia = new TriviaMaxFragment(program,returnTrivia,true);
+
+                                        TriviaMaxFragment fragmentoTrivia = new TriviaMaxFragment(program,returnTrivia,true); // Fragmento de selección de nivel
                                         FragmentTransaction ft =getFragmentManager().beginTransaction();
                                         ft.addToBackStack(null);
                                         ft.replace(R.id.contenedor_trivia,fragmentoTrivia);
                                         ft.commit();
+
                                         break;
                                       }
 
-                                    if(trivia.getPreguntas().size() > 1){
+                                    if(trivia.getPreguntas().size() > 1){   // Verifica si exiten preguntas del nivel actual
                                         trivia.getPreguntas().remove(TRIVIA_ACTUAL);
                                         dataBaseTrivia.updateGame(program.Title,dataGameTrivia);
+
                                         TriviaGameFragment fragmentoTriviaJuego = new TriviaGameFragment(returnTrivia,trivia,program);
                                         FragmentTransaction ft = getFragmentManager().beginTransaction();
                                         ft.addToBackStack(null);
@@ -1149,10 +1157,11 @@ public class TriviaGameFragment extends Fragment {
                                         ft.commit();
 
                                     }
-                                    else if(trivia.getPreguntas().size() == 1){                                                             // Paso de nivel :O
+                                    else if(trivia.getPreguntas().size() == 1){ // Verifica que quede una pregunta para pasar el nivel
 
                                         if(VIDAS > 0){
 
+                                            PUNTAJE_TOTAL = dataGameTrivia.puntaje;
                                             dataGameTrivia.puntaje = 0;
 
                                             int puntaje = dataGameTrivia.puntaje_max_1;
@@ -1161,11 +1170,13 @@ public class TriviaGameFragment extends Fragment {
                                                 dataGameTrivia.puntaje_max_1 = puntaje;
                                                 DataLoader dataLoader = new DataLoader(getActivity());
                                                 dataLoader.updateScoreTrvia(""+PUNTAJE_TOTAL,"1", UserPreference.getIdNunchee(getActivity()),program.Title);
+                                                Log.e("Puntaje máximo",""+PUNTAJE_TOTAL);
                                             }
                                             if( dataGameTrivia.next_level){
                                                 if(!dataGameTrivia.bloqueo_nivel_2){
                                                     dataGameTrivia.bloqueo_nivel_2 = true;
                                                     dataGameTrivia.nivel = 2;
+                                                    isShare = true;
                                                     Toast.makeText(getActivity(),"Nivel 2 desbloqueado",Toast.LENGTH_SHORT).show();
                                                 }
                                             }
@@ -1178,10 +1189,17 @@ public class TriviaGameFragment extends Fragment {
                                         dataGameTrivia.next_level = true;
                                         dataGameTrivia.game_over = false;
                                         dataBaseTrivia.updateGame(program.Title,dataGameTrivia);
-                                        TriviaMaxFragment fragmentoTrivia = new TriviaMaxFragment(program,returnTrivia,true);
+
+                                        /*TriviaMaxFragment fragmentoTrivia = new TriviaMaxFragment(program,returnTrivia,true);
                                         FragmentTransaction ft =getFragmentManager().beginTransaction();
                                         ft.addToBackStack(null);
                                         ft.replace(R.id.contenedor_trivia,fragmentoTrivia);
+                                        ft.commit();*/
+
+                                        TriviaShare fragment = new TriviaShare(""+PUNTAJE_TOTAL,program.Title ,"1",returnTrivia,program, isShare);
+                                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                        ft.addToBackStack(null);
+                                        ft.replace(R.id.contenedor_trivia,fragment);
                                         ft.commit();
                                     }
                                     break ;
@@ -1203,8 +1221,9 @@ public class TriviaGameFragment extends Fragment {
                                     if(trivia.getPreguntas().size() > 1){
                                         trivia.getPreguntas().remove(TRIVIA_ACTUAL);
                                         dataBaseTrivia.updateGame(program.Title,dataGameTrivia);
+
                                         TriviaGameFragment fragmentoTriviaJuego = new TriviaGameFragment(returnTrivia,trivia,program);
-                                        FragmentTransaction ft =getFragmentManager().beginTransaction();
+                                        FragmentTransaction ft = getFragmentManager().beginTransaction();
                                         ft.addToBackStack(null);
                                         ft.replace(R.id.contenedor_trivia,fragmentoTriviaJuego);
                                         ft.commit();
@@ -1227,6 +1246,7 @@ public class TriviaGameFragment extends Fragment {
                                                 if(!dataGameTrivia.bloqueo_nivel_3){
                                                     dataGameTrivia.bloqueo_nivel_3 = true;
                                                     dataGameTrivia.nivel = 3;
+                                                    isShare = true;
                                                     Toast.makeText(getActivity(),"Nivel 3 desbloqueado",Toast.LENGTH_SHORT).show();
                                                 }
                                             }
@@ -1239,10 +1259,17 @@ public class TriviaGameFragment extends Fragment {
                                         dataGameTrivia.next_level = true;
                                         dataGameTrivia.game_over = false;
                                         dataBaseTrivia.updateGame(program.Title,dataGameTrivia);
-                                        TriviaMaxFragment fragmentoTrivia = new TriviaMaxFragment(program,returnTrivia,true);
+
+                                        /*TriviaMaxFragment fragmentoTrivia = new TriviaMaxFragment(program,returnTrivia,true);
                                         FragmentTransaction ft =getFragmentManager().beginTransaction();
                                         ft.addToBackStack(null);
                                         ft.replace(R.id.contenedor_trivia,fragmentoTrivia);
+                                        ft.commit();*/
+
+                                        TriviaShare fragment = new TriviaShare(""+PUNTAJE_TOTAL,program.Title ,"2",returnTrivia,program,isShare);
+                                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                        ft.addToBackStack(null);
+                                        ft.replace(R.id.contenedor_trivia,fragment);
                                         ft.commit();
                                     }
                                     break ;
@@ -1283,6 +1310,7 @@ public class TriviaGameFragment extends Fragment {
                                             if(dataGameTrivia.next_level){
 
                                                 Toast.makeText(getActivity(),"Nivel 3 desbloqueado",Toast.LENGTH_SHORT).show();
+                                                isShare = true;
                                             }
                                             else{
                                                 Toast.makeText(getActivity(),"Intenta de nuevo",Toast.LENGTH_SHORT).show();
@@ -1292,19 +1320,25 @@ public class TriviaGameFragment extends Fragment {
                                         dataGameTrivia.next_level = true;
                                         dataGameTrivia.game_over = false;
                                         dataBaseTrivia.updateGame(program.Title,dataGameTrivia);
-                                        TriviaMaxFragment fragmentoTrivia = new TriviaMaxFragment(program,returnTrivia,true);
+                                        /*TriviaMaxFragment fragmentoTrivia = new TriviaMaxFragment(program,returnTrivia,true);
                                         FragmentTransaction ft =getFragmentManager().beginTransaction();
                                         ft.addToBackStack(null);
                                         ft.replace(R.id.contenedor_trivia,fragmentoTrivia);
+                                        ft.commit();*/
+
+                                        //TriviaGameFragment fragmentoTriviaJuego = new TriviaGameFragment(returnTrivia,trivia,program);
+                                        TriviaShare fragment = new TriviaShare(""+PUNTAJE_TOTAL,program.Title ,"3",returnTrivia, program, isShare);
+                                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                        ft.addToBackStack(null);
+                                        //ft.replace(R.id.contenedor_trivia,fragmentoTriviaJuego);
+                                        ft.replace(R.id.contenedor_trivia,fragment);
                                         ft.commit();
                                     }
                                     break ;
                     }
-
                 }
             }
         });
-
     }
 
     @Override
@@ -1438,8 +1472,6 @@ public class TriviaGameFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-
-
         }
 
         @Override

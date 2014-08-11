@@ -108,11 +108,6 @@ public class TriviaMaxFragment extends Fragment {
         Log.e("puntaje 2",""+dataGameTrivia.puntaje_max_2);
         Log.e("puntaje 3",""+dataGameTrivia.puntaje_max_3);
 
-        //GameTrivia.setPUNTAJE(getActivity(),0,programa.getTitle());
-        //nivel = GameTrivia.getNIVEL_TRIVIA(getActivity(),programa.getTitle());
-        //vidas = GameTrivia.getVIDA_TRIVIA(getActivity(), programa.getTitle());
-
-
         Button botonFacil = (Button) contenedorFacil.findViewById(R.id.trivia_boton_facil);
         Button botonMedio = (Button) contenedorMedio.findViewById(R.id.trivia_boton_medio);
         Button botonDificil = (Button) contenedorDificil.findViewById(R.id.trivia_boton_dificil);
@@ -121,10 +116,33 @@ public class TriviaMaxFragment extends Fragment {
         fondoMedio = (ImageView) contenedorMedio.findViewById(R.id.trivia_imagen);
         fondoDificil = (ImageView) contenedorDificil.findViewById(R.id.trivia_imagen);
 
+        RelativeLayout blockPause1 = (RelativeLayout) contenedorFacil.findViewById(R.id.block_pause);
+        RelativeLayout blockPause2 = (RelativeLayout) contenedorMedio.findViewById(R.id.block_pause);
+        RelativeLayout blockPause3 = (RelativeLayout) contenedorDificil.findViewById(R.id.block_pause);
+
         ImageView lockMedio = (ImageView) contenedorMedio.findViewById(R.id.trivia_block_imagen);
         ImageView lockDificil = (ImageView) contenedorDificil.findViewById(R.id.trivia_block_imagen);
 
+        if(dataGameTrivia.nivel_1_activo){
+            blockPause1.setVisibility(View.VISIBLE);
+            blockPause2.setVisibility(View.GONE);
+            blockPause3.setVisibility(View.GONE);
+            //botonFacil.setBackground(getActivity().getResources().getDrawable(R.id.));
+        }
+        if(dataGameTrivia.nivel_2_activo){
+            blockPause1.setVisibility(View.GONE);
+            blockPause2.setVisibility(View.VISIBLE);
+            blockPause3.setVisibility(View.GONE);
 
+            //botonMedio.setBackground(getActivity().getResources().getDrawable(R.id.));
+        }
+        if(dataGameTrivia.nivel_3_activo){
+            blockPause1.setVisibility(View.GONE);
+            blockPause2.setVisibility(View.GONE);
+            blockPause3.setVisibility(View.VISIBLE);
+
+            //botonDificil.setBackground(getActivity().getResources().getDrawable(R.id.));
+        }
         //if(levelMedio == 1){
           if(bloqueoMedio){
 
@@ -162,6 +180,9 @@ public class TriviaMaxFragment extends Fragment {
             public void onClick(View view) {
                 //GameTrivia.setNIVEL_TRIVIA(getActivity(),1,programa.getTitle());
                 dataGameTrivia.nivel = 1;
+                dataGameTrivia.nivel_1_activo = true;
+                dataGameTrivia.nivel_2_activo = false;
+                dataGameTrivia.nivel_3_activo = false;
                 dataBaseTrivia.updateGame(programa.Title,dataGameTrivia);
                 setDataNivelFacil();
 
@@ -176,6 +197,9 @@ public class TriviaMaxFragment extends Fragment {
                   if(bloqueoMedio){
                     if(medio.size() > 0 && medio != null){
                         dataGameTrivia.nivel = 2;
+                        dataGameTrivia.nivel_1_activo = false;
+                        dataGameTrivia.nivel_2_activo = true;
+                        dataGameTrivia.nivel_3_activo = false;
                         dataBaseTrivia.updateGame(programa.Title,dataGameTrivia);
                         setDataNivelMedio();
                     }
@@ -194,6 +218,9 @@ public class TriviaMaxFragment extends Fragment {
                 if(bloqueoDificil){
                     if(dificil.size() > 0 && dificil != null){
                         dataGameTrivia.nivel = 1;
+                        dataGameTrivia.nivel_1_activo = false;
+                        dataGameTrivia.nivel_2_activo = false;
+                        dataGameTrivia.nivel_3_activo = true;
                         dataBaseTrivia.updateGame(programa.Title,dataGameTrivia);
                         setDataNivelDificil();
                     }

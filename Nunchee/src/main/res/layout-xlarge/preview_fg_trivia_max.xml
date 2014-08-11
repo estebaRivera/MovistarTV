@@ -51,11 +51,13 @@
                     android:layout_width="match_parent">
 
                     <!--Nivel Facil-->
+
                     <RelativeLayout
                         android:id="@+id/trivia_nivel_facil"
                         android:layout_marginLeft="0dp"
                         android:layout_height="390dp"
                         android:layout_width="280dp">
+
 
                         <ImageView
                             android:id="@+id/trivia_imagen"
@@ -150,6 +152,102 @@
                             android:background="@drawable/vida_foco_trivia"
                             android:layout_below="@+id/trivia_text_vidas"
                             android:layout_toRightOf="@+id/trivia_vida_facil_2"/>
+
+                        <!--  bloque pausa-->
+                        <RelativeLayout
+                            android:id="@+id/block_pause"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="153dp">
+
+                            <RelativeLayout
+                                android:background="#95B82A"
+                                android:layout_width="match_parent"
+                                android:layout_height="60dp">
+
+                                <TextView
+                                    android:text="Juego Actual"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="19sp"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_marginTop="60dp"
+                                android:background="#55000000"
+                                android:layout_width="match_parent"
+                                android:layout_height="44dp">
+
+                                <ImageView
+                                    android:background="@drawable/puntaje_blanco_trivia"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp" />
+
+                                <TextView
+                                    android:text="Puntaje"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="16sp"
+                                    android:layout_marginLeft="45dp"
+                                    android:layout_centerVertical="true"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+
+                                <TextView
+                                    android:id="@+id/score_oficial"
+                                    android:text="0"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="16sp"
+                                    android:layout_marginLeft="45dp"
+                                    android:layout_centerVertical="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_marginTop="109dp"
+                                android:background="#55000000"
+                                android:layout_width="match_parent"
+                                android:layout_height="44dp">
+
+                                <ImageView
+                                    android:background="@drawable/puntaje_blanco_trivia"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp" />
+
+                                <TextView
+                                    android:text="Dificultad"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="16sp"
+                                    android:layout_marginLeft="45dp"
+                                    android:layout_centerVertical="true"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+
+                                <TextView
+                                    android:text="Fácil"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="16sp"
+                                    android:layout_marginLeft="45dp"
+                                    android:layout_centerVertical="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+
+                            </RelativeLayout>
+
+                        </RelativeLayout>
 
                     </RelativeLayout>
 
@@ -264,6 +362,101 @@
                             android:layout_centerVertical="true"
                             android:layout_centerHorizontal="true"/>
 
+                        <!--  bloque pausa-->
+                        <RelativeLayout
+                            android:visibility="gone"
+                            android:id="@+id/block_pause"
+                            android:layout_width="match_parent"
+                            android:layout_height="153dp">
+
+                            <RelativeLayout
+                                android:background="#95B82A"
+                                android:layout_width="match_parent"
+                                android:layout_height="60dp">
+
+                                <TextView
+                                    android:text="Juego Actual"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="19sp"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_marginTop="60dp"
+                                android:background="#55000000"
+                                android:layout_width="match_parent"
+                                android:layout_height="44dp">
+
+                                <ImageView
+                                    android:background="@drawable/puntaje_blanco_trivia"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp" />
+
+                                <TextView
+                                    android:text="Puntaje"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="16sp"
+                                    android:layout_marginLeft="45dp"
+                                    android:layout_centerVertical="true"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+
+                                <TextView
+                                    android:id="@+id/score_oficial"
+                                    android:text="0"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="16sp"
+                                    android:layout_marginLeft="45dp"
+                                    android:layout_centerVertical="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_marginTop="109dp"
+                                android:background="#55000000"
+                                android:layout_width="match_parent"
+                                android:layout_height="44dp">
+
+                                <ImageView
+                                    android:background="@drawable/puntaje_blanco_trivia"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp" />
+
+                                <TextView
+                                    android:text="Dificultad"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="16sp"
+                                    android:layout_marginLeft="45dp"
+                                    android:layout_centerVertical="true"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+
+                                <TextView
+                                    android:text="Medio"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="16sp"
+                                    android:layout_marginLeft="45dp"
+                                    android:layout_centerVertical="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+
+                            </RelativeLayout>
+                        </RelativeLayout>
+
                     </RelativeLayout>
 
                     <!--Nivel Dificil-->
@@ -377,6 +570,102 @@
                             android:background="@drawable/lock"
                             android:layout_centerVertical="true"
                             android:layout_centerHorizontal="true"/>
+
+                        <!--  bloque pausa-->
+                        <RelativeLayout
+                            android:visibility="gone"
+                            android:id="@+id/block_pause"
+                            android:layout_width="match_parent"
+                            android:layout_height="153dp">
+
+                            <RelativeLayout
+                                android:background="#95B82A"
+                                android:layout_width="match_parent"
+                                android:layout_height="60dp">
+
+                                <TextView
+                                    android:text="Juego Actual"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="19sp"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_marginTop="60dp"
+                                android:background="#55000000"
+                                android:layout_width="match_parent"
+                                android:layout_height="44dp">
+
+                                <ImageView
+                                    android:background="@drawable/puntaje_blanco_trivia"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp" />
+
+                                <TextView
+                                    android:text="Puntaje"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="16sp"
+                                    android:layout_marginLeft="45dp"
+                                    android:layout_centerVertical="true"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+
+                                <TextView
+                                    android:id="@+id/score_oficial"
+                                    android:text="0"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="16sp"
+                                    android:layout_marginLeft="45dp"
+                                    android:layout_centerVertical="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_marginTop="109dp"
+                                android:background="#55000000"
+                                android:layout_width="match_parent"
+                                android:layout_height="44dp">
+
+                                <ImageView
+                                    android:background="@drawable/puntaje_blanco_trivia"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp" />
+
+                                <TextView
+                                    android:text="Dificultad"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="16sp"
+                                    android:layout_marginLeft="45dp"
+                                    android:layout_centerVertical="true"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+
+                                <TextView
+                                    android:text="Difícil"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="16sp"
+                                    android:layout_marginLeft="45dp"
+                                    android:layout_centerVertical="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+
+                            </RelativeLayout>
+
+                        </RelativeLayout>
 
                     </RelativeLayout>
 

@@ -22,6 +22,13 @@ public class DataBaseTrivia extends SQLiteOpenHelper{
                                                             ",  puntaje_max_nivel_1 TEXT" +
                                                             ",  puntaje_max_nivel_2 TEXT" +
                                                             ",  puntaje_max_nivel_3 TEXT" +
+
+                                                            // Valores nuevos
+                                                            ",  nivel_activo_3 TEXT" +
+                                                            ",  nivel_activo_2 TEXT" +
+                                                            ",  nivel_activo_1 TEXT" +
+                                                            ",  is_share TEXT" +
+
                                                             ",  vidas TEXT" +
                                                             ",  puntaje_actual TEXT" +
                                                             ",  game_over TEXT" +
@@ -54,8 +61,6 @@ public class DataBaseTrivia extends SQLiteOpenHelper{
 
         SQLiteDatabase db = getWritableDatabase();
         ContentValues valores = new ContentValues();
-
-        //valores.put("id", id);
         valores.put("nivel_actual", dataGameTrivia.nivel);
         valores.put("vidas", dataGameTrivia.vidas);
         valores.put("puntaje_actual", dataGameTrivia.puntaje);
@@ -64,6 +69,11 @@ public class DataBaseTrivia extends SQLiteOpenHelper{
         String valor2;
         String valor3;
 
+        String activo;
+        String activo2;
+        String activo3;
+
+        // set data bloqueos por niveles
         if(dataGameTrivia.bloqueo_nivel_1){
             valor = "true";
         }
@@ -83,9 +93,45 @@ public class DataBaseTrivia extends SQLiteOpenHelper{
             valor3 = "false";
         }
 
+
+        // set data nivel actual
+        if(dataGameTrivia.nivel_1_activo){
+            activo = "true";
+        }
+        else{
+            activo = "false";
+        }
+        if(dataGameTrivia.nivel_2_activo){
+            activo2 = "true";
+        }
+        else{
+            activo2 = "false";
+        }
+        if(dataGameTrivia.nivel_3_activo){
+            activo3 = "true";
+        }
+        else{
+            activo3 = "false";
+        }
+
+        // Is Share
+        String isShare;
+        if(dataGameTrivia.isShare){
+            isShare = "true";
+        }
+        else{
+            isShare = "false";
+        }
+
         valores.put("bloqueo_nivel_1", valor);
         valores.put("bloqueo_nivel_2", valor2);
         valores.put("bloqueo_nivel_3", valor3);
+
+        valores.put("nivel_activo_1", activo);
+        valores.put("nivel_activo_2", activo2);
+        valores.put("nivel_activo_3", activo3);
+
+        valores.put("is_share", isShare);
 
         valores.put("puntaje_max_nivel_1", dataGameTrivia.puntaje_max_1);
         valores.put("puntaje_max_nivel_2", dataGameTrivia.puntaje_max_2);
@@ -139,7 +185,7 @@ public class DataBaseTrivia extends SQLiteOpenHelper{
 
         SQLiteDatabase db = getReadableDatabase();
         String[] valores_recuperar = {"vidas", "puntaje_actual", "nivel_actual","puntaje_max_nivel_1","puntaje_max_nivel_2","puntaje_max_nivel_3","bloqueo_nivel_1"
-                ,"bloqueo_nivel_2","bloqueo_nivel_3","game_over","next_level"};
+                ,"bloqueo_nivel_2","bloqueo_nivel_3","game_over","next_level","nivel_activo_1","nivel_activo_2","nivel_activo_3","is_share"};
 
         Cursor c = db.query("game_trivia", valores_recuperar,"id_trivia = '"+ id+"'",
                 null, null, null, null, null);
@@ -162,8 +208,19 @@ public class DataBaseTrivia extends SQLiteOpenHelper{
                 boolean game_over = Boolean.parseBoolean(c.getString(9));
                 boolean next_level = Boolean.parseBoolean(c.getString(10));
 
-                dataGameTrivia = new DataGameTrivia(vidas,puntaje,nivel,puntaje_max_1,puntaje_max_2,puntaje_max_3,bloqueo_nivel_1,bloqueo_nivel_2,bloqueo_nivel_3,game_over, next_level);
+                boolean activo_nivel_1 = Boolean.parseBoolean(c.getString(11));
+                boolean activo_nivel_2 = Boolean.parseBoolean(c.getString(12));
+                boolean activo_nivel_3 = Boolean.parseBoolean(c.getString(13));
+
+                boolean is_share = Boolean.parseBoolean(c.getString(14));
+
+                dataGameTrivia = new DataGameTrivia(vidas,puntaje,nivel,puntaje_max_1,puntaje_max_2,puntaje_max_3,bloqueo_nivel_1,bloqueo_nivel_2,bloqueo_nivel_3,game_over, next_level,
+                        activo_nivel_1,activo_nivel_2,activo_nivel_3,is_share);
                 Log.e("get", c.getString(0));
+                /*Log.e("activo nivel 1", c.getString(11));
+                Log.e("activo nivel 2", c.getString(12));
+                Log.e("activo nivel 3", c.getString(13));
+                Log.e("is share", c.getString(14));*/
 
                 db.close();
                 c.close();
@@ -176,6 +233,32 @@ public class DataBaseTrivia extends SQLiteOpenHelper{
             }
     }
 
+    public boolean selectGameIsShare(String id) {
+
+        SQLiteDatabase db = getReadableDatabase();
+        String[] valores_recuperar = {"is_share"};
+
+        Cursor c = db.query("game_trivia", valores_recuperar,"id_trivia = '"+ id+"'",
+                null, null, null, null, null);
+        DataGameTrivia dataGameTrivia;
+
+        Log.e("Select","valor "+id);
+
+        c.moveToNext();
+        if(c != null && c.getCount()>0 ){
+
+            boolean is_share = Boolean.parseBoolean(c.getString(0));
+
+            db.close();
+            c.close();
+            return is_share;
+        }
+        else{
+            db.close();
+            c.close();
+            return false;
+        }
+    }
     // Puntaje Maximo nivel fácil
     public int selectPuntajeMaxNivel1(String id){
 

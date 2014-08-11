@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,13 +71,13 @@ public class DialogShare extends DialogFragment {
         Typeface normal = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SegoeWP.ttf");
         Typeface bold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SegoeWP-Bold.ttf");
 
-
         TextView txtTitle  = (TextView) rootView.findViewById(R.id.header_textview);
         Button button = (Button) rootView.findViewById(R.id.post_button);
         final EditText editText = (EditText)rootView.findViewById(R.id.post_edittext);
         txtTitle.setTypeface(bold);
         button.setTypeface(normal);
         AQuery aq = new AQuery(rootView);
+
         if(!isTw){
 
             aq.id(R.id.image_preview).image(this.imageUrl);
@@ -115,6 +116,7 @@ public class DialogShare extends DialogFragment {
                                     DialogMessage dialogMessage = new DialogMessage("");
                                     dialogMessage.show(getActivity().getSupportFragmentManager(), "");
                                 } else {
+                                    Log.e("Error 1234","--> "+e.getMessage());
                                     DialogError dialogError = new DialogError("Su mensaje no pudo ser publicado");
                                     dialogError.show(getActivity().getSupportFragmentManager(),"");
                                 }

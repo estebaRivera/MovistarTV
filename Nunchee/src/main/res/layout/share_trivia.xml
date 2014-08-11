@@ -6,7 +6,8 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:background="@drawable/icon_not_big"
+        android:id="@+id/mono_yuhuu"
+        android:background="@drawable/icon_win"
         android:layout_above="@+id/yuhuu"
         android:layout_marginBottom="25dp"
         android:layout_centerHorizontal="true"
@@ -33,9 +34,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <ImageView
+        android:id="@+id/share_back"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <LinearLayout
         android:id="@+id/wrapper_score"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="30dp"
         android:layout_below="@id/text_trivia_puntaje"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
@@ -65,23 +71,25 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
-        android:layout_marginTop="30dp"
+        android:id="@+id/wrapper_share"
+        android:layout_marginTop="35dp"
         android:layout_below="@id/wrapper_score"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp">
+        android:layout_width="530dp"
+        android:layout_height="70dp">
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
             <ImageView
                 android:background="@drawable/icon_share"
-                android:layout_marginRight="20dp"
+                android:layout_marginRight="25dp"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:layout_width="40dp"
-                android:layout_height="19dp" />
+                android:layout_height="19dp"
+                android:layout_marginLeft="10dp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -97,21 +105,24 @@
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:layout_width="180dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp" />
         </RelativeLayout>
         <ImageView
             android:id="@+id/icon_facebook"
             android:background="@drawable/icon_fb"
-            android:layout_marginRight="20dp"
-            android:layout_width="60dp"
-            android:layout_height="60dp" />
+            android:layout_marginRight="10dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="30dp" />
 
         <ImageView
             android:id="@+id/icon_twitter"
             android:background="@drawable/icon_tw"
             android:layout_marginRight="10dp"
-            android:layout_width="60dp"
-            android:layout_height="60dp" />
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="20dp" />
     </LinearLayout>
 
 </RelativeLayout>
