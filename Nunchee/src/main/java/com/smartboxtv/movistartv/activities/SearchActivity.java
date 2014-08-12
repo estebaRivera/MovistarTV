@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -75,15 +76,7 @@ public class SearchActivity extends ActionBarActivity {
     //private RelativeLayout contenedorMenuBar;
     private RelativeLayout contenedorNoResult;
     private RelativeLayout contenedorResult;
-    //private RelativeLayout contenedorActionbarOption;
-    /*private boolean isConfiguration = false;
-    private boolean isMessage = false;
-    private boolean isNotification = false;
-    private boolean isSlideMenuOpen = false;
-    private boolean fbActivate;
-    private boolean showSearch = false;
-    private boolean showMenuLive = false;
-    private boolean isTrendingOpen = true;*/
+    private File file;
     private List<Program> programList = new ArrayList<Program>();
 
     @Override
@@ -239,6 +232,8 @@ public class SearchActivity extends ActionBarActivity {
                             Intent intent = new Intent(SearchActivity.this, PreviewActivity.class);
                             intent.putExtra("background", filename);
                             intent.putExtra("programa", p);
+                            intent.putExtra("file", f);
+                            intent.putExtra("file_name",filename);
                             startActivity(intent);
                             overridePendingTransition(R.anim.zoom_in_preview, R.anim.nada);
 
@@ -262,6 +257,7 @@ public class SearchActivity extends ActionBarActivity {
         n.setVisibility(View.GONE);
         RelativeLayout r = (RelativeLayout) findViewById(R.id.contenedor_resultado);
         r.setVisibility(View.GONE);
+        //Log.e("Nombre del Archivo", file.getName());
     }
 
     public void loading(){
@@ -297,6 +293,7 @@ public class SearchActivity extends ActionBarActivity {
         ImageView back = (ImageView) findViewById(R.id.back);
         Bundle extra = this.getIntent().getExtras();
         String path = extra.getString("background");
+        file = (File) extra.get("file");
         Bitmap bm = BitmapFactory.decodeFile(path);
         back.setImageBitmap(bm);
     }
@@ -328,6 +325,8 @@ public class SearchActivity extends ActionBarActivity {
 
     @Override
     protected void onDestroy() {
+        file.getFreeSpace();
+        file.delete();
         super.onDestroy();
     }
 }

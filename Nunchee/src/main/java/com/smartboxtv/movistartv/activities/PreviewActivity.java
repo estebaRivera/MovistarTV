@@ -188,6 +188,8 @@ public class PreviewActivity extends ActionBarActivity {
     private boolean IReminderProgram = false;
     private boolean IShare = false;
 
+    private File file;
+
     // Share Facebook
     private static final List<String> PERMISSIONS = Arrays.asList("publish_actions");
     private static final String PENDING_PUBLISH_KEY = "pendingPublishReauthorization";
@@ -214,6 +216,7 @@ public class PreviewActivity extends ActionBarActivity {
         programa = (Program) extra.get("programa");
 
         path =   extra.getString("background");
+        file = (File) extra.get("file");
         Bitmap image = BitmapFactory.decodeFile(path);
 
         background = (ImageView) findViewById(R.id.background);
@@ -341,6 +344,7 @@ public class PreviewActivity extends ActionBarActivity {
                     i.putExtra("share",IShare);
                     i.putExtra("reminder", IReminderProgram);
                     i.putExtra("favorite",AddFavorite);
+                    i.putExtra("file",file);
                     i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                     startActivity(i);
                     overridePendingTransition(R.anim.zoom_in_preview, R.anim.nada);
@@ -374,6 +378,7 @@ public class PreviewActivity extends ActionBarActivity {
                     i.putExtra("share",IShare);
                     i.putExtra("reminder", IReminderProgram);
                     i.putExtra("favorite",AddFavorite);
+                    i.putExtra("file",file);
                     i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                     startActivity(i);
                     overridePendingTransition(R.anim.zoom_in_preview, R.anim.nada);
@@ -406,6 +411,7 @@ public class PreviewActivity extends ActionBarActivity {
                     i.putExtra("share",IShare);
                     i.putExtra("reminder", IReminderProgram);
                     i.putExtra("favorite",AddFavorite);
+                    i.putExtra("file",file);
                     i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                     startActivity(i);
                     overridePendingTransition(R.anim.zoom_in_preview, R.anim.nada);
@@ -1095,6 +1101,7 @@ public class PreviewActivity extends ActionBarActivity {
             i.putExtra("share",IShare);
             i.putExtra("reminder", IReminderProgram);
             i.putExtra("favorite",AddFavorite);
+            i.putExtra("file",file);
             i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(i);
             overridePendingTransition(R.anim.zoom_in_preview, R.anim.nada);
@@ -1853,6 +1860,7 @@ public class PreviewActivity extends ActionBarActivity {
 
                         Intent i = new Intent(PreviewActivity.this, SearchActivity.class);
                         i.putExtra("background", filename);
+                        i.putExtra("file", f);
                         startActivityForResult(i, 0);
                         overridePendingTransition(R.anim.fade_actvity, R.anim.fade_out_activity);
 

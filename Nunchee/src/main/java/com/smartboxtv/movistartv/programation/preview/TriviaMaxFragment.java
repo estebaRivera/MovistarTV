@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.androidquery.AQuery;
 import com.smartboxtv.movistartv.R;
@@ -96,7 +97,7 @@ public class TriviaMaxFragment extends Fragment {
         bloqueoDificil = dataGameTrivia.bloqueo_nivel_3;
         vidas = dataGameTrivia.vidas;
 
-        Log.e("nivel",""+dataGameTrivia.nivel);
+        /*Log.e("nivel",""+dataGameTrivia.nivel);
         Log.e("puntaje",""+dataGameTrivia.puntaje);
         Log.e("vidas",""+dataGameTrivia.vidas);
 
@@ -106,7 +107,7 @@ public class TriviaMaxFragment extends Fragment {
 
         Log.e("puntaje 1",""+dataGameTrivia.puntaje_max_1);
         Log.e("puntaje 2",""+dataGameTrivia.puntaje_max_2);
-        Log.e("puntaje 3",""+dataGameTrivia.puntaje_max_3);
+        Log.e("puntaje 3",""+dataGameTrivia.puntaje_max_3);*/
 
         Button botonFacil = (Button) contenedorFacil.findViewById(R.id.trivia_boton_facil);
         Button botonMedio = (Button) contenedorMedio.findViewById(R.id.trivia_boton_medio);
@@ -120,6 +121,10 @@ public class TriviaMaxFragment extends Fragment {
         RelativeLayout blockPause2 = (RelativeLayout) contenedorMedio.findViewById(R.id.block_pause);
         RelativeLayout blockPause3 = (RelativeLayout) contenedorDificil.findViewById(R.id.block_pause);
 
+        TextView  text1 = (TextView) contenedorFacil.findViewById(R.id.score_oficial);
+        TextView  text2 = (TextView) contenedorMedio.findViewById(R.id.score_oficial);
+        TextView  text3 = (TextView) contenedorDificil.findViewById(R.id.score_oficial);
+
         ImageView lockMedio = (ImageView) contenedorMedio.findViewById(R.id.trivia_block_imagen);
         ImageView lockDificil = (ImageView) contenedorDificil.findViewById(R.id.trivia_block_imagen);
 
@@ -127,21 +132,26 @@ public class TriviaMaxFragment extends Fragment {
             blockPause1.setVisibility(View.VISIBLE);
             blockPause2.setVisibility(View.GONE);
             blockPause3.setVisibility(View.GONE);
-            //botonFacil.setBackground(getActivity().getResources().getDrawable(R.id.));
+            text1.setText("0");
+            //text1.setText(dataGameTrivia.puntaje);
+            botonFacil.setBackground(getActivity().getResources().getDrawable(R.drawable.btn_continuar));
         }
         if(dataGameTrivia.nivel_2_activo){
             blockPause1.setVisibility(View.GONE);
             blockPause2.setVisibility(View.VISIBLE);
             blockPause3.setVisibility(View.GONE);
-
-            //botonMedio.setBackground(getActivity().getResources().getDrawable(R.id.));
+            text2.setText(dataGameTrivia.puntaje);
+            botonMedio.setBackground(getActivity().getResources().getDrawable(R.drawable.btn_continuar));
         }
         if(dataGameTrivia.nivel_3_activo){
             blockPause1.setVisibility(View.GONE);
             blockPause2.setVisibility(View.GONE);
             blockPause3.setVisibility(View.VISIBLE);
-
-            //botonDificil.setBackground(getActivity().getResources().getDrawable(R.id.));
+            text3.setText(dataGameTrivia.puntaje);
+            botonDificil.setBackground(getActivity().getResources().getDrawable(R.drawable.btn_continuar));
+        }
+        else if(!dataGameTrivia.nivel_3_activo && !dataGameTrivia.nivel_3_activo && !dataGameTrivia.nivel_3_activo){
+            dataGameTrivia.puntaje = 0;
         }
         //if(levelMedio == 1){
           if(bloqueoMedio){

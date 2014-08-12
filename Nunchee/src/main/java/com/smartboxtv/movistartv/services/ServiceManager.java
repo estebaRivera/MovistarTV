@@ -13,7 +13,9 @@ import com.androidquery.callback.AjaxStatus;
 import com.smartboxtv.movistartv.data.database.UserNunchee;
 import com.smartboxtv.movistartv.data.models.Channel;
 import com.smartboxtv.movistartv.data.models.FeedJSON;
+import com.smartboxtv.movistartv.data.models.Image;
 import com.smartboxtv.movistartv.data.models.Program;
+import com.smartboxtv.movistartv.data.models.Recommendations;
 import com.smartboxtv.movistartv.data.models.Trivia;
 import com.smartboxtv.movistartv.data.models.TriviaAnswers;
 import com.smartboxtv.movistartv.data.models.TriviaQuestion;
@@ -963,6 +965,49 @@ public class ServiceManager {
                     }
                 } else {
                     Log.e(TAG + " getRecommendation", ERROR);
+                }
+            }
+        });
+    }
+
+    public void getRecommendationRandom(final ServiceManagerHandler<Program> handler, String userNunchee, String deviceType){
+
+        userNunchee = "53bdadc825822c11f84fc067";
+        deviceType = "1";
+
+        URL = BASE_URL_SERVICES_RECOMMENDATION+"/getRandom?user="+userNunchee+"&device_type="+deviceType+"&program_image_type="+PROGRAM_TYPE_POSTER+"&limit=24";
+
+        aq.ajax(URL,JSONObject.class, new AjaxCallback<JSONObject>(){
+
+            @Override
+            public void callback(String url, JSONObject object, AjaxStatus status) {
+
+                if(object != null){
+                        List<Program> listProgram = new ArrayList<Program>();
+                    try{
+                        JSONArray recommendations = object.getJSONObject("data").getJSONArray("recommendation");
+
+                        for(int i = 0 ; i < recommendations.length() ;i++){
+                            Program program = new Program();
+                            program.Title = recommendations.getJSONObject(i).getString("name");
+                            program.IdProgram = recommendations.getJSONObject(i).getString("id");
+                            program.listaImage = new ArrayList<Image>();
+                            Image image = new Image();
+                            image.setImagePath(recommendations.getJSONObject(i).getString("image"));
+                            program.listaImage.add(image);
+                            listProgram.add(program);
+                        }
+
+                        handler.loaded(listProgram);
+                    }
+                    catch(Exception e){
+                        e.printStackTrace();
+                        handler.error(e.getMessage());
+                        Log.e(TAG+" getRecommendation",e.getMessage());
+                    }
+                }
+                else{
+                    Log.e(TAG + " getRecommendationRandom", ERROR);
                 }
             }
         });

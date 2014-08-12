@@ -105,6 +105,8 @@ public class SecondPreviewActivity extends ActionBarActivity {
     private Program programa;
     private Program programaPreview;
 
+    private File file;
+
     /*private boolean esTrivia = false;
     private boolean esEncuesta = false;
     private boolean esTw = false;
@@ -215,7 +217,7 @@ public class SecondPreviewActivity extends ActionBarActivity {
         programa = (Program) extra.get("programa");
         programaPreview = (Program) extra.get("programaPreview");
         path = extra.getString("background");
-
+        file = (File) extra.get("file");
 
         ICheckIn = extra.getBoolean("check");
         ILike = extra.getBoolean("like");
@@ -231,6 +233,8 @@ public class SecondPreviewActivity extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
+        file.getFreeSpace();
+        file.delete();
         finish();
     }
 
@@ -376,6 +380,7 @@ public class SecondPreviewActivity extends ActionBarActivity {
 
                         Intent i = new Intent(SecondPreviewActivity.this, SearchActivity.class);
                         i.putExtra("background", filename);
+                        i.putExtra("file", f);
                         startActivityForResult(i, 0);
                         overridePendingTransition(R.anim.fade_actvity, R.anim.fade_out_activity);
 
@@ -757,16 +762,8 @@ public class SecondPreviewActivity extends ActionBarActivity {
 
     @Override
     protected void onDestroy() {
-        /*Bitmap bm = BitmapFactory.decodeFile(path);
-        BitmapFactory.Options bfOptions = new  BitmapFactory.Options ();
-        bfOptions.inDither = false ;                      // Desactivar tramado
-        bfOptions.inPurgeable = true ;                    // Dile a GC que si se necesita memoria libre, el mapa de bits se puede borrar
-        bfOptions.inInputShareable = true ;               // Qué tipo de referencia se utiliza para recuperar los datos de mapa de bits después de estar claro, cuando se va a utilizar en el futuro
-        bfOptions.inTempStorage = new  byte [32 * 1024];*/
-
-        //bm.recycle();
-
-
+        file.getFreeSpace();
+        file.delete();
         super.onDestroy();
     }
 

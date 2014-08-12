@@ -310,6 +310,7 @@ public class FavoriteFragmentDay extends Fragment {
                                 Intent i = new Intent(getActivity(), PreviewActivity.class);
                                 i.putExtra("background", filename);
                                 i.putExtra("programa", p);
+                                i.putExtra("file",f);
                                 startActivity(i);
                                 getActivity().overridePendingTransition(R.anim.zoom_in_preview, R.anim.nada);
                                 //context.startActivity(i);
@@ -414,6 +415,7 @@ public class FavoriteFragmentDay extends Fragment {
                             Intent intent = new Intent(getActivity(), PreviewActivity.class);
                             intent.putExtra("background", filename);
                             intent.putExtra("programa", p);
+                            intent.putExtra("file",f);
                             startActivity(intent);
                             getActivity().overridePendingTransition(R.anim.zoom_in_preview, R.anim.nada);
                             //context.startActivity(i);
@@ -591,6 +593,7 @@ public class FavoriteFragmentDay extends Fragment {
                                 Intent i = new Intent(getActivity(), PreviewActivity.class);
                                 i.putExtra("background", filename);
                                 i.putExtra("programa", p);
+                                i.putExtra("file",f);
                                 startActivity(i);
                                 getActivity().overridePendingTransition(R.anim.zoom_in_preview, R.anim.nada);
 

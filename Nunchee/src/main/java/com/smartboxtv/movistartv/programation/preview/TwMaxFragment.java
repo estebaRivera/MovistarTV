@@ -362,8 +362,6 @@ public class TwMaxFragment extends Fragment {
                     Date d = new Date();
                     //creating DateFormat for converting time from local timezone to GMT
                     DateFormat converter = new SimpleDateFormat("dd/MM/yyyy:HH:mm:ss");
-
-                    //getting GMT timezone, you can get any timezone e.g. UTC
                     Date datetw;
                     converter.setTimeZone(TimeZone.getTimeZone("GMT+4"));
 
@@ -401,6 +399,7 @@ public class TwMaxFragment extends Fragment {
                     usuario.setText("@" + data.get(i).getName());
                     contenedorTws.addView(tws);
                 }
+
                 borraLoading();
             }
 

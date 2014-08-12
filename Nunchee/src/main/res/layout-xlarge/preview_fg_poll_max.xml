@@ -46,7 +46,7 @@
                 android:layout_marginRight="25dp"
                 android:id="@+id/foto_polls"
                 android:background="@drawable/icon_polls"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="45dp"
                 android:layout_alignParentRight="true" />
 
             <LinearLayout
@@ -902,19 +902,19 @@
 
                 <Button
                     android:id="@+id/share_tw"
-                    android:layout_height="80dp"
-                    android:layout_width="85dp"
+                    android:layout_height="75dp"
+                    android:layout_width="75dp"
                     android:background="@drawable/icon_tw"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="70dp" />
+                    android:layout_marginRight="50dp" />
 
                 <Button
                     android:id="@+id/share_facebook"
-                    android:layout_height="80dp"
-                    android:layout_width="85dp"
+                    android:layout_height="75dp"
+                    android:layout_width="75dp"
                     android:background="@drawable/icon_fb"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="150dp" />
+                    android:layout_marginRight="160dp" />
 
                 <TextView
                     android:layout_width="170dp"

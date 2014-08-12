@@ -67,7 +67,7 @@
         <RelativeLayout
             android:id="@+id/contenedor_trivia_juego_zona"
             android:layout_below="@+id/contenedor_trivia_juego_tiempo"
-            android:layout_height="370dp"
+            android:layout_height="374dp"
             android:layout_width="match_parent">
 
             <!-- trivia con imagen-->
@@ -735,15 +735,6 @@
                         android:layout_height="330dp"
                         android:layout_width="wrap_content">
 
-                        <ImageView
-                            android:id="@+id/trivia_imagen1"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="100dp"
-                            android:layout_height="240dp"
-                            android:layout_width="190dp"
-                            android:background="#FFFFFF"
-                            android:scaleType="centerCrop"/>
-
                         <!-- IMAGEN 1-->
                         <RelativeLayout
                             android:id="@+id/contenedor_trivia_imagen1"
@@ -757,7 +748,6 @@
                                 android:layout_alignParentTop="true"
                                 android:layout_height="240dp"
                                 android:layout_width="match_parent"
-                                android:background="#FFFFFF"
                                 android:scaleType="centerCrop"/>
 
                             <ImageView
@@ -795,7 +785,6 @@
                                 android:layout_height="240dp"
                                 android:layout_alignParentTop="true"
                                 android:layout_width="match_parent"
-                                android:background="#FFFFFF"
                                 android:scaleType="centerCrop"/>
 
                             <ImageView
@@ -869,7 +858,6 @@
                                 android:layout_height="240dp"
                                 android:layout_alignParentTop="true"
                                 android:layout_width="match_parent"
-                                android:background="#FFFFFF"
                                 android:scaleType="centerCrop"/>
 
                             <ImageView
@@ -904,7 +892,7 @@
 
         <RelativeLayout
             android:id="@+id/contenedor_trivia_juego_pie"
-            android:layout_height="90dp"
+            android:layout_height="80dp"
             android:layout_width="match_parent"
             android:layout_below="@+id/contenedor_trivia_juego_zona">
 
@@ -913,8 +901,8 @@
                 android:alpha="0.9"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp">
 

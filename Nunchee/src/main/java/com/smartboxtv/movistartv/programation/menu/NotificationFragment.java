@@ -161,6 +161,7 @@ public class NotificationFragment extends Fragment {
                             Intent intent = new Intent(getActivity(), PreviewActivity.class);
                             intent.putExtra("background", filename);
                             intent.putExtra("programa",p );
+                            intent.putExtra("file",f);
                             startActivity(intent);
                             getActivity().overridePendingTransition(R.anim.zoom_in_preview, R.anim.nada);
                             rootView.setVisibility(View.GONE);

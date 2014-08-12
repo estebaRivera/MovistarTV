@@ -30,6 +30,7 @@ import com.smartboxtv.movistartv.R;
 import com.smartboxtv.movistartv.data.modelssm.datarecommendation.RecommendationSM;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
 import com.smartboxtv.movistartv.delgates.RecommendedDelegate;
+import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.fragments.RecommendedFragment;
 import com.smartboxtv.movistartv.programation.menu.DialogError;
 import com.smartboxtv.movistartv.services.DataLoader;
@@ -181,31 +182,60 @@ public class RecommendedActivity extends ActionBarActivity {
     }
     public void loadRecommended(){
 
-        DataLoader dataLoader = new DataLoader(this);
-        dataLoader.programRandom(new DataLoader.DataLoadedHandler<Program>() {
+        //if(((NUNCHEE) getApplicationContext()).CONNECT_SERVICES_PYTHON == false){
+        if(false){
+            DataLoader dataLoader = new DataLoader(this);
+            dataLoader.programRandom(new DataLoader.DataLoadedHandler<Program>() {
 
-            @Override
-            public void loaded(List<Program> data) {
-                Log.e("Numero de recomendado","--> "+data.size());
+                @Override
+                public void loaded(List<Program> data) {
+                    Log.e("Numero de recomendado","--> "+data.size());
 
-                programas = data;
-                for(int i = 0; i < 8 ;i++){
-                    listaFragmento[i].setData(data.get(i));
-                    indice = i;
+                    programas = data;
+                    for(int i = 0; i < 8 ;i++){
+                        listaFragmento[i].setData(data.get(i));
+                        indice = i;
+                    }
                 }
-            }
 
-            @Override
-            public void error(String error) {
-                Log.e("Recommend Activity error", " LoadDataMore error --> " + error);
-                clean();
-                DialogError dialogError = new DialogError("Por el momento no hay recomendaciones");
-                dialogError.show(getSupportFragmentManager(),"");
-                super.error(error);
-            }
-        });
+                @Override
+                public void error(String error) {
+                    Log.e("Recommend Activity error", " LoadDataMore error --> " + error);
+                    clean();
+                    DialogError dialogError = new DialogError("Por el momento no hay recomendaciones");
+                    dialogError.show(getSupportFragmentManager(),"");
+                    super.error(error);
+                }
+            });
+        }
+        else{
+
+            ServiceManager serviceManager  = new ServiceManager(this);
+            serviceManager.getRecommendationRandom( new ServiceManager.ServiceManagerHandler<Program>(){
+                @Override
+                public void loaded(List<Program> data) {
+                    Log.e("Numero de recomendado SM !!!!!!!","--> "+data.size());
+
+                    programas = data;
+                    for(int i = 0; i < 8 ;i++){
+                        listaFragmento[i].setData(data.get(i));
+                        indice = i;
+                    }
+                }
+                @Override
+                public void error(String error) {
+                    Log.e("Recommend Activity error", " LoadDataMore error --> " + error);
+                    clean();
+                    DialogError dialogError = new DialogError("Por el momento no hay recomendaciones");
+                    dialogError.show(getSupportFragmentManager(),"");
+                    super.error(error);
+                }
+            },"","");
+        }
     }
     public void loadMoreRecommended(){
+        //if(((NUNCHEE) getApplicationContext()).CONNECT_SERVICES_PYTHON == false){
+        if(false){
         DataLoader dataLoader = new DataLoader(this);
         dataLoader.programRandom(new DataLoader.DataLoadedHandler<Program>() {
 
@@ -225,6 +255,29 @@ public class RecommendedActivity extends ActionBarActivity {
                 super.error(error);
             }
         });
+        }
+        else{
+
+            ServiceManager serviceManager  = new ServiceManager(this);
+            serviceManager.getRecommendationRandom( new ServiceManager.ServiceManagerHandler<Program>(){
+                @Override
+                public void loaded(List<Program> data) {
+                    Log.e("Numero de recomendado SM !!!!!!!","--> "+data.size());
+
+                    for (Program aData : data) {
+                        programas.add(aData);
+                    }
+                }
+                @Override
+                public void error(String error) {
+                    Log.e("Recommend Activity error", " LoadDataMore error --> " + error);
+                    clean();
+                    DialogError dialogError = new DialogError("Por el momento no hay recomendaciones");
+                    dialogError.show(getSupportFragmentManager(),"");
+                    super.error(error);
+                }
+            },"","");
+        }
 
     }
     public Program newProgram(){

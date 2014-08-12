@@ -560,12 +560,13 @@ public class HoraryFragmentPrograms extends Fragment {
                                             String filename = getActivity().getCacheDir()
                                                     + File.separator + System.currentTimeMillis() + ".jpg";
 
-                                            Log.e("Largo del Caché",""+getActivity().getCacheDir().length());
+                                            /*Log.e("Largo del Caché",""+getActivity().getCacheDir().length());
                                             Log.e("Total del Caché",""+getActivity().getCacheDir().getTotalSpace());
                                             Log.e("Free del Caché",""+getActivity().getCacheDir().getFreeSpace());
-                                            Log.e("Total del Caché",""+getActivity().getCacheDir().getTotalSpace());
+                                            Log.e("Total del Caché",""+getActivity().getCacheDir().getTotalSpace());*/
                                             //Log.e("Largo del Caché",""+getActivity().getCacheDir().);
                                             File f = new File(filename);
+
                                             f.createNewFile();
                                             FileOutputStream fo = new FileOutputStream(f);
                                             fo.write(byteArray);
@@ -574,6 +575,7 @@ public class HoraryFragmentPrograms extends Fragment {
                                             Intent i = new Intent(getActivity(), PreviewActivity.class);
                                             i.putExtra("background", filename);
                                             i.putExtra("programa", p);
+                                            i.putExtra("file",f);
                                             startActivity(i);
                                             getActivity().overridePendingTransition(R.anim.zoom_in_preview, R.anim.nada);
 
@@ -1060,6 +1062,7 @@ public class HoraryFragmentPrograms extends Fragment {
                                 Intent i = new Intent(getActivity(), PreviewActivity.class);
                                 i.putExtra("background", filename);
                                 i.putExtra("programa", p1);
+                                i.putExtra("file",f);
                                 startActivity(i);
                                 getActivity().overridePendingTransition(R.anim.zoom_in_preview, R.anim.nada);
                                 //context.startActivity(i);

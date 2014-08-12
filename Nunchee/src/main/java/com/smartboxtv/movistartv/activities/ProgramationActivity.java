@@ -630,6 +630,7 @@ public class ProgramationActivity extends ActionBarActivity{
 
                         Intent i = new Intent(ProgramationActivity.this, SearchActivity.class);
                         i.putExtra("background", filename);
+                        i.putExtra("file", f);
                         startActivityForResult(i, 0);
                         overridePendingTransition(R.anim.fade_actvity, R.anim.fade_out_activity);
 
@@ -1183,6 +1184,7 @@ public class ProgramationActivity extends ActionBarActivity{
                     Intent i = new Intent(ProgramationActivity.this, PreviewActivity.class);
                     i.putExtra("background", filename);
                     i.putExtra("programa", p);
+                    i.putExtra("file",f);
                     startActivity(i);
                     overridePendingTransition(R.anim.zoom_in_preview, R.anim.nada);
 

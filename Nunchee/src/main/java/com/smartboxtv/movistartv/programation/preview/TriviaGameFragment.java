@@ -108,13 +108,13 @@ public class TriviaGameFragment extends Fragment {
     }
     public void resetTrivia(){
 
-        GameTrivia.getJUEGO_ACTUAL(getActivity(), ""+program.getTitle());
+        /*GameTrivia.getJUEGO_ACTUAL(getActivity(), ""+program.getTitle());
         GameTrivia.setNIVEL_DESBLOQUEO_MEDIO(getActivity(), 0, program.getTitle());
         GameTrivia.setNIVEL_DESBLOQUEO_DIFICIL(getActivity(), 0, program.getTitle());
         GameTrivia.setPUNTAJE_MAX_NIVEL_FACIL(getActivity(), 0, program.getTitle());
         GameTrivia.setPUNTAJE_MAX_NIVEL_MEDIO(getActivity(), 0, program.getTitle());
         GameTrivia.setPUNTAJE_MAX_NIVEL_DIFICIL(getActivity(), 0, program.getTitle());
-        GameTrivia.setVIDA_TRIVIA(getActivity(),3 , program.getTitle());
+        GameTrivia.setVIDA_TRIVIA(getActivity(),3 , program.getTitle());*/
 
         TriviaMaxFragment fragmentoTrivia = new TriviaMaxFragment(program,trivia, true);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -186,10 +186,10 @@ public class TriviaGameFragment extends Fragment {
         pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                tarea.cancel(true);
                 tarea.onCancelled();
                 if(tarea.isCancelled())
                     resetTrivia();
-                getFragmentManager().popBackStack();
 
             }
         });
@@ -859,6 +859,7 @@ public class TriviaGameFragment extends Fragment {
         respuestaImagenUnica2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hayRespuesta = true;
                 respuestaImagenUnica2.setBackgroundColor(Color.parseColor("#034767"));
                 ImageView margen = (ImageView) respuestaImagenUnica2.findViewById(R.id.margin_check);
                 margen.setVisibility(View.VISIBLE);
@@ -919,6 +920,7 @@ public class TriviaGameFragment extends Fragment {
         respuestaImagenUnica3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hayRespuesta = true;
                 respuestaImagenUnica3.setBackgroundColor(Color.parseColor("#034767"));
                 ImageView margen = (ImageView) respuestaImagenUnica3.findViewById(R.id.margin_check);
                 margen.setVisibility(View.VISIBLE);
@@ -979,6 +981,7 @@ public class TriviaGameFragment extends Fragment {
         respuestaImagenUnica4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hayRespuesta = true;
                 respuestaImagenUnica4.setBackgroundColor(Color.parseColor("#034767"));
                 ImageView margen = (ImageView) respuestaImagenUnica4.findViewById(R.id.margin_check);
                 margen.setVisibility(View.VISIBLE);
@@ -1128,6 +1131,7 @@ public class TriviaGameFragment extends Fragment {
             public void onClick(View view) {
 
                 tarea.cancel(true);
+                tarea.onCancelled();
                 boolean isShare = dataBaseTrivia.selectGameIsShare(program.getTitle());
                 if (tarea.isCancelled()) {
 
@@ -1135,6 +1139,9 @@ public class TriviaGameFragment extends Fragment {
                         case 1 :    if(dataGameTrivia.game_over){ // Verifica si el juego ha terminado y reinicia los valores iniciales
                                         dataGameTrivia.vidas = 3;
                                         dataGameTrivia.puntaje = 0;
+                                        dataGameTrivia.nivel_1_activo = false;
+                                        dataGameTrivia.nivel_2_activo = false;
+                                        dataGameTrivia.nivel_3_activo = false;
                                         dataBaseTrivia.updateGame(program.Title,dataGameTrivia);
 
                                         TriviaMaxFragment fragmentoTrivia = new TriviaMaxFragment(program,returnTrivia,true); // Fragmento de selección de nivel
@@ -1176,7 +1183,11 @@ public class TriviaGameFragment extends Fragment {
                                                 if(!dataGameTrivia.bloqueo_nivel_2){
                                                     dataGameTrivia.bloqueo_nivel_2 = true;
                                                     dataGameTrivia.nivel = 2;
+                                                    dataGameTrivia.nivel_1_activo = false;
+                                                    dataGameTrivia.nivel_2_activo = false;
+                                                    dataGameTrivia.nivel_3_activo = false;
                                                     isShare = true;
+                                                    dataBaseTrivia.updateGame(program.Title,dataGameTrivia);
                                                     Toast.makeText(getActivity(),"Nivel 2 desbloqueado",Toast.LENGTH_SHORT).show();
                                                 }
                                             }
@@ -1209,6 +1220,9 @@ public class TriviaGameFragment extends Fragment {
                                         dataGameTrivia.puntaje = 0;
                                         dataGameTrivia.next_level = true;
                                         dataGameTrivia.game_over = false;
+                                        dataGameTrivia.nivel_1_activo = false;
+                                        dataGameTrivia.nivel_2_activo = false;
+                                        dataGameTrivia.nivel_3_activo = false;
                                         dataBaseTrivia.updateGame(program.Title,dataGameTrivia);
                                         TriviaMaxFragment fragmentoTrivia = new TriviaMaxFragment(program,returnTrivia,true);
                                         FragmentTransaction ft =getFragmentManager().beginTransaction();
@@ -1245,8 +1259,12 @@ public class TriviaGameFragment extends Fragment {
                                             if(dataGameTrivia.next_level){
                                                 if(!dataGameTrivia.bloqueo_nivel_3){
                                                     dataGameTrivia.bloqueo_nivel_3 = true;
+                                                    dataGameTrivia.nivel_1_activo = false;
+                                                    dataGameTrivia.nivel_2_activo = false;
+                                                    dataGameTrivia.nivel_3_activo = false;
                                                     dataGameTrivia.nivel = 3;
                                                     isShare = true;
+                                                    dataBaseTrivia.updateGame(program.Title,dataGameTrivia);
                                                     Toast.makeText(getActivity(),"Nivel 3 desbloqueado",Toast.LENGTH_SHORT).show();
                                                 }
                                             }
@@ -1278,6 +1296,9 @@ public class TriviaGameFragment extends Fragment {
                                         dataGameTrivia.puntaje = 0;
                                         dataGameTrivia.next_level = true;
                                         dataGameTrivia.game_over = false;
+                                        dataGameTrivia.nivel_1_activo = false;
+                                        dataGameTrivia.nivel_2_activo = false;
+                                        dataGameTrivia.nivel_3_activo = false;
                                         dataBaseTrivia.updateGame(program.Title,dataGameTrivia);
                                         TriviaMaxFragment fragmentoTrivia = new TriviaMaxFragment(program,returnTrivia,true);
                                         FragmentTransaction ft =getFragmentManager().beginTransaction();

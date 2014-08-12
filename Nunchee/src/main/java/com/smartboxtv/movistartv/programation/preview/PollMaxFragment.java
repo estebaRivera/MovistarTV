@@ -72,8 +72,8 @@ public class PollMaxFragment extends Fragment {
     private DataBaseUser dataBaseUser;
     private UserNunchee userNunchee;
 
-
     private Animation animacion_in;
+    private boolean result = false;
 
     public PollMaxFragment(Polls polls, Program p, Program preview) {
 
@@ -547,6 +547,7 @@ public class PollMaxFragment extends Fragment {
         });
 
         volver.setOnClickListener( new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
 
@@ -554,51 +555,133 @@ public class PollMaxFragment extends Fragment {
 
                     contador--;
                     if(contador % 2 == 0 || contador == 0){
-
                         setData(true);
                     }
                     else if(contador % 2 != 0 ){
                         setDataImpar(true);
                     }
                     if(contador == 0){
-
                         volver.setEnabled(false);
                         volver.setAlpha((float)0.5);
                     }
                     if(!avanzar.isEnabled()){
-
                         avanzar.setEnabled(true);
                         avanzar.setAlpha(1);
                     }
+
+                    linearLayout1_resultado.setVisibility(View.GONE);
+                    linearLayout2_resultado.setVisibility(View.GONE);
+                    linearLayout3_resultado.setVisibility(View.GONE);
+                    linearLayout4_resultado.setVisibility(View.GONE);
+                    linearLayout5_resultado.setVisibility(View.GONE);
+
+                    linearLayout1.setBackgroundColor(Color.parseColor("#272727"));
+                    linearLayout2.setBackgroundColor(Color.parseColor("#272727"));
+                    linearLayout3.setBackgroundColor(Color.parseColor("#272727"));
+                    linearLayout4.setBackgroundColor(Color.parseColor("#272727"));
+                    linearLayout5.setBackgroundColor(Color.parseColor("#272727"));
+
+                    linearLayout1_.setBackgroundColor(Color.parseColor("#272727"));
+                    linearLayout2_.setBackgroundColor(Color.parseColor("#272727"));
+                    linearLayout3_.setBackgroundColor(Color.parseColor("#272727"));
+                    linearLayout4_.setBackgroundColor(Color.parseColor("#272727"));
+                    linearLayout5_.setBackgroundColor(Color.parseColor("#272727"));
+
+                    ImageView margen1 = (ImageView) linearLayout1.findViewById(R.id.margin_check);
+                    margen1.setVisibility(View.GONE);
+
+                    ImageView margen2 = (ImageView) linearLayout2.findViewById(R.id.margin_check);
+                    margen2.setVisibility(View.GONE);
+
+                    ImageView margen3 = (ImageView) linearLayout3.findViewById(R.id.margin_check);
+                    margen3.setVisibility(View.GONE);
+
+                    ImageView margen4 = (ImageView) linearLayout4.findViewById(R.id.margin_check);
+                    margen4.setVisibility(View.GONE);
+
+
+                    ImageView margen5 = (ImageView) linearLayout1_.findViewById(R.id.margin_check);
+                    margen5.setVisibility(View.GONE);
+
+                    ImageView margen6 = (ImageView) linearLayout2_.findViewById(R.id.margin_check);
+                    margen6.setVisibility(View.GONE);
+
+                    ImageView margen7 = (ImageView) linearLayout3_.findViewById(R.id.margin_check);
+                    margen7.setVisibility(View.GONE);
+
+                    ImageView margen8 = (ImageView) linearLayout4_.findViewById(R.id.margin_check);
+                    margen8.setVisibility(View.GONE);
+
                 }
             }
         });
 
         avanzar.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-
                 if(contador < polls.getPreguntas().size()){
                     contador++;
 
-                    if(contador%2 == 0 || contador == 0){
+                    if(contador % 2 == 0 || contador == 0){
                         setData(false);
                     }
-                    else if(contador%2 != 0 ){
+                    else if(contador % 2 != 0 ){
                         setDataImpar(false);
                     }
 
                     if(contador == polls.getPreguntas().size()-1){
-
                         avanzar.setEnabled(false);
                         avanzar.setAlpha((float)0.5);
                     }
 
                     if(!volver.isEnabled()){
-
                         volver.setEnabled(true);
                         volver.setAlpha(1);
                     }
+
+                    linearLayout1_resultado.setVisibility(View.GONE);
+                    linearLayout2_resultado.setVisibility(View.GONE);
+                    linearLayout3_resultado.setVisibility(View.GONE);
+                    linearLayout4_resultado.setVisibility(View.GONE);
+                    linearLayout5_resultado.setVisibility(View.GONE);
+
+                    linearLayout1.setBackgroundColor(Color.parseColor("#272727"));
+                    linearLayout2.setBackgroundColor(Color.parseColor("#272727"));
+                    linearLayout3.setBackgroundColor(Color.parseColor("#272727"));
+                    linearLayout4.setBackgroundColor(Color.parseColor("#272727"));
+                    linearLayout5.setBackgroundColor(Color.parseColor("#272727"));
+
+                    linearLayout1_.setBackgroundColor(Color.parseColor("#272727"));
+                    linearLayout2_.setBackgroundColor(Color.parseColor("#272727"));
+                    linearLayout3_.setBackgroundColor(Color.parseColor("#272727"));
+                    linearLayout4_.setBackgroundColor(Color.parseColor("#272727"));
+                    linearLayout5_.setBackgroundColor(Color.parseColor("#272727"));
+
+                    ImageView margen1 = (ImageView) linearLayout1.findViewById(R.id.margin_check);
+                    margen1.setVisibility(View.GONE);
+
+                    ImageView margen2 = (ImageView) linearLayout2.findViewById(R.id.margin_check);
+                    margen2.setVisibility(View.GONE);
+
+                    ImageView margen3 = (ImageView) linearLayout3.findViewById(R.id.margin_check);
+                    margen3.setVisibility(View.GONE);
+
+                    ImageView margen4 = (ImageView) linearLayout4.findViewById(R.id.margin_check);
+                    margen4.setVisibility(View.GONE);
+
+
+                    ImageView margen5 = (ImageView) linearLayout1_.findViewById(R.id.margin_check);
+                    margen5.setVisibility(View.GONE);
+
+                    ImageView margen6 = (ImageView) linearLayout2_.findViewById(R.id.margin_check);
+                    margen6.setVisibility(View.GONE);
+
+                    ImageView margen7 = (ImageView) linearLayout3_.findViewById(R.id.margin_check);
+                    margen7.setVisibility(View.GONE);
+
+                    ImageView margen8 = (ImageView) linearLayout4_.findViewById(R.id.margin_check);
+                    margen8.setVisibility(View.GONE);
                 }
             }
         });
@@ -607,8 +690,18 @@ public class PollMaxFragment extends Fragment {
     public void noPublish(){
         Toast.makeText(getActivity(), "Activa el Autopost para poder publicar", Toast.LENGTH_LONG).show();
     }
+    public void nopolls(){
+
+        contenedorPrimera.setVisibility(View.GONE);
+        contenedorSegunda.setVisibility(View.GONE);
+        contenedorResultado.setVisibility(View.GONE);
+        contenedorBoton.setVisibility(View.GONE);
+        contenedorNoEncuesta.setVisibility(View.VISIBLE);
+    }
+
     public void setDataResultado(){
 
+        result = true;
         contenedorResultado.startAnimation(animacion_in);
 
         if(contenedorResultado.getVisibility()== View.GONE)
@@ -617,8 +710,8 @@ public class PollMaxFragment extends Fragment {
         contenedorResultado.bringToFront();
         contenedorBoton.bringToFront();
 
-        contenedorPrimera.setVisibility(View.GONE);
-        contenedorSegunda.setVisibility(View.GONE);
+        //contenedorPrimera.setVisibility(View.GONE);
+        //contenedorSegunda.setVisibility(View.GONE);
 
         if(!polls.getPreguntas().isEmpty()){
             if(!polls.getPreguntas().get(contador).getRespuestas().isEmpty()){
@@ -745,6 +838,7 @@ public class PollMaxFragment extends Fragment {
             }
         });
     }
+
     public void setData(boolean esVolver){
 
         if(contenedorResultado.getVisibility() == View.VISIBLE)
@@ -758,8 +852,6 @@ public class PollMaxFragment extends Fragment {
             contenedorPrimera.startAnimation(animacion_in);
             Log.e("seData","Volver");
         }
-
-        //contenedorPrimera.setVisibility(View.VISIBLE);
 
         contenedorPrimera.bringToFront();
         contenedorBoton.bringToFront();
@@ -788,7 +880,6 @@ public class PollMaxFragment extends Fragment {
 
                     linearLayout4.setVisibility(View.VISIBLE);
                     respuesta4.setText(polls.getPreguntas().get(contador).getRespuestas().get(3).getText());
-
                 }
 
                 if(polls.getPreguntas().get(contador).getRespuestas().size()> 4 ){
@@ -800,20 +891,10 @@ public class PollMaxFragment extends Fragment {
                 titulo.setText(polls.getPreguntas().get(contador).getText());
                 subtitulo.setText(cantidadVotos[contador]+" personas han contestado");
                 numeroPregunta.setText("Pregunta "+(contador+1));
-
             }
         }
-
     }
-    public void nopolls(){
 
-        contenedorPrimera.setVisibility(View.GONE);
-        contenedorSegunda.setVisibility(View.GONE);
-        contenedorResultado.setVisibility(View.GONE);
-        contenedorBoton.setVisibility(View.GONE);
-        contenedorNoEncuesta.setVisibility(View.VISIBLE);
-        //contenedorNoEncuesta.bringToFront();
-    }
     public void setDataImpar(boolean esVolver){
 
         if(contenedorResultado.getVisibility() == View.VISIBLE)
@@ -948,12 +1029,8 @@ public class PollMaxFragment extends Fragment {
         Image imagen = programaPreview.getImageWidthType(Width.ORIGINAL_IMAGE,Type.SQUARE_IMAGE);
         String imageUrl;
 
-        if( imagen != null){
-            imageUrl = imagen.getImagePath();
-        }
-        else{
-            imageUrl= "https://tvsmartbox.com/MovistarTV/icon-post-facebok_polls.png";
-        }
+        imageUrl= "https://tvsmartbox.com/MovistarTV/icon-post-facebok_polls.png";
+
         String title = programa.Title;
         String description;
         String text = "He contestado un encuesta de "+programa.getTitle()+" a través de Movistar TV";
