@@ -126,10 +126,40 @@
                         android:id="@+id/tws_lista"
                         android:orientation="vertical"
                         android:layout_height="wrap_content"
-                        android:layout_width="wrap_content">
+                        android:layout_width="match_parent">
+
                     </LinearLayout>
 
                 </ScrollView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/login_twitter_container"
+                android:visibility="gone"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_width="450dp"
+                android:layout_height="200dp">
+
+                <TextView
+                    android:id="@+id/login_twitter_text"
+                    android:textColor="#FFFFFF"
+                    android:textSize="21sp"
+                    android:text="Inicia sesión con tu cuenta de Twitter"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/login_twiter_button"
+                    android:layout_width="230dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/login_twitter"
+                    android:layout_centerHorizontal="true"
+                    android:text=" "
+                    android:layout_marginTop="50dp" />
 
             </RelativeLayout>
 

@@ -28,6 +28,7 @@ import com.smartboxtv.movistartv.data.models.Tweets;
 import com.smartboxtv.movistartv.data.models.UserTwitterJSON;
 import com.smartboxtv.movistartv.data.modelssm.TweetSM;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
+import com.smartboxtv.movistartv.programation.menu.DialogError;
 import com.smartboxtv.movistartv.services.DataLoader;
 import com.smartboxtv.movistartv.services.ServiceManager;
 
@@ -47,6 +48,7 @@ public class TwMaxFragment extends Fragment {
     private Button btnTimeline;
     private Button btnRelacionado;
     private Button btnTwittear;
+    private Button btnLogin;
 
     private TextView titulo2;
     private EditText texto;
@@ -62,11 +64,13 @@ public class TwMaxFragment extends Fragment {
     private int cuentaClick = 0;
     private boolean isTimeline = false;
     private RelativeLayout contenedorLoading;
-    //private RelativeLayout containerNoTw;
+    private RelativeLayout containerLogin;
     private List<UserTwitterJSON> listTimeLine = new ArrayList<UserTwitterJSON>();
     private List<Tweets> listaRelacionado = new ArrayList<Tweets>();
     private List<TweetSM> listRelacionadoSM = new ArrayList<TweetSM>();
     private static final int CONFIRM_ALERT = 2;
+
+    private  boolean login = false;
 
     public TwMaxFragment(Program program) {
         this.programa = program;
@@ -81,12 +85,15 @@ public class TwMaxFragment extends Fragment {
         inflaterPrivate = inflater;     listTimeLine = null;
         contenedorLoading = (RelativeLayout) rootView.findViewById(R.id.contenedor_loading);
         contenedorTws = (LinearLayout) rootView.findViewById(R.id.tws_lista);
-        //containerNoTw = (RelativeLayout) rootView.findViewById(R.id.container_no_tw);
 
         TextView titulo = (TextView) rootView.findViewById(R.id.tw_titulo);
+        TextView textLogin = (TextView) rootView.findViewById(R.id.login_twitter_text);
+
+        containerLogin = (RelativeLayout) rootView.findViewById(R.id.login_twitter_container);
         titulo2 = (TextView) rootView.findViewById(R.id.tw_titulo_2);
         btnTimeline = (Button) rootView.findViewById(R.id.tw_btn_timeline);
         btnTwittear = (Button) rootView.findViewById(R.id.tw_twittear);
+        btnLogin = (Button) rootView.findViewById(R.id.login_twiter_button);
         texto = (EditText) rootView.findViewById(R.id.tw_tws);
 
         btnTimeline.setBackgroundResource(R.drawable.evento_tw);
@@ -97,15 +104,19 @@ public class TwMaxFragment extends Fragment {
         btnTimeline.setSelected(false);
 
         titulo.setTypeface(normal);
+        textLogin.setTypeface(normal);
         titulo2.setTypeface(normal);
 
         btnTimeline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                loading();
+                if(login == false)
+                    containerLogin.setVisibility(View.VISIBLE);
+
                 btnTimeline.setSelected(true);
                 btnRelacionado.setSelected(false);
+
                 ViewGroup.LayoutParams timelineParams = btnTimeline.getLayoutParams();
 
                 timelineParams.height = 40;
@@ -117,36 +128,33 @@ public class TwMaxFragment extends Fragment {
                 btnRelacionado.setLayoutParams(relacionadoParams);
                 titulo2.setText("#TIMELINE");
 
-                if (btnTwittear.getVisibility() == View.GONE) {
-                    btnTwittear.setVisibility(View.VISIBLE);
-                }
-
                 contenedorTws.removeAllViews();
 
-                if (listTimeLine == null) {
+                if (login == true) {
 
-                    DataLoader dataLoader = new DataLoader(getActivity());
-                    dataLoader.getTimeLine(new DataLoader.DataLoadedHandler<UserTwitterJSON>() {
-
-                        @Override
-                        public void loaded(List<UserTwitterJSON> data) {
-
-                            super.loaded(data);
-                            listTimeLine = data;
-
-                            cargaTwsTimeLine();
-                            borraLoading();
+                    loading();
+                     if (btnTwittear.getVisibility() == View.GONE) {
+                            btnTwittear.setVisibility(View.VISIBLE);
                         }
+                        DataLoader dataLoader = new DataLoader(getActivity());
+                        dataLoader.getTimeLine(new DataLoader.DataLoadedHandler<UserTwitterJSON>() {
 
-                        @Override
-                        public void error(String error) {
-                            super.error(error);
-                            Log.e("Cargar ", "" + error);
-                        }
-                    });
-                } else {
-                    cargaTwsTimeLine();
-                    borraLoading();
+                            @Override
+                            public void loaded(List<UserTwitterJSON> data) {
+
+                                super.loaded(data);
+                                listTimeLine = data;
+
+                                cargaTwsTimeLine();
+                                borraLoading();
+                            }
+
+                            @Override
+                            public void error(String error) {
+                                super.error(error);
+                                Log.e("Cargar ", "" + error);
+                            }
+                        });
                 }
             }
         });
@@ -157,6 +165,7 @@ public class TwMaxFragment extends Fragment {
                 //loading();
                 btnTimeline.setSelected(false);
                 btnRelacionado.setSelected(true);
+                containerLogin.setVisibility(View.GONE);
 
                 int width_screen = UserPreference.getWIDTH_SCREEN(getActivity());
 
@@ -178,7 +187,6 @@ public class TwMaxFragment extends Fragment {
                     texto.setVisibility(View.GONE);
                 }
                 cargaRelacionadoSM();
-                //borraLoading();
 
             }
         });
@@ -204,31 +212,58 @@ public class TwMaxFragment extends Fragment {
                     dataLoader.updateStatusTw(new DataLoader.DataLoadedHandler<String>() {
                         @Override
                         public void loaded(String data) {
-
-                            /*showAlertDialog(CONFIRM_ALERT, getActivity(), "Movistar TV", "Tweet creado exitosamente!",
-                                    new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                }
-                            }, "OK");*/
-
                             texto.setVisibility(View.GONE);
                             btnTwittear.setEnabled(false);
                         }
 
                         @Override
                         public void error(String error) {
-
-                            /*showAlertDialog(CONFIRM_ALERT, getActivity(), "Movistar TV", "Oops! el tweet no ha podido ser creado",
-                                    new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                }
-                            }, "OK");*/
                             Toast.makeText(getActivity(),"Ups! algo salió mal, intenta de nuevo",Toast.LENGTH_LONG).show();
-
                         }
                     }, texto.getText().toString());
+                }
+            }
+        });
+
+        btnLogin.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                login = true;
+                if (listTimeLine == null) {
+                    loading();
+
+                    containerLogin.setVisibility(View.GONE);
+
+                    if (btnTwittear.getVisibility() == View.GONE) {
+                        btnTwittear.setVisibility(View.VISIBLE);
+                    }
+
+                    DataLoader dataLoader = new DataLoader(getActivity());
+                    dataLoader.getTimeLine(new DataLoader.DataLoadedHandler<UserTwitterJSON>() {
+
+                        @Override
+                        public void loaded(List<UserTwitterJSON> data) {
+
+                            super.loaded(data);
+                            listTimeLine = data;
+
+                            cargaTwsTimeLine();
+                            borraLoading();
+                        }
+
+                        @Override
+                        public void error(String error) {
+                            btnTwittear.setEnabled(false);
+                            borraLoading();
+                            DialogError dialogError = new DialogError("En este momento no es posible mostrar este contenido");
+                            dialogError.show(getFragmentManager(), "");
+                        }
+                    });
+                }
+                else {
+                    cargaTwsTimeLine();
+                    borraLoading();
                 }
             }
         });
@@ -245,8 +280,6 @@ public class TwMaxFragment extends Fragment {
         Typeface bold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SegoeWP-Bold.ttf");
 
         if(listTimeLine.size() > 0){
-
-           // Log.e("Carga TimeLine","Carga tws");
 
             int i = 0 ;
 
@@ -271,8 +304,6 @@ public class TwMaxFragment extends Fragment {
                 tw.setTypeface(normal);
                 tiempo.setVisibility(View.GONE);
 
-
-
                 aq.id(imageView).image(aListTimeLine.getUsuario().getUrlImagen());
                 tw.setText(aListTimeLine.getTexto());
 
@@ -283,7 +314,9 @@ public class TwMaxFragment extends Fragment {
             }
         }
         else{
-            //containerNoTw.setVisibility(View.VISIBLE);
+            borraLoading();
+            DialogError dialogError = new DialogError("En este momento no es posible mostrar este contenido");
+            dialogError.show(getFragmentManager(),"");
         }
     }
     public void cargaRelacionado(){
@@ -333,8 +366,6 @@ public class TwMaxFragment extends Fragment {
         final Typeface bold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SegoeWP-Bold.ttf");
         loading();
 
-        Log.e("Carga Relacionado SM","Carga tws");
-
         ServiceManager serviceManager = new ServiceManager(getActivity());
         serviceManager.getTweets( new ServiceManager.ServiceManagerHandler<TweetSM>(){
             @Override
@@ -360,7 +391,7 @@ public class TwMaxFragment extends Fragment {
                     tiempo.setTypeface(normal);
 
                     Date d = new Date();
-                    //creating DateFormat for converting time from local timezone to GMT
+
                     DateFormat converter = new SimpleDateFormat("dd/MM/yyyy:HH:mm:ss");
                     Date datetw;
                     converter.setTimeZone(TimeZone.getTimeZone("GMT+4"));
@@ -406,6 +437,8 @@ public class TwMaxFragment extends Fragment {
             @Override
             public void error(String error) {
                 borraLoading();
+                DialogError dialogError = new DialogError("En este momento no es posible mostrar este contenido");
+                dialogError.show(getFragmentManager(),"");
             }
         },programa.getHashtags(),"40",false);
     }

@@ -39,6 +39,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
+import com.androidquery.WebDialog;
 import com.facebook.FacebookRequestError;
 import com.facebook.HttpMethod;
 import com.facebook.Request;
@@ -48,6 +49,8 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphObject;
+import com.facebook.model.OpenGraphAction;
+import com.facebook.model.OpenGraphObject;
 import com.facebook.widget.FacebookDialog;
 import com.smartboxtv.movistartv.R;
 import com.smartboxtv.movistartv.animation.ManagerAnimation;
@@ -191,7 +194,7 @@ public class PreviewActivity extends ActionBarActivity {
     private File file;
 
     // Share Facebook
-    private static final List<String> PERMISSIONS = Arrays.asList("publish_actions");
+    private static final List<String> PERMISSIONS = Arrays.asList("publish_actions, publish_stream");
     private static final String PENDING_PUBLISH_KEY = "pendingPublishReauthorization";
     private boolean pendingPublishReauthorization = false;
     private UiLifecycleHelper uiHelper;
@@ -1601,9 +1604,26 @@ public class PreviewActivity extends ActionBarActivity {
         else
             description = "";
 
-        DialogShare dialogShare = new DialogShare(description,imageUrl,title,url);
-        dialogShare.show(getSupportFragmentManager(),"");
+        /*DialogShare dialogShare = new DialogShare(description,imageUrl,title,url);
+        dialogShare.show(getSupportFragmentManager(),"");*/
+
+        if (FacebookDialog.canPresentShareDialog(getApplicationContext(),
+                FacebookDialog.ShareDialogFeature.SHARE_DIALOG)) {
+            // Publish the post using the Share Dialog
+            FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(this)
+                    .setName(programaPreview.Title)
+                    .setDescription(programaPreview.Description)
+                    .setLink("http://www.movistar.cl/PortalMovistarWeb/tv-digital/guia-de-canales")
+                    .setPicture(imageUrl)
+                    .build();
+            uiHelper.trackPendingDialogCall(shareDialog.present());
+
+        } else {
+            // Fallback. For example, publish the post using the Feed Dialog
+            //publishFeedDialog();
+        }
     }
+
 
     private void publishStory() {
         Session session = Session.getActiveSession();
@@ -2168,11 +2188,11 @@ public class PreviewActivity extends ActionBarActivity {
         uiHelper.onResume();
     }
 
-    @Override
+    /*@Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         uiHelper.onSaveInstanceState(outState);
-    }
+    }*/
 
     @Override
     public void onPause() {
@@ -2185,5 +2205,6 @@ public class PreviewActivity extends ActionBarActivity {
         super.onDestroy();
         uiHelper.onDestroy();
     }
+
 
 }

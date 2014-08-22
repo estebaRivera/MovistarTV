@@ -21,6 +21,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.androidquery.util.BitmapCache;
+import com.facebook.UiLifecycleHelper;
+import com.facebook.model.GraphObject;
+import com.facebook.model.OpenGraphAction;
+import com.facebook.model.OpenGraphObject;
+import com.facebook.widget.FacebookDialog;
 import com.smartboxtv.movistartv.R;
 import com.smartboxtv.movistartv.animation.ManagerAnimation;
 import com.smartboxtv.movistartv.data.clean.DataClean;
@@ -58,6 +63,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -131,8 +137,12 @@ public class SecondPreviewActivity extends ActionBarActivity {
     public float height;
 
     private Bitmap bm;
-
     private  String path;
+
+    private static final List<String> PERMISSIONS = Arrays.asList("publish_actions, publish stream");
+    private static final String PENDING_PUBLISH_KEY = "pendingPublishReauthorization";
+    private boolean pendingPublishReauthorization = false;
+    private UiLifecycleHelper uiHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -644,8 +654,21 @@ public class SecondPreviewActivity extends ActionBarActivity {
         else
             text = "";
 
-        DialogShare dialogShare = new DialogShare(text,imageUrl,title,url);
-        dialogShare.show(getSupportFragmentManager(),"");
+        /*DialogShare dialogShare = new DialogShare(text,imageUrl,title,url);
+        dialogShare.show(getSupportFragmentManager(),"");*/
+
+        /*OpenGraphObject meal = OpenGraphObject.Factory.createForPost("cooking-app:meal");
+        meal.setProperty("title", "Buffalo Tacos");
+        meal.setProperty("image", "http://example.com/cooking-app/images/buffalo-tacos.png");
+        meal.setProperty("url", "https://example.com/cooking-app/meal/Buffalo-Tacos.html");
+        meal.setProperty("description", "Leaner than beef and great flavor.");
+
+        OpenGraphAction action = GraphObject.Factory.create(OpenGraphAction.class);
+        action.setProperty("meal", meal);
+
+        FacebookDialog shareDialog = new FacebookDialog.OpenGraphActionDialogBuilder(this, action, "cooking-app:cook", "meal")
+                .build();
+        uiHelper.trackPendingDialogCall(shareDialog.present());*/
     }
     public void transformerTranslation1(View quieto, View mueve){
 

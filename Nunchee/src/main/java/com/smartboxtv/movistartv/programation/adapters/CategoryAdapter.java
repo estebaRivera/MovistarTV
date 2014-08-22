@@ -24,7 +24,6 @@ public class CategoryAdapter extends ArrayAdapter<CategorieChannel> {
     private View view;
 
     public CategoryAdapter(Context context, List<CategorieChannel> listaCategoria) {
-
         super(context, R.layout.category_adapter,listaCategoria);
         list = listaCategoria;
     }

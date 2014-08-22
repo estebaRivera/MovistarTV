@@ -549,7 +549,7 @@ public class LoginActivity extends ActionBarActivity {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        //uiHelper.onSaveInstanceState(outState);
+        uiHelper.onSaveInstanceState(outState);
     }
 
     @Override

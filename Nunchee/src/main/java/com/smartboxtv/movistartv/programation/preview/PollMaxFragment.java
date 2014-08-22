@@ -823,7 +823,7 @@ public class PollMaxFragment extends Fragment {
                 porcentaje = calculaPorcentaje(polls.getPreguntas().get(contador).getRespuestas().get(contadorRespuesta).getVotos());
                 int p = (int) porcentaje;
                 String text = polls.getPreguntas().get(contador).getText()+" Mi respuesta fue: "+polls.getPreguntas().get(contador).getRespuestas()
-                        .get(contadorRespuesta).getText()+" El "+p+"% piensa como yo!";
+                        .get(contadorRespuesta).getText()+". El "+p+"% piensa como yo!";
                 String hasthTag = "@MovistarTV";
                 if(text.length() < 128){
                     text +=hasthTag;

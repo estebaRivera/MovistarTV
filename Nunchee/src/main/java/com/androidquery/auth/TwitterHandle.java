@@ -32,8 +32,8 @@ public class TwitterHandle extends AccountHandle{
 	private static final String OAUTH_REQUEST_TOKEN = "https://api.twitter.com/oauth/request_token";
 	private static final String OAUTH_ACCESS_TOKEN = "https://api.twitter.com/oauth/access_token";
 	private static final String OAUTH_AUTHORIZE = "https://api.twitter.com/oauth/authorize";
-	private static final String CALLBACK_URI = "http://nunchee.tv/";
-	private static final String CANCEL_URI = "http://nunchee.tv/";
+	private static final String CALLBACK_URI = "http://www.movistar.cl";
+	private static final String CANCEL_URI = "http://www.movistar.cl";
 	
 	private Activity act;
 	private WebDialog dialog;

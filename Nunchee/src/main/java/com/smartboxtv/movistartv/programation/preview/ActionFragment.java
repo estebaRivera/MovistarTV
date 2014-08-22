@@ -394,8 +394,24 @@ public class ActionFragment extends Fragment {
         else
             text = "";
 
-        DialogShare dialogShare = new DialogShare(text,imageUrl,title,url);
-        dialogShare.show(getActivity().getSupportFragmentManager(),"");
+        /*DialogShare dialogShare = new DialogShare(text,imageUrl,title,url);
+        dialogShare.show(getActivity().getSupportFragmentManager(),"");*/
+
+        if (FacebookDialog.canPresentShareDialog(getActivity().getApplicationContext(),
+                FacebookDialog.ShareDialogFeature.SHARE_DIALOG)) {
+            // Publish the post using the Share Dialog
+            FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(getActivity())
+                    .setName(programa.Title)
+                    .setDescription(previewProgram.Description)
+                    .setLink("http://www.movistar.cl/PortalMovistarWeb/tv-digital/guia-de-canales")
+                    .setPicture(imageUrl)
+                    .build();
+            uiHelper.trackPendingDialogCall(shareDialog.present());
+
+        } else {
+            // Fallback. For example, publish the post using the Feed Dialog
+            //publishFeedDialog();
+        }
     }
     private void publishStory() {
 

@@ -33,13 +33,13 @@ public class TutorialActivity extends ActionBarActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        TutorialFragment fragment1 = new TutorialFragment(R.drawable.slide_1);
-        TutorialFragment fragment2 = new TutorialFragment(R.drawable.slide_2);
-        TutorialFragment fragment3 = new TutorialFragment(R.drawable.slide_3);
+        TutorialFragment fragment1 = new TutorialFragment(R.drawable.tuto2, TutorialActivity.this,1);
+        TutorialFragment fragment2 = new TutorialFragment(R.drawable.tuto1, TutorialActivity.this,2);
+        //TutorialFragment fragment3 = new TutorialFragment(R.drawable.slide_3);
 
         listFragments.add(fragment1);
         listFragments.add(fragment2);
-        listFragments.add(fragment3);
+        //listFragments.add(fragment3);
 
         adapter = new AdapterPagerTutorial(getSupportFragmentManager());
         adapter.setFragments(listFragments);
@@ -49,10 +49,12 @@ public class TutorialActivity extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        if (this.viewPager.getCurrentItem() == 0)
+        super.onBackPressed();
+
+        /*if (this.viewPager.getCurrentItem() == 0)
             super.onBackPressed();
         else
-            this.viewPager.setCurrentItem(this.viewPager.getCurrentItem() - 1);
+            this.viewPager.setCurrentItem(this.viewPager.getCurrentItem() - 1);*/
 
     }
 

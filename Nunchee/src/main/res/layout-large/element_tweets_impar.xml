@@ -2,7 +2,7 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="130dp"
     android:layout_marginTop="10dp"
     android:layout_marginLeft="2dp"
     android:layout_marginRight="5dp"
@@ -62,6 +62,7 @@
             android:id="@+id/tw_texto"
             android:maxLength="140"
             android:maxLines="3"
+            android:autoLink="all"
             android:layout_below="@+id/tw_nombre"
             android:layout_alignLeft="@+id/tw_nombre"
             android:layout_marginRight="25dp" />

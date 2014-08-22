@@ -210,11 +210,31 @@
                 android:layout_height="match_parent"
                 android:layout_width="match_parent">
 
+                <RelativeLayout
+                    android:id="@+id/wrapper_no_trending"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="210dp">
+
+                    <TextView
+                        android:id="@+id/no_trending"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textColor="#FFFFFF"
+                        android:alpha="0.6"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:text="No hay Trending Channel disponible"/>
+                </RelativeLayout>
+
             </LinearLayout>
+
         </ScrollView>
 
         <ImageView
             android:background="@drawable/separador_canal"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             android:layout_width="match_parent" />
 
@@ -222,6 +242,7 @@
             android:id="@+id/btn_historial"
             android:layout_marginTop="3dp"
             android:layout_height="52dp"
+            android:visibility="gone"
             android:layout_width="match_parent">
 
             <Button

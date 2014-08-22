@@ -83,7 +83,7 @@ public class ServiceManager {
     private static final String BASE_URL_SERVICES_RECOMMENDATION = "http://23.21.72.216:80/nunchee/api/1.0/recommendation";
     private static final String BASE_URL_STREAM_MANAGER = "https://api.streammanager.co/api/";
 
-    private static final String API_TOKEN = "b5430d55dc64849b1a34e877267e72ba";//"b5430d55dc64849b1a34e877267e72ba";//"bace2022792e7943635001c8696a013f";
+    private static final String API_TOKEN = "8fc221e56408966fe7999c7c1edff220";//"b5430d55dc64849b1a34e877267e72ba";//"b5430d55dc64849b1a34e877267e72ba";//"bace2022792e7943635001c8696a013f";
     private static final String SERVICES_URL_TRENDING = "http://190.215.44.18/wcfNunchee2/GLFService.svc/Trending";
     private static final String URL_TWITTER = "https://api.twitter.com/1.1/statuses/";
     public static final String REFRESH_GRANT_TYPE = "refresh_token";
@@ -652,7 +652,7 @@ public class ServiceManager {
                     }
                 }
                 else{
-
+                    handler.error("");
                     Log.e(ERROR, "getTwwts");
                 }
 

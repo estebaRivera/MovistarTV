@@ -786,11 +786,12 @@ public class DataLoader {
         URL_FINAL.append(URL_TWITTER);
         URL_FINAL.append("home_timeline.json"); //URL_FINAL.append("/count=50");
 
-        TwitterHandle twitterHandle = new TwitterHandle((Activity) actividad, Twitter.API_KEY,Twitter.API_SECRET);
+        TwitterHandle twitterHandle = new TwitterHandle((Activity) actividad, "HT0Aryv4yaooWQ2LlB0OA4kV3","9w5EgfurnXK6aZs3fTGMfmJlHzKspyA2BLHzWt4elnyiOZfJya");
         aq.auth(twitterHandle).ajax(URL_FINAL.toString(), JSONArray.class, new AjaxCallback<JSONArray>() {
 
             @Override
             public void callback(String url, JSONArray object, AjaxStatus status) {
+                Log.e("object","-->"+object.toString());
                 try {
                     List<UserTwitterJSON> listTws = new ArrayList<UserTwitterJSON>();
                     for (int i = 0; i < object.length(); i++) {
@@ -805,7 +806,7 @@ public class DataLoader {
                     //Log.e("JSONObject",object.toString());
                     dataLoadedHandle.loaded(listTws);
                 } catch (Exception e) {
-                    Log.e("Error GetTimeLIne", "quizas sea null" + e.getMessage());
+                    Log.e("Error GetTimeLIne", "--> " + e.getMessage());
                     dataLoadedHandle.error(e.getMessage());
                 }
             }
@@ -820,7 +821,7 @@ public class DataLoader {
         Map<String, String> map = new HashMap<String, String>();
         map.put("status", tw);
 
-        TwitterHandle twitterHandle = new TwitterHandle((Activity) actividad, Twitter.API_KEY,Twitter.API_SECRET);
+        TwitterHandle twitterHandle = new TwitterHandle((Activity) actividad, "HT0Aryv4yaooWQ2LlB0OA4kV3","9w5EgfurnXK6aZs3fTGMfmJlHzKspyA2BLHzWt4elnyiOZfJya");
         aq.auth(twitterHandle).ajax(URL_FINAL.toString(), map, String.class, new AjaxCallback<String>() {
 
             @Override

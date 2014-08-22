@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.facebook.Session;
+import com.facebook.UiLifecycleHelper;
 import com.facebook.android.Facebook;
 import com.smartboxtv.movistartv.R;
 import com.smartboxtv.movistartv.animation.ManagerAnimation;
@@ -140,6 +141,7 @@ public class ProgramationActivity extends ActionBarActivity{
     private List<LiveStream> liveStreams = new ArrayList<LiveStream>();
 
     private UpdateNotificationDelegate notificationDelegate;
+    private UiLifecycleHelper uiHelper;
 
     @Override
     public void onBackPressed() {
@@ -217,6 +219,7 @@ public class ProgramationActivity extends ActionBarActivity{
             }
             @Override
             public void error(String error) {
+                setDataTrendinChannel();
                 super.error(error);
             }
         });
@@ -346,70 +349,77 @@ public class ProgramationActivity extends ActionBarActivity{
             }
         });
 
-        for(int i = 0; i < lista.size(); i++){
-            Program program = new Program();
-            program.setTitle(lista.get(i).getNombrePrograma());
-            program.setStartDate(lista.get(i).getFechaInicio());
-            program.setEndDate(lista.get(i).getFechaFin());
-            program.setIdProgram(lista.get(i).getIdPrograma());
-            program.setPChannel(new Channel());
-            program.getPChannel().setChannelID(lista.get(i).getIdChannel());
-            final Program p = program;
+        if(lista.size()>0){
+            for(int i = 0; i < lista.size(); i++){
+                Program program = new Program();
+                program.setTitle(lista.get(i).getNombrePrograma());
+                program.setStartDate(lista.get(i).getFechaInicio());
+                program.setEndDate(lista.get(i).getFechaFin());
+                program.setIdProgram(lista.get(i).getIdPrograma());
+                program.setPChannel(new Channel());
+                program.getPChannel().setChannelID(lista.get(i).getIdChannel());
+                final Program p = program;
 
-            if(i%2 == 0){
+                if(i%2 == 0){
 
-                LayoutInflater inflater = LayoutInflater.from(this);
-                View channel = inflater.inflate(R.layout.slide_menu_trending_channel, null);
+                    LayoutInflater inflater = LayoutInflater.from(this);
+                    View channel = inflater.inflate(R.layout.slide_menu_trending_channel, null);
 
-                aq = new AQuery(channel);
-                TextView name = (TextView) channel.findViewById(R.id.menu_nombre_canal);
-                TextView position = (TextView) channel.findViewById(R.id.menu_posicion);
+                    aq = new AQuery(channel);
+                    TextView name = (TextView) channel.findViewById(R.id.menu_nombre_canal);
+                    TextView position = (TextView) channel.findViewById(R.id.menu_posicion);
 
-                ImageView image = (ImageView) channel.findViewById(R.id.menu_foto_canal);
-                ImageView topOne = (ImageView) channel.findViewById(R.id.top_one);
+                    ImageView image = (ImageView) channel.findViewById(R.id.menu_foto_canal);
+                    ImageView topOne = (ImageView) channel.findViewById(R.id.top_one);
 
-                if(i == 0)
-                    topOne.setVisibility(View.VISIBLE);
+                    if(i == 0)
+                        topOne.setVisibility(View.VISIBLE);
 
-                name.setText(lista.get(i).getNombreCanal());
-                position.setText(lista.get(i).getPosicion());
+                    name.setText(lista.get(i).getNombreCanal());
+                    position.setText(lista.get(i).getPosicion());
 
-                aq.id(image).image(lista.get(i).getFotoCanal());
+                    aq.id(image).image(lista.get(i).getFotoCanal());
 
-                linearLayout.addView(channel);
-                channel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        hideSlideMenu2(p);
-                    }
-                });
-                listViewTrending.add(linearLayout);
+                    linearLayout.addView(channel);
+                    channel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            hideSlideMenu2(p);
+                        }
+                    });
+                    listViewTrending.add(linearLayout);
+                }
+                else{
+                    LayoutInflater inflater = LayoutInflater.from(this);
+                    View channel = inflater.inflate(R.layout.slide_menu_trending_channel_2, null);
+
+                    aq = new AQuery(channel);
+                    TextView name = (TextView) channel.findViewById(R.id.menu_nombre_canal);
+                    TextView position = (TextView) channel.findViewById(R.id.menu_posicion);
+
+                    ImageView image = (ImageView) channel.findViewById(R.id.menu_foto_canal);
+
+                    name.setText(lista.get(i).getNombreCanal());
+                    position.setText(lista.get(i).getPosicion());
+
+                    aq.id(image).image(lista.get(i).getFotoCanal());
+                    linearLayout.addView(channel);
+                    channel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            hideSlideMenu2(p);
+                        }
+                    });
+
+                    listViewTrending.add(linearLayout);
+                }
             }
-            else{
-                LayoutInflater inflater = LayoutInflater.from(this);
-                View channel = inflater.inflate(R.layout.slide_menu_trending_channel_2, null);
+        }
+        else{
+            RelativeLayout r = (RelativeLayout) findViewById(R.id.wrapper_no_trending);
+            r.setVisibility(View.VISIBLE);
 
-                aq = new AQuery(channel);
-                TextView name = (TextView) channel.findViewById(R.id.menu_nombre_canal);
-                TextView position = (TextView) channel.findViewById(R.id.menu_posicion);
-
-                ImageView image = (ImageView) channel.findViewById(R.id.menu_foto_canal);
-
-                name.setText(lista.get(i).getNombreCanal());
-                position.setText(lista.get(i).getPosicion());
-
-                aq.id(image).image(lista.get(i).getFotoCanal());
-                linearLayout.addView(channel);
-                channel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        hideSlideMenu2(p);
-                    }
-                });
-
-                listViewTrending.add(linearLayout);
-            }
         }
     }
 
@@ -457,18 +467,9 @@ public class ProgramationActivity extends ActionBarActivity{
         scrollViewLive = (ScrollView) findViewById(R.id.list_live);
         scrollViewLive.setVisibility(View.GONE);
 
-        /*LiveSM live1 = new LiveSM("http://www.puntogeek.com/wp-content/uploads/2010/03/big-buck.jpg","Big  Buck Bunny","MP4",new Date(),"http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4");
-        LiveSM live2 = new LiveSM("http://www.observatoriofucatel.cl/wp-content/uploads/2010/11/club-de-la-comedia.jpg","Deportes","En VIVO",new Date(),"http://149.255.39.122/aasd/8741/index.m3u8#www.rojadirecta.me");
-        LiveSM live4 = new LiveSM("http://upload.wikimedia.org/wikipedia/commons/2/2e/13hd.png","Canal 13 HD","En VIVO",new Date(),"http://live.hls.http.13.ztreaming.com/13hd/13hd-900.m3u8");*/
-
         for(int i = 0; i < liveStreamSchedules.size() ;i++){
             list.add(new LiveSM( "", liveStreamSchedules.get(i).getName(),"",liveStreamSchedules.get(i).getStartDate(),"",liveStreamSchedules.get(i)));
-            //Log.e("Nombre --", liveStreamSchedules.get(i).getName());
         }
-
-        /*list.add(live1);
-        list.add(live2);
-        list.add(live4);*/
 
         LayoutInflater inflater = LayoutInflater.from(this);
 
@@ -812,10 +813,10 @@ public class ProgramationActivity extends ActionBarActivity{
                         @Override
                         public void onClick(View view) {
                             ManagerAnimation.selection(r2);
-                            /*Intent intent = new Intent(ProgramationActivity.this, LoginActivity.class);
+                            Intent intent = new Intent(ProgramationActivity.this, TutorialActivity.class);
                             UserPreference.setShowTutorial(true, getApplicationContext());
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);*/
+                            startActivity(intent);
 
                         }
                     });
@@ -1306,12 +1307,10 @@ public class ProgramationActivity extends ActionBarActivity{
                     DialogError messageDialog = new DialogError("En este momento no se puede acceder a este contenido");
                     messageDialog.show(getSupportFragmentManager(), "");
                     borraLoading();
-                    //progress.dismiss();
+
                 }else{
                     DialogError messageDialog = new DialogError("En este momento no se puede acceder a este contenido");
                     messageDialog.show(getSupportFragmentManager(), "");
-                    borraLoading();
-                    //progress.dismiss();
                 }
             }
 
@@ -1369,6 +1368,17 @@ public class ProgramationActivity extends ActionBarActivity{
         });
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        uiHelper.onActivityResult(requestCode, resultCode, data);
+        Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+    /*@Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        uiHelper.onSaveInstanceState(outState);
+    }*/
     private void nextActivity(final LiveSM liveSM){
 
         RelativeLayout r = (RelativeLayout) findViewById(R.id.view_parent);
