@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.smartboxtv.movistartv.R;
 import com.smartboxtv.movistartv.data.clean.DataClean;
+import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.programation.customize.HorizontalScrollViewFavorite;
 import com.smartboxtv.movistartv.programation.delegates.FavoritoScrollDelegate;
 
@@ -35,6 +36,7 @@ public class FavoriteFragment extends Fragment {
         scrollView = (HorizontalScrollViewFavorite) (rootView != null ? rootView.findViewById(
                 R.id.favorito_scroll_horizontal) : null);
         DataClean.garbageCollector("Favorite Fragment");
+        ((NUNCHEE) getActivity().getApplication()).sendAnaliticsScreen("Favoritos");
         loadListDays();
         loadFragment();
 

@@ -846,6 +846,8 @@ public class FavoriteFragmentDay extends Fragment {
             db.execSQL(query);
         }
         db.close();
+
+        ((NUNCHEE) getActivity().getApplication()).sendAnalitics("Recordatorio");
         Toast t = Toast.makeText(getActivity(),p.getTitle()+" agregado a tus recordatorios",Toast.LENGTH_LONG);
         t.show();
 

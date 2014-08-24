@@ -41,6 +41,7 @@ import com.smartboxtv.movistartv.data.models.Trivia;
 import com.smartboxtv.movistartv.data.models.Tweets;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
 import com.smartboxtv.movistartv.delgates.SeconPreviewDelegate;
+import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.programation.delegates.PreviewImageFavoriteDelegate;
 import com.smartboxtv.movistartv.programation.menu.About;
 import com.smartboxtv.movistartv.programation.menu.NotificationFragment;
@@ -296,7 +297,7 @@ public class SecondPreviewActivity extends ActionBarActivity {
         switch (option){
 
             case Preview.TWEETS:
-
+                                    ((NUNCHEE) getApplication()).sendAnaliticsScreen("Preview-Twitter");
                                     fragmentTwMax = new TwMaxFragment(programaPreview);
                                     wrapperTws.setVisibility(View.GONE);
                                     wrapperPolls.setVisibility(View.VISIBLE);
@@ -309,7 +310,7 @@ public class SecondPreviewActivity extends ActionBarActivity {
                                     break;
 
             case Preview.POLLS:
-
+                                     ((NUNCHEE) getApplication()).sendAnaliticsScreen("Preview-Polls");
                                     fgPolls = new PollMaxFragment(polls,programa, programaPreview);
                                     wrapperTws.setVisibility(View.VISIBLE);
                                     wrapperPolls.setVisibility(View.GONE);
@@ -322,6 +323,7 @@ public class SecondPreviewActivity extends ActionBarActivity {
                                     break;
 
             case Preview.TRIVIA:
+                                    ((NUNCHEE) getApplication()).sendAnaliticsScreen("Preview-Trivia");
                                     fragmentTriviaMax = new TriviaMaxFragment(programaPreview,trivia,false);
                                     wrapperTws.setVisibility(View.VISIBLE);
                                     wrapperPolls.setVisibility(View.VISIBLE);

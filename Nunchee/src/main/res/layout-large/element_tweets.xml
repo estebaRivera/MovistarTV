@@ -22,7 +22,7 @@
             android:layout_height="66dp"
             android:id="@+id/foto_tw"
             android:src="@drawable/twitter_placeholder"
-            android:background="#00000000"
+            android:background="@drawable/shape_tw"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_marginTop="9dp"

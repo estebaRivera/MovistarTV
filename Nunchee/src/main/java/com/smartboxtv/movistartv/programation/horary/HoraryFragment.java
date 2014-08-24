@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.smartboxtv.movistartv.R;
 import com.smartboxtv.movistartv.data.clean.DataClean;
+import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.programation.categories.FragmentDayBar;
 import com.smartboxtv.movistartv.programation.delegates.BarDayDelegate;
 import com.smartboxtv.movistartv.programation.delegates.HoraryDelegate;
@@ -45,7 +46,7 @@ public class HoraryFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.horary_fragment, container, false);
         DataClean.garbageCollector("Horary Fragment");
-
+        ((NUNCHEE) getActivity().getApplication()).sendAnaliticsScreen("Guía");
         MIN_LIMIT = aproximaFecha(new Date(ahora.getTime()- 1800000).getTime());
         fragmentPrograms.MAX_LIMIT  =   MAX_LIMIT;
         fragmentDayBar.MAX_LIMIT    =   MAX_LIMIT;

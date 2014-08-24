@@ -225,6 +225,8 @@ public class PreviewActivity extends ActionBarActivity {
         background = (ImageView) findViewById(R.id.background);
         background.setImageBitmap(image);
 
+        ((NUNCHEE) getApplication()).sendAnaliticsScreen("Preview");
+
         scrollPreview = (ScrollView) findViewById(R.id.preview_scroll);
         scrollPreview.setVisibility(View.INVISIBLE);
         contenedorLoading = (RelativeLayout) findViewById(R.id.contenedor_loading);
@@ -669,6 +671,7 @@ public class PreviewActivity extends ActionBarActivity {
     }
     public void finishActivityH(){
         finish();
+        overridePendingTransition(R.anim.nada, R.anim.fade_out_activity);
         //onDestroy();
     }
     public void cargarPreviewSM(){
@@ -1268,6 +1271,10 @@ public class PreviewActivity extends ActionBarActivity {
                 aq.id(R.id.foto_tw_2).image(programaPreview.getTweets().get(1).getUrlImagen());
             }
         }
+        else{
+            RelativeLayout r2 = (RelativeLayout) findViewById(R.id.preview_contenedor_tw_2);
+            r2.setVisibility(View.GONE);
+        }
 
         // Tw 3
         if(programaPreview.getTweets().size()>3 || programaPreview.getTweets().size()== 3){
@@ -1286,6 +1293,10 @@ public class PreviewActivity extends ActionBarActivity {
             if(programaPreview.getTweets().get(2).getUrlImagen() != null){
                 aq.id(R.id.foto_tw_3).image(programaPreview.getTweets().get(2).getUrlImagen());
             }
+        }
+        else{
+            RelativeLayout r3 = (RelativeLayout) findViewById(R.id.preview_contenedor_tw_3);
+            r3.setVisibility(View.GONE);
         }
 
         // Tw 4
@@ -1310,7 +1321,10 @@ public class PreviewActivity extends ActionBarActivity {
             }
 
         }
-
+        else{
+            RelativeLayout r4 = (RelativeLayout) findViewById(R.id.preview_contenedor_tw_4);
+            r4.setVisibility(View.GONE);
+        }
         // Tw 5
         if(programaPreview.getTweets().size() >5 || programaPreview.getTweets().size()== 5){
 
@@ -1328,7 +1342,10 @@ public class PreviewActivity extends ActionBarActivity {
             }
 
         }
-
+        else{
+            RelativeLayout r5 = (RelativeLayout) findViewById(R.id.preview_contenedor_tw_5);
+            r5.setVisibility(View.GONE);
+        }
         // Tw 6
         if(programaPreview.getTweets().size()>6 || programaPreview.getTweets().size()== 6){
 
@@ -1344,6 +1361,10 @@ public class PreviewActivity extends ActionBarActivity {
             if(programaPreview.getTweets().get(5).getUrlImagen() != null){
                 aq.id(R.id.foto_tw_6).image(programaPreview.getTweets().get(5).getUrlImagen());
             }
+        }
+        else{
+            RelativeLayout r6 = (RelativeLayout) findViewById(R.id.preview_contenedor_tw_6);
+            r6.setVisibility(View.GONE);
         }
 
         // Tw 7
@@ -1364,7 +1385,10 @@ public class PreviewActivity extends ActionBarActivity {
             }
 
         }
-
+        else{
+            RelativeLayout r7 = (RelativeLayout) findViewById(R.id.preview_contenedor_tw_7);
+            r7.setVisibility(View.GONE);
+        }
         // Tw 8
         if(programaPreview.getTweets().size()>8 || programaPreview.getTweets().size()== 8){
 
@@ -1382,6 +1406,10 @@ public class PreviewActivity extends ActionBarActivity {
                 aq.id(R.id.foto_tw_8).image(programaPreview.getTweets().get(7).getUrlImagen());
             }
 
+        }
+        else{
+            RelativeLayout r8 = (RelativeLayout) findViewById(R.id.preview_contenedor_tw_8);
+            r8.setVisibility(View.GONE);
         }
 
         // Tw 9
@@ -1404,9 +1432,12 @@ public class PreviewActivity extends ActionBarActivity {
 
             }
         }
-
+        else if(programaPreview.getTweets().size() < 9){
+            RelativeLayout r9 = (RelativeLayout) findViewById(R.id.preview_contenedor_tw_9);
+            r9.setVisibility(View.GONE);
+        }
         // Tw 10
-        if(programaPreview.getTweets().size() ==10){
+        if(programaPreview.getTweets().size() > 9){
 
             if(programaPreview.getTweets().get(9).getTw().length()<140){
                 texto10.setText(programaPreview.getTweets().get(9).getTw().replace("\n", " "));
@@ -1421,9 +1452,11 @@ public class PreviewActivity extends ActionBarActivity {
 
             if(programaPreview.getTweets().get(9).getUrlImagen() != null){
                 aq.id(R.id.foto_tw_10).image(programaPreview.getTweets().get(9).getUrlImagen());
-
             }
-
+        }
+        else{
+            RelativeLayout r10 = (RelativeLayout) findViewById(R.id.preview_contenedor_tw_10);
+            r10.setVisibility(View.GONE);
         }
 
     }
@@ -1431,7 +1464,7 @@ public class PreviewActivity extends ActionBarActivity {
     public void recorreTws(){
 
         final int contador = programaPreview.getTweets().size();
-        final int max = (contador-2) * 85;
+        final int max = (contador) * 85;
 
         TimerTask timerTask = new TimerTask()
         {
@@ -1440,7 +1473,7 @@ public class PreviewActivity extends ActionBarActivity {
 
                 int posicion =  scrollTw.getScrollY();
                 if(posicion == max || posicion > max){
-                    scrollTw.smoothScrollTo(0, 10);
+                    scrollTw.smoothScrollTo(0, 12);
                 }
                 else{
                     scrollTw.smoothScrollBy(0, 85);
@@ -1551,7 +1584,7 @@ public class PreviewActivity extends ActionBarActivity {
             db.execSQL(query);
         }
         db.close();
-
+        ((NUNCHEE) getApplication()).sendAnalitics("Recordatorio");
         Toast t = Toast.makeText(getApplicationContext(),p.getTitle()+" agregado a tus recordatorios",Toast.LENGTH_LONG);
         t.show();
     }
@@ -1610,6 +1643,7 @@ public class PreviewActivity extends ActionBarActivity {
         if (FacebookDialog.canPresentShareDialog(getApplicationContext(),
                 FacebookDialog.ShareDialogFeature.SHARE_DIALOG)) {
             // Publish the post using the Share Dialog
+            ((NUNCHEE) getApplication()).sendAnalitics("Share");
             FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(this)
                     .setName(programaPreview.Title)
                     .setDescription(programaPreview.Description)
@@ -1800,6 +1834,7 @@ public class PreviewActivity extends ActionBarActivity {
                                 ICheckIn = true;
                                 DialogMessage dialogMessage = new DialogMessage("");
                                 dialogMessage.show(getSupportFragmentManager(), "");
+                                ((NUNCHEE) getApplication()).sendAnalitics("Check-In");
                         } else {
                                 DialogError dialogError = new DialogError("Su mensaje no pudo ser publicado");
                                 dialogError.show(getSupportFragmentManager(),"");

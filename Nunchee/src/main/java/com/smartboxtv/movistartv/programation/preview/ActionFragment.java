@@ -44,6 +44,7 @@ import com.smartboxtv.movistartv.data.image.Width;
 import com.smartboxtv.movistartv.data.models.Image;
 import com.smartboxtv.movistartv.data.models.Program;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
+import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.programation.delegates.PreviewImageFavoriteDelegate;
 import com.smartboxtv.movistartv.programation.menu.DialogError;
 import com.smartboxtv.movistartv.services.DataLoader;
@@ -190,6 +191,7 @@ public class ActionFragment extends Fragment {
                 data.actionFavorite(UserPreference.getIdNunchee(getActivity()), "4", previewProgram.getIdProgram(),
                         previewProgram.getPChannel().getChannelID());
 
+                ((NUNCHEE) getActivity().getApplication()).sendAnalitics("Favorito");
                 btnFavorite.startAnimation(animacion);
                 btnFavorite.setAlpha((float) 0.5);
                 btnFavorite.setEnabled(false);
@@ -340,6 +342,9 @@ public class ActionFragment extends Fragment {
             db.execSQL(query);
         }
         db.close();
+
+        ((NUNCHEE) getActivity().getApplication()).sendAnalitics("Recordatorio");
+
         Toast t = Toast.makeText(getActivity(),p.getTitle()+" agregado a tus recordatorios",Toast.LENGTH_LONG);
 
         t.show();
@@ -400,6 +405,7 @@ public class ActionFragment extends Fragment {
         if (FacebookDialog.canPresentShareDialog(getActivity().getApplicationContext(),
                 FacebookDialog.ShareDialogFeature.SHARE_DIALOG)) {
             // Publish the post using the Share Dialog
+            ((NUNCHEE) getActivity().getApplication()).sendAnalitics("Share");
             FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(getActivity())
                     .setName(programa.Title)
                     .setDescription(previewProgram.Description)
@@ -492,6 +498,7 @@ public class ActionFragment extends Fragment {
                             btnLike.setText((previewProgram.getLike() + 1) + " Likes");
                             btnLike.setEnabled(false);
                             btnLike.setAlpha((float) 0.5);
+                            ((NUNCHEE) getActivity().getApplication()).sendAnalitics("Like");
                             DialogMessage dialogMessage = new DialogMessage("");
                             dialogMessage.show(getActivity().getSupportFragmentManager(), "");
                         } else {

@@ -27,4 +27,5 @@ dependencies {
     compile files('libs/tween-engine-api-sources.jar')
     compile files('libs/tween-engine-api.jar')
     compile files('libs/picasso-2.2.0.jar')
+    compile files('libs/google-play-services.jar')
 }

@@ -27,6 +27,7 @@ import com.smartboxtv.movistartv.data.image.Width;
 import com.smartboxtv.movistartv.data.models.Image;
 import com.smartboxtv.movistartv.data.models.Program;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
+import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.programation.delegates.PreviewImageFavoriteDelegate;
 import com.smartboxtv.movistartv.programation.menu.DialogError;
 import com.smartboxtv.movistartv.social.DialogMessage;
@@ -266,8 +267,10 @@ public class HeaderFragment extends Fragment {
                             check.setAlpha((float) 0.6);
                             check.setEnabled(false);
                             check.setClickable(false);
+                            ((NUNCHEE)getActivity(). getApplication()).sendAnalitics("Check-In");
                             DialogMessage dialogMessage = new DialogMessage("");
                             dialogMessage.show(getActivity().getSupportFragmentManager(), "");
+
                         } else {
                             DialogError dialogError = new DialogError("Su mensaje no pudo ser publicado");
                             dialogError.show(getActivity().getSupportFragmentManager(), "");

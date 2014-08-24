@@ -52,7 +52,6 @@ public class TutorialFragment extends Fragment {
 
         p1.setTypeface(normal);
         p2.setTypeface(normal);
-
         TextView title = (TextView) rootView.findViewById(R.id.title_slide_tuto);
         title.setTypeface(normal);
 

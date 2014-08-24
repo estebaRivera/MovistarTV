@@ -11,6 +11,7 @@ import com.smartboxtv.movistartv.R;
 import com.smartboxtv.movistartv.data.clean.DataClean;
 import com.smartboxtv.movistartv.data.models.CategorieChannel;
 import com.smartboxtv.movistartv.data.modelssm.CategorieChannelSM;
+import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.programation.delegates.CategoryDelegateGetCategory;
 import com.smartboxtv.movistartv.programation.delegates.CategoryDelegateGetDate;
 
@@ -38,7 +39,7 @@ public class CategoryFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.category_fragment, container, false);
 
         DataClean.garbageCollector("Category Fragment");
-
+        ((NUNCHEE) getActivity(). getApplication()).sendAnaliticsScreen("Categorías");
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.add(R.id.categoria_programas, fragmentContainer);
 
