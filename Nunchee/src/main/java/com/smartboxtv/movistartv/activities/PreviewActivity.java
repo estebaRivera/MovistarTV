@@ -194,7 +194,8 @@ public class PreviewActivity extends ActionBarActivity {
     private File file;
 
     // Share Facebook
-    private static final List<String> PERMISSIONS = Arrays.asList("publish_actions, publish_stream");
+    //private static final List<String> PERMISSIONS = Arrays.asList("publish_actions, publish_stream");
+    private static final List<String> PERMISSIONS = Arrays.asList("publish_actions");
     private static final String PENDING_PUBLISH_KEY = "pendingPublishReauthorization";
     private boolean pendingPublishReauthorization = false;
     private UiLifecycleHelper uiHelper;
@@ -1637,9 +1638,6 @@ public class PreviewActivity extends ActionBarActivity {
         else
             description = "";
 
-        /*DialogShare dialogShare = new DialogShare(description,imageUrl,title,url);
-        dialogShare.show(getSupportFragmentManager(),"");*/
-
         if (FacebookDialog.canPresentShareDialog(getApplicationContext(),
                 FacebookDialog.ShareDialogFeature.SHARE_DIALOG)) {
             // Publish the post using the Share Dialog
@@ -1774,6 +1772,8 @@ public class PreviewActivity extends ActionBarActivity {
                 session.requestNewPublishPermissions(newPermissionsRequest);
                 return;
             }
+
+            Log.e("Session","No null 2");
             SimpleDateFormat hora = new SimpleDateFormat("yyyy-MM-dd' 'HH'$'mm'$'ss");
 
             String url = "http://www.movistar.cl/PortalMovistarWeb/tv-digital/guia-de-canales";
@@ -1789,6 +1789,8 @@ public class PreviewActivity extends ActionBarActivity {
             }
 
             String description = " ";
+
+            Log.e("Session","No null 3");
 
             if(programaPreview.getDescription()!= null){
                 description = programaPreview.getDescription();

@@ -443,7 +443,6 @@ public class ActionFragment extends Fragment {
             String urlImage;
 
             if( imagen != null){
-
                 urlImage = imagen.getImagePath();
             }
             else{
@@ -545,7 +544,6 @@ public class ActionFragment extends Fragment {
             String urlImage;
 
             if( imagen != null){
-
                 urlImage = imagen.getImagePath();
             }
             else{
@@ -585,7 +583,6 @@ public class ActionFragment extends Fragment {
                                     .getGraphObject()
                                     .getInnerJSONObject();
 
-
                             try {
                                 postId = graphResponse.getString("id");
                             } catch (JSONException e) {
@@ -593,7 +590,6 @@ public class ActionFragment extends Fragment {
                                         "JSON error "+ e.getMessage());
                             }
                         }
-
                         FacebookRequestError error = response.getError();
 
                         if (error == null) {
@@ -604,7 +600,6 @@ public class ActionFragment extends Fragment {
                             dialogError.show(getActivity().getSupportFragmentManager(),"");
                         }
                     }
-
                 }
             };
 

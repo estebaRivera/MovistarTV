@@ -156,7 +156,7 @@ public class HeaderFragment extends Fragment {
         txtDescription.setText(programa.getDescription());
         //txtChannel.setText(programa.getPChannel().getChannelCallLetter() + " " + programa.getPChannel().getChannelNumber());
 
-
+        numeroCheck.setText(""+programa.CheckIn);
         Image image  = programa.getImageWidthType(Width.ORIGINAL_IMAGE, Type.BACKDROP_IMAGE);
         if(image != null){
             aq.id(R.id.preview_cabeza_foto).image(image.getImagePath());
@@ -216,7 +216,6 @@ public class HeaderFragment extends Fragment {
             String urlImage;
 
             if( imagen != null){
-
                 urlImage = imagen.getImagePath();
             }
             else{
@@ -276,7 +275,6 @@ public class HeaderFragment extends Fragment {
                             dialogError.show(getActivity().getSupportFragmentManager(), "");
                         }
                     }
-
                 }
             };
 

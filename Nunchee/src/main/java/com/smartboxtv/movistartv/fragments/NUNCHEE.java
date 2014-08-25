@@ -45,13 +45,14 @@ public class NUNCHEE extends Application {
 
     public void sendAnalitics( String evento){
         Tracker t = getTracker(TrackerName.APP_TRACKER);
-        Log.e("evento", evento);
+        Log.e("Evento", evento);
         t.send(new HitBuilders.EventBuilder("evento", evento).build());
     }
 
     public void sendAnaliticsScreen(String titulo){
         Tracker t = getTracker(TrackerName.APP_TRACKER);
         t.setScreenName(titulo);
+        Log.e("Screen", titulo);
         t.send(new HitBuilders.ScreenViewBuilder().build());
     }
 

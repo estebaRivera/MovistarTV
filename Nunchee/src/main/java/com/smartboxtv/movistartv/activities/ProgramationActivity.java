@@ -163,6 +163,9 @@ public class ProgramationActivity extends ActionBarActivity{
         ActionBar actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(background);
 
+        //uiHelper.onCreate(savedInstanceState);
+        //uiHelper.onResume();
+
         setContentView(R.layout.programation_fragment);
         Typeface bold = Typeface.createFromAsset(getAssets(), "fonts/SegoeWP-Bold.ttf");
 
@@ -434,6 +437,7 @@ public class ProgramationActivity extends ActionBarActivity{
             hideLive();
         }
     }
+
     public void hideTrending(){
         isTrendingOpen = false;
         iconMasTrending.setVisibility(View.VISIBLE);
@@ -441,6 +445,7 @@ public class ProgramationActivity extends ActionBarActivity{
         ManagerAnimation.noScaleYList(listViewTrending);
         scrollViewTrending.setVisibility(View.GONE);
     }
+
     public void showLive(){
         isMenuLiveOpen = true;
         iconMasLive.setVisibility(View.GONE);
@@ -459,6 +464,7 @@ public class ProgramationActivity extends ActionBarActivity{
         ManagerAnimation.noScaleYList(listViewLive);
         scrollViewLive.setVisibility(View.GONE);
     }
+
     private void createMenuLive(){
 
         final LinearLayout containerScrollView = (LinearLayout) findViewById(R.id.container_list_live);
@@ -607,7 +613,7 @@ public class ProgramationActivity extends ActionBarActivity{
         iconSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!showSearch){
+                if(showSearch== true){
                     showSearch = false;
                     isConfiguration = false;
                     isNotification = false;
@@ -652,7 +658,7 @@ public class ProgramationActivity extends ActionBarActivity{
             @Override
             public void onClick(View view) {
 
-                if (isConfiguration) {
+                if (isConfiguration == true) {
                     showSearch = false;
                     isConfiguration = false;
                     isNotification = false;
@@ -665,7 +671,7 @@ public class ProgramationActivity extends ActionBarActivity{
                     isNotification = false;
 
                     contenedorMenuBar.removeAllViews();
-                    View containerConfiguration = inflater.inflate(R.layout.action_bar_configuration, null, false);
+                    final View containerConfiguration = inflater.inflate(R.layout.action_bar_configuration, null, false);
                     Typeface light = Typeface.createFromAsset(getAssets(), "fonts/SegoeWP.ttf");
                     Typeface bold = Typeface.createFromAsset(getAssets(), "fonts/SegoeWP-Bold.ttf");
 
@@ -722,7 +728,8 @@ public class ProgramationActivity extends ActionBarActivity{
                         @Override
                         public void onClick(View view) {
                             isConfiguration = false;
-                            isNotification = false;
+                            contenedorMenuBar.removeAllViews();
+                            //isNotification = false;
                         }
                     });
 
@@ -860,12 +867,10 @@ public class ProgramationActivity extends ActionBarActivity{
             @Override
             public void updateNotification(boolean isNotification2) {
 
-                    isConfiguration = !isConfiguration;
+                    //isConfiguration = !isConfiguration;
                     isNotification = !isNotification;
-                    showSearch = !showSearch;
-
+                    //showSearch = !showSearch;
                     contenedorMenuBar.removeAllViews();
-
             }
         };
         final ImageButton notificacion = (ImageButton) view.findViewById(R.id.item_notificaciones);
@@ -873,7 +878,7 @@ public class ProgramationActivity extends ActionBarActivity{
             @Override
             public void onClick(View view) {
 
-                if (isNotification) {
+                if (isNotification == true) {
 
                     isConfiguration = false;
                     isNotification = false;
@@ -1000,7 +1005,6 @@ public class ProgramationActivity extends ActionBarActivity{
         recomendado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
 
                 Intent i = new Intent(ProgramationActivity.this, RecommendedActivity.class);
                 startActivity(i);
@@ -1370,15 +1374,15 @@ public class ProgramationActivity extends ActionBarActivity{
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        uiHelper.onActivityResult(requestCode, resultCode, data);
-        Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+        //uiHelper.onActivityResult(requestCode, resultCode, data);
+        //Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
-    /*@Override
+    @Override
     public void onSaveInstanceState(Bundle outState) {
+        //uiHelper.onSaveInstanceState(outState);
         super.onSaveInstanceState(outState);
-        uiHelper.onSaveInstanceState(outState);
-    }*/
+    }
     private void nextActivity(final LiveSM liveSM){
 
         RelativeLayout r = (RelativeLayout) findViewById(R.id.view_parent);

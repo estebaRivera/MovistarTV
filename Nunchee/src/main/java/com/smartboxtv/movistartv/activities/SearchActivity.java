@@ -33,6 +33,7 @@ import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.facebook.Session;
+import com.facebook.UiLifecycleHelper;
 import com.smartboxtv.movistartv.R;
 import com.smartboxtv.movistartv.animation.ManagerAnimation;
 import com.smartboxtv.movistartv.data.image.ScreenShot;
@@ -78,7 +79,7 @@ public class SearchActivity extends ActionBarActivity {
     private RelativeLayout contenedorResult;
     private File file;
     private List<Program> programList = new ArrayList<Program>();
-
+    private UiLifecycleHelper uiHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -328,5 +329,18 @@ public class SearchActivity extends ActionBarActivity {
         file.getFreeSpace();
         file.delete();
         super.onDestroy();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //uiHelper.onActivityResult(requestCode, resultCode, data);
+        //Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //uiHelper.onSaveInstanceState(outState);
     }
 }

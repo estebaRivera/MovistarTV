@@ -85,7 +85,7 @@ public class SearchFragment extends Fragment {
                 search(editText.getText().toString());
             }
         });
-        searchExit.setOnClickListener(new View.OnClickListener() {
+        searchExit.setOnClickListener(new View.OnClickListener() { // X
             @Override
             public void onClick(View view) {
                 finish();
@@ -106,8 +106,8 @@ public class SearchFragment extends Fragment {
     }
 
     public void clean(){
-        RelativeLayout n = (RelativeLayout) rootView.findViewById(R.id.no_result);
-        n.setVisibility(View.GONE);
+        /*RelativeLayout n = (RelativeLayout) rootView.findViewById(R.id.no_result);
+        n.setVisibility(View.GONE);*/
         RelativeLayout r = (RelativeLayout) rootView.findViewById(R.id.no_result);
         r.removeAllViews();
     }
@@ -250,10 +250,11 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void onAnimationEnd(Animator animator) {
-                onDetach();
-                onDestroy();
+                //onDetach();
+
                 RelativeLayout r = (RelativeLayout) getActivity().findViewById(R.id.contenedor_menu_bar);
                 r.removeAllViews();
+                onDestroy();
 
             }
 

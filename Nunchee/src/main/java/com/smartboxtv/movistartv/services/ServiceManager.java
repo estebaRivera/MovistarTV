@@ -976,6 +976,7 @@ public class ServiceManager {
         deviceType = "1";
 
         URL = BASE_URL_SERVICES_RECOMMENDATION+"/getRandom?user="+userNunchee+"&device_type="+deviceType+"&program_image_type="+PROGRAM_TYPE_POSTER+"&limit=24";
+        Log.e("URL Random",URL);
 
         aq.ajax(URL,JSONObject.class, new AjaxCallback<JSONObject>(){
 

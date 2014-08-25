@@ -28,6 +28,7 @@ import com.smartboxtv.movistartv.data.models.Tweets;
 import com.smartboxtv.movistartv.data.models.UserTwitterJSON;
 import com.smartboxtv.movistartv.data.modelssm.TweetSM;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
+import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.programation.menu.DialogError;
 import com.smartboxtv.movistartv.services.DataLoader;
 import com.smartboxtv.movistartv.services.ServiceManager;
@@ -212,6 +213,7 @@ public class TwMaxFragment extends Fragment {
                     dataLoader.updateStatusTw(new DataLoader.DataLoadedHandler<String>() {
                         @Override
                         public void loaded(String data) {
+                            ((NUNCHEE)getActivity().getApplication()).sendAnalitics("Twitter");
                             texto.setVisibility(View.GONE);
                             btnTwittear.setEnabled(false);
                         }
