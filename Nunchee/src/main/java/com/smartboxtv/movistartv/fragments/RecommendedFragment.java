@@ -17,6 +17,7 @@ import com.smartboxtv.movistartv.R;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
 import com.smartboxtv.movistartv.delgates.RecommendedDelegate;
 import com.smartboxtv.movistartv.services.DataLoader;
+import com.smartboxtv.movistartv.services.ServiceManager;
 
 /**
  * Created by Esteban- on 18-04-14.
@@ -60,9 +61,24 @@ public class RecommendedFragment extends Fragment {
 
                     delegate.dislike(programa, RecommendedFragment.this);
                     relative.startAnimation(translate);
-
                     buttonDislike.startAnimation(zoomPress);
                     //buttonLike.startAnimation(zoomNotPress);
+
+                    if(((NUNCHEE) getActivity().getApplicationContext()).CONNECT_SERVICES_PYTHON == true){
+
+                        ServiceManager serviceManager = new ServiceManager(getActivity());
+                        serviceManager.addRecommendation(new ServiceManager.ServiceManagerHandler<String>(){
+                            @Override
+                            public void loaded(String data) {
+                                super.loaded(data);
+                            }
+
+                            @Override
+                            public void error(String error) {
+                                super.error(error);
+                            }
+                        },"",programa.IdProgram,false);
+                    }
 
                 }
             }
@@ -73,9 +89,25 @@ public class RecommendedFragment extends Fragment {
 
                 if(delegate!=null){
 
-                    DataLoader data = new DataLoader(getActivity());
-                    data.actionLike(UserPreference.getIdNunchee(getActivity()), "2", programa.getIdProgram(), "-1");
+                    if(((NUNCHEE) getActivity().getApplicationContext()).CONNECT_SERVICES_PYTHON == true){
 
+                        ServiceManager serviceManager = new ServiceManager(getActivity());
+                        serviceManager.addRecommendation(new ServiceManager.ServiceManagerHandler<String>(){
+                            @Override
+                            public void loaded(String data) {
+                                super.loaded(data);
+                            }
+
+                            @Override
+                            public void error(String error) {
+                                super.error(error);
+                            }
+                        },"",programa.IdProgram,true);
+                    }
+                    else{
+                        DataLoader data = new DataLoader(getActivity());
+                        data.actionLike(UserPreference.getIdNunchee(getActivity()), "2", programa.getIdProgram(), "-1");
+                    }
                     delegate.like(programa, RecommendedFragment.this);
                     relative.startAnimation(translate);
 

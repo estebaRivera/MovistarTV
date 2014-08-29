@@ -32,7 +32,10 @@ import com.smartboxtv.movistartv.data.image.Width;
 import com.smartboxtv.movistartv.data.models.Image;
 import com.smartboxtv.movistartv.data.models.Program;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
+import com.smartboxtv.movistartv.data.preference.UserPreferenceSM;
+import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.services.DataLoader;
+import com.smartboxtv.movistartv.services.ServiceManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,12 +80,6 @@ public class FavoriteMenuFragment extends DialogFragment {
             setData(favorito);
         }
 
-        /*WindowManager.LayoutParams params = getDialog().getWindow().getAttributes();
-        params.height =  WindowManager.LayoutParams.MATCH_PARENT;
-        params.width = 1000;*/
-
-
-
         return rootView;
     }
     public void setData(final Program p){
@@ -112,6 +109,7 @@ public class FavoriteMenuFragment extends DialogFragment {
         final ImageView corazon = (ImageView) programa.findViewById(R.id.favorito_corazon);
 
         AQuery aq = new AQuery(programa);
+
         Image image  = p.getImageWidthType(Width.ORIGINAL_IMAGE, Type.BACKDROP_IMAGE);
 
         if(image != null)
@@ -128,11 +126,32 @@ public class FavoriteMenuFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
 
-                DataLoader dataLoader = new DataLoader(getActivity());
-                dataLoader.deleteFavorite(UserPreference.getIdNunchee(getActivity()), p.getDate().substring(6, 16));
+                if(((NUNCHEE)getActivity().getApplication()).CONNECT_SERVICES_PYTHON == false){
+                    DataLoader dataLoader = new DataLoader(getActivity());
+                    dataLoader.deleteFavorite(UserPreference.getIdNunchee(getActivity()), p.getDate().substring(6, 16));
 
-                listaProgramas.removeView(programa);
-                Toast.makeText(getActivity(), "Favorito borrado", Toast.LENGTH_LONG).show();
+                    listaProgramas.removeView(programa);
+                    Toast.makeText(getActivity(), "Favorito borrado", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    ServiceManager serviceManager = new ServiceManager(getActivity());
+                    serviceManager.removeFavorite(new ServiceManager.ServiceManagerHandler<String>(){
+
+                        @Override
+                        public void loaded(String data) {
+                            listaProgramas.removeView(programa);
+                            Toast.makeText(getActivity(), "Favorito borrado", Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void error(String error) {
+                            super.error(error);
+                            Log.e("error remove favorite","");
+                        }
+                    }, UserPreferenceSM.getIdNunchee(getActivity()),p.IdProgram);
+                }
+
+
 
             }
         });

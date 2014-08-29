@@ -43,6 +43,7 @@ import com.smartboxtv.movistartv.data.models.Program;
 import com.smartboxtv.movistartv.data.modelssm.datafavorites.ProgramFavoriteSM;
 import com.smartboxtv.movistartv.data.modelssm.datafavorites.ScheduleFavoriteSM;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
+import com.smartboxtv.movistartv.data.preference.UserPreferenceSM;
 import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.programation.delegates.FavoritoScrollDelegate;
 import com.smartboxtv.movistartv.programation.menu.DialogError;
@@ -145,9 +146,12 @@ public class FavoriteFragmentDay extends Fragment {
 
         setText();
         setDate(fecha);
-        loadFavorites();
-        //loadFavoriteSM();
-
+        if(((NUNCHEE) getActivity().getApplication()).CONNECT_SERVICES_PYTHON == false){
+            loadFavorites();
+        }
+        else{
+            loadFavoriteSM();
+        }
         return rootView;
     }
 
@@ -464,7 +468,7 @@ public class FavoriteFragmentDay extends Fragment {
                 DialogError dialogError = new DialogError("Ha tardado más de lo debido");
                 dialogError.show(getActivity().getSupportFragmentManager(), "");
             }
-        },"",format3.format(fecha),"");
+        }, UserPreferenceSM.getIdNunchee(getActivity()),format3.format(fecha));
     }
 
     public void noFavorite(){

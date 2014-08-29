@@ -228,12 +228,14 @@ public class LoginActivity extends ActionBarActivity {
                                             UserPreferenceSM.setIdFacebook(user.getId(), LoginActivity.this);
                                             UserPreferenceSM.setNombreFacebook(user.getName(), LoginActivity.this);
 
+
                                             idString = user.getId();
                                             nameString = user.getName();
                                             imageString = "http://graph.facebook.com/" + UserPreference.getIdFacebook(LoginActivity.this) + "/picture?type=normal;";
 
                                             String android_id = Settings.Secure.getString(getContentResolver(),
                                                     Settings.Secure.ANDROID_ID);
+
                                             ServiceManager serviceManager = new ServiceManager(getApplication());
                                             serviceManager.loginFacebook(new ServiceManager.ServiceManagerHandler<DataLoginSM>(){
                                                 @Override
@@ -246,6 +248,11 @@ public class LoginActivity extends ActionBarActivity {
                                                     }
 
                                                     UserPreferenceSM.setIdNunchee(data.id, LoginActivity.this);
+                                                    UserPreferenceSM.setTokenMovistar(data.token, LoginActivity.this);
+                                                    UserPreferenceSM.setTokenFacebook(session.getAccessToken(),LoginActivity.this);
+
+                                                    Log.e("id Usuario",UserPreferenceSM.getIdNunchee(getApplication()));
+                                                    Log.e("token",UserPreferenceSM.getTokenMovistar(getApplication()));
                                                     Intent intent = new Intent(LoginActivity.this, RecommendedActivity.class);
                                                     startActivity(intent);
                                                     overridePendingTransition(R.anim.animacion_arriba, R.anim.animacion_abajo);

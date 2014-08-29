@@ -52,6 +52,7 @@ public class CategoryAdapterContainerSM extends ArrayAdapter<ProgramsCategorySM>
     public CategoryAdapterContainerSM(Context context, List<ProgramsCategorySM> list) {
 
         super(context, R.layout.category_program_container, list);
+        Log.e("Tamaño constructor ","--> "+list.size());
         normal = Typeface.createFromAsset(getContext().getAssets(), "fonts/SegoeWP-Light.ttf");
         bold = Typeface.createFromAsset(getContext().getAssets(), "fonts/SegoeWP-Bold.ttf");
         format = new SimpleDateFormat("HH:mm");
@@ -66,10 +67,10 @@ public class CategoryAdapterContainerSM extends ArrayAdapter<ProgramsCategorySM>
         holder = null;
         item = convertView;
 
-       /* Log.e("Category Position", "--> " + position);
-        Log.e("Nombre", "--> " + listCategories.get(position).episode.getName());
-        Log.e("URL", "--> " + listCategories.get(position).program.urlImage);
-        Log.e("...--","...--");*/
+        Log.e("Category Position", "--> " + position);
+        Log.e("Nombre", "--> " + listPrograms.get(position).episode.getName());
+        Log.e("URL", "--> " + listPrograms.get(position).getImage());
+        Log.e("...--","...--");
 
         if (item == null) {
 
@@ -90,6 +91,8 @@ public class CategoryAdapterContainerSM extends ArrayAdapter<ProgramsCategorySM>
             holder.canal.setTypeface(normal);
 
             item.setTag(holder);
+
+            Log.e("...--","...--");
 
         }
         else{

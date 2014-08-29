@@ -69,6 +69,7 @@ import com.smartboxtv.movistartv.data.models.Recommendations;
 import com.smartboxtv.movistartv.data.models.Trivia;
 import com.smartboxtv.movistartv.data.models.Tweets;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
+import com.smartboxtv.movistartv.data.preference.UserPreferenceSM;
 import com.smartboxtv.movistartv.delgates.DialogErrorDelegate;
 import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.programation.delegates.PreviewImageFavoriteDelegate;
@@ -434,19 +435,44 @@ public class PreviewActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
 
-                if(fbActivate == true){
-                    DataLoader data = new DataLoader(getApplicationContext());
-                    data.actionCheckIn(UserPreference.getIdNunchee(getApplicationContext()), "7", programaPreview.getIdProgram(),
-                            programaPreview.getPChannel().getChannelID());
+                if(((NUNCHEE) getApplication()).CONNECT_SERVICES_PYTHON == false){
+                    if(fbActivate == true){
+                        DataLoader data = new DataLoader(getApplicationContext());
+                        data.actionCheckIn(UserPreference.getIdNunchee(getApplicationContext()), "7", programaPreview.getIdProgram(),
+                                programaPreview.getPChannel().getChannelID());
 
-                    Toast.makeText(getApplication(),"Publicando...",Toast.LENGTH_LONG).show();
-                    publishCheckIn();
+                        Toast.makeText(getApplication(),"Publicando...",Toast.LENGTH_LONG).show();
+                        publishCheckIn();
+                    }
+                    else{
+                        noPublish();
+                    }
                 }
                 else{
-                    noPublish();
+                    if(fbActivate == true){
+
+                        ServiceManager serviceManager = new ServiceManager(getApplication());
+                        serviceManager.addCheckIn(new ServiceManager.ServiceManagerHandler<String>(){
+
+                            @Override
+                            public void loaded(String data) {
+                                Toast.makeText(getApplication(),"Publicando...",Toast.LENGTH_LONG).show();
+                                publishCheckIn();
+                            }
+
+                            @Override
+                            public void error(String error) {
+                                super.error(error);
+                                DialogError dialogError = new DialogError();
+                                dialogError.show(getSupportFragmentManager(), "SFGFDG");
+                            }
+                        },UserPreferenceSM.getIdNunchee(getApplication()),programa.PChannel.channelID,programa.IdProgram,"id Episode", "id schedule ");
+
+                    }
+                    else{
+                        noPublish();
+                    }
                 }
-
-
             }
         });
 
@@ -454,19 +480,45 @@ public class PreviewActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
 
+                if(((NUNCHEE) getApplication()).CONNECT_SERVICES_PYTHON == false){
+                    if(fbActivate == true){
+                        DataLoader data = new DataLoader(getApplicationContext());
+                        data.actionLike(UserPreference.getIdNunchee(getApplicationContext()), "2", programaPreview.getIdProgram(),
+                                programaPreview.getPChannel().getChannelID());
 
-                if(fbActivate == true){
-                    DataLoader data = new DataLoader(getApplicationContext());
-                    data.actionLike(UserPreference.getIdNunchee(getApplicationContext()), "2", programaPreview.getIdProgram(),
-                            programaPreview.getPChannel().getChannelID());
-
-                    Toast.makeText(getApplication(),"Publicando...",Toast.LENGTH_LONG).show();
-                    publishStory();
+                        Toast.makeText(getApplication(),"Publicando...",Toast.LENGTH_LONG).show();
+                        publishStory();
+                    }
+                    else{
+                        noPublish();
+                    }
                 }
                 else{
-                    noPublish();
-                }
+                    if(fbActivate == true){
 
+                        ServiceManager serviceManager = new ServiceManager(getApplication());
+                        serviceManager.addLike(new ServiceManager.ServiceManagerHandler<String>(){
+
+
+                            @Override
+                            public void loaded(String data) {
+                                Toast.makeText(getApplication(),"Publicando...",Toast.LENGTH_LONG).show();
+                                publishStory();
+                            }
+
+                            @Override
+                            public void error(String error) {
+                                super.error(error);
+                                DialogError dialogError = new DialogError();
+                                dialogError.show(getSupportFragmentManager(), "SFGFDGzskgjnsdkjgfbsdfkjgbkgjfbdjkdsbfgks");
+                            }
+                        },
+                        UserPreferenceSM.getIdNunchee(getApplication()),programa.PChannel.channelID,programa.IdProgram);
+                    }
+                    else{
+                        noPublish();
+                    }
+                }
             }
         });
 
@@ -474,17 +526,41 @@ public class PreviewActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
 
-                DataLoader data = new DataLoader(getApplicationContext());
-                data.actionFavorite(UserPreference.getIdNunchee(getApplicationContext()), "4", programaPreview.getIdProgram(),
-                        programaPreview.getPChannel().getChannelID());
+                if(((NUNCHEE)getApplication()).CONNECT_SERVICES_PYTHON == false){
+                    DataLoader data = new DataLoader(getApplicationContext());
+                    data.actionFavorite(UserPreference.getIdNunchee(getApplicationContext()), "4", programaPreview.getIdProgram(),
+                            programaPreview.getPChannel().getChannelID());
 
-                btnFavorite.startAnimation(animation);
-                btnFavorite.setAlpha((float) 0.5);
-                btnFavorite.setEnabled(false);
+                    btnFavorite.startAnimation(animation);
+                    btnFavorite.setAlpha((float) 0.5);
+                    btnFavorite.setEnabled(false);
 
-                imgFavorite.setVisibility(View.VISIBLE);
-                imgFavorite.bringToFront();
-                AddFavorite = true;
+                    imgFavorite.setVisibility(View.VISIBLE);
+                    imgFavorite.bringToFront();
+                    AddFavorite = true;
+                }
+                else{
+                    ServiceManager serviceManager = new ServiceManager(getApplication());
+                    serviceManager.addFavorite( new ServiceManager.ServiceManagerHandler<String>(){
+                        @Override
+                        public void loaded(String data) {
+                            btnFavorite.startAnimation(animation);
+                            btnFavorite.setAlpha((float) 0.5);
+                            btnFavorite.setEnabled(false);
+
+                            imgFavorite.setVisibility(View.VISIBLE);
+                            imgFavorite.bringToFront();
+                            AddFavorite = true;
+                        }
+
+                        @Override
+                        public void error(String error) {
+                            super.error(error);
+                            DialogError dialogError = new DialogError();
+                            dialogError.show(getSupportFragmentManager(), "FAVORITE");
+                        }
+                    },UserPreferenceSM.getIdNunchee(getApplication()),programa.PChannel.channelID,programa.IdProgram);
+                }
 
             }
         });
@@ -493,21 +569,53 @@ public class PreviewActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
 
-                if(fbActivate == true){
-                    DataLoader data = new DataLoader(getApplication());
-                    data.actionShare(UserPreference.getIdNunchee(getApplication()), "3", programaPreview.getIdProgram()
-                            , programaPreview.getPChannel().getChannelID());
+                if(((NUNCHEE) getApplication()).CONNECT_SERVICES_PYTHON == false){
+                    if(fbActivate == true){
+                        DataLoader data = new DataLoader(getApplication());
+                        data.actionShare(UserPreference.getIdNunchee(getApplication()), "3", programaPreview.getIdProgram()
+                                , programaPreview.getPChannel().getChannelID());
 
-                    shareDialog();
+                        shareDialog();
 
-                    btnShare.setEnabled(false);
-                    btnShare.startAnimation(animation);
-                    btnShare.setAlpha((float) 0.5);
-                    IShare = true;
+                        btnShare.setEnabled(false);
+                        btnShare.startAnimation(animation);
+                        btnShare.setAlpha((float) 0.5);
+                        IShare = true;
+                    }
+                    else{
+                        noPublish();
+                    }
                 }
                 else{
-                    noPublish();
+                    if(fbActivate == true){
+
+                        ServiceManager serviceManager = new ServiceManager(getApplication());
+                        serviceManager.addShared(new ServiceManager.ServiceManagerHandler<String>(){
+                            @Override
+                            public void loaded(String data) {
+                                shareDialog();
+
+                                btnShare.setEnabled(false);
+                                btnShare.startAnimation(animation);
+                                btnShare.setAlpha((float) 0.5);
+                                IShare = true;
+                            }
+
+                            @Override
+                            public void error(String error) {
+                                super.error(error);
+                                DialogError dialogError = new DialogError();
+                                dialogError.show(getSupportFragmentManager(),"zdslnlfdkvnlfdvnlfdnvldfnvlf");
+                            }
+                        }, UserPreferenceSM.getIdNunchee(getApplication()),programa.PChannel.channelID, programa.IdProgram, "1");
+
+                    }
+                    else{
+                        noPublish();
+                    }
                 }
+
+
             }
         });
         long ahora = new Date().getTime();
@@ -683,7 +791,6 @@ public class PreviewActivity extends ActionBarActivity {
         final Typeface normal = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/SegoeWP.ttf");
 
         if(programa != null){
-            //Log.e("Programa", programa.getTitle());
             ServiceManager serviceManager = new ServiceManager(getApplication());
             serviceManager.getPreview(new ServiceManager.ServiceManagerHandler<Program>(){
                 @Override
@@ -700,11 +807,9 @@ public class PreviewActivity extends ActionBarActivity {
                         }
                     };
                     fragmentoAccion.setImageFavoriteDelegate(delegate);
-                    //fragmentoAccion.setDelegadoIMagenFavoritoPreview(delegadoIMagenFavoritoPreview);
                     fragmentoTw = new TwFragment(programaPreview);
                     fragmentoTwMax = new TwMaxFragment(programaPreview);
                     fragmentoBarra = new BarFragment();
-                    //programa = data;
 
                     txtName.setText(data.getTitle());
                     txtName.setTypeface(normal);
@@ -715,17 +820,12 @@ public class PreviewActivity extends ActionBarActivity {
 
                     txtDescription.setText(data.getDescription());
                     txtDescription.setTypeface(normal);
-                    /*txtChannel.setText(programa.getPChannel().getChannelCallLetter()+ " " +programa.getPChannel()
-                            .getChannelNumber());*/
 
                     txtChannel.setText(programa.getPChannel().getChannelCallLetter());
                     txtChannel.setTypeface(normal);
 
-                    //Image image = data.urlImage;
-
                     if (data.urlImage != null) {
                         aq.id(R.id.preview_cabeza_foto).image(data.urlImage);
-                        //Log.e("sii",data.urlImage);
                     }
 
                     aq.id(R.id.preview_foto_canal).image(data.getPChannel().getChannelImageURL());
@@ -790,7 +890,7 @@ public class PreviewActivity extends ActionBarActivity {
                     DialogError dialogError = new DialogError();
                     dialogError.show(getSupportFragmentManager(),"");
                 }
-            },"UserNunchee",programa.getIdProgram(),programa.IdEpisode ,programa.getPChannel().channelCallLetter,programa.getPChannel()
+            },UserPreferenceSM.getIdNunchee(getApplication()),programa.getIdProgram(),programa.IdEpisode ,programa.getPChannel().channelCallLetter,programa.getPChannel()
                     .channelImageURL,programa.StartDate,programa.getEndDate());
         }
 

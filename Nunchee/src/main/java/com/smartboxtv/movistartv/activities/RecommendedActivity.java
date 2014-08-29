@@ -29,6 +29,7 @@ import com.smartboxtv.movistartv.data.models.Program;
 import com.smartboxtv.movistartv.R;
 import com.smartboxtv.movistartv.data.modelssm.datarecommendation.RecommendationSM;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
+import com.smartboxtv.movistartv.data.preference.UserPreferenceSM;
 import com.smartboxtv.movistartv.delgates.RecommendedDelegate;
 import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.fragments.RecommendedFragment;
@@ -127,6 +128,8 @@ public class RecommendedActivity extends ActionBarActivity {
             }
         }, "", "");*/
 
+        Log.e("id Usuario Recommendation", UserPreferenceSM.getIdNunchee(getApplication()));
+
         RecommendedDelegate delegate = new RecommendedDelegate() {
 
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -135,6 +138,7 @@ public class RecommendedActivity extends ActionBarActivity {
                     first = false;
                     ManagerAnimation.alpha(skip);
                     textContinuar.setText("Continuar");
+
                 }
                 Program newProgram;
                 do{

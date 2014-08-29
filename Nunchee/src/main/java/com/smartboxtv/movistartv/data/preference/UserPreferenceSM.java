@@ -15,6 +15,7 @@ public class UserPreferenceSM {
     public static String idPrograma;
     public static String idCanal;
     public static String tokenMovistar;
+    public static String tokenFacebook;
     public static int WIDTH_SCREEN;
     public static int HEIGTH_SCREEN;
     public static int isFinish;
@@ -39,6 +40,19 @@ public class UserPreferenceSM {
         editor.commit();
     }
 
+    public static String getTokenFacebook(Context actividad) {
+        SharedPreferences prefs = actividad.getSharedPreferences("token_facebook_sm", Context.MODE_PRIVATE);
+        tokenFacebook = prefs.getString("token_fb","");
+        return tokenFacebook;
+    }
+
+    public static void setTokenFacebook(String token, Context actividad) {
+        UserPreferenceSM.tokenFacebook = token;
+        SharedPreferences prefs = actividad.getSharedPreferences("token_facebook_sm", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("token_fb", token);
+        editor.commit();
+    }
     public static boolean isShowTutorial(Context actividad) { // responde true sólo la primera vez
         SharedPreferences prefs = actividad.getSharedPreferences("show_tutorial_sm", Context.MODE_PRIVATE);
         showTutorial = prefs.getBoolean("show", true);

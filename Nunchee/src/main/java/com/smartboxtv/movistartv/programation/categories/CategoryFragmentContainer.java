@@ -41,6 +41,7 @@ import com.smartboxtv.movistartv.data.modelssm.ChannelSM;
 import com.smartboxtv.movistartv.data.modelssm.ScheduleSM;
 import com.smartboxtv.movistartv.data.modelssm.datacategory.ProgramsCategorySM;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
+import com.smartboxtv.movistartv.data.preference.UserPreferenceSM;
 import com.smartboxtv.movistartv.delgates.FacebookLikeDelegate;
 import com.smartboxtv.movistartv.programation.adapters.CategoryAdapterContainer;
 import com.smartboxtv.movistartv.programation.adapterssm.CategoryAdapterContainerSM;
@@ -260,19 +261,11 @@ public class CategoryFragmentContainer extends Fragment{
 
             @Override
             public void loaded(List<ProgramsCategorySM> data) {
-
+                if(data.size() == 0)
+                    return;
                 listPrograms = data;
                 ordenaListaSM();
-                List<ScheduleSM> totalSchedule = new ArrayList<ScheduleSM>();
-                int count = 0;
-                /*for (int i = 0 ; i < data.size() ;i++){
-                    for(int j = 0; j < data.get(i).listSchedule.size();j++){
-                        ScheduleSM sm = data.get(i).listSchedule.get(j);
-                        totalSchedule.add(sm);
-                        count = count + data.get(i).listSchedule.size();
-                    }
-                }*/
-                listChannel.get(0).listSchedule = scheduleSMList;
+                //List<ScheduleSM> totalSchedule = new ArrayList<ScheduleSM>();
                 adapterSM = new CategoryAdapterContainerSM(getActivity(),listPrograms);
                 adapterSM.setFacebookDelegate(facebookDelegate);
                 gridView.setAdapter(adapterSM);
@@ -290,7 +283,6 @@ public class CategoryFragmentContainer extends Fragment{
                         p.PChannel.channelImageURL = listPrograms.get(i).channel.urlImage;
                         p.IdProgram = ""+listPrograms.get(i).id;
                         p.IdEpisode = ""+listPrograms.get(i).episode.id;
-                        //Log.e("Id Episode","--> "+listPrograms.get(i).episode.id);
 
                         RelativeLayout r = (RelativeLayout) getActivity().findViewById(R.id.view_parent);
                         Bitmap screenShot = ScreenShot.takeScreenshot(r);
@@ -319,7 +311,6 @@ public class CategoryFragmentContainer extends Fragment{
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 borraLoading();
@@ -331,7 +322,7 @@ public class CategoryFragmentContainer extends Fragment{
                 DialogError dialogError = new DialogError("Ha tardado más de lo debido");
                 dialogError.show(getActivity().getSupportFragmentManager(), "");
             }
-        },"1","CHL","ES",format.format(inicio),format.format(end),"1",""+idCategoria);
+        }, UserPreferenceSM.getIdNunchee(getActivity()),format.format(inicio),format.format(end),"1",""+idCategoria);
     }
 
     public void loading(){

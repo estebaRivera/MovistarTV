@@ -54,8 +54,8 @@ public class CategoryFragment extends Fragment {
 
             @Override
             public void getCategory(CategorieChannelSM cc) {
-                //categorieChannelSM = cc;
-                //fragmentContainer.cargarProgramasSM(categorieChannelSM.getId(),date);
+                categorieChannelSM = cc;
+                fragmentContainer.cargarProgramasSM(categorieChannelSM.getId(),date);
             }
 
         } ;
@@ -70,9 +70,9 @@ public class CategoryFragment extends Fragment {
                 if(categorieChannel != null){
                     fragmentContainer.cargarProgramas(categorieChannel.getIdChannleCategory(),date);
                 }
-                /*if(categorieChannelSM != null){
+                if(categorieChannelSM != null){
                     fragmentContainer.cargarProgramasSM(categorieChannelSM.getId(),date);
-                }*/
+                }
             }
             @Override
             public void loadProgamation(Date d, boolean b, boolean p) {

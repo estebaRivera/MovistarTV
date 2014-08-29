@@ -15,6 +15,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
@@ -36,7 +37,10 @@ import android.widget.Toast;
 import com.androidquery.AQuery;
 import com.facebook.Session;
 import com.facebook.UiLifecycleHelper;
-import com.facebook.android.Facebook;
+
+import com.google.analytics.tracking.android.ExceptionReporter;
+import com.google.analytics.tracking.android.Tracker;
+import com.google.android.gms.analytics.GoogleAnalytics;
 import com.smartboxtv.movistartv.R;
 import com.smartboxtv.movistartv.animation.ManagerAnimation;
 import com.smartboxtv.movistartv.data.clean.DataClean;
@@ -53,6 +57,7 @@ import com.smartboxtv.movistartv.data.modelssm.LiveStream;
 import com.smartboxtv.movistartv.data.modelssm.LiveStreamSchedule;
 import com.smartboxtv.movistartv.data.modelssm.TokenIssue;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
+import com.smartboxtv.movistartv.data.preference.UserPreferenceSM;
 import com.smartboxtv.movistartv.delgates.UpdateNotificationDelegate;
 import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.programation.categories.CategoryFragment;
@@ -155,6 +160,7 @@ public class ProgramationActivity extends ActionBarActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         DataClean.garbageCollector("Recommended Activity");
         Resources res = getResources();
@@ -163,8 +169,7 @@ public class ProgramationActivity extends ActionBarActivity{
         ActionBar actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(background);
 
-        //uiHelper.onCreate(savedInstanceState);
-        //uiHelper.onResume();
+        //((NUNCHEE)getApplication()).catchGlobal();
 
         setContentView(R.layout.programation_fragment);
         Typeface bold = Typeface.createFromAsset(getAssets(), "fonts/SegoeWP-Bold.ttf");
@@ -980,25 +985,51 @@ public class ProgramationActivity extends ActionBarActivity{
             public void onClick(View view) {
                 hideSlideMenu();
                 loading();
-                DataLoader dataLoader = new DataLoader(getApplication());
-                dataLoader.getFavoriteTodos(new DataLoader.DataLoadedHandler<Program>() {
-                    @Override
-                    public void loaded(List<Program> data) {
+                if(((NUNCHEE)getApplication()).CONNECT_SERVICES_PYTHON == false){
+                    DataLoader dataLoader = new DataLoader(getApplication());
+                    dataLoader.getFavoriteTodos(new DataLoader.DataLoadedHandler<Program>() {
+                        @Override
+                        public void loaded(List<Program> data) {
 
-                        FavoriteMenuFragment favoritosFragmento = new FavoriteMenuFragment(data);
-                        favoritosFragmento.show(getSupportFragmentManager(),"");
-                        borraLoading();
-                    }
+                            FavoriteMenuFragment favoritosFragmento = new FavoriteMenuFragment(data);
+                            favoritosFragmento.show(getSupportFragmentManager(),"");
+                            borraLoading();
+                        }
 
-                    @Override
-                    public void error(String error) {
-                        super.error(error);
-                        Log.e("Program Activity error", " Favoritos error --> " + error);
-                        borraLoading();
-                        DialogError dialogError = new DialogError();
-                        dialogError.show(getSupportFragmentManager(), "");
-                    }
-                }, UserPreference.getIdNunchee(getApplication()));
+                        @Override
+                        public void error(String error) {
+                            super.error(error);
+                            Log.e("Program Activity error", " Favoritos error --> " + error);
+                            borraLoading();
+                            DialogError dialogError = new DialogError();
+                            dialogError.show(getSupportFragmentManager(), "");
+                        }
+                    }, UserPreference.getIdNunchee(getApplication()));
+                }
+                else{
+
+                    ServiceManager serviceManager = new ServiceManager(getApplication());
+                    serviceManager.getFavoriteAll(new ServiceManager.ServiceManagerHandler<Program>(){
+                        @Override
+                        public void loaded(List<Program> data) {
+                            super.loaded(data);
+                            Log.e("Data",data.toString());
+                            FavoriteMenuFragment favoritosFragmento = new FavoriteMenuFragment(data);
+                            favoritosFragmento.show(getSupportFragmentManager(),"");
+                            borraLoading();
+                        }
+
+                        @Override
+                        public void error(String error) {
+                            super.error(error);
+                            Log.e("Program Activity error 2", " Favoritos error --> " + error);
+                            borraLoading();
+                            DialogError dialogError = new DialogError();
+                            dialogError.show(getSupportFragmentManager(), "");
+                        }
+                    }, UserPreferenceSM.getIdNunchee(getApplication()));
+                }
+
             }
         });
 
@@ -1014,20 +1045,33 @@ public class ProgramationActivity extends ActionBarActivity{
         salir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //ManagerAnimation.selection(salir);
-                /*Session.getActiveSession().closeAndClearTokenInformation();
-                Session.getActiveSession().close();*/
-                /*if(((NUNCHEE)getApplication()).session!= null){
-                    ((NUNCHEE)getApplication()).session.getActiveSession().closeAndClearTokenInformation();
-                    ((NUNCHEE)getApplication()).session.getActiveSession().close();
 
-                    if(((NUNCHEE)getApplication()).session.isClosed()){
-                        Intent i = new Intent(ProgramationActivity.this, LoginActivity.class);
-                        startActivity(i);
-                        //finish();
-                    }
-                }*/
-                disconnectFacebookAccount();
+                if(((NUNCHEE) getApplication()).CONNECT_SERVICES_PYTHON == false){
+                    disconnectFacebookAccount();
+                }
+                else{
+
+                    String androidID = Settings.Secure.getString(getContentResolver(),
+                            Settings.Secure.ANDROID_ID);
+
+                    ServiceManager serviceManager = new ServiceManager(getApplication());
+
+                    serviceManager.logoutFacebook(new ServiceManager.ServiceManagerHandler<String>(){
+                        @Override
+                        public void loaded(String data) {
+                            super.loaded(data);
+                            Log.e("Data", data);
+                            ((NUNCHEE)getApplication()).RELOGIN = false;
+                            loginActivity();
+                        }
+
+                        @Override
+                        public void error(String error) {
+                            super.error(error);
+                            Log.e("Error","--> "+error);
+                        }
+                    }, UserPreferenceSM.getTokenFacebook(getApplication()),androidID,"1",UserPreferenceSM.getTokenMovistar(getApplication()));
+                }
             }
         });
 

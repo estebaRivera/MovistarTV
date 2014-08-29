@@ -99,7 +99,7 @@ public class DataLoader {
 
     private final AQuery aq;
 
-    public boolean CONNECT_AWS = true;
+    public boolean CONNECT_AWS = false;
 
     private List<FeedJSON> listaHistorial = new ArrayList<FeedJSON>();
 
