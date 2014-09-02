@@ -24,8 +24,7 @@ import java.util.List;
 public class FavoriteFragment extends Fragment {
 
     private final List<Date> days = new ArrayList<Date>();
-    private HorizontalScrollViewFavorite scrollView;
-    private Long fin,delta, inicio = System.currentTimeMillis();
+    private Long inicio = System.currentTimeMillis();
     public FavoriteFragment() {
     }
 
@@ -33,7 +32,7 @@ public class FavoriteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.favorite_fragment, container, false);
-        scrollView = (HorizontalScrollViewFavorite) (rootView != null ? rootView.findViewById(
+        HorizontalScrollViewFavorite scrollView = (HorizontalScrollViewFavorite) (rootView != null ? rootView.findViewById(
                 R.id.favorito_scroll_horizontal) : null);
         DataClean.garbageCollector("Favorite Fragment");
         ((NUNCHEE) getActivity().getApplication()).sendAnaliticsScreen("Favoritos");
@@ -87,8 +86,8 @@ public class FavoriteFragment extends Fragment {
             }
         };
 
-        fin = System.currentTimeMillis();
-        delta = fin - inicio;
+        Long fin = System.currentTimeMillis();
+        Long delta = fin - inicio;
         //Log.e("Tiempo FavoriteFragment","inicial "+delta);
 
         FavoriteFragmentDay fragmento1 = new FavoriteFragmentDay(days.get(0));

@@ -69,11 +69,8 @@ public class PollMaxFragment extends Fragment {
 
     //Facebook is Acrive
     private boolean fbActivate;
-    private DataBaseUser dataBaseUser;
-    private UserNunchee userNunchee;
 
     private Animation animacion_in;
-    private boolean result = false;
 
     public PollMaxFragment(Polls polls, Program p, Program preview) {
 
@@ -120,8 +117,8 @@ public class PollMaxFragment extends Fragment {
         Typeface bold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SegoeWP-Bold.ttf");
 
         // Publish Facebook
-        dataBaseUser = new DataBaseUser(getActivity(),"",null,0);
-        userNunchee = dataBaseUser.select(UserPreference.getIdFacebook(getActivity()));
+        DataBaseUser dataBaseUser = new DataBaseUser(getActivity(), "", null, 0);
+        UserNunchee userNunchee = dataBaseUser.select(UserPreference.getIdFacebook(getActivity()));
         fbActivate = userNunchee.isFacebookActive;
 
         if(polls.getPreguntas().isEmpty()){
@@ -701,7 +698,7 @@ public class PollMaxFragment extends Fragment {
 
     public void setDataResultado(){
 
-        result = true;
+        boolean result = true;
         contenedorResultado.startAnimation(animacion_in);
 
         if(contenedorResultado.getVisibility()== View.GONE)
@@ -724,6 +721,7 @@ public class PollMaxFragment extends Fragment {
 
                 // Calculo del espacio de porcentaje
                 RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) espacio_porcentaje1.getLayoutParams();
+                assert params != null;
                 params.width = calculaAncho(calculaPorcentaje(polls.getPreguntas().get(contador).getRespuestas().get(0)
                         .getVotos()), espacio_porcentaje1);
                 espacio_porcentaje1.setLayoutParams(params);
@@ -738,6 +736,7 @@ public class PollMaxFragment extends Fragment {
 
                     // Calculo del espacio de porcentaje
                     RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) espacio_porcentaje2.getLayoutParams();
+                    assert params2 != null;
                     params2.width = calculaAncho(calculaPorcentaje(polls.getPreguntas().get(contador).getRespuestas().get(1)
                             .getVotos()), espacio_porcentaje2);
                     espacio_porcentaje2.setLayoutParams(params2);
@@ -753,6 +752,7 @@ public class PollMaxFragment extends Fragment {
                     // Calculo del espacio de porcentaje
 
                     RelativeLayout.LayoutParams params3 = (RelativeLayout.LayoutParams) espacio_porcentaje3.getLayoutParams();
+                    assert params3 != null;
                     params3.width = calculaAncho(calculaPorcentaje(polls.getPreguntas().get(contador).getRespuestas().get(2)
                             .getVotos()), espacio_porcentaje3);
                     espacio_porcentaje3.setLayoutParams(params3);
@@ -767,6 +767,7 @@ public class PollMaxFragment extends Fragment {
 
                     // Calculo del espacio de porcentaje
                     RelativeLayout.LayoutParams params4 = (RelativeLayout.LayoutParams) espacio_porcentaje4.getLayoutParams();
+                    assert params4 != null;
                     params4.width = calculaAncho(calculaPorcentaje(polls.getPreguntas().get(contador).getRespuestas()
                             .get(3).getVotos()), espacio_porcentaje4);
                     espacio_porcentaje4.setLayoutParams(params4);
@@ -784,6 +785,7 @@ public class PollMaxFragment extends Fragment {
 
                     RelativeLayout.LayoutParams params5 = (RelativeLayout.LayoutParams) espacio_porcentaje5.getLayoutParams();
 
+                    assert params5 != null;
                     params5.width = calculaAncho(calculaPorcentaje(polls.getPreguntas().get(contador).getRespuestas()
                             .get(4).getVotos()), espacio_porcentaje5);
 

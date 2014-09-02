@@ -20,15 +20,13 @@ import java.util.List;
 public class TutorialActivity extends ActionBarActivity {
 
     private List<Fragment> listFragments = new ArrayList<Fragment>();
-    private AdapterPagerTutorial adapter;
-    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tutorial_activity);
 
-        viewPager = (ViewPager) findViewById(R.id.pager);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
@@ -41,7 +39,7 @@ public class TutorialActivity extends ActionBarActivity {
         listFragments.add(fragment2);
         //listFragments.add(fragment3);
 
-        adapter = new AdapterPagerTutorial(getSupportFragmentManager());
+        AdapterPagerTutorial adapter = new AdapterPagerTutorial(getSupportFragmentManager());
         adapter.setFragments(listFragments);
 
         viewPager.setAdapter(adapter);

@@ -240,7 +240,7 @@ public class DataBaseTrivia extends SQLiteOpenHelper{
 
         Cursor c = db.query("game_trivia", valores_recuperar,"id_trivia = '"+ id+"'",
                 null, null, null, null, null);
-        DataGameTrivia dataGameTrivia;
+        //DataGameTrivia dataGameTrivia;
 
         Log.e("Select","valor "+id);
 

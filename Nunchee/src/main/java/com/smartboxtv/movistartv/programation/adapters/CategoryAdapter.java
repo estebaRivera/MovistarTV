@@ -60,7 +60,7 @@ public class CategoryAdapter extends ArrayAdapter<CategorieChannel> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View rootView = convertView;
-        ViewHolder holder = null;
+        ViewHolder holder;
 
         if(rootView == null){
 

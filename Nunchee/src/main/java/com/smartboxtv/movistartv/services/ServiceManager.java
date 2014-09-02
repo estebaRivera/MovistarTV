@@ -2,7 +2,6 @@ package com.smartboxtv.movistartv.services;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -10,17 +9,16 @@ import android.widget.Toast;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
-import com.smartboxtv.movistartv.data.database.UserNunchee;
 import com.smartboxtv.movistartv.data.image.Type;
 import com.smartboxtv.movistartv.data.image.Width;
 import com.smartboxtv.movistartv.data.models.Channel;
 import com.smartboxtv.movistartv.data.models.FeedJSON;
 import com.smartboxtv.movistartv.data.models.Image;
 import com.smartboxtv.movistartv.data.models.Program;
-import com.smartboxtv.movistartv.data.models.Recommendations;
 import com.smartboxtv.movistartv.data.models.Trivia;
 import com.smartboxtv.movistartv.data.models.TriviaAnswers;
 import com.smartboxtv.movistartv.data.models.TriviaQuestion;
+import com.smartboxtv.movistartv.data.models.Tweets;
 import com.smartboxtv.movistartv.data.modelssm.CategorieChannelSM;
 import com.smartboxtv.movistartv.data.modelssm.ChannelSM;
 import com.smartboxtv.movistartv.data.modelssm.DataLoginSM;
@@ -42,14 +40,10 @@ import com.smartboxtv.movistartv.data.modelssm.datarecommendation.Recommendation
 import com.smartboxtv.movistartv.data.preference.UserPreferenceSM;
 import com.smartboxtv.movistartv.fragments.NUNCHEE;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
@@ -186,6 +180,7 @@ public class ServiceManager {
                     }
                 } else {
                     Log.e(TAG + " loginFacebook-", ERROR);
+                    assert object != null;
                     Log.e(TAG, object.toString());
                     handler.error(ERROR);
                 }
@@ -312,7 +307,7 @@ public class ServiceManager {
 
         URL = BASE_URL_SERVICES+"/getCategories?table="+id+"&language="+language;
 
-        Log.e(TAG+" getCategories",URL);
+        //Log.e(TAG+" getCategories",URL);
         aq.ajax(URL,JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
@@ -325,12 +320,12 @@ public class ServiceManager {
 
                     for(int i = 0; i<categories.length(); i++){
 
-                        Log.e("Categoria -->"+i , "id "+categories.getJSONObject(i).getInt("id_program_category"));
-                        Log.e("Categoria -->"+i , "description "+categories.getJSONObject(i).getString("description"));
+                        //Log.e("Categoria -->"+i , "id "+categories.getJSONObject(i).getInt("id_program_category"));
+                        //Log.e("Categoria -->"+i , "description "+categories.getJSONObject(i).getString("description"));
                         CategorieChannelSM cc = parseJsonObject(categories.getJSONObject(i), CategorieChannelSM.class);
                         fin = System.currentTimeMillis();
                         delta = fin - inicio;
-                        Log.e("Tiempo por categoria",cc.name+" --> "+delta);
+                        //Log.e("Tiempo por categoria",cc.name+" --> "+delta);
                         list.add(cc);
                     }
                     Log.e("Tiempo total","--> "+delta);
@@ -375,12 +370,12 @@ public class ServiceManager {
                             List<ProgramsCategorySM> list = new ArrayList<ProgramsCategorySM>();
 
                             if(guide != null){
-                                Log.e("Tamaño guia","--> "+guide.length());
+                                //Log.e("Tamaño guia","--> "+guide.length());
                                 for(int i = 0; i < guide.length();i++){
 
                                     ProgramsCategorySM p = parseJsonObject(guide.getJSONObject(i), ProgramsCategorySM.class);
 
-                                    Log.e("programa "+i,"--> "+guide.getJSONObject(i).getString("name"));
+                                    //Log.e("programa "+i,"--> "+guide.getJSONObject(i).getString("name"));
 
                                     JSONObject episode = guide.getJSONObject(i).getJSONObject("episode");
                                     JSONObject channel = guide.getJSONObject(i).getJSONObject("channel");
@@ -394,8 +389,6 @@ public class ServiceManager {
                                         list.add(p);
                                     }
                                 }
-                                Log.e("zdfgsf","xfdbfgb");
-
                                 handler.loaded(list);
                             }
                         } catch (Exception e) {
@@ -417,16 +410,21 @@ public class ServiceManager {
     public void getProgramation(final ServiceManagerHandler<ChannelSM> handler, String userNunchee, String dateStart,
                                             String dateEnd, String deviceType, String idCategory ){
 
-        userNunchee = "53bdadc825822c11f84fc067";
-        dateStart = "07:00:00 01-07-2014";
-        dateEnd = "12:00:00 01-07-2014";
-        //http://23.21.72.216:80/nunchee/api/1.0/guide/getPrograms?user=53bdadc825822c11f84fc067&category=1&start=10%3A33%3A57%2027-08-2014&end=12%3A33%3A57%2027-08-2014&device_type=1&channel_image_type=4&program_image_type=1
+        //userNunchee = "53bdadc825822c11f84fc067";
+        //dateStart = "07:00:00 01-07-2014";
+        //dateEnd = "12:00:00 01-07-2014";
+
         inicio = System.currentTimeMillis();
 
         URL =   BASE_URL_SERVICES+"/guideForUser?user="+userNunchee+"&start="+dateStart+"&end="+dateEnd+"&device_type"
                 +"channel_image_type=3&program_image_type=1";
 
+
+        URL = BASE_URL_SERVICES+"/guideForUser?user="+userNunchee+"&start="+dateStart+"&end="+dateEnd+"&device_type=1&channel_image_type="
+                +CHANNEL_TYPE_ICON_DARK+"&program_image_type="+PROGRAM_TYPE_SQUARE;
+
         Log.e(TAG+" getProgramation",URL);
+
         aq.ajax(URL,JSONObject.class,new AjaxCallback<JSONObject>(){
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
@@ -463,10 +461,10 @@ public class ServiceManager {
                             }
                         }
                         int count = 0;
-                        for(int i = 0; i < list.size();i++){
-                            count = count + list.get(i).listSchedule.size();
-                            for(int j = 0;j < list.get(i).listSchedule.size()  ;j++){
-                                Log.e("Canal - Programa",""+list.get(i).getName()+" - "+list.get(i).getListProgram().get(j).title+" - "+list.get(i).getListProgram().get(j).getStartDate());
+                        for (ChannelSM aList : list) {
+                            count = count + aList.listSchedule.size();
+                            for (int j = 0; j < aList.listSchedule.size(); j++) {
+                                Log.e("Canal - Programa", "" + aList.getName() + " - " + aList.getListProgram().get(j).title + " - " + aList.getListProgram().get(j).getStartDate());
                             }
 
                         }
@@ -495,7 +493,6 @@ public class ServiceManager {
     //  Servicio numero 4
     public void getFavoriteForDay( final ServiceManagerHandler<ProgramFavoriteSM> handler, String userNunchee, String startDate){
 
-        //userNunchee = "53bdadc825822c11f84fc067";
         String deviceType = "1";
 
         URL = BASE_URL_SERVICES+"/getFavoriteForDay?user="+userNunchee+"&date="+startDate+"&device_type="+deviceType+"&channel_image_type=4"+CHANNEL_TYPE_ICON_DARK+"&program_image_type="+PROGRAM_TYPE_SQUARE;
@@ -665,6 +662,7 @@ public class ServiceManager {
                Log.e("Data Tweets", data.toString());
                if(loadTweets == true && loadEpisode == true){
                    Log.e("handler ","load Tweets");
+                   p.Tweets = convertTwSM(data);
                    handler.loaded(p);
                }
 
@@ -1112,7 +1110,7 @@ public class ServiceManager {
 
     public void addRecommendation(final ServiceManagerHandler<String> handler, String userNunchee, String programId,  boolean isLike){
 
-        userNunchee = "53bdadc825822c11f84fc067";
+        //userNunchee = "53bdadc825822c11f84fc067";
         URL = BASE_URL_SERVICES_RECOMMENDATION+"/addRecommendation?user="+userNunchee+"&like="+isLike+"&program="+programId;
         Map<String, Object> map = new HashMap<String, Object>();
 
@@ -1259,6 +1257,21 @@ public class ServiceManager {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+   public List<Tweets> convertTwSM(List<TweetSM> list){
+       List<Tweets> tweets = new ArrayList<Tweets>();
+
+       for(int i = 0; i < list.size(); i++){
+           Tweets t = new Tweets();
+           t.setNombre(list.get(i).getName());
+           t.setNombreUsuario(list.get(i).getScreenName());
+           t.setTw(list.get(i).getText());
+           t.setUrlImagen(list.get(i).image);
+
+           tweets.add(t);
+       }
+       return  tweets;
+   }
+
     public static String formatDate ( Date date)  {
 
         SimpleDateFormat targetFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ssZZZ" );
@@ -1396,7 +1409,5 @@ public class ServiceManager {
                 this.onCancelled();
             }
         }
-
     }
-
 }

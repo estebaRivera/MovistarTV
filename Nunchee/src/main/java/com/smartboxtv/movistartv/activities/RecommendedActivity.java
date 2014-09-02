@@ -3,10 +3,8 @@ package com.smartboxtv.movistartv.activities;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -14,11 +12,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.BitmapAjaxCallback;
@@ -27,11 +22,9 @@ import com.smartboxtv.movistartv.animation.ManagerAnimation;
 import com.smartboxtv.movistartv.data.clean.DataClean;
 import com.smartboxtv.movistartv.data.models.Program;
 import com.smartboxtv.movistartv.R;
-import com.smartboxtv.movistartv.data.modelssm.datarecommendation.RecommendationSM;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
 import com.smartboxtv.movistartv.data.preference.UserPreferenceSM;
 import com.smartboxtv.movistartv.delgates.RecommendedDelegate;
-import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.fragments.RecommendedFragment;
 import com.smartboxtv.movistartv.programation.menu.DialogError;
 import com.smartboxtv.movistartv.services.DataLoader;
@@ -175,13 +168,21 @@ public class RecommendedActivity extends ActionBarActivity {
         listaFragmento[6].setDelegate(delegate);
         listaFragmento[7].setDelegate(delegate);
 
+        assert animacion != null;
         listaFragmento[0].getView().startAnimation(animacion);
+        assert animacion2 != null;
         listaFragmento[1].getView().startAnimation(animacion2);
+        assert animacion3 != null;
         listaFragmento[2].getView().startAnimation(animacion3);
+        assert animacion4 != null;
         listaFragmento[3].getView().startAnimation(animacion4);
+        assert animacion5 != null;
         listaFragmento[4].getView().startAnimation(animacion5);
+        assert animacion6 != null;
         listaFragmento[5].getView().startAnimation(animacion6);
+        assert animacion7 != null;
         listaFragmento[6].getView().startAnimation(animacion7);
+        assert animacion8 != null;
         listaFragmento[7].getView().startAnimation(animacion8);
     }
     public void loadRecommended(){

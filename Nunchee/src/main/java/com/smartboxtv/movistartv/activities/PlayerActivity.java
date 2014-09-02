@@ -18,16 +18,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
 
-import com.androidquery.AQuery;
 import com.smartboxtv.movistartv.R;
 import com.smartboxtv.movistartv.animation.ManagerAnimation;
 import com.smartboxtv.movistartv.data.clean.DataClean;
-import com.smartboxtv.movistartv.data.models.Program;
 import com.smartboxtv.movistartv.data.modelssm.LiveSM;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
 import com.smartboxtv.movistartv.programation.menu.About;

@@ -33,6 +33,7 @@ import com.smartboxtv.movistartv.data.models.Channel;
 import com.smartboxtv.movistartv.data.models.Program;
 import com.smartboxtv.movistartv.data.modelssm.ChannelSM;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
+import com.smartboxtv.movistartv.data.preference.UserPreferenceSM;
 import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.programation.delegates.BarDayDelegate;
 import com.smartboxtv.movistartv.programation.delegates.HorizontalScrollViewDelegate;
@@ -47,6 +48,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -120,7 +122,6 @@ public class HoraryFragmentPrograms extends Fragment {
 
     public Date MAX_LIMIT;
 
-    private Animation mueveDerecha;
     private HashMap <String,String> programasCreados = new HashMap <String,String>();
 
     public HoraryFragmentPrograms() {
@@ -136,7 +137,7 @@ public class HoraryFragmentPrograms extends Fragment {
         containerLoading = (RelativeLayout) getActivity().findViewById(R.id.contenedor_preview);
         horizontalScrollView = (HorizontalScrollViewCustom) rootView.findViewById(R.id.horizontal_scroll_view);
 
-        mueveDerecha = AnimationUtils.loadAnimation(getActivity(), R.anim.derecha_out_ahora);
+        Animation mueveDerecha = AnimationUtils.loadAnimation(getActivity(), R.anim.derecha_out_ahora);
 
         loadMore = (Button) getActivity().findViewById(R.id.btn_more);
         chargeLess = (Button) getActivity().findViewById(R.id.btn_back);
@@ -253,7 +254,6 @@ public class HoraryFragmentPrograms extends Fragment {
                     else{
                         dateActualProgram = new Date(dateActualProgram.getTime()-1800000);
                         barDayDelegate.updateDayBar(dateActualProgram, false);
-
                     }
                 }
             }
@@ -262,8 +262,14 @@ public class HoraryFragmentPrograms extends Fragment {
         Date ahora = aproximaFecha(now.getTime());
         FIRST_LIMIT_TOP = new Date(ahora.getTime()+ 16200000);////14400000  3 horas
         FIRST_LIMIT_BOTTOM = new Date(ahora.getTime() - 1800000 );//-1800000
-        loadProgramation(new Date(ahora.getTime() ));
-        //loadProgramationSM(new Date(ahora.getTime()) );
+
+        if(((NUNCHEE)getActivity().getApplication()).CONNECT_SERVICES_PYTHON == false){
+            loadProgramation(new Date(ahora.getTime() ));
+        }
+        else{
+            loadProgramationSM(new Date(ahora.getTime()));
+        }
+        //
 
         return rootView;
     }
@@ -288,7 +294,6 @@ public class HoraryFragmentPrograms extends Fragment {
             parametros64 = Base64.encodeToString(parametros.getBytes(), Base64.NO_WRAP);
             url = SERVICES_URL_AMAZON+parametros64;
         }
-
         return url;
     }
 
@@ -311,9 +316,6 @@ public class HoraryFragmentPrograms extends Fragment {
                 barDayDelegate.updateFlag(true);
             }
         }
-
-
-        //Log.e("URL programacion",getURL(nowDate,"1"));
 
         final AQuery aq = new AQuery(getActivity());
         aq.ajax(getURL(nowDate,"1"), JSONObject.class, new AjaxCallback<JSONObject>(){
@@ -359,7 +361,6 @@ public class HoraryFragmentPrograms extends Fragment {
                         llistBoolean = new boolean[jsonArray.length()];
                         JSONArray jProgramas = jsonArray.getJSONObject(i).getJSONArray("Programs");
 
-                        //Log.e("Count canal","--> "+i);
                         if(jProgramas.length()>0){
 
                             count++;
@@ -600,12 +601,7 @@ public class HoraryFragmentPrograms extends Fragment {
 
                         }
                     }
-                    actualizaPosicion(nowDate,true,isFirtsLoad);
-
-                    /*end = System.currentTimeMillis();
-                    delta = end - begin;
-                    Log.e("Tiempo","tiempo transcurrido "+delta);*/
-                    //borraLoading();
+                   actualizaPosicion(nowDate,true,isFirtsLoad);
 
                    MyClass task = new MyClass();
                    task.execute("");
@@ -632,6 +628,8 @@ public class HoraryFragmentPrograms extends Fragment {
         LIMIT_TOP = new Date(nowDate.getTime() + 10800000);// 3 horas // 1260000
         LIMIT_BOTTOM = new Date(nowDate.getTime() - 10800000 );//-1800000
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
+
         if(barDayDelegate != null){
             barDayDelegate.updateLimit(LIMIT_TOP, LIMIT_BOTTOM,FIRST_LIMIT_TOP,FIRST_LIMIT_BOTTOM);
 
@@ -651,25 +649,133 @@ public class HoraryFragmentPrograms extends Fragment {
                 Log.e("Data Load","ok");
                 guideSM = data;
 
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
                 LayoutInflater inf = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                 int count = 0;
+
+                List<Date> dateStart = new ArrayList<Date>();
+                List<Date> dateEnd = new ArrayList<Date>();
+
+                for(int i = 0; i < guideSM.size(); i++){
+                    try{
+                        if(guideSM.get(i).getListProgram().size() > 0 ){
+
+                            /*String starDate = guideSM.get(i).listSchedule.get(0).startDate;
+                            starDate = starDate.substring(0,10)+" "+starDate.substring(11,starDate.length());
+                            Log.e("StarDate",starDate);
+
+                            String endDate = guideSM.get(i).listSchedule.get(guideSM.get(i).getListProgram().size()-1).endDate;
+                            endDate = endDate.substring(0,10)+" "+endDate.substring(11,endDate.length());*/
+                            //Log.e("endDate",endDate);
+
+                            String starDate = guideSM.get(i).listSchedule.get(0).startDate;
+                            starDate = starDate.substring(0,10)+" "+starDate.substring(11,starDate.length());
+                            Log.e("StarDate",starDate);
+                            String endDate = guideSM.get(i).listSchedule.get(0).endDate;
+                            endDate = endDate.substring(0,10)+" "+endDate.substring(11,endDate.length());
+
+                            //Date d1 = dateFormat.parse(starDate.trim());
+                            //Date d2 = dateFormat.parse(endDate.trim());
+
+                            //d1 = dateFormat.parse(starDate);
+                            //d2 = dateFormat.parse(endDate);
+
+                            //dateStart.add(d1);
+                            //dateEnd.add(d2);
+                        }
+                    }
+                    catch(Exception e){
+                        e.printStackTrace();
+                        Log.e("Error define parametros", e.getMessage());
+                    }
+                }
+
+                //defineParametros(dateStart,dateEnd);
+
                 for(int i = 0; i < guideSM.size() ; i++){
 
                     llistBoolean = new boolean [guideSM.size()];
                     listChannel =  new View[guideSM.size()];
+                    listPrograms = new LinearLayout[guideSM.size()];
 
-                    /*for(int j = 0; i < guideSM.size(); i++){
-                        listPrograms = new LinearLayout[guideSM.get(i).getListProgram().size()];
-                    }*/
                     if(guideSM.get(i).urlImage != null ){
-
                         count++;
                         listChannel[i] = inf.inflate(R.layout.element_channel, null,false);
 
                         aq.id(listChannel[i].findViewById(R.id.img_channel)).image(guideSM.get(i).urlImage);
                         containerChannel.addView(listChannel[i]);
 
+                        listPrograms[i] = new LinearLayout(getActivity());
+                        listPrograms[i].setOrientation(LinearLayout.HORIZONTAL);
+
+                        for(int j = 0 ; j < guideSM.get(i).getListProgram().size(); j++){
+                            if(count % 2 == 0){
+                                program = inf.inflate(R.layout.element_program, null,false);
+                                llistBoolean[count] = true;
+                            }
+                            else{
+                                program = inf.inflate(R.layout.element_program_impar, null,false);
+                                llistBoolean[count] = false;
+                            }
+
+                            String starDate = guideSM.get(i).listSchedule.get(j).startDate;
+                            starDate = starDate.substring(0,10)+" "+starDate.substring(11,starDate.length());
+
+                            String endDate = guideSM.get(i).listSchedule.get(j).endDate;
+                            endDate = endDate.substring(0,10)+" "+endDate.substring(11,endDate.length());
+
+                            Date d2 = null;
+                            Date d1 = null;
+
+                            try {
+                                d1 = format.parse(starDate);
+                                d2 = format.parse(endDate);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                                Log.e("Error Parse 1","--> "+e.getMessage());
+                            }
+
+                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(determinaPadding(d1,d2),90);
+                            params.setMargins(0,5,0,5);
+
+                            //Programs
+                            final Program p = new Program();
+                            try{
+                                    p.IdProgram =  ""+guideSM.get(i).getListProgram().get(j).program.id;
+                                    p.Title = guideSM.get(i).getListProgram().get(j).title;
+                                    p.PChannel = new Channel() ;
+                                    p.PChannel.setChannelID(""+guideSM.get(i).id);
+                                    if(i % 2 == 0){
+                                        p.getPChannel().par = true;
+                                    }
+                                    else{
+                                        p.getPChannel().par = false;
+                                    }
+                                    p.StartDate = d1;
+                                    p.EndDate = d2;
+                                    //p.IsFavorite = guideSM.get(i).getListProgram().get(j).getProgram().;
+                                    p.IsFavorite = false;
+                                }
+                            catch(Exception e){
+                                    e.printStackTrace();
+                                    Log.e("SM 1 error",e.getMessage());
+                                }
+                            try{
+                                if(j == 0){
+                                    //params.setMargins(determinaPadding(dateFirstProgram, d1), 5, 0, 5);
+                                }
+                            }
+                            catch(Exception e){
+                                    e.printStackTrace();
+                                    Log.e("SM 2 error",e.getMessage());
+                            }
+
+                            listPrograms[i].addView(program);
+                            program.setLayoutParams(params);
+                        }
+                        containerPrograms.addView(listPrograms[i]);
                     }
                 }
                 Log.e("Numero des canales","--> "+count);
@@ -677,11 +783,11 @@ public class HoraryFragmentPrograms extends Fragment {
             }
             @Override
             public void error(String error) {
-
                 Log.e("Data Load","error -> "+error);
+                borraLoading();
             }
         }
-        ,"","","","","");
+        , UserPreferenceSM.getIdNunchee(getActivity()),dateFormat.format(LIMIT_BOTTOM), dateFormat.format(LIMIT_BOTTOM),"","");
 
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -701,11 +807,18 @@ public class HoraryFragmentPrograms extends Fragment {
 
     public void defineParametros(List<Date> dateStart,List<Date> dateEnd){
 
-        Long minimo = dateStart.get(0).getTime();
-        Long maximo = dateEnd.get(0).getTime();
+        Long minimo = null;
+        Long maximo = null;
+
+        if(dateStart.size() > 0){
+             minimo = dateStart.get(0).getTime();
+        }
+
+        if(dateEnd.size() > 0){
+            maximo = dateEnd.get(0).getTime();
+        }
 
         int contadorMinimo = 0;
-
         try{
             for(int i = 0; i < dateStart.size() && i < dateEnd.size(); i++){
                 if(dateStart.size() > 1 && dateEnd.size() > 1){
@@ -1094,11 +1207,8 @@ public class HoraryFragmentPrograms extends Fragment {
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(padding,90);
                     params.setMargins(0,5,0,5);
                     program.setLayoutParams(params);
-                   // Log.e("Programa no creado","programa añadido");
                 }
-                else{
-                   // Log.e("Programa creado","Programa Creado");
-                }
+
             }
         }
 

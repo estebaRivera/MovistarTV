@@ -2,9 +2,7 @@ package com.smartboxtv.movistartv.services;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 
@@ -64,15 +62,11 @@ import com.smartboxtv.movistartv.data.modelssm.LiveStream;
 import com.smartboxtv.movistartv.data.modelssm.LiveStreamSchedule;
 import com.smartboxtv.movistartv.data.modelssm.TokenIssue;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
-import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.social.Facebook;
-import com.smartboxtv.movistartv.social.Twitter;
 
 public class DataLoader {
 
     private static final String TAG = "DataLoader";
-
-    private final long EXPIRE = 10000;
 
     public static final String BASE_URL = "https://api.streammanager.co/api/";
     public static final String API_TOKEN = "bace2022792e7943635001c8696a013f";//"8fc221e56408966fe7999c7c1edff220";
@@ -417,6 +411,7 @@ public class DataLoader {
 
         Log.e("URL Favoritos", URL_FINAL.toString());
 
+        long EXPIRE = 10000;
         aq.ajax(URL_FINAL.toString(), JSONArray.class, EXPIRE, new AjaxCallback<JSONArray>() {
 
             @Override
@@ -1204,13 +1199,6 @@ public class DataLoader {
                             }
                         }
                     });
-                }else if(status.getCode() == 401){
-                    /*if(count < 2){
-                        count ++;
-                        checkToken();
-                        issueTokenForLive(mediaId, index, handler);
-                        return;
-                    }*/
                 }
                 else{
                     Log.e(TAG,"IssueTokenForLive: code "+status.getCode()+" error "+status.getError());

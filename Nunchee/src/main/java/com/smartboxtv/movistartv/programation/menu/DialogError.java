@@ -3,7 +3,6 @@ package com.smartboxtv.movistartv.programation.menu;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +38,7 @@ public class DialogError extends DialogFragment {
         Button aceptar = (Button) rootView.findViewById(R.id.button_aceptar);
         Typeface bold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SegoeWP-Bold.ttf");
         Typeface normal = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SegoeWP.ttf");
+        assert txtError != null;
         txtError.setTypeface(bold);
         aceptar.setTypeface(normal);
 

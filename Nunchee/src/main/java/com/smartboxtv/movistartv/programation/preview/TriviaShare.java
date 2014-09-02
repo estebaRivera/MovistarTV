@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.smartboxtv.movistartv.R;
 import com.smartboxtv.movistartv.data.models.Program;
 import com.smartboxtv.movistartv.data.models.Trivia;
-import com.smartboxtv.movistartv.social.DialogMessage;
 import com.smartboxtv.movistartv.social.DialogShare;
 
 /**

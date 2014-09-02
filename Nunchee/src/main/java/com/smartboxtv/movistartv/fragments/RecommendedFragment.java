@@ -15,6 +15,7 @@ import com.androidquery.AQuery;
 import com.smartboxtv.movistartv.data.models.Program;
 import com.smartboxtv.movistartv.R;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
+import com.smartboxtv.movistartv.data.preference.UserPreferenceSM;
 import com.smartboxtv.movistartv.delgates.RecommendedDelegate;
 import com.smartboxtv.movistartv.services.DataLoader;
 import com.smartboxtv.movistartv.services.ServiceManager;
@@ -77,7 +78,7 @@ public class RecommendedFragment extends Fragment {
                             public void error(String error) {
                                 super.error(error);
                             }
-                        },"",programa.IdProgram,false);
+                        }, UserPreferenceSM.getIdNunchee(getActivity()),programa.IdProgram,false);
                     }
 
                 }
@@ -102,7 +103,7 @@ public class RecommendedFragment extends Fragment {
                             public void error(String error) {
                                 super.error(error);
                             }
-                        },"",programa.IdProgram,true);
+                        },UserPreferenceSM.getIdNunchee(getActivity()),programa.IdProgram,true);
                     }
                     else{
                         DataLoader data = new DataLoader(getActivity());

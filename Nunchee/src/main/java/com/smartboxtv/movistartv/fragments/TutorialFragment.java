@@ -1,11 +1,9 @@
 package com.smartboxtv.movistartv.fragments;
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +13,7 @@ import android.widget.TextView;
 
 import com.androidquery.AQuery;
 import com.smartboxtv.movistartv.R;
-import com.smartboxtv.movistartv.activities.LoginActivity;
-import com.smartboxtv.movistartv.activities.RecommendedActivity;
 import com.smartboxtv.movistartv.activities.TutorialActivity;
-import com.smartboxtv.movistartv.data.preference.UserPreference;
 
 /**
  * Created by Esteban- on 25-07-14.

@@ -89,8 +89,7 @@ public class BitmapAjaxCallback extends AbstractAjaxCallback<Bitmap, BitmapAjaxC
 	private Bitmap preset;
 	private float ratio;
 	private int round;
-	private boolean targetDim = true;
-	private float anchor = AQuery.ANCHOR_DYNAMIC;
+    private float anchor = AQuery.ANCHOR_DYNAMIC;
 	private boolean invalid;
 	private boolean rotate;
 	
@@ -438,8 +437,9 @@ public class BitmapAjaxCallback extends AbstractAjaxCallback<Bitmap, BitmapAjaxC
     	return result;
     }
 	
-    private Bitmap bmGet(String path, byte[] data){    	
-    	return getResizedImage(path, data, targetWidth, targetDim, round, rotate);
+    private Bitmap bmGet(String path, byte[] data){
+        boolean targetDim = true;
+        return getResizedImage(path, data, targetWidth, targetDim, round, rotate);
     	
     }
    

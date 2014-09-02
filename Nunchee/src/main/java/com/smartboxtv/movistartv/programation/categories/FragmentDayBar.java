@@ -53,10 +53,8 @@ public class FragmentDayBar extends Fragment {
     private long longActual = new Date().getTime();
     private Position firstPosition;
     private Position actualPosition;
-    private Position beginPosition;
 
     private Animation mueveDerecha;
-    private Animation mueveIzquierda;
     private TextView hora;
     private ImageView ahora;
     private ImageView backDate;
@@ -106,11 +104,11 @@ public class FragmentDayBar extends Fragment {
         delta = UserPreference.getWIDTH_SCREEN(getActivity())/2;
         hora.setTypeface(bold);
         mueveDerecha = AnimationUtils.loadAnimation(getActivity(), R.anim.derecha_ahora);
-        mueveIzquierda = AnimationUtils.loadAnimation(getActivity(), R.anim.derecha_out_ahora);
+        Animation mueveIzquierda = AnimationUtils.loadAnimation(getActivity(), R.anim.derecha_out_ahora);
 
         firstPosition = new Position(0,days.get(0).getTime());
         actualPosition = initialPosition();
-        beginPosition = actualPosition;
+        Position beginPosition = actualPosition;
 
         imprimeFechaInicial();
 

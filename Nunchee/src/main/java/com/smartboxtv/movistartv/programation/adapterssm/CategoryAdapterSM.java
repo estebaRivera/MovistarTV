@@ -48,7 +48,7 @@ public class CategoryAdapterSM extends ArrayAdapter<CategorieChannelSM> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View rootView = convertView;
-        ViewHolder holder = null;
+        ViewHolder holder;
 
         if(rootView == null){
 

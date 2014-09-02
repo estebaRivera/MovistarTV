@@ -19,7 +19,6 @@ public class HorizontalScrollViewCustom extends HorizontalScrollView implements 
     private int t;
     private int xScroll;
     private int MINIMO_DIA;
-    private final int BLOCK = 360;//330; //300; //270; // 240
 
     private float coordenadaProgramaX;
     private float coordenadaProgramaXOld;
@@ -87,6 +86,7 @@ public class HorizontalScrollViewCustom extends HorizontalScrollView implements 
 
                                                 if(moveToLeft() && moveLeft){
 
+                                                    int BLOCK = 360;
                                                     this.xScroll = l + BLOCK;
                                                     if(delegate != null){
                                                         delegate.onScrollEnd(l,t);
@@ -100,6 +100,7 @@ public class HorizontalScrollViewCustom extends HorizontalScrollView implements 
                                                         if(delegate != null){
                                                             delegate.onScrollEnd(l,t);
                                                         }
+                                                        int BLOCK = 360;
                                                         this.xScroll = l - BLOCK;
                                                         this.smoothScrollTo(l - BLOCK,0);
                                                     }
@@ -117,12 +118,7 @@ public class HorizontalScrollViewCustom extends HorizontalScrollView implements 
 
     public boolean moveToLeft(){
 
-        if(0 > coordenadaProgramaX - coordenadaProgramaXOld){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return 0 > coordenadaProgramaX - coordenadaProgramaXOld;
     }
 
     @Override

@@ -9,7 +9,6 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -44,12 +43,13 @@ import com.smartboxtv.movistartv.data.image.Width;
 import com.smartboxtv.movistartv.data.models.Image;
 import com.smartboxtv.movistartv.data.models.Program;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
+import com.smartboxtv.movistartv.data.preference.UserPreferenceSM;
 import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.programation.delegates.PreviewImageFavoriteDelegate;
 import com.smartboxtv.movistartv.programation.menu.DialogError;
 import com.smartboxtv.movistartv.services.DataLoader;
+import com.smartboxtv.movistartv.services.ServiceManager;
 import com.smartboxtv.movistartv.social.DialogMessage;
-import com.smartboxtv.movistartv.social.DialogShare;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -81,8 +81,6 @@ public class ActionFragment extends Fragment {
     private Animation animacion;
     private PreviewImageFavoriteDelegate imageFavoriteDelegate;
 
-    //Facebook is Acrive
-    private boolean fbActivate;
     private DataBaseUser dataBaseUser;
     private UserNunchee userNunchee;
 
@@ -102,7 +100,6 @@ public class ActionFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.preview_fg_action,container,false);
 
         Typeface normal = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SegoeWP.ttf");
-        Typeface bold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SegoeWP-Bold.ttf");
 
         btnLike = (Button) (rootView != null ? rootView.findViewById(R.id.preview_boton_like) : null);
         btnReminder = (Button) (rootView != null ? rootView.findViewById(R.id.preview_boton_recordar) : null);
@@ -122,10 +119,10 @@ public class ActionFragment extends Fragment {
         // Publish Facebook
         dataBaseUser = new DataBaseUser(getActivity(),"",null,0);
         userNunchee = dataBaseUser.select(UserPreference.getIdFacebook(getActivity()));
-        fbActivate = userNunchee.isFacebookActive;
+        boolean fbActivate = userNunchee.isFacebookActive;
 
         // Focos
-        Resources res = getResources();
+        //Resources res = getResources();
 
         if(previewProgram.getLike()>1)
             btnLike.setText(previewProgram.getLike()+" Likes");
@@ -143,16 +140,11 @@ public class ActionFragment extends Fragment {
         if(IReminder == true){
             btnReminder.setEnabled(false);
             btnReminder.setAlpha((float) 0.5);
-        };
+        }
         if(IShare == true){
             btnShare.setEnabled(false);
             btnShare.setAlpha((float) 0.5);
         }
-
-        /*Drawable drwFocusShare = res.getDrawable(R.drawable.compartir_foco_acc);
-        Drawable drwFocusFavorite = res.getDrawable(R.drawable.favorito_foco_acc);
-        Drawable drwFocusLike = res.getDrawable(R.drawable.like_foco_acc);
-        Drawable drwFocusReminder = res.getDrawable(R.drawable.recordar_foco_acc);*/
 
         btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,20 +152,41 @@ public class ActionFragment extends Fragment {
                 try{
                     userNunchee = dataBaseUser.select(UserPreference.getIdFacebook(getActivity().getApplicationContext()));
                     dataBaseUser.close();
-                    if(userNunchee.isFacebookActive){
-                        DataLoader data = new DataLoader(getActivity());
-                        data.actionLike(UserPreference.getIdNunchee(getActivity()), "2", previewProgram.getIdProgram(),
-                                previewProgram.getPChannel().getChannelID());
-
-                        /*btnLike.startAnimation(animacion);
-                        btnLike.setText((previewProgram.getLike() + 1) + " Likes");
-                        btnLike.setEnabled(false);
-                        btnLike.setAlpha((float) 0.5);*/
-                        Toast.makeText(getActivity(),"Publicando...",Toast.LENGTH_LONG).show();
-                        publishStory();
+                    if(((NUNCHEE) getActivity().getApplication()).CONNECT_SERVICES_PYTHON == false){
+                        if(userNunchee.isFacebookActive){
+                            DataLoader data = new DataLoader(getActivity());
+                            data.actionLike(UserPreference.getIdNunchee(getActivity()), "2", previewProgram.getIdProgram(),
+                                    previewProgram.getPChannel().getChannelID());
+                            Toast.makeText(getActivity(),"Publicando...",Toast.LENGTH_LONG).show();
+                            publishStory();
+                        }
+                        else{
+                            noPublish();
+                        }
                     }
                     else{
-                       noPublish();
+                        if(userNunchee.isFacebookActive){
+
+                            ServiceManager serviceManager = new ServiceManager(getActivity());
+                            serviceManager.addLike(new ServiceManager.ServiceManagerHandler<String>(){
+
+                                @Override
+                                public void loaded(String data) {
+                                    Toast.makeText(getActivity(),"Publicando...",Toast.LENGTH_LONG).show();
+                                    publishStory();
+                                }
+
+                                @Override
+                                public void error(String error) {
+                                    super.error(error);
+                                    DialogError dialogError = new DialogError();
+                                    dialogError.show(getActivity().getSupportFragmentManager(), "SFGFDGzskgjnsdkjgfbsdfkjgbkgjfbdjkdsbfgks");
+                                }
+                            },UserPreferenceSM.getIdNunchee(getActivity()),programa.PChannel.channelID,programa.IdProgram);
+                        }
+                        else{
+                            noPublish();
+                        }
                     }
                 }
                 catch(Exception e){
@@ -187,19 +200,44 @@ public class ActionFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                DataLoader data = new DataLoader(getActivity());
-                data.actionFavorite(UserPreference.getIdNunchee(getActivity()), "4", previewProgram.getIdProgram(),
-                        previewProgram.getPChannel().getChannelID());
-
                 ((NUNCHEE) getActivity().getApplication()).sendAnalitics("Favorito");
-                btnFavorite.startAnimation(animacion);
-                btnFavorite.setAlpha((float) 0.5);
-                btnFavorite.setEnabled(false);
 
-                if (imageFavoriteDelegate != null) {
-                    imageFavoriteDelegate.showImage(true, ActionFragment.this);
+                if(((NUNCHEE)getActivity().getApplication()).CONNECT_SERVICES_PYTHON == false){
+                    DataLoader data = new DataLoader(getActivity());
+                    data.actionFavorite(UserPreference.getIdNunchee(getActivity()), "4", previewProgram.getIdProgram(),
+                            previewProgram.getPChannel().getChannelID());
+
+
+                    btnFavorite.startAnimation(animacion);
+                    btnFavorite.setAlpha((float) 0.5);
+                    btnFavorite.setEnabled(false);
+
+                    if (imageFavoriteDelegate != null) {
+                        imageFavoriteDelegate.showImage(true, ActionFragment.this);
+                    }
                 }
+                else{
+                    ServiceManager serviceManager = new ServiceManager(getActivity());
+                    serviceManager.addFavorite( new ServiceManager.ServiceManagerHandler<String>(){
+                        @Override
+                        public void loaded(String data) {
+                            btnFavorite.startAnimation(animacion);
+                            btnFavorite.setAlpha((float) 0.5);
+                            btnFavorite.setEnabled(false);
 
+                            if (imageFavoriteDelegate != null) {
+                                imageFavoriteDelegate.showImage(true, ActionFragment.this);
+                            }
+                        }
+
+                        @Override
+                        public void error(String error) {
+                            super.error(error);
+                            DialogError dialogError = new DialogError();
+                            dialogError.show(getActivity().getSupportFragmentManager(), "FAVORITE");
+                        }
+                    },UserPreferenceSM.getIdNunchee(getActivity().getApplication()),programa.PChannel.channelID,programa.IdProgram);
+                }
             }
         });
 
@@ -209,21 +247,50 @@ public class ActionFragment extends Fragment {
 
                 userNunchee = dataBaseUser.select(UserPreference.getIdFacebook(getActivity().getApplicationContext()));
                 dataBaseUser.close();
-                if(userNunchee.isFacebookActive){
 
-                    DataLoader data = new DataLoader(getActivity());
-                    data.actionShare(UserPreference.getIdNunchee(getActivity()), "3", previewProgram.getIdProgram(),
-                            previewProgram.getPChannel().getChannelID());
+                if(((NUNCHEE)getActivity().getApplication()).CONNECT_SERVICES_PYTHON == false){
+                    if(userNunchee.isFacebookActive){
 
-                    shareDialog();
-                    btnShare.setEnabled(false);
-                    btnShare.startAnimation(animacion);
-                    btnShare.setAlpha((float) 0.5);
+                        DataLoader data = new DataLoader(getActivity());
+                        data.actionShare(UserPreference.getIdNunchee(getActivity()), "3", previewProgram.getIdProgram(),
+                                previewProgram.getPChannel().getChannelID());
+
+                        shareDialog();
+                        btnShare.setEnabled(false);
+                        btnShare.startAnimation(animacion);
+                        btnShare.setAlpha((float) 0.5);
+                    }
+                    else{
+                        noPublish();
+                    }
                 }
                 else{
-                    noPublish();
-                }
+                    if(userNunchee.isFacebookActive){
 
+                        ServiceManager serviceManager = new ServiceManager(getActivity());
+                        serviceManager.addShared(new ServiceManager.ServiceManagerHandler<String>(){
+                            @Override
+                            public void loaded(String data) {
+                                shareDialog();
+
+                                btnShare.setEnabled(false);
+                                btnShare.startAnimation(animacion);
+                                btnShare.setAlpha((float) 0.5);
+                                IShare = true;
+                            }
+
+                            @Override
+                            public void error(String error) {
+                                super.error(error);
+                                DialogError dialogError = new DialogError();
+                                dialogError.show(getActivity().getSupportFragmentManager(),"zdslnlfdkvnlfdvnlfdnvldfnvlf");
+                            }
+                        }, UserPreferenceSM.getIdNunchee(getActivity()),programa.PChannel.channelID, programa.IdProgram, "1");
+                    }
+                    else{
+                        noPublish();
+                    }
+                }
             }
         });
 
@@ -341,6 +408,7 @@ public class ActionFragment extends Fragment {
             Log.e("Query",query);
             db.execSQL(query);
         }
+        assert db != null;
         db.close();
 
         ((NUNCHEE) getActivity().getApplication()).sendAnalitics("Recordatorio");
@@ -379,9 +447,9 @@ public class ActionFragment extends Fragment {
 
     public  void shareDialog(){
 
-        SimpleDateFormat hora = new SimpleDateFormat("yyyy-MM-dd' 'HH'$'mm'$'ss");
+        //SimpleDateFormat hora = new SimpleDateFormat("yyyy-MM-dd' 'HH'$'mm'$'ss");
 
-        String url = "http://www.movistar.cl/PortalMovistarWeb/tv-digital/programacion";
+        //String url = "http://www.movistar.cl/PortalMovistarWeb/tv-digital/programacion";
 
         Image imagen = programa.getImageWidthType(Width.ORIGINAL_IMAGE,Type.BACKDROP_IMAGE);
         String imageUrl;
@@ -392,12 +460,12 @@ public class ActionFragment extends Fragment {
         else{
             imageUrl= "https://tvsmartbox.com/MovistarTV/movistartv-post.png";
         }
-        String title = programa.Title;
+        //String title = programa.Title;
         String text;
-        if(previewProgram.Description != null)
+        /*if(previewProgram.Description != null)
             text = previewProgram.Description;
         else
-            text = "";
+            text = "";*/
 
         /*DialogShare dialogShare = new DialogShare(text,imageUrl,title,url);
         dialogShare.show(getActivity().getSupportFragmentManager(),"");*/
@@ -414,9 +482,6 @@ public class ActionFragment extends Fragment {
                     .build();
             uiHelper.trackPendingDialogCall(shareDialog.present());
 
-        } else {
-            // Fallback. For example, publish the post using the Feed Dialog
-            //publishFeedDialog();
         }
     }
     private void publishStory() {
@@ -435,7 +500,7 @@ public class ActionFragment extends Fragment {
                 session.requestNewPublishPermissions(newPermissionsRequest);
                 return;
             }
-            SimpleDateFormat hora = new SimpleDateFormat("yyyy-MM-dd' 'HH'$'mm'$'ss");
+            //SimpleDateFormat hora = new SimpleDateFormat("yyyy-MM-dd' 'HH'$'mm'$'ss");
 
             String url = "http://www.movistar.cl/PortalMovistarWeb/tv-digital/programacion";
 
@@ -536,7 +601,7 @@ public class ActionFragment extends Fragment {
                 session.requestNewPublishPermissions(newPermissionsRequest);
                 return;
             }
-            SimpleDateFormat hora = new SimpleDateFormat("yyyy-MM-dd' 'HH'$'mm'$'ss");
+            //SimpleDateFormat hora = new SimpleDateFormat("yyyy-MM-dd' 'HH'$'mm'$'ss");
 
             String url = "http://www.movistar.cl/PortalMovistarWeb/tv-digital/guia-de-canales";
 

@@ -2,22 +2,15 @@ package com.smartboxtv.movistartv.social;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.androidquery.auth.FacebookHandle;
 import com.androidquery.auth.TwitterHandle;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
-import com.facebook.Session;
-import com.facebook.android.AsyncFacebookRunner;
-import com.facebook.android.DialogError;
-import com.facebook.android.FacebookError;
 
 import com.facebook.android.Facebook;
-import com.facebook.widget.FacebookDialog;
 
 import org.json.JSONObject;
 
@@ -33,7 +26,6 @@ public final class SocialUtil {
     private AQuery aq;
     private Context context;
     private final String APP_ID = "487156824723876";
-    private Facebook facebook = null;
 
     public SocialUtil(Context context) {
         this.context = context;
@@ -43,7 +35,7 @@ public final class SocialUtil {
     public SocialUtil(Context context, Facebook facebook) {
         this.context = context;
         this.aq = new AQuery(context);
-        this.facebook = facebook;
+        Facebook facebook1 = facebook;
 
     }
     public void fbshare (){

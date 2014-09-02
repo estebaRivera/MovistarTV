@@ -42,6 +42,7 @@ public class AdapterBarDay extends ArrayAdapter<Date> {
 
             holder = new ViewHolder();
             holder.viewDay = (Button) (rootView != null ? rootView.findViewById(R.id.btn_categoria_dia) : null);
+            assert rootView != null;
             rootView.setTag(holder);
         }
 

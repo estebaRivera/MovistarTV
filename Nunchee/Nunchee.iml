@@ -70,11 +70,12 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 19 Platform (5)" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="appcompat-v7-21.0.0-rc1" level="project" />
+    <orderEntry type="library" exported="" name="support-annotations-21.0.0-rc1" level="project" />
     <orderEntry type="library" exported="" name="signpost-commonshttp4-1.2.1.2" level="project" />
     <orderEntry type="library" exported="" name="picasso-2.2.0" level="project" />
-    <orderEntry type="library" exported="" name="appcompat-v7-19.1.0" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-21.0.0-rc1" level="project" />
     <orderEntry type="library" exported="" name="signpost-core-1.2.1.2" level="project" />
-    <orderEntry type="library" exported="" name="support-v4-19.1.0" level="project" />
     <orderEntry type="library" exported="" name="tween-engine-api-sources" level="project" />
     <orderEntry type="library" exported="" name="tween-engine-api" level="project" />
     <orderEntry type="library" exported="" name="libGoogleAnalyticsServices" level="project" />

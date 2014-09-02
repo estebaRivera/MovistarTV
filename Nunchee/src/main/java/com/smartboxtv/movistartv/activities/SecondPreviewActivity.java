@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -20,12 +19,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.androidquery.util.BitmapCache;
 import com.facebook.UiLifecycleHelper;
-import com.facebook.model.GraphObject;
-import com.facebook.model.OpenGraphAction;
-import com.facebook.model.OpenGraphObject;
-import com.facebook.widget.FacebookDialog;
 import com.smartboxtv.movistartv.R;
 import com.smartboxtv.movistartv.animation.ManagerAnimation;
 import com.smartboxtv.movistartv.data.clean.DataClean;
@@ -56,7 +50,6 @@ import com.smartboxtv.movistartv.programation.preview.TriviaMaxFragment;
 import com.smartboxtv.movistartv.programation.preview.TriviaMinFragment;
 import com.smartboxtv.movistartv.programation.preview.TwFragment;
 import com.smartboxtv.movistartv.programation.preview.TwMaxFragment;
-import com.smartboxtv.movistartv.social.DialogShare;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -84,28 +77,15 @@ public class SecondPreviewActivity extends ActionBarActivity {
     private RelativeLayout wrapperMax;
 
     private RelativeLayout cuadrante1;
-    private RelativeLayout cuadrante2;
-    private RelativeLayout cuadrante3;
-    private RelativeLayout cuadrante4;
 
     private Button btnFavorite;
     private Button btnLike;
     private Button btnReminder;
     private Button btnShare;
 
-    private List<Tweets> listTweets = new ArrayList<Tweets>();
     private Trivia trivia = new Trivia();
     private Polls polls = new Polls();
 
-    //Fragmentos
-    private PollMaxFragment fgPolls;
-    private TriviaMaxFragment fragmentTriviaMax;
-    private TwMaxFragment fragmentTwMax;
-
-    private PollMinFragment fragmentoEncuestaP;
-    private TriviaMinFragment fragmentoTriviaP;
-    private BarFragment fragmentoBarra;
-    private TwFragment fragmentoTw;
     private HeaderFragment fragmentoHeader;
     private ActionFragment fragmentoAccion;
 
@@ -137,9 +117,6 @@ public class SecondPreviewActivity extends ActionBarActivity {
     public float width;
     public float height;
 
-    private Bitmap bm;
-    private  String path;
-
     private static final List<String> PERMISSIONS = Arrays.asList("publish_actions, publish stream");
     private static final String PENDING_PUBLISH_KEY = "pendingPublishReauthorization";
     private boolean pendingPublishReauthorization = false;
@@ -161,9 +138,9 @@ public class SecondPreviewActivity extends ActionBarActivity {
         wrapperMax = (RelativeLayout) findViewById(R.id.container_seconds);
 
         cuadrante1 = (RelativeLayout) findViewById(R.id.cuadrante1);
-        cuadrante2 = (RelativeLayout) findViewById(R.id.cuadrante2);
-        cuadrante3 = (RelativeLayout) findViewById(R.id.cuadrante3);
-        cuadrante4 = (RelativeLayout) findViewById(R.id.cuadrante4);
+        RelativeLayout cuadrante2 = (RelativeLayout) findViewById(R.id.cuadrante2);
+        RelativeLayout cuadrante3 = (RelativeLayout) findViewById(R.id.cuadrante3);
+        RelativeLayout cuadrante4 = (RelativeLayout) findViewById(R.id.cuadrante4);
 
         dataBaseUser = new DataBaseUser(getApplicationContext(),"",null,0);
         userNunchee = dataBaseUser.select(UserPreference.getIdFacebook(getApplicationContext()));
@@ -224,10 +201,10 @@ public class SecondPreviewActivity extends ActionBarActivity {
 
         trivia = (Trivia) extra.get("trivia");
         polls =  (Polls) extra.get("polls");
-        listTweets = (List<Tweets>) extra.get("tweets");
+        List<Tweets> listTweets = (List<Tweets>) extra.get("tweets");
         programa = (Program) extra.get("programa");
         programaPreview = (Program) extra.get("programaPreview");
-        path = extra.getString("background");
+        String path = extra.getString("background");
         file = (File) extra.get("file");
 
         ICheckIn = extra.getBoolean("check");
@@ -236,7 +213,7 @@ public class SecondPreviewActivity extends ActionBarActivity {
         IReminderProgram = extra.getBoolean("reminder");
         AddFavorite = extra.getBoolean("favorite");
 
-        bm = BitmapFactory.decodeFile(path);
+        Bitmap bm = BitmapFactory.decodeFile(path);
         back.setImageBitmap(bm);
 
         option = extra.getInt("click");
@@ -274,10 +251,10 @@ public class SecondPreviewActivity extends ActionBarActivity {
         else{
             fragmentoHeader.NCheckIn = programa.getCheckIn();
         }
-        fragmentoBarra = new BarFragment();
-        fragmentoEncuestaP = new PollMinFragment(polls);
-        fragmentoTriviaP = new TriviaMinFragment(trivia);
-        fragmentoTw = new TwFragment(programaPreview);
+        BarFragment fragmentoBarra = new BarFragment();
+        PollMinFragment fragmentoEncuestaP = new PollMinFragment(polls);
+        TriviaMinFragment fragmentoTriviaP = new TriviaMinFragment(trivia);
+        TwFragment fragmentoTw = new TwFragment(programaPreview);
 
         SeconPreviewDelegate delegate = new SeconPreviewDelegate() {
             @Override
@@ -298,7 +275,7 @@ public class SecondPreviewActivity extends ActionBarActivity {
 
             case Preview.TWEETS:
                                     ((NUNCHEE) getApplication()).sendAnaliticsScreen("Preview-Twitter");
-                                    fragmentTwMax = new TwMaxFragment(programaPreview);
+                TwMaxFragment fragmentTwMax = new TwMaxFragment(programaPreview);
                                     wrapperTws.setVisibility(View.GONE);
                                     wrapperPolls.setVisibility(View.VISIBLE);
                                     wrapperTrivia.setVisibility(View.VISIBLE);
@@ -311,7 +288,7 @@ public class SecondPreviewActivity extends ActionBarActivity {
 
             case Preview.POLLS:
                                      ((NUNCHEE) getApplication()).sendAnaliticsScreen("Preview-Polls");
-                                    fgPolls = new PollMaxFragment(polls,programa, programaPreview);
+                PollMaxFragment fgPolls = new PollMaxFragment(polls, programa, programaPreview);
                                     wrapperTws.setVisibility(View.VISIBLE);
                                     wrapperPolls.setVisibility(View.GONE);
                                     wrapperTrivia.setVisibility(View.VISIBLE);
@@ -324,7 +301,7 @@ public class SecondPreviewActivity extends ActionBarActivity {
 
             case Preview.TRIVIA:
                                     ((NUNCHEE) getApplication()).sendAnaliticsScreen("Preview-Trivia");
-                                    fragmentTriviaMax = new TriviaMaxFragment(programaPreview,trivia,false);
+                TriviaMaxFragment fragmentTriviaMax = new TriviaMaxFragment(programaPreview, trivia, false);
                                     wrapperTws.setVisibility(View.VISIBLE);
                                     wrapperPolls.setVisibility(View.VISIBLE);
                                     wrapperTrivia.setVisibility(View.GONE);

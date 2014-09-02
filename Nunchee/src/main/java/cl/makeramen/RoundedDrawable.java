@@ -19,8 +19,6 @@ import android.graphics.drawable.LayerDrawable;
 import android.util.Log;
 import android.widget.ImageView.ScaleType;
 
-import com.smartboxtv.movistartv.R;
-
 @SuppressWarnings("UnusedDeclaration")
 public class RoundedDrawable extends Drawable {
 

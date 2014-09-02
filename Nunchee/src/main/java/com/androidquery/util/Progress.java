@@ -242,7 +242,7 @@ public class Progress implements Runnable{
 				
 			}else if(p instanceof Activity){
 				
-				Activity act = (Activity) p;;
+				Activity act = (Activity) p;
 				act.setProgressBarIndeterminateVisibility(show);
 				act.setProgressBarVisibility(show);
 			

@@ -3,7 +3,6 @@ package com.smartboxtv.movistartv.programation.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,6 @@ import com.smartboxtv.movistartv.data.models.Image;
 import com.smartboxtv.movistartv.data.models.Program;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
 import com.smartboxtv.movistartv.delgates.FacebookLikeDelegate;
-import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.services.DataLoader;
 
 import java.text.SimpleDateFormat;
@@ -37,12 +35,9 @@ public class CategoryAdapterContainer  extends ArrayAdapter<Program> {
 
     private List<Program> lista = new ArrayList<Program>();
     private FacebookLikeDelegate facebookDelegate;
-    private View item;
-    private ViewHolder holder;
     private SimpleDateFormat format;
     private Typeface normal;
     private Typeface bold;
-    private Context context;
     private Activity activity;
     //private int position;
     //private ViewGroup parent;
@@ -58,7 +53,7 @@ public class CategoryAdapterContainer  extends ArrayAdapter<Program> {
     public CategoryAdapterContainer(Context context, List<Program> listaProgramas) {
 
         super(context, R.layout.category_program_container, listaProgramas);
-        this.context = context;
+        Context context1 = context;
         this.activity = (Activity) context;
         normal = Typeface.createFromAsset(getContext().getAssets(), "fonts/SegoeWP-Light.ttf");
         bold = Typeface.createFromAsset(getContext().getAssets(), "fonts/SegoeWP-Bold.ttf");
@@ -69,8 +64,8 @@ public class CategoryAdapterContainer  extends ArrayAdapter<Program> {
    @Override
    public View getView(final int position, View convertView,ViewGroup parent) {
 
-       holder = null;
-       item = convertView;
+       ViewHolder holder = null;
+       View item = convertView;
        if (item == null) {
 
            LayoutInflater inflater = (LayoutInflater) super.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -113,7 +108,7 @@ public class CategoryAdapterContainer  extends ArrayAdapter<Program> {
 
        if(image != null){
            aq.id(holder.image).image(image.ImagePath);
-       };
+       }
 
        if(!lista.get(position).isILike()){
 

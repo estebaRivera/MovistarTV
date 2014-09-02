@@ -4,8 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -38,9 +36,6 @@ import com.androidquery.AQuery;
 import com.facebook.Session;
 import com.facebook.UiLifecycleHelper;
 
-import com.google.analytics.tracking.android.ExceptionReporter;
-import com.google.analytics.tracking.android.Tracker;
-import com.google.android.gms.analytics.GoogleAnalytics;
 import com.smartboxtv.movistartv.R;
 import com.smartboxtv.movistartv.animation.ManagerAnimation;
 import com.smartboxtv.movistartv.data.clean.DataClean;
@@ -98,15 +93,11 @@ public class ProgramationActivity extends ActionBarActivity{
     private DataBaseUser dataBaseUser;
     private UserNunchee userNunchee;
 
-    //private EditText search;
-    private ImageView iconSearch;
-
     private Fragment fg;
     private FragmentTransaction ft;
     //private List<FeedJSON> listFeed;
     private List<UserFacebook> friends;
     private List<TrendingChannel> lista = new ArrayList<TrendingChannel>();
-    private HoraryFragment horaryFragment;
 
     // Fragmentos pequeños
 
@@ -197,7 +188,7 @@ public class ProgramationActivity extends ActionBarActivity{
         favorito.setTypeface(bold);
         favorito.setBackgroundResource(R.drawable.effect);
 
-        horaryFragment = new HoraryFragment();
+        HoraryFragment horaryFragment = new HoraryFragment();
 
         dataBaseUser = new DataBaseUser(getApplicationContext(),"",null,0);
         userNunchee = dataBaseUser.select(UserPreference.getIdFacebook(getApplicationContext()));
@@ -478,8 +469,8 @@ public class ProgramationActivity extends ActionBarActivity{
         scrollViewLive = (ScrollView) findViewById(R.id.list_live);
         scrollViewLive.setVisibility(View.GONE);
 
-        for(int i = 0; i < liveStreamSchedules.size() ;i++){
-            list.add(new LiveSM( "", liveStreamSchedules.get(i).getName(),"",liveStreamSchedules.get(i).getStartDate(),"",liveStreamSchedules.get(i)));
+        for (LiveStreamSchedule liveStreamSchedule : liveStreamSchedules) {
+            list.add(new LiveSM("", liveStreamSchedule.getName(), "", liveStreamSchedule.getStartDate(), "", liveStreamSchedule));
         }
 
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -612,13 +603,13 @@ public class ProgramationActivity extends ActionBarActivity{
 
         View view = inflater.inflate(R.layout.action_bar, null);
 
-        iconSearch = (ImageView) view.findViewById(R.id.icon_search);
+        ImageView iconSearch = (ImageView) view.findViewById(R.id.icon_search);
         menu = (ImageButton)view.findViewById(R.id.item_menu);
 
         iconSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(showSearch== true){
+                if (showSearch == true) {
                     showSearch = false;
                     isConfiguration = false;
                     isNotification = false;
@@ -651,8 +642,7 @@ public class ProgramationActivity extends ActionBarActivity{
 
                     }
                     contenedorMenuBar.removeAllViews();
-                }
-                else{
+                } else {
                     showSearch = true;
                 }
             }
@@ -1379,8 +1369,8 @@ public class ProgramationActivity extends ActionBarActivity{
             public void loaded(List<LiveStream> data) {
                 liveStreams = data;
 
-                for (int i = 0; i < data.size(); i++) {
-                    serviceManager.loadLiveStreamSchedule(data.get(i), new ServiceManager.ServiceManagerHandler<LiveStreamSchedule>() {
+                for (LiveStream aData : data) {
+                    serviceManager.loadLiveStreamSchedule(aData, new ServiceManager.ServiceManagerHandler<LiveStreamSchedule>() {
                         @Override
                         public void loaded(List<LiveStreamSchedule> data2) {
                             /*for(int j = 0; j < data2.size();j++)

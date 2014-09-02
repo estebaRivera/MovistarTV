@@ -34,8 +34,6 @@ public class CategoryAdapterContainerSM extends ArrayAdapter<ProgramsCategorySM>
     //private List<ChannelSM> listChannel = new ArrayList<ChannelSM>();
     private List<ProgramsCategorySM> listPrograms = new ArrayList<ProgramsCategorySM>();
     private FacebookLikeDelegate facebookDelegate;
-    private View item;
-    private ViewHolder holder;
     private SimpleDateFormat format;
     private Typeface normal;
     private Typeface bold;
@@ -64,13 +62,13 @@ public class CategoryAdapterContainerSM extends ArrayAdapter<ProgramsCategorySM>
     @Override
     public View getView(final int position, View convertView,ViewGroup parent) {
 
-        holder = null;
-        item = convertView;
+        ViewHolder holder = null;
+        View item = convertView;
 
-        Log.e("Category Position", "--> " + position);
-        Log.e("Nombre", "--> " + listPrograms.get(position).episode.getName());
-        Log.e("URL", "--> " + listPrograms.get(position).getImage());
-        Log.e("...--","...--");
+        //Log.e("Category Position", "--> " + position);
+        //Log.e("Nombre", "--> " + listPrograms.get(position).episode.getName());
+        //Log.e("URL", "--> " + listPrograms.get(position).getImage());
+        //Log.e("...--","...--");
 
         if (item == null) {
 

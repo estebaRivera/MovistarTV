@@ -247,10 +247,10 @@ public  class ManagerAnimation {
 
     public static void scaleYList (List<View> list){
 
-        for(int i = 0 ; i < list.size();i++){
-            list.get(i).setPivotY(0);
-            list.get(i).setVisibility(View.VISIBLE);
-            ObjectAnimator animatorY = ObjectAnimator.ofFloat(list.get(i), View.SCALE_Y, 0,1);
+        for (View aList : list) {
+            aList.setPivotY(0);
+            aList.setVisibility(View.VISIBLE);
+            ObjectAnimator animatorY = ObjectAnimator.ofFloat(aList, View.SCALE_Y, 0, 1);
             AnimatorSet animView = new AnimatorSet();
 
             animView.play(animatorY);

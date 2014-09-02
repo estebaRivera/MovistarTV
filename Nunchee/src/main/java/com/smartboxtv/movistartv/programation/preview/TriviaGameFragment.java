@@ -35,7 +35,6 @@ import com.smartboxtv.movistartv.data.models.Program;
 import com.smartboxtv.movistartv.data.models.Trivia;
 import com.smartboxtv.movistartv.data.models.TriviaQuestion;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
-import com.smartboxtv.movistartv.data.trivia.GameTrivia;
 import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.services.DataLoader;
 
@@ -74,7 +73,6 @@ public class TriviaGameFragment extends Fragment {
     private final String URL = "http://190.215.44.18/";
     private Typeface normal, bold;
 
-    private final int  TIEMPO = 100;
     private int sg = 10;
     private int TRIVIA_ACTUAL = 0;
     private int NIVEL_ACTUAL;
@@ -1370,6 +1368,7 @@ public class TriviaGameFragment extends Fragment {
 
     @Override
     public void onResume() {
+        int TIEMPO = 100;
         tarea.execute(TIEMPO);
         super.onResume();
     }
@@ -1470,9 +1469,7 @@ public class TriviaGameFragment extends Fragment {
                     //segundos.setText(sg+" Segundos");
                 }*/
                 }
-                else{
-                    //segundos.setText(sg+" Segundo");
-                }
+
         }
 
 

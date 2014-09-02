@@ -33,6 +33,7 @@ public class DialogMessage extends DialogFragment {
         Typeface normal = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SegoeWP.ttf");
         Typeface bold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SegoeWP-Bold.ttf");
 
+        assert rootView != null;
         TextView textMessage = (TextView) rootView.findViewById(R.id.text_error);
         Button aceptar = (Button) rootView.findViewById(R.id.button_aceptar);
 

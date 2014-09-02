@@ -465,8 +465,10 @@ public class FavoriteFragmentDay extends Fragment {
             public void error(String error) {
                 super.error(error);
                 Log.e("LoadFavorite","--> "+error);
-                DialogError dialogError = new DialogError("Ha tardado más de lo debido");
-                dialogError.show(getActivity().getSupportFragmentManager(), "");
+                borraLoading();
+                noFavorite();
+                /*DialogError dialogError = new DialogError("Ha tardado más de lo debido");
+                dialogError.show(getActivity().getSupportFragmentManager(), "");*/
             }
         }, UserPreferenceSM.getIdNunchee(getActivity()),format3.format(fecha));
     }

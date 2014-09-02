@@ -745,11 +745,8 @@ public class PreviewFragment extends Fragment {
     public boolean esActual(Program p){
 
         Date ahora = new Date();
-        if(!((p.getStartDate().getTime() > ahora.getTime())   ||  (p.getEndDate().getTime() < ahora.getTime()))){
-            return true;
-        }
-        else
-            return false;
+        //if(!((p.getStartDate().getTime() > ahora.getTime())   ||  (p.getEndDate().getTime() < ahora.getTime()))){
+        return !((p.getStartDate().getTime() > ahora.getTime()) || (p.getEndDate().getTime() < ahora.getTime()));
     }
     private void obtieneTrivia(){
 
@@ -832,6 +829,7 @@ public class PreviewFragment extends Fragment {
         Animation animaPop = AnimationUtils.loadAnimation(getActivity(),R.anim.animacion_pop_hacia_derecha_centro);
 
         viewLoading.setLayoutParams(params);
+        assert (animaPop != null ? animaPop : null) != null;
         imgPopCorn.startAnimation(animaPop != null ? animaPop : null);
 
         contenedorLoading.addView(viewLoading);

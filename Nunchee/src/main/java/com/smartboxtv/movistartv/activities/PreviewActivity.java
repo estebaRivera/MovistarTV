@@ -526,6 +526,8 @@ public class PreviewActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
 
+                ((NUNCHEE) getApplication()).sendAnalitics("Favorito");
+
                 if(((NUNCHEE)getApplication()).CONNECT_SERVICES_PYTHON == false){
                     DataLoader data = new DataLoader(getApplicationContext());
                     data.actionFavorite(UserPreference.getIdNunchee(getApplicationContext()), "4", programaPreview.getIdProgram(),

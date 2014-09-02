@@ -71,6 +71,7 @@ public class DialogShare extends DialogFragment {
         Typeface normal = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SegoeWP.ttf");
         Typeface bold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SegoeWP-Bold.ttf");
 
+        assert rootView != null;
         TextView txtTitle  = (TextView) rootView.findViewById(R.id.header_textview);
         Button button = (Button) rootView.findViewById(R.id.post_button);
         final EditText editText = (EditText)rootView.findViewById(R.id.post_edittext);

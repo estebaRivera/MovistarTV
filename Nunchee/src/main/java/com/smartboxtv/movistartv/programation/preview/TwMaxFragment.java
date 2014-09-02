@@ -1,7 +1,6 @@
 package com.smartboxtv.movistartv.programation.preview;
 
 import android.app.AlertDialog;
-import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
@@ -34,7 +33,6 @@ import com.smartboxtv.movistartv.services.DataLoader;
 import com.smartboxtv.movistartv.services.ServiceManager;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,7 +47,6 @@ public class TwMaxFragment extends Fragment {
     private Button btnTimeline;
     private Button btnRelacionado;
     private Button btnTwittear;
-    private Button btnLogin;
 
     private TextView titulo2;
     private EditText texto;
@@ -94,7 +91,7 @@ public class TwMaxFragment extends Fragment {
         titulo2 = (TextView) rootView.findViewById(R.id.tw_titulo_2);
         btnTimeline = (Button) rootView.findViewById(R.id.tw_btn_timeline);
         btnTwittear = (Button) rootView.findViewById(R.id.tw_twittear);
-        btnLogin = (Button) rootView.findViewById(R.id.login_twiter_button);
+        Button btnLogin = (Button) rootView.findViewById(R.id.login_twiter_button);
         texto = (EditText) rootView.findViewById(R.id.tw_tws);
 
         btnTimeline.setBackgroundResource(R.drawable.evento_tw);
@@ -120,10 +117,12 @@ public class TwMaxFragment extends Fragment {
 
                 ViewGroup.LayoutParams timelineParams = btnTimeline.getLayoutParams();
 
+                assert timelineParams != null;
                 timelineParams.height = 40;
                 btnTimeline.setLayoutParams(timelineParams);
 
                 ViewGroup.LayoutParams relacionadoParams = btnRelacionado.getLayoutParams();
+                assert relacionadoParams != null;
                 relacionadoParams.height  = 35;
 
                 btnRelacionado.setLayoutParams(relacionadoParams);
@@ -172,6 +171,7 @@ public class TwMaxFragment extends Fragment {
 
                 ViewGroup.LayoutParams timelineParams = btnTimeline.getLayoutParams();
 
+                assert timelineParams != null;
                 timelineParams.height = 35;
                 btnTimeline.setLayoutParams(timelineParams);
                 ViewGroup.LayoutParams relacionadoParams = btnRelacionado.getLayoutParams();
@@ -227,7 +227,7 @@ public class TwMaxFragment extends Fragment {
             }
         });
 
-        btnLogin.setOnClickListener( new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -262,8 +262,7 @@ public class TwMaxFragment extends Fragment {
                             dialogError.show(getFragmentManager(), "");
                         }
                     });
-                }
-                else {
+                } else {
                     cargaTwsTimeLine();
                     borraLoading();
                 }
@@ -486,6 +485,7 @@ public class TwMaxFragment extends Fragment {
         Animation animaPop = AnimationUtils.loadAnimation(getActivity(), R.anim.animacion_pop_hacia_derecha_centro);
 
         cargando.setLayoutParams(params);
+        assert animaPop != null;
         popDerecha.startAnimation(animaPop);
         contenedorLoading.addView(cargando);
         cargando.bringToFront();
@@ -496,6 +496,7 @@ public class TwMaxFragment extends Fragment {
 
     public void borraLoading(){
         Animation anim = AnimationUtils.loadAnimation(getActivity(),R.anim.deaparece);
+        assert anim != null;
         cargando.startAnimation(anim);
         contenedorLoading.removeView(cargando);
         contenedorLoading.setEnabled(true);

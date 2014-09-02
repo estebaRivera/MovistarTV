@@ -22,14 +22,19 @@ import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.model.GraphObject;
 import com.smartboxtv.movistartv.R;
+import com.smartboxtv.movistartv.data.database.DataBaseUser;
+import com.smartboxtv.movistartv.data.database.UserNunchee;
 import com.smartboxtv.movistartv.data.image.Type;
 import com.smartboxtv.movistartv.data.image.Width;
 import com.smartboxtv.movistartv.data.models.Image;
 import com.smartboxtv.movistartv.data.models.Program;
 import com.smartboxtv.movistartv.data.preference.UserPreference;
+import com.smartboxtv.movistartv.data.preference.UserPreferenceSM;
 import com.smartboxtv.movistartv.fragments.NUNCHEE;
 import com.smartboxtv.movistartv.programation.delegates.PreviewImageFavoriteDelegate;
 import com.smartboxtv.movistartv.programation.menu.DialogError;
+import com.smartboxtv.movistartv.services.DataLoader;
+import com.smartboxtv.movistartv.services.ServiceManager;
 import com.smartboxtv.movistartv.social.DialogMessage;
 
 import org.json.JSONException;
@@ -64,14 +69,13 @@ public class HeaderFragment extends Fragment {
 
     private RelativeLayout check;
 
+    private DataBaseUser dataBaseUser;
+    private UserNunchee userNunchee;
+
     private static final List<String> PERMISSIONS = Arrays.asList("publish_actions");
-    private boolean pendingPublishReauthorization = false;
     private AQuery aq;
 
     public int NCheckIn = 0;
-
-    // Un delegado cualquiera
-    private PreviewImageFavoriteDelegate imageFavoriteDelegate;
 
     public HeaderFragment(Program program, Program previewProgram) {
         this.programa = program;
@@ -114,8 +118,49 @@ public class HeaderFragment extends Fragment {
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(),"Publicando...",Toast.LENGTH_LONG).show();
-                publishCheckIn();
+                /*Toast.makeText(getActivity(),"Publicando...",Toast.LENGTH_LONG).show();
+                publishCheckIn();*/
+
+                userNunchee = dataBaseUser.select(UserPreference.getIdFacebook(getActivity().getApplicationContext()));
+                dataBaseUser.close();
+                if(((NUNCHEE) getActivity().getApplication()).CONNECT_SERVICES_PYTHON == false){
+                    if(userNunchee.isFacebookActive == true){
+                        DataLoader data = new DataLoader(getActivity());
+                        data.actionCheckIn(UserPreference.getIdNunchee(getActivity()), "7", programa.getIdProgram(),
+                                programa.getPChannel().getChannelID());
+
+                        Toast.makeText(getActivity(),"Publicando...",Toast.LENGTH_LONG).show();
+                        publishCheckIn();
+                    }
+                    else{
+                        noPublish();
+                    }
+                }
+                else{
+                    if(userNunchee.isFacebookActive == true){
+
+                        ServiceManager serviceManager = new ServiceManager(getActivity());
+                        serviceManager.addCheckIn(new ServiceManager.ServiceManagerHandler<String>(){
+
+                            @Override
+                            public void loaded(String data) {
+                                Toast.makeText(getActivity(),"Publicando...",Toast.LENGTH_LONG).show();
+                                publishCheckIn();
+                            }
+
+                            @Override
+                            public void error(String error) {
+                                super.error(error);
+                                DialogError dialogError = new DialogError();
+                                dialogError.show(getActivity().getSupportFragmentManager(), "SFGFDG");
+                            }
+                        }, UserPreferenceSM.getIdNunchee(getActivity()),programa.PChannel.channelID,programa.IdProgram,"id Episode", "id schedule ");
+
+                    }
+                    else{
+                        noPublish();
+                    }
+                }
             }
         });
         numeroCheck.setTypeface(bold);
@@ -143,6 +188,10 @@ public class HeaderFragment extends Fragment {
         else{
             imgFavorite.setVisibility(View.GONE);
         }
+    }
+
+    public void noPublish(){
+        Toast.makeText(getActivity(),"Activa el autopost para poder publicar",Toast.LENGTH_LONG).show();
     }
 
     public void setData(){
@@ -185,7 +234,7 @@ public class HeaderFragment extends Fragment {
         }
     }
     public void setImageFavoriteDelegate(PreviewImageFavoriteDelegate imageFavoriteDelegate) {
-        this.imageFavoriteDelegate = imageFavoriteDelegate;
+        PreviewImageFavoriteDelegate imageFavoriteDelegate1 = imageFavoriteDelegate;
     }
 
     private String capitalize(String line) {
@@ -202,7 +251,7 @@ public class HeaderFragment extends Fragment {
             Log.e("Session","No null");
             List<String> permissions = session.getPermissions();
             if (!isSubsetOf(PERMISSIONS, permissions)) {
-                pendingPublishReauthorization = true;
+                boolean pendingPublishReauthorization = true;
                 Session.NewPermissionsRequest newPermissionsRequest = new Session
                         .NewPermissionsRequest(this, PERMISSIONS);
                 session.requestNewPublishPermissions(newPermissionsRequest);

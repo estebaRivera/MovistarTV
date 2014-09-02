@@ -27,7 +27,6 @@ import com.smartboxtv.movistartv.data.database.DataBase;
 import com.smartboxtv.movistartv.data.database.Reminder;
 import com.smartboxtv.movistartv.data.image.ScreenShot;
 import com.smartboxtv.movistartv.data.models.Channel;
-import com.smartboxtv.movistartv.data.models.Image;
 import com.smartboxtv.movistartv.data.models.Program;
 import com.smartboxtv.movistartv.delgates.UpdateNotificationDelegate;
 
@@ -48,10 +47,6 @@ public class NotificationFragment extends Fragment {
     private List<Reminder> reminderList = new ArrayList<Reminder>();
     private List<Reminder> updateReminderList = new ArrayList<Reminder>();
     private View rootView;
-
-    private ImageView exit;
-    private ImageView arrow;
-    private RelativeLayout wrapper;
 
     private UpdateNotificationDelegate notificationDelegate;
 
@@ -74,9 +69,9 @@ public class NotificationFragment extends Fragment {
         AQuery aq = new AQuery(rootView);
         title.setTypeface(bold);
 
-        exit = (ImageView) rootView.findViewById(R.id.exit);
-        wrapper = (RelativeLayout) rootView.findViewById(R.id.wrapper);
-        arrow = (ImageView) rootView.findViewById(R.id.notification_arrow);
+        ImageView exit = (ImageView) rootView.findViewById(R.id.exit);
+        RelativeLayout wrapper = (RelativeLayout) rootView.findViewById(R.id.wrapper);
+        ImageView arrow = (ImageView) rootView.findViewById(R.id.notification_arrow);
 
         ManagerAnimation.fade(wrapper, arrow, exit);
 
@@ -220,10 +215,10 @@ public class NotificationFragment extends Fragment {
         long superior = inferior + 600000;
         long starDate;
         //Log.e("update","reminder");
-        for(int i = 0 ;i < reminderList.size();i++){
-            starDate = Long.parseLong(reminderList.get(i).getStrDate().replace(" ",""));
-            if(starDate > inferior && starDate <superior){
-                updateReminderList.add(reminderList.get(i));
+        for (Reminder aReminderList : reminderList) {
+            starDate = Long.parseLong(aReminderList.getStrDate().replace(" ", ""));
+            if (starDate > inferior && starDate < superior) {
+                updateReminderList.add(aReminderList);
             }
         }
     }

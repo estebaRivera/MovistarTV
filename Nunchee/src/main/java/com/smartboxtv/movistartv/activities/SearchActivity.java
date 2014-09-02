@@ -71,7 +71,6 @@ import java.util.List;
 public class SearchActivity extends ActionBarActivity {
 
     private View viewLoading;
-    private LayoutInflater inflaterPrivate;
     private RelativeLayout contenedorLoading;
     //private RelativeLayout contenedorExitMenu;
     //private RelativeLayout contenedorMenuBar;
@@ -91,7 +90,7 @@ public class SearchActivity extends ActionBarActivity {
         ImageView exit = (ImageView) findViewById(R.id.exit);
         ImageView search = (ImageView) findViewById(R.id.image_search);
         ImageView searchExit = (ImageView) findViewById(R.id.image_search_exit);
-        inflaterPrivate = LayoutInflater.from(this);
+        LayoutInflater inflaterPrivate = LayoutInflater.from(this);
         viewLoading = inflaterPrivate.inflate(R.layout.progress_dialog_search, null);
         contenedorLoading = (RelativeLayout) findViewById(R.id.contenedor_loading);
         contenedorNoResult = (RelativeLayout) findViewById(R.id.no_result);

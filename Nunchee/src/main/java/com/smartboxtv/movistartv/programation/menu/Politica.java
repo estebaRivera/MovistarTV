@@ -14,8 +14,6 @@ import com.smartboxtv.movistartv.R;
  */
 public class Politica extends DialogFragment {
 
-    private final String URL = "http://nunchee.tv/privacidad.html";
-
     public Politica() {
 
         setStyle(DialogFragment.STYLE_NO_TITLE, getTheme());
@@ -29,6 +27,7 @@ public class Politica extends DialogFragment {
         WebView  webView = (WebView) rootView.findViewById(R.id.webView);
         //webView = new WebView(getActivity());
 
+        String URL = "http://nunchee.tv/privacidad.html";
         webView.loadUrl(URL);
 
         //getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));

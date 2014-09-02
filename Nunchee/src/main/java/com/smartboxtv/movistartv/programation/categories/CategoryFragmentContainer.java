@@ -85,11 +85,10 @@ public class CategoryFragmentContainer extends Fragment{
     private static final List<String> PERMISSIONS = Arrays.asList("publish_actions");
     private boolean pendingPublishReauthorization = false;
     private FacebookLikeDelegate facebookDelegate;
-    private UiLifecycleHelper uiHelper;
 
     // Loading
     private RelativeLayout containerLoading;
-    private Long fin,delta, inicio = System.currentTimeMillis();
+    private Long inicio = System.currentTimeMillis();
     private View loading;
 
     //Facebook is Acrive
@@ -103,14 +102,14 @@ public class CategoryFragmentContainer extends Fragment{
 
         View rootView = inflater.inflate(R.layout.category_fragment_container, container, false);
 
-        fin = System.currentTimeMillis();
-        delta = fin - inicio;
-        Log.e("Tiempo Categoria","Tiempo inicial "+delta);
+        Long fin = System.currentTimeMillis();
+        Long delta = fin - inicio;
+        Log.e("Tiempo Categoria","Tiempo inicial "+ delta);
 
         gridView = (GridView) (rootView != null ? rootView.findViewById(R.id.grilla_programas_categorias) : null);
         containerLoading = (RelativeLayout) getActivity().findViewById(R.id.contenedor_preview);
 
-        uiHelper = new UiLifecycleHelper(getActivity(), callback);
+        UiLifecycleHelper uiHelper = new UiLifecycleHelper(getActivity(), callback);
         uiHelper.onCreate(savedInstanceState);
 
         // Publish Facebook
@@ -155,7 +154,7 @@ public class CategoryFragmentContainer extends Fragment{
 
             @Override
             public void noPublish() {
-                noPublish();
+                noPublishActivate();
             }
         };
         return rootView;
@@ -168,7 +167,7 @@ public class CategoryFragmentContainer extends Fragment{
         }
     };
 
-    public void noPublish(){
+    public void noPublishActivate(){
         Toast.makeText(getActivity(),"Activa el autopost para poder publicar",Toast.LENGTH_LONG).show();
     }
 
@@ -184,10 +183,10 @@ public class CategoryFragmentContainer extends Fragment{
 
                 programList = new ArrayList<Program>();
 
-                for(int i = 0; i < data.size() ;i++){
+                for (Program aData : data) {
 
-                    if(data.get(i).getImageWidthType(Width.ORIGINAL_IMAGE, Type.BACKDROP_IMAGE)!= null){
-                        programList.add(data.get(i));
+                    if (aData.getImageWidthType(Width.ORIGINAL_IMAGE, Type.BACKDROP_IMAGE) != null) {
+                        programList.add(aData);
                     }
                 }
 
@@ -366,7 +365,7 @@ public class CategoryFragmentContainer extends Fragment{
                     session.requestNewPublishPermissions(newPermissionsRequest);
                     return;
                 }
-                SimpleDateFormat hora = new SimpleDateFormat("yyyy-MM-dd' 'HH'$'mm'$'ss");
+                //SimpleDateFormat hora = new SimpleDateFormat("yyyy-MM-dd' 'HH'$'mm'$'ss");
 
                 String url = "http://www.movistar.cl/PortalMovistarWeb/tv-digital/guia-de-canales";
 
@@ -459,7 +458,7 @@ public class CategoryFragmentContainer extends Fragment{
                 session.requestNewPublishPermissions(newPermissionsRequest);
                 return;
             }
-            SimpleDateFormat hora = new SimpleDateFormat("yyyy-MM-dd' 'HH'$'mm'$'ss");
+            //SimpleDateFormat hora = new SimpleDateFormat("yyyy-MM-dd' 'HH'$'mm'$'ss");
 
             String url = "http://www.movistar.cl/PortalMovistarWeb/tv-digital/guia-de-canales";
 

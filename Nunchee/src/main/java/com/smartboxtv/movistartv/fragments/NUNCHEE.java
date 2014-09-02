@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.androidquery.callback.BitmapAjaxCallback;
 import com.facebook.Session;
-import com.google.analytics.tracking.android.ExceptionReporter;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;

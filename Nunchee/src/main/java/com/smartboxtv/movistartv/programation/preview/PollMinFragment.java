@@ -17,13 +17,11 @@ import com.smartboxtv.movistartv.data.models.Polls;
  */
 public class PollMinFragment extends Fragment {
 
-    private Polls polls;
-
     public PollMinFragment() {
     }
 
     public PollMinFragment(Polls polls) {
-        this.polls = polls;
+        Polls polls1 = polls;
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.smartboxtv.movistartv.programation.menu;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,17 +18,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
-import com.androidquery.util.Progress;
 import com.smartboxtv.movistartv.R;
 import com.smartboxtv.movistartv.activities.PreviewActivity;
-import com.smartboxtv.movistartv.animation.ManagerAnimation;
 import com.smartboxtv.movistartv.data.image.ScreenShot;
 import com.smartboxtv.movistartv.data.image.Type;
 import com.smartboxtv.movistartv.data.image.Width;
@@ -44,7 +39,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -57,7 +51,6 @@ public class SearchFragment extends Fragment {
     private List<Program> programList = new ArrayList<Program>();
     private DataResultSM resultado;
     private View viewLoading;
-    private LayoutInflater inflaterPrivate;
     private RelativeLayout contenedorLoading;
 
     @Override
@@ -68,7 +61,7 @@ public class SearchFragment extends Fragment {
         ImageView exit = (ImageView) rootView.findViewById(R.id.exit);
         ImageView search = (ImageView) rootView.findViewById(R.id.image_search);
         ImageView searchExit = (ImageView) rootView.findViewById(R.id.image_search_exit);
-        inflaterPrivate = LayoutInflater.from(getActivity());
+        LayoutInflater inflaterPrivate = LayoutInflater.from(getActivity());
         viewLoading = inflaterPrivate.inflate(R.layout.progress_dialog_search, null);
         contenedorLoading = (RelativeLayout) rootView.findViewById(R.id.contenedor_loading);
 
@@ -297,6 +290,7 @@ public class SearchFragment extends Fragment {
 
         Animation anim = AnimationUtils.loadAnimation(getActivity(),R.anim.deaparece);
 
+        assert anim != null;
         viewLoading.startAnimation(anim);
         contenedorLoading.removeView(viewLoading);
         contenedorLoading.setEnabled(true);
